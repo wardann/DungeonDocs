@@ -1,0 +1,17 @@
+## Interface: 100105
+## Title: DungeonDocs
+## Notes: Docs for your dungeons.
+## Author: Wardann
+## Version: 0.0.1
+## Dependencies: Ace3
+## SavedVariables: DungeonDocsDB
+
+DungeonDocs.lua
+Docs.lua
+Settings.lua
+Sandbox.lua
+Database.lua
+Utils.lua
+
+Dungeons/AraKara.lua
+
