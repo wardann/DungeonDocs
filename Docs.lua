@@ -167,6 +167,7 @@ function RenderNote(dbEntry, noteKey, noteLabel)
     note:DisableButton(true)       -- Disable the "Okay" button
     note:SetCallback("OnTextChanged", function(widget, event, text)
         dbEntry[noteKey] = text
+        DungeonDocs:NotifyDBChange()
     end)
     noteContainer:AddChild(note)
 end

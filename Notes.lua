@@ -7,8 +7,13 @@ local notePanelPlaceholders = {
     role = "ROLE NOTE",
 }
 
+local noteContent = {
+    primary = nil,
+    role = nil,
+}
+
 DungeonDocs:SubscribeToDBChange(function()
-    DungeonDocs:RenderNotePanels()
+    DungeonDocs:Notes_SyncNotesWithTarget()
 end)
 
 -- Create the text panel frame
@@ -53,7 +58,6 @@ function InitNotePanel(noteName, framePosition, defaultPosition)
     notePanels[noteName] = textFrame
 end
 
--- Function to print and store frame coordinates
 function DungeonDocs:Notes_SaveFrameCoordinates(noteName)
     local notesPositions = self.db.profile.notes.positions
     local textFrame = notePanels[noteName]
@@ -99,8 +103,93 @@ end
 function RenderNotePanelNotes(noteName)
     local textFrame = notePanels[noteName]
     -- Switch to the blank, immovable state
-    textFrame:EnableMouse(false)             -- Disable mouse interactions
-    textFrame:SetMovable(false)              -- Make it immovable
-    textFrame.text:SetText("")               -- Clear the text
-    textFrame.bg:SetColorTexture(0, 0, 0, 0) -- Make the background fully transparent
+    textFrame:EnableMouse(false)                  -- Disable mouse interactions
+    textFrame:SetMovable(false)                   -- Make it immovable
+    textFrame.text:SetText(noteContent[noteName]) -- Clear the text
+    textFrame.bg:SetColorTexture(0, 0, 0, 0)      -- Make the background fully transparent
 end
+
+local function deriveRoleNoteKey()
+    local specIndex = GetSpecialization()
+    local specRole
+    if specIndex then
+        specRole = GetSpecializationRole(specIndex)
+    end
+
+    if specRole == "TANK" then
+        return "tankNote"
+    elseif specRole == "HEALER" then
+        return "healerNote"
+    elseif specRole == "DAMAGER" then
+        return "damageNote"
+    else
+        print("DungeonDocs: error, could not determine spec role")
+    end
+end
+
+function DungeonDocs:Notes_SyncNotesWithTarget()
+    -- Check if the player has a target
+    local targetName = UnitName("target") -- Get the name of the current target
+
+    -- If player does not have a target, clear out the notes
+    if not targetName then
+        noteContent["primary"] = nil
+        noteContent["role"] = nil
+        DungeonDocs:RenderNotePanels()
+        return
+    end
+
+    local targetId = GetMobIDFromGUID("target")
+    if not targetId then 
+        return
+    end
+
+    local docs = self.db.profile.docs
+    local roleNoteKey = deriveRoleNoteKey()
+
+    for _, data in pairs(docs) do
+        local found = false
+
+        -- Scan bosses for a matching mob id first
+        for _, encounter in ipairs(data.bosses) do
+            for _, boss in ipairs(encounter.mobs) do
+                if boss.id == targetId then
+                    noteContent["primary"] = encounter.primaryNote
+                    noteContent["role"] = encounter[roleNoteKey]
+                    found = true
+                end
+            end
+        end
+
+        if found then break end
+
+        -- Scan mobs for a matching mob id
+        for _, mob in pairs(data.trash) do
+            if mob.id == targetId then
+                noteContent["primary"] = mob.primaryNote
+                noteContent["role"] = mob[roleNoteKey]
+                found = true
+            end
+        end
+    end
+
+    DungeonDocs:RenderNotePanels()
+end
+
+-- -- Create a function to display text on screen
+-- function DungeonDocs:DisplayTextOnScreen(text)
+--     -- Create a frame to show text on the screen
+--     if not self.textFrame then
+--         self.textFrame = CreateFrame("MessageFrame", "DungeonDocsTextFrame", UIParent)
+--         self.textFrame:SetSize(600, 100)  -- Width and height
+--         self.textFrame:SetPoint("CENTER", 0, 200)  -- Center of the screen
+--         self.textFrame:SetFontObject(GameFontNormalLarge)
+--         self.textFrame:SetInsertMode("TOP")  -- Show text at the top of the frame
+--         self.textFrame:SetFading(true)  -- Enable fading
+--         self.textFrame:SetFadeDuration(3)  -- Fade out after 3 seconds
+--         self.textFrame:SetTimeVisible(5)  -- How long to display the message
+--     end
+
+--     -- Display the text
+--     self.textFrame:AddMessage(text, 1.0, 1.0, 1.0)  -- White color text (RGB)
+-- end

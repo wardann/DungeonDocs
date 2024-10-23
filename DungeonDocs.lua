@@ -4,7 +4,6 @@ local AceGUI = LibStub("AceGUI-3.0")
 
 
 
--- OnInitialize: Set up the database
 function DungeonDocs:OnInitialize()
     -- Initialize AceDB-3.0 with the defaults
     local dbDefaults = DungeonDocs:GetDBDefaults()
@@ -14,6 +13,11 @@ function DungeonDocs:OnInitialize()
     -- Init dungeons
     DungeonDocs:InitAraKara()
     DungeonDocs:InitNotePanels()
+end
+
+function DungeonDocs:OnEnable()
+    -- Register for the event when the player changes target
+    self:RegisterEvent("PLAYER_TARGET_CHANGED", "Notes_SyncNotesWithTarget")
 end
 
 -- Register slash command
