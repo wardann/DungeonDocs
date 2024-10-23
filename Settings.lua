@@ -45,16 +45,10 @@ function DungeonDocs:AddSettingsTabMovers(container)
 
     toggleButton:SetWidth(200)  -- Set a fixed width for the button
     toggleButton:SetCallback("OnClick", function()
-        if db.profile.settings.internal.movers then
-            print("Turning movers off...")
-            -- Logic to turn movers off (implement your mover disabling logic here)
-            db.profile.settings.internal.movers = false
-        else
-            print("Turning movers on...")
-            -- Logic to turn movers on (implement your mover enabling logic here)
-            db.profile.settings.internal.movers = true
-        end
+        local dbInternal = db.profile.settings.internal
 
+        dbInternal.movers = not dbInternal.movers
+        DungeonDocs:NotifyDBChange()
         SetMoversText()
     end)
     container:AddChild(toggleButton)

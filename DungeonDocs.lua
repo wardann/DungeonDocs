@@ -13,8 +13,8 @@ function DungeonDocs:OnInitialize()
 
     -- Init dungeons
     DungeonDocs:InitAraKara()
+    DungeonDocs:InitNotePanels()
 end
-
 
 -- Register slash command
 DungeonDocs:RegisterChatCommand("dungeondocs", "OpenUI")

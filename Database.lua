@@ -9,7 +9,13 @@ local dbDefaults = {
             },
             font = "Fonts\\FRIZQT__.TTF",
         },
-        docs = {}
+        notes = {
+            positions = {
+                primary = nil,
+                secondary = nil,
+            }
+        },
+        docs = {},
     },
 }
 
@@ -23,6 +29,19 @@ function DungeonDocs:InitDungeon(dungeonData)
     -- TODO: will likely need to add more fine-grained init than this
     if db.profile.docs[dungeonData.name] == nil then
         db.profile.docs[dungeonData.name] = dungeonData
+    end
+end
+
+-- A table to hold subscriber functions
+local dbChangeSubscribers = {}
+
+function DungeonDocs:SubscribeToDBChange(callback)
+    table.insert(dbChangeSubscribers, callback)
+end
+
+function DungeonDocs:NotifyDBChange()
+    for _, callback in ipairs(dbChangeSubscribers) do
+        callback() -- Call each subscriber function
     end
 end
 
