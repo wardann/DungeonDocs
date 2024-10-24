@@ -27,7 +27,6 @@ function DungeonDocs:ShowDocsTab(container)
         local numComponents = #pathComponents
 
         if numComponents < 3 then
-            print("not doing anything")
             return
         end
 
@@ -176,9 +175,17 @@ end
 function DungeonDocs:DungeonDataToTreeData()
     local db = self.db
 
+    -- Get instances only from the selected season
+    local instances = {}
+    for instanceName, instance in pairs(db.profile.docs) do
+        if instance.seasonId == db.profile.internal.selectedSeason then
+            instances[instanceName] = instance
+        end
+    end
+
     local treeData = {}
 
-    for _, d in pairs(db.profile.docs) do
+    for _, d in pairs(instances) do
         local treeBosses = {}
         for _, b in ipairs(d.bosses) do
             local boss = {

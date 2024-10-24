@@ -13,5 +13,5 @@ Database.lua
 Utils.lua
 Notes.lua
 
-Dungeons/AraKara.lua
+Dungeons/TWW/S1/AraKara.lua
 

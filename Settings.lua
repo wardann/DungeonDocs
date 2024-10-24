@@ -17,6 +17,12 @@ function DungeonDocs:ShowSettingsTab(container)
 
     --Font settings
     DungeonDocs:AddSettingsTabFont(container)
+
+    -- Add spacer
+    DungeonDocs:AddSpacer(container)
+
+    -- Season select
+    DungeonDocs:Settings_AddSeasonSelect(container)
 end
 
 function DungeonDocs:AddSpacer(container)
@@ -53,6 +59,24 @@ function DungeonDocs:AddSettingsTabMovers(container)
         end)
     end)
     container:AddChild(toggleButton)
+end
+
+function DungeonDocs:Settings_AddSeasonSelect(container)
+    local db = self.db
+
+    -- Dropdown menu for font selection
+    local seasonDropdown = AceGUI:Create("Dropdown")
+    seasonDropdown:SetLabel("Select a Season")
+    seasonDropdown:SetList(db.profile.internal.seasons)
+    seasonDropdown:SetValue(db.profile.internal.selectedSeason)
+    seasonDropdown:SetCallback("OnValueChanged", function(_, _, key)
+        DungeonDocs.DB_Update(function()
+            db.profile.internal.selectedSeason = key
+            print("new season is", key)
+        end)
+    end)
+
+    container:AddChild(seasonDropdown)
 end
 
 function DungeonDocs:AddSettingsTabFont(container)
