@@ -198,13 +198,15 @@ local dungeonTrash = {
 }
 
 local dungeonData = {
-  name = "AraKara",
-  icon = "Interface\\Icons\\inv_misc_head_human_01", -- Optional instance icon
+  name = "Ara-Kara, City of Echoes",
+  nameFull = "Ara-Kara, City of Echoes",
+  icon = "Interface\\Icons\\inv_misc_head_human_01", 
   bosses = dungeonBosses,
   trash = dungeonTrash,
+  seasonId = "TWWS1",
 }
 
 
 function DungeonDocs:InitAraKara()
-  DungeonDocs:InitDungeon(dungeonData)
+  DungeonDocs:DB_InitDungeon(dungeonData)
 end

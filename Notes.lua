@@ -140,35 +140,41 @@ function DungeonDocs:Notes_SyncNotesWithTarget()
     end
 
     local targetId = GetMobIDFromGUID("target")
-    if not targetId then 
+    if not targetId then
+        return
+    end
+
+    local currentInstanceName, currentInstanceType = GetInstanceInfo()
+    if currentInstanceType ~= "party" then
         return
     end
 
     local docs = self.db.profile.docs
     local roleNoteKey = deriveRoleNoteKey()
 
-    for _, data in pairs(docs) do
-        local found = false
-
-        -- Scan bosses for a matching mob id first
-        for _, encounter in ipairs(data.bosses) do
-            for _, boss in ipairs(encounter.mobs) do
-                if boss.id == targetId then
-                    noteContent["primary"] = encounter.primaryNote
-                    noteContent["role"] = encounter[roleNoteKey]
-                    found = true
+    for _, instance in pairs(docs) do
+        if instance.nameFull ~= currentInstanceName then
+            -- Scan bosses for a matching mob id first
+            local found = false
+            for _, encounter in ipairs(instance.bosses) do
+                for _, boss in ipairs(encounter.mobs) do
+                    if boss.id == targetId then
+                        noteContent["primary"] = encounter.primaryNote
+                        noteContent["role"] = encounter[roleNoteKey]
+                        found = true
+                    end
                 end
             end
-        end
 
-        if found then break end
+            if found then break end
 
-        -- Scan mobs for a matching mob id
-        for _, mob in pairs(data.trash) do
-            if mob.id == targetId then
-                noteContent["primary"] = mob.primaryNote
-                noteContent["role"] = mob[roleNoteKey]
-                found = true
+            -- Scan mobs for a matching mob id
+            for _, mob in pairs(instance.trash) do
+                if mob.id == targetId then
+                    noteContent["primary"] = mob.primaryNote
+                    noteContent["role"] = mob[roleNoteKey]
+                    found = true
+                end
             end
         end
     end

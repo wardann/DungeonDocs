@@ -16,6 +16,12 @@ local dbDefaults = {
             }
         },
         docs = {},
+        internal = {
+            seasons = {
+                TWWS1 = "The War Within - Season 1",
+            },
+            selectedSeason = "TWWS1"
+        },
     },
 }
 
@@ -23,7 +29,7 @@ function DungeonDocs:GetDBDefaults()
     return dbDefaults
 end
 
-function DungeonDocs:InitDungeon(dungeonData)
+function DungeonDocs:DB_InitDungeon(dungeonData)
     local db = self.db
 
     -- TODO: will likely need to add more fine-grained init than this
