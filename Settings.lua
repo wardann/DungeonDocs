@@ -43,13 +43,14 @@ function DungeonDocs:AddSettingsTabMovers(container)
     end
     SetMoversText()
 
-    toggleButton:SetWidth(200)  -- Set a fixed width for the button
+    toggleButton:SetWidth(200) -- Set a fixed width for the button
     toggleButton:SetCallback("OnClick", function()
-        local dbInternal = db.profile.settings.internal
+        DungeonDocs:DB_Update(function()
+            local dbInternal = db.profile.settings.internal
 
-        dbInternal.movers = not dbInternal.movers
-        DungeonDocs:NotifyDBChange()
-        SetMoversText()
+            dbInternal.movers = not dbInternal.movers
+            SetMoversText()
+        end)
     end)
     container:AddChild(toggleButton)
 end
@@ -65,12 +66,12 @@ function DungeonDocs:AddSettingsTabFont(container)
     local fontNameToPath = fontList
     local fontPathToName = {}
     for fontName, fontPath in pairs(fontList) do
-        fontPathToName[fontPath] = fontName  -- Use font names as display text
+        fontPathToName[fontPath] = fontName -- Use font names as display text
     end
 
     local fontNames = {}
     for fontName, _ in pairs(fontList) do
-        fontNames[fontName] = fontName  -- Use font names as display text
+        fontNames[fontName] = fontName -- Use font names as display text
     end
 
 
@@ -82,10 +83,10 @@ function DungeonDocs:AddSettingsTabFont(container)
 
     -- Set callback to apply the selected font and preview it
     fontDropdown:SetCallback("OnValueChanged", function(_, _, key)
-        db.profile.settings.font = fontNameToPath[key]
-        print(db.profile.settings.font)
+        DungeonDocs.DB_Update(function()
+            db.profile.settings.font = fontNameToPath[key]
+        end)
     end)
 
     container:AddChild(fontDropdown)
 end
-

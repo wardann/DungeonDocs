@@ -45,6 +45,11 @@ function DungeonDocs:NotifyDBChange()
     end
 end
 
+function DungeonDocs:DB_Update(updater)
+    updater()
+    DungeonDocs:NotifyDBChange()
+end
+
 -- -- Function to set a key-value pair
 -- function DungeonDocs:SetKeyValue(key, value)
 --     self.db.profile.keyValueStore[key] = value

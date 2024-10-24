@@ -166,8 +166,9 @@ function RenderNote(dbEntry, noteKey, noteLabel)
     note:SetText(dbEntry[noteKey]) -- You can prefill the edit box with text if needed
     note:DisableButton(true)       -- Disable the "Okay" button
     note:SetCallback("OnTextChanged", function(widget, event, text)
-        dbEntry[noteKey] = text
-        DungeonDocs:NotifyDBChange()
+        DungeonDocs:DB_Update(function()
+            dbEntry[noteKey] = text
+        end)
     end)
     noteContainer:AddChild(note)
 end
