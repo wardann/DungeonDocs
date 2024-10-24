@@ -6,6 +6,40 @@ local rightGroup
 local models = {}
 
 
+local function setTreeGroupFocus(treeGroup, treeData)
+    local targetId = GetMobIDFromGUID("target")
+    if not targetId then
+        return
+    end
+
+    local currentInstanceName, currentInstanceType = GetInstanceInfo()
+    if currentInstanceType ~= "party" then
+        return
+    end
+
+    for _, instance in ipairs(treeData) do
+        if instance.nameFull == currentInstanceName then
+            for _, mobType in ipairs(instance.children) do
+                for _, mobOrBoss in ipairs(mobType.children) do
+                    if mobOrBoss.value == "bosses" then
+                        for _, mob in mobOrBoss.mobs do
+                            if mob.id == targetId then
+                                treeGroup:SelectByPath(instance.value, mobType.value, mob.value)
+                                return
+                            end
+                        end
+                    else
+                        if mobOrBoss.id == targetId then
+                            treeGroup:SelectByPath(instance.value, mobType.value, mobOrBoss.value)
+                            return
+                        end
+                    end
+                end
+            end
+        end
+    end
+end
+
 -- Function to show the Default tab content
 function DungeonDocs:ShowDocsTab(container)
     -- Create a TreeGroup for the hierarchical mob list
@@ -21,6 +55,7 @@ function DungeonDocs:ShowDocsTab(container)
     -- Set the tree data
     local treeData = DungeonDocs:DungeonDataToTreeData()
     treeGroup:SetTree(treeData)
+
     -- Set a callback for when a node is selected
     treeGroup:SetCallback("OnGroupSelected", function(self, event, uniquePath)
         local pathComponents = { strsplit("\001", uniquePath) }
@@ -31,11 +66,7 @@ function DungeonDocs:ShowDocsTab(container)
         end
 
         local dungeonName, enemyType, mobName = pathComponents[1], pathComponents[2], pathComponents[3]
-        if enemyType == "bosses" then
-            DungeonDocs:HandleSelectedBoss(dungeonName, mobName)
-        else
-            DungeonDocs:HandleSelectedTrash(dungeonName, mobName)
-        end
+        DungeonDocs:HandleSelected(dungeonName, enemyType, mobName)
     end)
 
     rightGroup = AceGUI:Create("SimpleGroup")
@@ -43,6 +74,21 @@ function DungeonDocs:ShowDocsTab(container)
     rightGroup:SetFullHeight(true)
     rightGroup:SetLayout("Flow")
     treeGroup:AddChild(rightGroup)
+
+    -- Focus an element in the tree if the player is targeting it
+    -- Kicking this off with a very small delay else the model fails
+    -- to load for some reason
+    C_Timer.After(0.01, function()
+        setTreeGroupFocus(treeGroup, treeData)
+    end)
+end
+
+function DungeonDocs:HandleSelected(dungeonName, enemyType, mobName)
+    if enemyType == "bosses" then
+        DungeonDocs:HandleSelectedBoss(dungeonName, mobName)
+    else
+        DungeonDocs:HandleSelectedTrash(dungeonName, mobName)
+    end
 end
 
 function DungeonDocs:HandleSelectedBoss(dungeonName, bossName)
@@ -215,6 +261,7 @@ function DungeonDocs:DungeonDataToTreeData()
         local treeDungeon = {
             value = d.name,
             text = d.name,
+            nameFull = d.nameFull,
             icon = d.icon,
             children = {
                 {
