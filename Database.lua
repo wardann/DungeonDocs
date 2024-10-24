@@ -41,7 +41,10 @@ end
 
 function DungeonDocs:NotifyDBChange()
     for _, callback in ipairs(dbChangeSubscribers) do
-        callback() -- Call each subscriber function
+        local status, err = pcall(callback)
+        if not status then
+            error(err)
+        end
     end
 end
 
