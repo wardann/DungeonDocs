@@ -153,7 +153,7 @@ function DungeonDocs:Notes_SyncNotesWithTarget()
     local roleNoteKey = deriveRoleNoteKey()
 
     for _, instance in pairs(docs) do
-        if instance.nameFull ~= currentInstanceName then
+        if instance.nameFull == currentInstanceName then
             -- Scan bosses for a matching mob id first
             local found = false
             for _, encounter in ipairs(instance.bosses) do
