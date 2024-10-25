@@ -1,3 +1,4 @@
+local AceGUI = LibStub("AceGUI-3.0")
 
 function InspectTable(t, indent)
     indent = indent or 0
@@ -21,4 +22,11 @@ function GetMobIDFromGUID(unit)
         end
     end
     return nil  -- Return nil if no valid mob ID is found
+end
+
+function Utils_AddSpacer(container)
+    -- Add a spacer (or line break)
+    local spacer = AceGUI:Create("Label")
+    spacer:SetFullWidth(true)
+    container:AddChild(spacer)
 end

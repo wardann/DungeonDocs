@@ -76,8 +76,8 @@ function DungeonDocs:RenderNotePanels()
         RenderNotePanelMovers("primary")
         RenderNotePanelMovers("role")
     else
-        RenderNotePanelNotes("primary")
-        RenderNotePanelNotes("role")
+        DungeonDocs:RenderNotePanelNotes("primary")
+        DungeonDocs:RenderNotePanelNotes("role")
     end
 end
 
@@ -100,7 +100,8 @@ function RenderNotePanelMovers(noteName)
     textFrame.bg:SetColorTexture(0, 0, 0, 0.5) -- 50% transparent gray
 end
 
-function RenderNotePanelNotes(noteName)
+function DungeonDocs:RenderNotePanelNotes(noteName)
+    local db = self.db.profile
     local textFrame = notePanels[noteName]
     -- Switch to the blank, immovable state
     textFrame:EnableMouse(false)                  -- Disable mouse interactions

@@ -7,7 +7,33 @@ local dbDefaults = {
             internal = {
                 movers = false,
             },
-            font = "Fonts\\FRIZQT__.TTF",
+            noteStyle = {
+                primaryNote = {
+                    font = "Fonts\\FRIZQT__.TTF",
+                    fontSize = 14,
+                    color = {
+                        r = 1,
+                        g = 1,
+                        b = 1,
+                    },
+                    outline = false,
+                    alignH = "CENTER",
+                    alignV = "MIDDLE",
+                },
+                roleNote = {
+                    font = "Fonts\\FRIZQT__.TTF",
+                    fontSize = 14,
+                    color = {
+                        r = 1,
+                        g = 1,
+                        b = 1,
+                    },
+                    outline = false,
+                    alignH = "CENTER",
+                    alignV = "MIDDLE",
+                },
+                roleUsesPrimaryStyle = true,
+            }
         },
         notes = {
             positions = {
@@ -20,7 +46,9 @@ local dbDefaults = {
             seasons = {
                 TWWS1 = "The War Within - Season 1",
             },
-            selectedSeason = "TWWS1"
+            selectedSeason = "TWWS1",
+            testText = "This is some test to text with.\nChange it to see how your notes might look.",
+            showTestText = false,
         },
     },
 }
