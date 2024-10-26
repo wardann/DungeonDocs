@@ -68,7 +68,7 @@ function Settings_AddNote(container, noteState)
 end
 
 function DungeonDocs:Settings_AddMovers(container)
-    local db = self.db
+    local internal = self.db.profile.internal
 
     -- Create a label for the section title
     local titleLabel = AceGUI:Create("Label")
@@ -80,16 +80,14 @@ function DungeonDocs:Settings_AddMovers(container)
     local toggleButton = AceGUI:Create("Button")
 
     local function SetMoversText()
-        toggleButton:SetText(db.profile.settings.internal.movers and "Turn Movers Off" or "Turn Movers On")
+        toggleButton:SetText(internal.movers and "Turn Movers Off" or "Turn Movers On")
     end
     SetMoversText()
 
     toggleButton:SetWidth(200) -- Set a fixed width for the button
     toggleButton:SetCallback("OnClick", function()
         DungeonDocs:DB_Update(function()
-            local dbInternal = db.profile.settings.internal
-
-            dbInternal.movers = not dbInternal.movers
+            internal.movers = not internal.movers
             SetMoversText()
         end)
     end)
@@ -119,7 +117,6 @@ function DungeonDocs:Settings_AddTestText(container)
     --
     -- TEST TEXT TOGGLE
     --
-    -- Create a button to toggle movers
     local checkBox = AceGUI:Create("CheckBox")
     checkBox:SetLabel("Show test text")
     checkBox:SetValue(internal.showTestText) -- Set initial value

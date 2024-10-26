@@ -4,9 +4,6 @@ local DungeonDocs = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
 local dbDefaults = {
     profile = {
         settings = {
-            internal = {
-                movers = false,
-            },
             noteStyle = {
                 primary = {
                     font = "Fonts\\FRIZQT__.TTF",
@@ -41,6 +38,7 @@ local dbDefaults = {
         },
         docs = {},
         internal = {
+            movers = false,
             seasons = {
                 TWWS1 = "The War Within - Season 1",
             },

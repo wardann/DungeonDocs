@@ -76,7 +76,7 @@ function DungeonDocs:Notes_SaveFrameCoordinates(noteName)
 end
 
 function DungeonDocs:RenderNotePanels()
-    local moversEnabled = self.db.profile.settings.internal.movers
+    local moversEnabled = self.db.profile.internal.movers
     local noteStyle = self.db.profile.settings.noteStyle
     local primaryStyle = noteStyle.primary
     local roleStyle = noteStyle.role
