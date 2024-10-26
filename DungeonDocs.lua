@@ -33,8 +33,32 @@ function DungeonDocs:OpenUI()
     local frame = AceGUI:Create("Frame")
     frame:SetStatusText("DungeonDocs - ".. Version)
     frame:SetLayout("Fill") -- Important for TabGroup to fill the frame
-    frame:SetWidth(700)
-    frame:SetHeight(800)
+
+    -- -- Define max size based on 80% of screen dimensions
+    local maxWidth = UIParent:GetWidth() * 0.8
+    local maxHeight = UIParent:GetHeight() * 0.8
+
+    -- Initial frame size within limits
+    frame:SetWidth(math.min(700, maxWidth)) -- 700 is an initial width
+    frame:SetHeight(math.min(800, maxHeight)) -- 800 is an initial height
+
+    -- Function to enforce max size on resize
+    local function EnforceMaxSize()
+        local currentWidth = frame.frame:GetWidth()
+        local currentHeight = frame.frame:GetHeight()
+
+        -- Cap the width and height to the max size
+        if currentWidth > maxWidth then
+            frame:SetWidth(maxWidth)
+        end
+        if currentHeight > maxHeight then
+            frame:SetHeight(maxHeight)
+        end
+    end
+
+    -- Hook to resize events and enforce max size
+    frame.frame:SetScript("OnSizeChanged", EnforceMaxSize)
+
 
     local underlyingFrame = frame.frame
     underlyingFrame:SetMovable(true)
