@@ -6,8 +6,12 @@ local LSM = LibStub("LibSharedMedia-3.0")
 local fontList = LSM:HashTable("font")
 
 
-function DungeonDocs:ShowSettingsTab(container)
+function DungeonDocs:ShowSettingsTab(wrapperContainer)
+    local container = AceGUI:Create("ScrollFrame")
     container:SetLayout("Flow")
+    container:SetFullWidth(true)
+    container:SetFullHeight(true)
+    wrapperContainer:AddChild(container)
 
     -- Movers settings
     DungeonDocs:Settings_AddMovers(container)
@@ -20,8 +24,8 @@ function DungeonDocs:ShowSettingsTab(container)
 
     -- Role same as primary toggle
     DungeonDocs:Settings_AddRoleSameAsPrimaryToggle(container, function()
-        container:ReleaseChildren()
-        DungeonDocs:ShowSettingsTab(container)
+        wrapperContainer:ReleaseChildren()
+        DungeonDocs:ShowSettingsTab(wrapperContainer)
     end)
 
     local roleUsesPrimaryStyle = self.db.profile.settings.noteStyle.roleUsesPrimaryStyle
@@ -55,7 +59,6 @@ function DungeonDocs:Settings_AddRoleNote(container)
 end
 
 function Settings_AddNote(container, noteState)
-
     Settings_AddFontSelect(container, noteState)
 
     Settings_AddNoteColor(container, noteState)
@@ -230,7 +233,6 @@ function Settings_AddHorizontalFontAlignment(container, noteState)
 
     container:AddChild(dropdown)
 end
-
 
 function Settings_AddFontSlider(container, noteState)
     local fontSizeSlider = AceGUI:Create("Slider")
