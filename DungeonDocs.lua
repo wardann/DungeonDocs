@@ -2,6 +2,7 @@
 local DungeonDocs = LibStub("AceAddon-3.0"):NewAddon("DungeonDocs", "AceConsole-3.0", "AceEvent-3.0")
 local AceGUI = LibStub("AceGUI-3.0")
 
+Version = "v0.0.1 (alpha)"
 
 
 function DungeonDocs:OnInitialize()
@@ -30,7 +31,7 @@ function DungeonDocs:OpenUI()
 
     -- Create the main frame
     local frame = AceGUI:Create("Frame")
-    frame:SetStatusText("DungeonDocs")
+    frame:SetStatusText("DungeonDocs - ".. Version)
     frame:SetLayout("Fill") -- Important for TabGroup to fill the frame
     frame:SetWidth(700)
     frame:SetHeight(800)
