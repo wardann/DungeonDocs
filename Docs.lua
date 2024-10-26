@@ -139,10 +139,16 @@ function DungeonDocs:HandleSelectedBoss(dungeonName, bossName)
         table.insert(models, model)
     end
 
-    RenderNote(boss, "primaryNote", "Primary notes")
-    RenderNote(boss, "tankNote", "Tank notes")
-    RenderNote(boss, "healerNote", "Healer notes")
-    RenderNote(boss, "damageNote", "DPS notes")
+    local scrollFrame = AceGUI:Create("ScrollFrame")
+    scrollFrame:SetLayout("Flow")
+    scrollFrame:SetFullWidth(true)
+    scrollFrame:SetFullHeight(true)
+    rightGroup:AddChild(scrollFrame)
+
+    RenderNote(boss, "primaryNote", "Primary notes", scrollFrame)
+    RenderNote(boss, "tankNote", "Tank notes", scrollFrame)
+    RenderNote(boss, "healerNote", "Healer notes", scrollFrame)
+    RenderNote(boss, "damageNote", "DPS notes", scrollFrame)
 end
 
 function DungeonDocs:HandleSelectedTrash(dungeonName, mobName)
@@ -189,20 +195,26 @@ function DungeonDocs:HandleSelectedTrash(dungeonName, mobName)
 
     table.insert(models, model)
 
-    RenderNote(mob, "primaryNote", "Primary notes")
-    RenderNote(mob, "tankNote", "Tank notes")
-    RenderNote(mob, "healerNote", "Healer notes")
-    RenderNote(mob, "damageNote", "DPS notes")
+    local scrollFrame = AceGUI:Create("ScrollFrame")
+    scrollFrame:SetLayout("Flow")
+    scrollFrame:SetFullWidth(true)
+    scrollFrame:SetFullHeight(true)
+    rightGroup:AddChild(scrollFrame)
+
+    RenderNote(mob, "primaryNote", "Primary notes", scrollFrame)
+    RenderNote(mob, "tankNote", "Tank notes", scrollFrame)
+    RenderNote(mob, "healerNote", "Healer notes", scrollFrame)
+    RenderNote(mob, "damageNote", "DPS notes", scrollFrame)
 end
 
-function RenderNote(dbEntry, noteKey, noteLabel)
+function RenderNote(dbEntry, noteKey, noteLabel, container)
     -- Add notes
     -- Create a SimpleGroup for the edit box to ensure proper layout
     local noteContainer = AceGUI:Create("SimpleGroup")
     noteContainer:SetFullWidth(true) -- Make it take the full width
     noteContainer:SetHeight(100)     -- Set a height for the edit box container
     noteContainer:SetLayout("Fill")
-    rightGroup:AddChild(noteContainer)
+    container:AddChild(noteContainer)
 
     -- Add a Multi-Line Edit Box using a standard EditBox
     local note = AceGUI:Create("MultiLineEditBox")
