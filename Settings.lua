@@ -120,20 +120,18 @@ function DungeonDocs:Settings_AddTestText(container)
     -- TEST TEXT TOGGLE
     --
     -- Create a button to toggle movers
-    local toggleButton = AceGUI:Create("Button")
-    local function setToggleButtonText()
-        toggleButton:SetText(internal.showTestText and "Toggle Test Text: Off" or "Toggle Test Text: On")
-    end
-    setToggleButtonText()
-
-    toggleButton:SetWidth(200) -- Set a fixed width for the button
-    toggleButton:SetCallback("OnClick", function()
+    local checkBox = AceGUI:Create("CheckBox")
+    checkBox:SetLabel("Show test text")
+    checkBox:SetValue(internal.showTestText) -- Set initial value
+    checkBox:SetCallback("OnValueChanged", function(widget, event, value)
         DungeonDocs:DB_Update(function()
             internal.showTestText = not internal.showTestText
-            setToggleButtonText()
         end)
     end)
-    container:AddChild(toggleButton)
+
+    container:AddChild(checkBox)
+
+
 
     --
     -- TEST TEXT

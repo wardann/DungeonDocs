@@ -26,18 +26,43 @@ DungeonDocs:RegisterChatCommand("dd", "OpenUI")
 
 
 function DungeonDocs:OpenUI()
+    local internal = self.db.profile.internal
+
     -- Create the main frame
     local frame = AceGUI:Create("Frame")
-    frame:SetStatusText("Status Bar")
+    frame:SetStatusText("DungeonDocs")
     frame:SetLayout("Fill") -- Important for TabGroup to fill the frame
     frame:SetWidth(700)
     frame:SetHeight(800)
+
+    local underlyingFrame = frame.frame
+    underlyingFrame:SetMovable(true)
+    underlyingFrame:EnableMouse(true)
+    underlyingFrame:RegisterForDrag("LeftButton")
+
+    -- Load saved window position
+    if internal.windowPositionX and internal.windowPositionY then
+        underlyingFrame:ClearAllPoints()
+        underlyingFrame:SetPoint("TOPLEFT", UIParent, "BOTTOMLEFT", internal.windowPositionX, internal.windowPositionY)
+    end
+
+    -- Set the drag scripts
+    underlyingFrame:SetScript("OnDragStart", function(self)
+        self:StartMoving()
+    end)
+
+    underlyingFrame:SetScript("OnDragStop", function(self)
+        self:StopMovingOrSizing()
+        -- Save the current position
+        internal.windowPositionX = self:GetLeft()
+        internal.windowPositionY = self:GetTop()
+    end)
 
     -- Create the TabGroup
     local tab = AceGUI:Create("TabGroup")
     tab:SetLayout("Fill") -- Use 'Fill' since each tab will manage its own layout
     tab:SetTabs({
-        { text = "Docs",  value = "docs" },
+        { text = "Docs",     value = "docs" },
         { text = "Settings", value = "settings" },
     })
     tab:SetCallback("OnGroupSelected", function(container, event, group)
@@ -51,5 +76,3 @@ function DungeonDocs:OpenUI()
     tab:SelectTab("docs") -- Default tab to display
     frame:AddChild(tab)
 end
-
-
