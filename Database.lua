@@ -8,7 +8,7 @@ local dbDefaults = {
                 movers = false,
             },
             noteStyle = {
-                primaryNote = {
+                primary = {
                     font = "Fonts\\FRIZQT__.TTF",
                     fontSize = 14,
                     color = {
@@ -17,10 +17,9 @@ local dbDefaults = {
                         b = 1,
                     },
                     outline = false,
-                    alignH = "CENTER",
-                    alignV = "MIDDLE",
+                    align = "CENTER",
                 },
-                roleNote = {
+                role = {
                     font = "Fonts\\FRIZQT__.TTF",
                     fontSize = 14,
                     color = {
@@ -29,8 +28,7 @@ local dbDefaults = {
                         b = 1,
                     },
                     outline = false,
-                    alignH = "CENTER",
-                    alignV = "MIDDLE",
+                    align = "CENTER",
                 },
                 roleUsesPrimaryStyle = true,
             }

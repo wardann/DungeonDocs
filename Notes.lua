@@ -2,6 +2,8 @@ local DungeonDocs = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
 
 local notePanels = {}
 
+local noteFontStrings = {}
+
 local notePanelPlaceholders = {
     primary = "PRIMARY NOTE",
     role = "ROLE NOTE",
@@ -56,6 +58,10 @@ function InitNotePanel(noteName, framePosition, defaultPosition)
     end
 
     notePanels[noteName] = textFrame
+
+    local fontString = textFrame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+    fontString:SetPoint("CENTER")
+    noteFontStrings[noteName] = fontString
 end
 
 function DungeonDocs:Notes_SaveFrameCoordinates(noteName)
@@ -71,13 +77,20 @@ end
 
 function DungeonDocs:RenderNotePanels()
     local moversEnabled = self.db.profile.settings.internal.movers
+    local noteStyle = self.db.profile.settings.noteStyle
+    local primaryStyle = noteStyle.primary
+    local roleStyle = noteStyle.role
+
+    if noteStyle.roleUsesPrimaryStyle then
+        roleStyle = noteStyle.primary
+    end
 
     if moversEnabled then
         RenderNotePanelMovers("primary")
         RenderNotePanelMovers("role")
     else
-        DungeonDocs:RenderNotePanelNotes("primary")
-        DungeonDocs:RenderNotePanelNotes("role")
+        DungeonDocs:RenderNotePanelNotes("primary", primaryStyle)
+        DungeonDocs:RenderNotePanelNotes("role", roleStyle)
     end
 end
 
@@ -94,20 +107,30 @@ function RenderNotePanelMovers(noteName)
     end)
 
     -- Set placeholder text
-    textFrame.text:SetText(notePanelPlaceholders[noteName])
+    local fontString = noteFontStrings[noteName]
+    fontString:SetText(notePanelPlaceholders[noteName])
 
     -- Set a transparent gray background
     textFrame.bg:SetColorTexture(0, 0, 0, 0.5) -- 50% transparent gray
 end
 
-function DungeonDocs:RenderNotePanelNotes(noteName)
-    local db = self.db.profile
+function DungeonDocs:RenderNotePanelNotes(noteName, style)
     local textFrame = notePanels[noteName]
+
     -- Switch to the blank, immovable state
-    textFrame:EnableMouse(false)                  -- Disable mouse interactions
-    textFrame:SetMovable(false)                   -- Make it immovable
-    textFrame.text:SetText(noteContent[noteName]) -- Clear the text
-    textFrame.bg:SetColorTexture(0, 0, 0, 0)      -- Make the background fully transparent
+    textFrame:EnableMouse(false)             -- Disable mouse interactions
+    textFrame:SetMovable(false)              -- Make it immovable
+    textFrame.bg:SetColorTexture(0, 0, 0, 0) -- Make the background fully transparent
+
+    local fontString = noteFontStrings[noteName]
+    fontString:SetText(noteContent[noteName])
+    fontString:SetPoint("CENTER") -- Center the text in the frame
+
+    -- Set custom properties
+    local outline = style.outline and "OUTLINE" or ""
+    fontString:SetFont(style.font, style.fontSize, outline) -- Custom font, size, and outline
+    fontString:SetTextColor(style.color.r, style.color.g, style.color.b, 1)                  -- Set color (red) with full opacity
+    fontString:SetJustifyH(style.align)                     -- Horizontal alignment (options: "LEFT", "CENTER", "RIGHT")
 end
 
 local function deriveRoleNoteKey()
@@ -129,6 +152,19 @@ local function deriveRoleNoteKey()
 end
 
 function DungeonDocs:Notes_SyncNotesWithTarget()
+    local internal = self.db.profile.internal
+
+    if internal.showTestText then
+        noteContent["primary"] = internal.testText
+        noteContent["role"] = internal.testText
+        DungeonDocs:RenderNotePanels()
+        return
+    else
+        noteContent["primary"] = nil
+        noteContent["role"] = nil
+        DungeonDocs:RenderNotePanels()
+    end
+
     -- Check if the player has a target
     local targetName = UnitName("target") -- Get the name of the current target
 

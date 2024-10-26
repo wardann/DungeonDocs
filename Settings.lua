@@ -45,13 +45,13 @@ function DungeonDocs:ShowSettingsTab(container)
 end
 
 function DungeonDocs:Settings_AddPrimaryNote(container)
-    local primaryNote = self.db.profile.settings.noteStyle.primaryNote
-    Settings_AddNote(container, primaryNote)
+    local primaryStyle = self.db.profile.settings.noteStyle.primary
+    Settings_AddNote(container, primaryStyle)
 end
 
 function DungeonDocs:Settings_AddRoleNote(container)
-    local roleNote = self.db.profile.settings.noteStyle.roleNote
-    Settings_AddNote(container, roleNote)
+    local roleStyle = self.db.profile.settings.noteStyle.role
+    Settings_AddNote(container, roleStyle)
 end
 
 function Settings_AddNote(container, noteState)
@@ -63,8 +63,6 @@ function Settings_AddNote(container, noteState)
     Settings_AddOutlineToggle(container, noteState)
 
     Settings_AddHorizontalFontAlignment(container, noteState)
-
-    Settings_AddVerticalFontAlignment(container, noteState)
 
     Settings_AddFontSlider(container, noteState)
 end
@@ -211,7 +209,7 @@ function Settings_AddOutlineToggle(container, noteState)
     checkBox:SetValue(noteState.outline) -- Set initial value
     checkBox:SetCallback("OnValueChanged", function(widget, event, value)
         DungeonDocs:DB_Update(function()
-            noteState.font = value
+            noteState.outline = value
         end)
     end)
     container:AddChild(checkBox)
@@ -225,39 +223,19 @@ function Settings_AddHorizontalFontAlignment(container, noteState)
     }
     local dropdown = AceGUI:Create("Dropdown")
 
-    dropdown:SetLabel("Horizontal Align")
+    dropdown:SetLabel("Alignment")
     dropdown:SetList(alignmentsH)
-    dropdown:SetValue(alignmentsH[noteState.alignH])
+    dropdown:SetValue(alignmentsH[noteState.align])
 
     dropdown:SetCallback("OnValueChanged", function(_, _, key)
         DungeonDocs:DB_Update(function()
-            noteState.alignH = key
+            noteState.align = key
         end)
     end)
 
     container:AddChild(dropdown)
 end
 
-function Settings_AddVerticalFontAlignment(container, noteState)
-    local alignmentsV = {
-        TOP = "TOP",
-        MIDDLE = "MIDDLE",
-        BOTTOM = "BOTTOM",
-    }
-    local dropdown = AceGUI:Create("Dropdown")
-
-    dropdown:SetLabel("Vertial Align")
-    dropdown:SetList(alignmentsV)
-    dropdown:SetValue(alignmentsV[noteState.alignV])
-
-    dropdown:SetCallback("OnValueChanged", function(_, _, key)
-        DungeonDocs:DB_Update(function()
-            noteState.alignV = key
-        end)
-    end)
-
-    container:AddChild(dropdown)
-end
 
 function Settings_AddFontSlider(container, noteState)
     local fontSizeSlider = AceGUI:Create("Slider")
