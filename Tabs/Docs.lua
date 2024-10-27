@@ -90,7 +90,6 @@ function DungeonDocs:ShowDocsTab(container)
     end)
 end
 
-
 function DungeonDocs:HandleSelected(dungeonName, enemyType, mobName)
     if enemyType == "bosses" then
         DungeonDocs:HandleSelectedBoss(dungeonName, mobName)
@@ -265,6 +264,10 @@ function DungeonDocs:DungeonDataToTreeData()
             }
             table.insert(treeBosses, boss)
         end
+        -- Sort bosses alphabetically 
+        table.sort(treeBosses, function(a, b)
+            return a.value < b.value
+        end)
 
         local treeTrash = {}
         for _, m in ipairs(d.trash) do
@@ -279,6 +282,10 @@ function DungeonDocs:DungeonDataToTreeData()
             }
             table.insert(treeTrash, mob)
         end
+        -- Sort trash alphabetically 
+        table.sort(treeTrash, function(a, b)
+            return a.value < b.value
+        end)
 
         local treeDungeon = {
             value = d.name,
@@ -298,6 +305,11 @@ function DungeonDocs:DungeonDataToTreeData()
                 }
             },
         }
+
+        -- Sort dungeons alphabetically 
+        table.sort(treeDungeon, function(a, b)
+            return a.nameFull < b.nameFull
+        end)
 
         table.insert(treeData, treeDungeon)
     end
