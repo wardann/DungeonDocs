@@ -25,20 +25,24 @@ local function setTreeGroupFocus(treeGroup, treeData)
                         for _, mob in mobOrBoss.mobs do
                             if mob.id == targetId then
                                 treeGroup:SelectByPath(instance.value, mobType.value, mob.value)
-                                return
+                                return true
                             end
                         end
                     else
                         if mobOrBoss.id == targetId then
                             treeGroup:SelectByPath(instance.value, mobType.value, mobOrBoss.value)
-                            return
+                            return true
                         end
                     end
                 end
             end
         end
     end
+
+    return false
 end
+
+local lastSelected = {}
 
 -- Function to show the Default tab content
 function DungeonDocs:ShowDocsTab(container)
@@ -79,9 +83,13 @@ function DungeonDocs:ShowDocsTab(container)
     -- Kicking this off with a very small delay else the model fails
     -- to load for some reason
     C_Timer.After(0.01, function()
-        setTreeGroupFocus(treeGroup, treeData)
+        local groupWasFocused = setTreeGroupFocus(treeGroup, treeData)
+        if not groupWasFocused and #lastSelected == 3 then
+            treeGroup:SelectByPath(lastSelected[1], lastSelected[2], lastSelected[3])
+        end
     end)
 end
+
 
 function DungeonDocs:HandleSelected(dungeonName, enemyType, mobName)
     if enemyType == "bosses" then
@@ -89,6 +97,8 @@ function DungeonDocs:HandleSelected(dungeonName, enemyType, mobName)
     else
         DungeonDocs:HandleSelectedTrash(dungeonName, mobName)
     end
+
+    lastSelected = { dungeonName, enemyType, mobName }
 end
 
 function DungeonDocs:HandleSelectedBoss(dungeonName, bossName)
