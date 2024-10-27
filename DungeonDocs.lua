@@ -27,13 +27,12 @@ DungeonDocs:RegisterChatCommand("dd", "OpenUI")
 
 
 local dungeonDocsFrame = nil
+local dungeonDocsWindowPosition = {}
 
 function DungeonDocs:OpenUI()
     if dungeonDocsFrame and dungeonDocsFrame:IsShown() then
         return -- Do nothing if the frame is already open
     end
-
-    local internal = self.db.profile.internal
 
     -- Create the main frame
     local frame = AceGUI:Create("Frame")
@@ -79,9 +78,9 @@ function DungeonDocs:OpenUI()
     underlyingFrame:RegisterForDrag("LeftButton")
 
     -- Load saved window position
-    if internal.windowPositionX and internal.windowPositionY then
+    if dungeonDocsWindowPosition.X and dungeonDocsWindowPosition.Y then
         underlyingFrame:ClearAllPoints()
-        underlyingFrame:SetPoint("TOPLEFT", UIParent, "BOTTOMLEFT", internal.windowPositionX, internal.windowPositionY)
+        underlyingFrame:SetPoint("TOPLEFT", UIParent, "BOTTOMLEFT", dungeonDocsWindowPosition.X, dungeonDocsWindowPosition.Y)
     end
 
     -- Set the drag scripts
@@ -92,8 +91,8 @@ function DungeonDocs:OpenUI()
     underlyingFrame:SetScript("OnDragStop", function(self)
         self:StopMovingOrSizing()
         -- Save the current position
-        internal.windowPositionX = self:GetLeft()
-        internal.windowPositionY = self:GetTop()
+        dungeonDocsWindowPosition.X = self:GetLeft()
+        dungeonDocsWindowPosition.Y = self:GetTop()
     end)
 
     -- Create the TabGroup
