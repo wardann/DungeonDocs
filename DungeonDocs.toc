@@ -7,12 +7,14 @@
 ## SavedVariables: DungeonDocsDB
 
 DungeonDocs.lua
-Docs.lua
-Settings.lua
-Database.lua
-Utils.lua
-Notes.lua
-Profile.lua
+
+Modules/Database.lua
+Modules/Utils.lua
+Modules/Notes.lua
+
+Tabs/Docs.lua
+Tabs/Settings.lua
+Tabs/Profile.lua
 
 Dungeons/TWW/S1/AraKara.lua
 
