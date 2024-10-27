@@ -5,6 +5,7 @@ local LibDeflate = LibStub("LibDeflate")
 -- Define default db values
 local dbDefaults = {
     profile = {
+        dbVersion = 1,
         settings = {
             noteStyle = {
                 primary = {
