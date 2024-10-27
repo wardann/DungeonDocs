@@ -27,7 +27,14 @@ DungeonDocs:RegisterChatCommand("dd", "OpenUI")
 
 
 local dungeonDocsFrame = nil
-local dungeonDocsWindowPosition = {}
+local dungeonDocsWindowPosition = {
+    X = nil,
+    Y = nil,
+}
+local dungeonDocsWindowSize = {
+    width = nil,
+    height = nil,
+}
 
 function DungeonDocs:OpenUI()
     if dungeonDocsFrame and dungeonDocsFrame:IsShown() then
@@ -37,8 +44,14 @@ function DungeonDocs:OpenUI()
     -- Create the main frame
     local frame = AceGUI:Create("Frame")
     frame:SetCallback("OnClose", function(widget)
-        dungeonDocsFrame = nil     -- Reset the reference when the window is closed
-        widget:Release()           -- Clean up the frame resources
+        -- Store size and position for future runs
+        dungeonDocsWindowSize.height = frame.frame:GetHeight()
+        dungeonDocsWindowSize.width = frame.frame:GetWidth()
+        dungeonDocsWindowPosition.X = frame.frame:GetLeft()
+        dungeonDocsWindowPosition.Y = frame.frame:GetTop()
+
+        dungeonDocsFrame = nil -- Reset the reference when the window is closed
+        widget:Release()       -- Clean up the frame resources
     end)
     dungeonDocsFrame = frame
 
@@ -50,27 +63,34 @@ function DungeonDocs:OpenUI()
     local maxWidth = UIParent:GetWidth() * 0.8
     local maxHeight = UIParent:GetHeight() * 0.8
 
-    -- Initial frame size within limits
-    frame:SetWidth(math.min(700, maxWidth))   -- 700 is an initial width
-    frame:SetHeight(math.min(800, maxHeight)) -- 800 is an initial height
+    local initWidth = math.min(700, maxWidth)   -- 700 is an initial width
+    local initHeight = math.min(800, maxHeight) -- 800 is an initial height
+
+    local storedWidth = dungeonDocsWindowSize.width
+    local storedHeight = dungeonDocsWindowSize.height
+
+    frame:SetAutoAdjustHeight(false)
+    frame:SetWidth(storedWidth and storedWidth or initWidth)
+    frame:SetHeight(storedHeight and storedHeight or initHeight)
 
     -- Function to enforce max size on resize
-    local function EnforceMaxSize()
+    local function EnforceMaxSizeAndStore()
         local currentWidth = frame.frame:GetWidth()
         local currentHeight = frame.frame:GetHeight()
 
         -- Cap the width and height to the max size
         if currentWidth > maxWidth then
             frame:SetWidth(maxWidth)
+            currentWidth = maxWidth
         end
         if currentHeight > maxHeight then
             frame:SetHeight(maxHeight)
+            currentHeight = maxHeight
         end
     end
 
     -- Hook to resize events and enforce max size
-    frame.frame:SetScript("OnSizeChanged", EnforceMaxSize)
-
+    frame.frame:SetScript("OnSizeChanged", EnforceMaxSizeAndStore)
 
     local underlyingFrame = frame.frame
     underlyingFrame:SetMovable(true)
@@ -80,7 +100,8 @@ function DungeonDocs:OpenUI()
     -- Load saved window position
     if dungeonDocsWindowPosition.X and dungeonDocsWindowPosition.Y then
         underlyingFrame:ClearAllPoints()
-        underlyingFrame:SetPoint("TOPLEFT", UIParent, "BOTTOMLEFT", dungeonDocsWindowPosition.X, dungeonDocsWindowPosition.Y)
+        underlyingFrame:SetPoint("TOPLEFT", UIParent, "BOTTOMLEFT", dungeonDocsWindowPosition.X,
+            dungeonDocsWindowPosition.Y)
     end
 
     -- Set the drag scripts
@@ -91,8 +112,6 @@ function DungeonDocs:OpenUI()
     underlyingFrame:SetScript("OnDragStop", function(self)
         self:StopMovingOrSizing()
         -- Save the current position
-        dungeonDocsWindowPosition.X = self:GetLeft()
-        dungeonDocsWindowPosition.Y = self:GetTop()
     end)
 
     -- Create the TabGroup
