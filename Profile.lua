@@ -98,8 +98,6 @@ function DungeonDocs:Profile_AddClone(container)
 end
 
 function DungeonDocs:Profile_AddDelete(container)
-    local db = self.db
-
     local profileDelete = AddSection(container, "Delete")
 
     -- Dropdown for selecting the profile to delete

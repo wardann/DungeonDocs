@@ -14,16 +14,14 @@ function DungeonDocs:ShowSettingsTab(wrapperContainer)
     wrapperContainer:AddChild(container)
 
     -- Movers settings
-    DungeonDocs:Settings_AddMovers(container)
+    local moversSection = AddSection(container, "Movers")
+    DungeonDocs:Settings_AddMovers(moversSection)
 
-    -- Add spacer
-    Utils_AddSpacer(container)
-
-    -- Primary note config
-    DungeonDocs:Settings_AddPrimaryNote(container)
+    local primaryNoteStyleSection = AddSection(container, "Primary Note Style")
+    DungeonDocs:Settings_AddPrimaryNote(primaryNoteStyleSection)
 
     -- Role same as primary toggle
-    DungeonDocs:Settings_AddRoleSameAsPrimaryToggle(container, function()
+    DungeonDocs:Settings_AddRoleSameAsPrimaryToggle(primaryNoteStyleSection, function()
         wrapperContainer:ReleaseChildren()
         DungeonDocs:ShowSettingsTab(wrapperContainer)
     end)
@@ -31,21 +29,15 @@ function DungeonDocs:ShowSettingsTab(wrapperContainer)
     local roleUsesPrimaryStyle = self.db.profile.settings.noteStyle.roleUsesPrimaryStyle
 
     if not roleUsesPrimaryStyle then
-        Utils_AddSpacer(container)
-        DungeonDocs:Settings_AddRoleNote(container)
+        local roleNoteStyleSection = AddSection(container, "Role Note Style")
+        DungeonDocs:Settings_AddRoleNote(roleNoteStyleSection)
     end
 
-    -- Add spacer
-    Utils_AddSpacer(container)
+    local testTextSection = AddSection(container, "Test Text")
+    DungeonDocs:Settings_AddTestText(testTextSection)
 
-    -- Test text
-    DungeonDocs:Settings_AddTestText(container)
-
-    -- Add spacer
-    Utils_AddSpacer(container)
-
-    -- Season select
-    DungeonDocs:Settings_AddSeasonSelect(container)
+    local seasonSelect = AddSection(container, "Season")
+    DungeonDocs:Settings_AddSeasonSelect(seasonSelect)
 end
 
 function DungeonDocs:Settings_AddPrimaryNote(container)
@@ -152,7 +144,7 @@ end
 function Settings_AddNoteColor(container, state)
     -- Create the color picker widget
     local colorPicker = AceGUI:Create("ColorPicker")
-    colorPicker:SetLabel("Pick a Color")
+    colorPicker:SetLabel("Color")
     colorPicker:SetColor(state.color.r, state.color.g, state.color.b) -- Default to red (RGB)
 
     -- Callback function when the color is changed
