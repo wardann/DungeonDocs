@@ -26,12 +26,25 @@ DungeonDocs:RegisterChatCommand("dungeondocs", "OpenUI")
 DungeonDocs:RegisterChatCommand("dd", "OpenUI")
 
 
+local dungeonDocsFrame = nil
+
 function DungeonDocs:OpenUI()
+    if dungeonDocsFrame and dungeonDocsFrame:IsShown() then
+        return -- Do nothing if the frame is already open
+    end
+
     local internal = self.db.profile.internal
 
     -- Create the main frame
     local frame = AceGUI:Create("Frame")
-    frame:SetStatusText("DungeonDocs - ".. Version)
+    frame:SetCallback("OnClose", function(widget)
+        dungeonDocsFrame = nil     -- Reset the reference when the window is closed
+        widget:Release()           -- Clean up the frame resources
+    end)
+    dungeonDocsFrame = frame
+
+
+    frame:SetStatusText("DungeonDocs - " .. Version)
     frame:SetLayout("Fill") -- Important for TabGroup to fill the frame
 
     -- -- Define max size based on 80% of screen dimensions
@@ -39,7 +52,7 @@ function DungeonDocs:OpenUI()
     local maxHeight = UIParent:GetHeight() * 0.8
 
     -- Initial frame size within limits
-    frame:SetWidth(math.min(700, maxWidth)) -- 700 is an initial width
+    frame:SetWidth(math.min(700, maxWidth))   -- 700 is an initial width
     frame:SetHeight(math.min(800, maxHeight)) -- 800 is an initial height
 
     -- Function to enforce max size on resize
