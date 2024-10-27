@@ -55,6 +55,11 @@ function DungeonDocs:GetDBDefaults()
     return dbDefaults
 end
 
+function DungeonDocs:DB_Init()
+    local db = self.db.profile
+    db.internal.showTestText = false
+end
+
 function DungeonDocs:DB_InitDungeon(dungeonData)
     local db = self.db
 

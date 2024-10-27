@@ -8,8 +8,12 @@ Version = "v0.0.1 (alpha)"
 function DungeonDocs:OnInitialize()
     -- Initialize AceDB-3.0 with the defaults
     local dbDefaults = DungeonDocs:GetDBDefaults()
-    -- The third argument 'true' indicates that profiles are enabled
+
+    -- Create DB, the third argument 'true' indicates that profiles are enabled
     self.db = LibStub("AceDB-3.0"):New("DungeonDocsDB", dbDefaults, true)
+
+    -- Init DB
+    DungeonDocs:DB_Init()
 
     -- Init dungeons
     DungeonDocs:InitAraKara()
