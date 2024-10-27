@@ -89,6 +89,7 @@ function DungeonDocs:OpenUI()
     tab:SetTabs({
         { text = "Docs",     value = "docs" },
         { text = "Settings", value = "settings" },
+        { text = "Profiles", value = "profiles" },
     })
     tab:SetCallback("OnGroupSelected", function(container, event, group)
         container:ReleaseChildren()
@@ -96,6 +97,8 @@ function DungeonDocs:OpenUI()
             DungeonDocs:ShowDocsTab(container)
         elseif group == "settings" then
             DungeonDocs:ShowSettingsTab(container)
+        elseif group == "profiles" then
+            DungeonDocs:Profile_TabRoot(container)
         end
     end)
     tab:SelectTab("docs") -- Default tab to display

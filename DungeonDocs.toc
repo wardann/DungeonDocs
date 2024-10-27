@@ -12,6 +12,7 @@ Settings.lua
 Database.lua
 Utils.lua
 Notes.lua
+Profile.lua
 
 Dungeons/TWW/S1/AraKara.lua
 

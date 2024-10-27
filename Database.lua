@@ -145,8 +145,10 @@ function DungeonDocs:DB_ImportProfile(destProfileName, encoded)
         db.profiles[destProfileName].internal = DeepCopy(dbDefaults.profile.internal)
 
         Log("Success! Imported profile " .. destProfileName)
+        return true
     else
         Log("Error! Could not import profile " .. destProfileName)
+        return false
     end
 end
 
@@ -155,12 +157,12 @@ function DungeonDocs:DB_CloneProfile(sourceProfileName, destProfileName)
     local sourceProfile = db.profiles[sourceProfileName]
 
     if sourceProfile == nil then
-        Log("Error! Could not clone profile, source " .. sourceProfileName .. " does not exist")
+        Log("Error! Could not clone profile, source `" .. sourceProfileName .. "` does not exist")
         return
     end
 
     if db.profiles[destProfileName] then
-        Log("Error! Could not clone profile, destinatino profile " .. sourceProfileName .. " already exists")
+        Log("Error! Could not clone profile, destination profile `" .. sourceProfileName .. "` already exists")
         return
     end
 
@@ -170,7 +172,7 @@ function DungeonDocs:DB_CloneProfile(sourceProfileName, destProfileName)
     -- Copy the source profile
     db.profiles[destProfileName] = DeepCopy(sourceProfile)
 
-    Log("Cloned profile "..sourceProfileName.." to profile "..destProfileName)
+    Log("Cloned profile `"..sourceProfileName.."` to profile `"..destProfileName.."`")
 end
 
 
@@ -250,23 +252,3 @@ function DungeonDocs:DB_ResetProfile(profileName)
     Log("Profile '"..profileName.."` reset to defaults")
 end
 
-
-
-
-
--- -- Function to set a key-value pair
--- function DungeonDocs:SetKeyValue(key, value)
---     self.db.profile.keyValueStore[key] = value
---     print("Set " .. key .. " to " .. tostring(value))
--- end
-
--- -- Function to remove a key-value pair
--- function DungeonDocs:RemoveKey(key)
---     self.db.profile.keyValueStore[key] = nil
---     print("Removed key:", key)
--- end
-
--- -- Function to get a value by key
--- function DungeonDocs:GetValueByKey(key)
---     return self.db.profile.keyValueStore[key]
--- end

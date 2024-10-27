@@ -3,25 +3,25 @@ local AceGUI = LibStub("AceGUI-3.0")
 function InspectTable(t, indent)
     indent = indent or 0
     local prefix = string.rep("  ", indent)
-    
+
     if type(t) ~= "table" then
-        print(prefix .. tostring(t))  -- Print non-table values directly
+        print(prefix .. tostring(t)) -- Print non-table values directly
         return
     end
 end
 
 -- Function to get the mob ID from the target's GUID
 function GetMobIDFromGUID(unit)
-    local guid = UnitGUID(unit)  -- Get the GUID of the unit (e.g., "target")
+    local guid = UnitGUID(unit) -- Get the GUID of the unit (e.g., "target")
     if guid then
         -- Split the GUID into its components and extract the mob ID
         print(guid)
         local type, zero, server_id, instance_id, zone_uid, mob_id, spawn_uid = strsplit("-", guid)
-        if type == "Creature" or type == "Vehicle" then  -- Mobs are usually "Creature" or "Vehicle"
+        if type == "Creature" or type == "Vehicle" then -- Mobs are usually "Creature" or "Vehicle"
             return tonumber(mob_id)
         end
     end
-    return nil  -- Return nil if no valid mob ID is found
+    return nil -- Return nil if no valid mob ID is found
 end
 
 function Utils_AddSpacer(container)
@@ -32,11 +32,10 @@ function Utils_AddSpacer(container)
 end
 
 function Log(...)
-    local args = {...}  -- Capture all arguments
-    local message = table.concat(args, " ")  -- Concatenate all arguments with a space
-    print("[DungeonDocs]: " .. message)  -- Add prefix and print
+    local args = { ... }                    -- Capture all arguments
+    local message = table.concat(args, " ") -- Concatenate all arguments with a space
+    print("<DungeonDocs>: " .. message)     -- Add prefix and print
 end
-
 
 function DeepCopy(orig)
     local orig_type = type(orig)
@@ -53,4 +52,15 @@ function DeepCopy(orig)
     end
 
     return copy
+end
+
+function AddSection(container, title)
+    -- Create an InlineGroup as a section container
+    local section = AceGUI:Create("InlineGroup")
+    section:SetTitle(title)
+    section:SetFullWidth(true)
+    section:SetLayout("Flow")
+    container:AddChild(section)
+
+    return section
 end
