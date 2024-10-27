@@ -42,7 +42,8 @@ local dungeonDocsWindowSize = {
 
 function DungeonDocs:OpenUI()
     if dungeonDocsFrame and dungeonDocsFrame:IsShown() then
-        return -- Do nothing if the frame is already open
+        dungeonDocsFrame:Hide() -- Toggle the UI closed if it's open and return
+        return 
     end
 
     -- Create the main frame
