@@ -20,6 +20,7 @@ function DungeonDocs:OnInitialize()
     DungeonDocs:InitCityOfThreads()
     DungeonDocs:InitGrimBatol()
     DungeonDocs:InitMistsOfTirnaScithe()
+    DungeonDocs:InitSiegeOfBoralus()
 
     DungeonDocs:InitNotePanels()
 end
