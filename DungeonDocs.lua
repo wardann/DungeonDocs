@@ -22,6 +22,7 @@ function DungeonDocs:OnInitialize()
     DungeonDocs:InitMistsOfTirnaScithe()
     DungeonDocs:InitSiegeOfBoralus()
     DungeonDocs:InitTheDawnbreaker()
+    DungeonDocs:InitTheNecroticWake()
 
     DungeonDocs:InitNotePanels()
 end
