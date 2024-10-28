@@ -1,0 +1,262 @@
+local DungeonDocs = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
+
+
+local dungeonBosses = {
+  {
+    bossName = "Ingra Maloch",
+    encounterId = 2400,
+    primaryNote = "",
+    healerNote = "",
+    damageNote = "",
+    tankNote = "",
+    mobs = {
+      {
+        name = "Ingra Maloch",
+        id = 164567,
+        displayId = 95497,
+      },
+      {
+        name = "Droman Oulfarran",
+        id = 164804,
+        displayId = 95564,
+      },
+    }
+  },
+  {
+    bossName = "Mistcaller",
+    encounterId = 2402,
+    primaryNote = "",
+    healerNote = "",
+    damageNote = "",
+    tankNote = "",
+    mobs = {
+      {
+        name = "Mistcaller",
+        id = 164501,
+        displayId = 96451,
+      },
+    }
+  },
+  {
+    bossName = "Tred'ova",
+    encounterId = 2405,
+    primaryNote = "",
+    healerNote = "",
+    damageNote = "",
+    tankNote = "",
+    mobs = {
+      {
+        name = "Tred'ova",
+        id = 164517,
+        displayId = 95809,
+      },
+    }
+  },
+}
+
+
+local dungeonTrash = {
+  {
+    name = "Starved Crawler",
+    id = 216336,
+    displayId = 120876,
+    primaryNote = "",
+    healerNote = "",
+    damageNote = "",
+    tankNote = "",
+  },
+  {
+    name = "Drust Spiteclaw",
+    id = 165111,
+    displayId = 86207,
+    primaryNote = "",
+    healerNote = "",
+    damageNote = "",
+    tankNote = "",
+  },
+  {
+    name = "Tirnenn Villager",
+    id = 164929,
+    displayId = 95618,
+    primaryNote = "",
+    healerNote = "",
+    damageNote = "",
+    tankNote = "",
+  },
+  {
+    name = "Drust Soulcleaver",
+    id = 164920,
+    displayId = 95612,
+    primaryNote = "",
+    healerNote = "",
+    damageNote = "",
+    tankNote = "",
+  },
+  {
+    name = "Drust Harvester",
+    id = 164921,
+    displayId = 95613,
+    primaryNote = "",
+    healerNote = "",
+    damageNote = "",
+    tankNote = "",
+  },
+  {
+    name = "Drust Boughbreaker",
+    id = 164926,
+    displayId = 95615,
+    primaryNote = "",
+    healerNote = "",
+    damageNote = "",
+    tankNote = "",
+  },
+  {
+    name = "Mistveil Defender",
+    id = 163058,
+    displayId = 95256,
+    primaryNote = "",
+    healerNote = "",
+    damageNote = "",
+    tankNote = "",
+  },
+  {
+    name = "Mistveil Stalker",
+    id = 166301,
+    displayId = 93762,
+    primaryNote = "",
+    healerNote = "",
+    damageNote = "",
+    tankNote = "",
+  },
+  {
+    name = "Mistveil Stinger",
+    id = 166304,
+    displayId = 95198,
+    primaryNote = "",
+    healerNote = "",
+    damageNote = "",
+    tankNote = "",
+  },
+  {
+    name = "Mistveil Guardian",
+    id = 166276,
+    displayId = 95261,
+    primaryNote = "",
+    healerNote = "",
+    damageNote = "",
+    tankNote = "",
+  },
+  {
+    name = "Mistveil Tender",
+    id = 166299,
+    displayId = 95908,
+    primaryNote = "",
+    healerNote = "",
+    damageNote = "",
+    tankNote = "",
+  },
+  {
+    name = "Mistveil Shaper",
+    id = 166275,
+    displayId = 95051,
+    primaryNote = "",
+    healerNote = "",
+    damageNote = "",
+    tankNote = "",
+  },
+  {
+    name = "Mistveil Nightblossom",
+    id = 173714,
+    displayId = 55772,
+    primaryNote = "",
+    healerNote = "",
+    damageNote = "",
+    tankNote = "",
+  },
+  {
+    name = "Spinemaw Staghorn",
+    id = 167111,
+    displayId = 94190,
+    primaryNote = "",
+    healerNote = "",
+    damageNote = "",
+    tankNote = "",
+  },
+  {
+    name = "Spinemaw Acidgullet",
+    id = 167113,
+    displayId = 94205,
+    primaryNote = "",
+    healerNote = "",
+    damageNote = "",
+    tankNote = "",
+  },
+  {
+    name = "Spinemaw Gorger",
+    id = 172312,
+    displayId = 94197,
+    primaryNote = "",
+    healerNote = "",
+    damageNote = "",
+    tankNote = "",
+  },
+  {
+    name = "Spinemaw Larva",
+    id = 167117,
+    displayId = 94208,
+    primaryNote = "",
+    healerNote = "",
+    damageNote = "",
+    tankNote = "",
+  },
+  {
+    name = "Spinemaw Reaver",
+    id = 167116,
+    displayId = 95692,
+    primaryNote = "",
+    healerNote = "",
+    damageNote = "",
+    tankNote = "",
+  },
+  {
+    name = "Mistveil Gorgegullet",
+    id = 173720,
+    displayId = 98502,
+    primaryNote = "",
+    healerNote = "",
+    damageNote = "",
+    tankNote = "",
+  },
+  {
+    name = "Mistveil Stinger",
+    id = 166304,
+    displayId = 95198,
+    primaryNote = "",
+    healerNote = "",
+    damageNote = "",
+    tankNote = "",
+  },
+  {
+    name = "Mistveil Matriarch",
+    id = 173655,
+    displayId = 98569,
+    primaryNote = "",
+    healerNote = "",
+    damageNote = "",
+    tankNote = "",
+  },
+}
+
+local dungeonData = {
+  name = "Mists of Tirna Scithe",
+  nameFull = "Mists of Tirna Scithe",
+  icon = "Interface\\Icons\\inv_misc_head_human_01",
+  bosses = dungeonBosses,
+  trash = dungeonTrash,
+  seasonId = "TWWS1",
+}
+
+
+function DungeonDocs:InitMistsOfTirnaScithe()
+  DungeonDocs:DB_InitDungeon(dungeonData)
+end

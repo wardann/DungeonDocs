@@ -19,6 +19,7 @@ function DungeonDocs:OnInitialize()
     DungeonDocs:InitAraKara()
     DungeonDocs:InitCityOfThreads()
     DungeonDocs:InitGrimBatol()
+    DungeonDocs:InitMistsOfTirnaScithe()
 
     DungeonDocs:InitNotePanels()
 end
