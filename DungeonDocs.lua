@@ -21,6 +21,7 @@ function DungeonDocs:OnInitialize()
     DungeonDocs:InitGrimBatol()
     DungeonDocs:InitMistsOfTirnaScithe()
     DungeonDocs:InitSiegeOfBoralus()
+    DungeonDocs:InitTheDawnbreaker()
 
     DungeonDocs:InitNotePanels()
 end
