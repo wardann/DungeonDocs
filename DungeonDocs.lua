@@ -17,6 +17,14 @@ function DungeonDocs:OnInitialize()
 
     -- Init dungeons
     DungeonDocs:InitAraKara()
+    DungeonDocs:InitCityOfThreads()
+    DungeonDocs:InitGrimBatol()
+    DungeonDocs:InitMistsOfTirnaScithe()
+    DungeonDocs:InitSiegeOfBoralus()
+    DungeonDocs:InitTheDawnbreaker()
+    DungeonDocs:InitTheNecroticWake()
+    DungeonDocs:InitTheStonevault()
+
     DungeonDocs:InitNotePanels()
 end
 
