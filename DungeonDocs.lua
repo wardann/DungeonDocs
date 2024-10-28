@@ -23,6 +23,7 @@ function DungeonDocs:OnInitialize()
     DungeonDocs:InitSiegeOfBoralus()
     DungeonDocs:InitTheDawnbreaker()
     DungeonDocs:InitTheNecroticWake()
+    DungeonDocs:InitTheStonevault()
 
     DungeonDocs:InitNotePanels()
 end

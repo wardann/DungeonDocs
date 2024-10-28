@@ -23,4 +23,5 @@ Dungeons/TWW/S1/MistsOfTirnaScithe.lua
 Dungeons/TWW/S1/SiegeOfBoralus.lua
 Dungeons/TWW/S1/TheDawnbreaker.lua
 Dungeons/TWW/S1/TheNecroticWake.luA
+Dungeons/TWW/S1/TheStonevault.luA
 
