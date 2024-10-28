@@ -17,6 +17,8 @@ function DungeonDocs:OnInitialize()
 
     -- Init dungeons
     DungeonDocs:InitAraKara()
+    DungeonDocs:InitCityOfThreads()
+
     DungeonDocs:InitNotePanels()
 end
 
