@@ -18,4 +18,5 @@ Tabs/Profile.lua
 
 Dungeons/TWW/S1/AraKara.lua
 Dungeons/TWW/S1/CityOfThreads.lua
+Dungeons/TWW/S1/GrimBatol.lua
 
