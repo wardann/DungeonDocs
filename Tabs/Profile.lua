@@ -3,6 +3,8 @@ local AceGUI = LibStub("AceGUI-3.0")
 
 local profileDropdowns = {}
 
+local fallbackProfileDropdowns = {}
+
 function DungeonDocs:Profile_TabRoot(wrapperContainer)
     wrapperContainer:SetLayout("Flow")
 
@@ -20,7 +22,7 @@ function DungeonDocs:Profile_TabRoot(wrapperContainer)
     DungeonDocs:Profile_AddExport(container)
 end
 
-function DungeonDocs:PopulateProfileDropdown(profileDropdown)
+function DungeonDocs:PopulatePrimaryProfileDropdown(profileDropdown)
     local profiles = {}
     for _, profileName in ipairs(self.db:GetProfiles()) do
         profiles[profileName] = profileName     -- Use profile name as both key and display text
@@ -28,27 +30,47 @@ function DungeonDocs:PopulateProfileDropdown(profileDropdown)
     profileDropdown:SetList(profiles)
 end
 
+function DungeonDocs:PopulateFallbackProfileDropdown(profileDropdown)
+    local fallbackProfiles = {}
+    for _, profileName in ipairs(self.db:GetProfiles()) do
+        fallbackProfiles[profileName] = profileName     -- Use profile name as both key and display text
+    end
+    profileDropdown:SetList(fallbackProfiles)
+end
+
 local function refreshProfileDropdowns()
     for _, dropdown in ipairs(profileDropdowns) do
-        DungeonDocs:PopulateProfileDropdown(dropdown)
+        DungeonDocs:PopulatePrimaryProfileDropdown(dropdown)
+    end
+    for _, dropdown in ipairs(fallbackProfileDropdowns) do
+        DungeonDocs:PopulateFallbackProfileDropdown(dropdown)
     end
 end
 
-local function initProfileDropdown(profileDropdown)
+local function initPrimaryProfileDropdown(profileDropdown)
     table.insert(profileDropdowns, profileDropdown)
-    DungeonDocs:PopulateProfileDropdown(profileDropdown)
+    DungeonDocs:PopulatePrimaryProfileDropdown(profileDropdown)
+end
+
+local function initFallbackProfileDropdown(profileDropdown)
+    table.insert(fallbackProfileDropdowns, profileDropdown)
+    DungeonDocs:PopulateFallbackProfileDropdown(profileDropdown)
 end
 
 function DungeonDocs:Profile_AddSelect(container)
-    local profileSelect = AddSection(container, "Active")
+    local profileSelect = AddSection(container, "Profile Select")
+    DungeonDocs:Profile_AddPrimaryProfileSelect(profileSelect)
+    DungeonDocs:Profile_AddFallbackProfileSelect(profileSelect)
+end
 
+function DungeonDocs:Profile_AddPrimaryProfileSelect(container)
     local profileDropdown = AceGUI:Create("Dropdown")
-    profileDropdown:SetFullWidth(true)
-    profileDropdown:SetLabel("Select Profile to Activate")
+    -- profileDropdown:SetFullWidth(true)
+    profileDropdown:SetLabel("Primary")
 
 
     -- Populate the dropdown with profile names
-    initProfileDropdown(profileDropdown)
+    initPrimaryProfileDropdown(profileDropdown)
 
     -- Set the current profile as the selected value
     profileDropdown:SetValue(self.db:GetCurrentProfile())
@@ -58,7 +80,27 @@ function DungeonDocs:Profile_AddSelect(container)
         DungeonDocs:DB_SelectProfile(profileName)
     end)
 
-    profileSelect:AddChild(profileDropdown)
+    container:AddChild(profileDropdown)
+end
+
+function DungeonDocs:Profile_AddFallbackProfileSelect(container)
+    local profileDropdown = AceGUI:Create("Dropdown")
+    -- profileDropdown:SetFullWidth(true)
+    profileDropdown:SetLabel("Fallback")
+
+
+    -- Populate the dropdown with profile names
+    initFallbackProfileDropdown(profileDropdown)
+
+    -- Set the current profile as the selected value
+    profileDropdown:SetValue(self.db.profile.internal.fallbackProfile)
+
+    -- Callback function to handle profile switching
+    profileDropdown:SetCallback("OnValueChanged", function(_, _, profileName)
+        DungeonDocs:DB_SelectFallbackProfile(profileName)
+    end)
+
+    container:AddChild(profileDropdown)
 end
 
 function DungeonDocs:Profile_AddClone(container)
@@ -69,7 +111,7 @@ function DungeonDocs:Profile_AddClone(container)
     sourceProfileDropdown:SetLabel("Select Profile to Clone")
 
     -- Populate the dropdown with available profiles
-    initProfileDropdown(sourceProfileDropdown)
+    initPrimaryProfileDropdown(sourceProfileDropdown)
     sourceProfileDropdown:SetValue(self.db:GetCurrentProfile()) -- Set current profile as default
     profileClone:AddChild(sourceProfileDropdown)
 
@@ -106,7 +148,7 @@ function DungeonDocs:Profile_AddDelete(container)
 
 
     -- Populate the dropdown with available profiles
-    initProfileDropdown(profileDropdown)
+    initPrimaryProfileDropdown(profileDropdown)
 
     profileDelete:AddChild(profileDropdown)
 
@@ -153,7 +195,7 @@ function DungeonDocs:Profile_AddReset(container)
 
 
     -- Populate the dropdown with available profiles
-    initProfileDropdown(profileDropdown)
+    initPrimaryProfileDropdown(profileDropdown)
     profileReset:AddChild(profileDropdown)
 
     -- Reset button to reveal confirm option
@@ -197,7 +239,7 @@ function DungeonDocs:Profile_AddExport(container)
     profileDropdown:SetLabel("Select Profile to Export")
 
     -- Populate the dropdown with available profiles
-    initProfileDropdown(profileDropdown)
+    initPrimaryProfileDropdown(profileDropdown)
 
     profileDropdown:SetValue(db:GetCurrentProfile())
     profileExport:AddChild(profileDropdown)

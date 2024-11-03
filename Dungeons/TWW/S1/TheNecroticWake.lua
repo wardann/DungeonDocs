@@ -201,6 +201,6 @@ local dungeonData = {
 }
 
 
-function DD:Dungones_InitTheNecroticWake()
+function DD:Dungeons_InitTheNecroticWake()
   DD.Dungeons[dungeonData.name] = dungeonData
 end

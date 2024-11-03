@@ -16,12 +16,24 @@ Tabs/Docs.lua
 Tabs/Settings.lua
 Tabs/Profile.lua
 
+Dungeons/Dungeons.lua
 Dungeons/TWW/S1/AraKara.lua
 Dungeons/TWW/S1/CityOfThreads.lua
 Dungeons/TWW/S1/GrimBatol.lua
 Dungeons/TWW/S1/MistsOfTirnaScithe.lua
 Dungeons/TWW/S1/SiegeOfBoralus.lua
 Dungeons/TWW/S1/TheDawnbreaker.lua
-Dungeons/TWW/S1/TheNecroticWake.luA
-Dungeons/TWW/S1/TheStonevault.luA
+Dungeons/TWW/S1/TheNecroticWake.lua
+Dungeons/TWW/S1/TheStonevault.lua
+
+Profiles/Profiles.lua
+Profiles/Default/Dungeons/TWW/S1/AraKara.lua
+Profiles/Default/Dungeons/TWW/S1/CityOfThreads.lua
+Profiles/Default/Dungeons/TWW/S1/GrimBatol.lua
+Profiles/Default/Dungeons/TWW/S1/MistsOfTirnaScithe.lua
+Profiles/Default/Dungeons/TWW/S1/SiegeOfBoralus.lua
+Profiles/Default/Dungeons/TWW/S1/TheDawnbreaker.lua
+Profiles/Default/Dungeons/TWW/S1/TheNecroticWake.lua
+Profiles/Default/Dungeons/TWW/S1/TheStonevault.lua
+
 

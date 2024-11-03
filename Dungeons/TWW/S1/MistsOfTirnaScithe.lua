@@ -160,6 +160,6 @@ local dungeonData = {
 }
 
 
-function DD:Dungones_InitMistsOfTirnaScithe()
+function DD:Dungeons_InitMistsOfTirnaScithe()
   DD.Dungeons[dungeonData.name] = dungeonData
 end

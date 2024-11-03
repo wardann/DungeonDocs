@@ -1,10 +1,12 @@
 local DungeonDocs = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
+local DD = DungeonDocs
 local LibSerialize = LibStub("LibSerialize")
 local LibDeflate = LibStub("LibDeflate")
 
 -- Define default db values
 local dbDefaults = {
     profile = {
+        docs = {},
         dbVersion = 1,
         settings = {
             noteStyle = {
@@ -39,8 +41,8 @@ local dbDefaults = {
                 secondary = nil,
             }
         },
-        docs = {},
         internal = {
+            fallbackProfile = "Default*",
             movers = false,
             seasons = {
                 TWWS1 = "The War Within - Season 1",
@@ -57,18 +59,13 @@ function DungeonDocs:GetDBDefaults()
 end
 
 function DungeonDocs:DB_Init()
-    local db = self.db.profile
-    db.internal.showTestText = false
-end
-
-function DungeonDocs:DB_InitDungeon(dungeonData)
     local db = self.db
+    db.profile.internal.showTestText = false
 
-    -- TODO: will likely need to add more fine-grained init than this
-    if db.profile.docs[dungeonData.name] == nil then
-        db.profile.docs[dungeonData.name] = dungeonData
-    end
+    -- Init default profiles
+    DD:Profiles_DBInitProfiles()
 end
+
 
 -- A table to hold subscriber functions
 local dbChangeSubscribers = {}
@@ -101,6 +98,11 @@ function DungeonDocs:DB_SelectProfile(profileName)
     if db:GetCurrentProfile() ~= profileName then -- Only switch if different
         db:SetProfile(profileName)
     end
+end
+
+function DungeonDocs:DB_SelectFallbackProfile(profileName)
+    local db = self.db
+    db.profile.internal.fallbackProfile = profileName
 end
 
 -- Function to export the current profile, excluding the "internal" table
@@ -176,9 +178,8 @@ function DungeonDocs:DB_CloneProfile(sourceProfileName, destProfileName)
     -- Copy the source profile
     db.profiles[destProfileName] = DeepCopy(sourceProfile)
 
-    Log("Cloned profile `"..sourceProfileName.."` to profile `"..destProfileName.."`")
+    Log("Cloned profile `" .. sourceProfileName .. "` to profile `" .. destProfileName .. "`")
 end
-
 
 function DungeonDocs:DB_RenameProfile(sourceProfileName, newProfileName)
     local db = self.db
@@ -197,7 +198,7 @@ function DungeonDocs:DB_RenameProfile(sourceProfileName, newProfileName)
     end
 
     -- Copy current profile data to the new profile
-    db.profiles[newProfileName] = {}  -- Create an empty table for the new profile
+    db.profiles[newProfileName] = {} -- Create an empty table for the new profile
     db.profiles[newProfileName] = DeepCopy(sourceProfile)
 
     -- If the old profile was active, switch to the new profile
@@ -226,12 +227,12 @@ function DungeonDocs:DB_DeleteProfile(profileName)
 
     -- If the profile being deleted is active, switch to a default profile
     if db:GetCurrentProfile() == profileName then
-        db:SetProfile("Default")  -- Switch to "Default" or another fallback profile
+        db:SetProfile("Default") -- Switch to "Default" or another fallback profile
     end
 
     -- Delete the profile
     db.profiles[profileName] = nil
-    Log("Profile `".. profileName.."` deleted successfully")
+    Log("Profile `" .. profileName .. "` deleted successfully")
 end
 
 function DungeonDocs:DB_ResetProfile(profileName)
@@ -253,6 +254,105 @@ function DungeonDocs:DB_ResetProfile(profileName)
         db:NotifyChange()
     end
 
-    Log("Profile '"..profileName.."` reset to defaults")
+    Log("Profile '" .. profileName .. "` reset to defaults")
 end
 
+-- DB_GetNote gets the note from the DB for the specified note key, falling
+-- back to the secondary profile if the note is not found
+function DD:DB_GetNotePrimary(dungeonName, mobId, noteKey)
+    local db = self.db
+
+    local dungeon = db.profile.docs[dungeonName]
+    if not dungeon then
+        return DD:DB_GetNoteFallback(dungeonName, mobId, noteKey)
+    end
+
+    local doc
+    for _, d in ipairs(dungeon) do
+        if d.id == mobId then
+            doc = d
+            break
+        end
+    end
+
+
+    if not doc then
+        return DD:DB_GetNoteFallback(dungeonName, mobId, noteKey)
+    end
+
+    if not doc[noteKey] then
+        return DD:DB_GetNoteFallback(dungeonName, mobId, noteKey)
+    end
+
+    return doc[noteKey]
+end
+
+function DD:DB_GetNoteFallback(dungeonName, mobId, noteKey)
+    local db = self.db
+    local fallbackProfile = db.profiles[db.profile.internal.fallbackProfile]
+
+    local dungeon = fallbackProfile.docs[dungeonName]
+    if not dungeon then
+        return ""
+    end
+
+    local doc
+
+    for _, d in ipairs(dungeon) do
+        if d.id == mobId then
+            doc = d
+            break
+        end
+    end
+
+    if not doc then
+        return ""
+    end
+
+    if not doc[noteKey] then
+        return ""
+    end
+
+    return doc[noteKey]
+end
+
+-- DB_SetNote sets the note from the DB for the specified note key, creating the
+-- note if it's not found
+function DD:DB_SetNote(dungeonName, mobId, noteKey, newNote)
+    local db = self.db
+
+    local mobs = db.profile.docs[dungeonName]
+    if not mobs then
+        DD:DB_Update(function()
+            db.profile.docs[dungeonName] = {}
+            table.insert(db.profile.docs[dungeonName], {
+                id = mobId,
+                [noteKey] = newNote,
+            })
+        end)
+        return
+    end
+
+    local doc
+    for _, d in ipairs(mobs) do
+        if d.id == mobId then
+            doc = d
+            break
+        end
+    end
+
+    if not doc then
+        DD:DB_Update(function()
+            local newDoc = {
+                id = mobId,
+                [noteKey] = newNote,
+            }
+            table.insert(db.profile.docs[dungeonName], newDoc)
+        end)
+        return
+    end
+
+    DD:DB_Update(function()
+        doc[noteKey] = newNote
+    end)
+end

@@ -1,5 +1,6 @@
 -- Initialize the addon using AceAddon-3.0
 local DungeonDocs = LibStub("AceAddon-3.0"):NewAddon("DungeonDocs", "AceConsole-3.0", "AceEvent-3.0")
+local DD = DungeonDocs
 local AceGUI = LibStub("AceGUI-3.0")
 
 Version = "v0.0.1 (alpha)"
@@ -10,20 +11,13 @@ function DungeonDocs:OnInitialize()
     local dbDefaults = DungeonDocs:GetDBDefaults()
 
     -- Create DB, the third argument 'true' indicates that profiles are enabled
-    self.db = LibStub("AceDB-3.0"):New("DungeonDocsDB", dbDefaults, true)
+    self.db = LibStub("AceDB-3.0"):New("DungeonDocsDB", dbDefaults, "Player")
 
     -- Init DB
     DungeonDocs:DB_Init()
 
     -- Init dungeons
-    DungeonDocs:InitAraKara()
-    DungeonDocs:InitCityOfThreads()
-    DungeonDocs:InitGrimBatol()
-    DungeonDocs:InitMistsOfTirnaScithe()
-    DungeonDocs:InitSiegeOfBoralus()
-    DungeonDocs:InitTheDawnbreaker()
-    DungeonDocs:InitTheNecroticWake()
-    DungeonDocs:InitTheStonevault()
+    DD:Dungeons_InitAll()
 
     DungeonDocs:InitNotePanels()
 end

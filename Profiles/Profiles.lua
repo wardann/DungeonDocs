@@ -49,3 +49,14 @@ function DD:Profiles_InitProfile(profileName, dungeon)
 
     DD.Profiles[profileName][dungeon.name] = docs
 end
+
+function DD:Profiles_DBInitProfiles()
+    local db = self.db
+
+    for profileName, profileDocs in pairs(DD.Profiles) do
+        -- TODO move the db defaults into the profile itself, then export the whole profile
+        local profile = DD:GetDBDefaults()
+        profile.docs = profileDocs
+        db.profiles[profileName] = profile
+    end
+end
