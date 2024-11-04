@@ -333,10 +333,6 @@ function DungeonDocs:DungeonDataToTreeData()
             }
             table.insert(treeBosses, boss)
         end
-        -- Sort bosses alphabetically
-        table.sort(treeBosses, function(a, b)
-            return a.value < b.value
-        end)
 
         local treeTrash = {}
         for _, m in ipairs(d.trash) do
