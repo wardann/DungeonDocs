@@ -289,7 +289,21 @@ end
 
 function DD:DB_GetNoteFallback(dungeonName, mobId, noteKey)
     local db = self.db
-    local fallbackProfile = db.profiles[db.profile.internal.fallbackProfile]
+    local fallbackProfileName = db.profile.internal.fallbackProfile
+
+    if not fallbackProfileName then
+        return ""
+    end
+
+    local fallbackProfile = db.profiles[fallbackProfileName]
+    if not fallbackProfile then
+        return ""
+    end
+
+    if fallbackProfile == "None*" then
+        return ""
+    end 
+
 
     local dungeon = fallbackProfile.docs[dungeonName]
     if not dungeon then

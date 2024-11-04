@@ -25,15 +25,17 @@ end
 function DungeonDocs:PopulatePrimaryProfileDropdown(profileDropdown)
     local profiles = {}
     for _, profileName in ipairs(self.db:GetProfiles()) do
-        profiles[profileName] = profileName     -- Use profile name as both key and display text
+        profiles[profileName] = profileName -- Use profile name as both key and display text
     end
     profileDropdown:SetList(profiles)
 end
 
 function DungeonDocs:PopulateFallbackProfileDropdown(profileDropdown)
-    local fallbackProfiles = {}
+    local fallbackProfiles = {
+        ["None*"] = "None*",
+    }
     for _, profileName in ipairs(self.db:GetProfiles()) do
-        fallbackProfiles[profileName] = profileName     -- Use profile name as both key and display text
+        fallbackProfiles[profileName] = profileName -- Use profile name as both key and display text
     end
     profileDropdown:SetList(fallbackProfiles)
 end
