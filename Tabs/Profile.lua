@@ -298,7 +298,7 @@ function DungeonDocs:Profile_AddImport(container)
         local encoded = importTextBox:GetText()
         local success = DungeonDocs:DB_ImportProfile(profileName, encoded)
         if success then
-            importTextBox:SetText()
+            importTextBox:SetText("")
             refreshProfileDropdowns()
         end
     end)

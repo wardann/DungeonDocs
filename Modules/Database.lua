@@ -140,11 +140,7 @@ function DungeonDocs:DB_ImportProfile(destProfileName, encoded)
 
     if success then
         -- Init dest profile
-        db.profiles[destProfileName] = {}
-        -- Step 2: Clear the current profile and apply imported data
-        for k, v in pairs(profileData) do
-            db.profiles[destProfileName][k] = v -- Copy imported data to current profile
-        end
+        db.profiles[destProfileName] = DeepCopy(profileData)
 
         -- Add the internal defaults
         db.profiles[destProfileName].internal = DeepCopy(dbDefaults.profile.internal)
