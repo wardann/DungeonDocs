@@ -289,4 +289,4 @@ local dungeonData = {
     trash = dungeonTrash,
 }
 
-DD:Profiles_InitProfile("Default*", dungeonData)
+DD:ProfilesDefault_InitDocs(dungeonData)

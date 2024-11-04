@@ -10,8 +10,8 @@ function DungeonDocs:OnInitialize()
     -- Initialize AceDB-3.0 with the defaults
     local dbDefaults = DungeonDocs:GetDBDefaults()
 
-    -- Create DB, the third argument 'true' indicates that profiles are enabled
-    self.db = LibStub("AceDB-3.0"):New("DungeonDocsDB", dbDefaults, "Player")
+    -- Create DB
+    self.db = LibStub("AceDB-3.0"):New("DungeonDocsDB", dbDefaults, "Default")
 
     -- Init DB
     DungeonDocs:DB_Init()

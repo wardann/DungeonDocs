@@ -1,11 +1,12 @@
 local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
 
 
-DD.Profiles = {}
+local reservedProfileNames = {}
 
-local reservedProfileNames = {
-    "Default*"
-}
+function DD:Profiles_ReserveProfileName(profileName)
+    table.insert(reservedProfileNames, profileName)
+end
+
 
 function Profiles_IsReservedProfile(profileName)
     for _, value in ipairs(reservedProfileNames) do
@@ -16,16 +17,12 @@ function Profiles_IsReservedProfile(profileName)
     return false
 end
 
-function DD:Profiles_InitProfile(profileName, dungeon)
-    if not DD.Profiles[profileName] then
-        DD.Profiles[profileName] = {}
-    end
+function DD:Profiles_BuildDungeonDocs(dungeonData)
+    local dungeonDocs = {}
 
-    local docs = {}
-
-    for _, boss in ipairs(dungeon.bosses) do
+    for _, boss in ipairs(dungeonData.bosses) do
         for _, mob in ipairs(boss.mobs) do
-            table.insert(docs, {
+            table.insert(dungeonDocs, {
                 name = mob.name,
                 id = mob.id,
                 primaryNote = boss.primaryNote,
@@ -36,8 +33,8 @@ function DD:Profiles_InitProfile(profileName, dungeon)
         end
     end
 
-    for _, mob in ipairs(dungeon.trash) do
-        table.insert(docs, {
+    for _, mob in ipairs(dungeonData.trash) do
+        table.insert(dungeonDocs, {
             name = mob.name,
             id = mob.id,
             primaryNote = mob.primaryNote,
@@ -47,16 +44,9 @@ function DD:Profiles_InitProfile(profileName, dungeon)
         })
     end
 
-    DD.Profiles[profileName][dungeon.name] = docs
+    return dungeonDocs
 end
 
-function DD:Profiles_DBInitProfiles()
-    local db = self.db
-
-    for profileName, profileDocs in pairs(DD.Profiles) do
-        -- TODO move the db defaults into the profile itself, then export the whole profile
-        local profile = DD:GetDBDefaults()
-        profile.docs = profileDocs
-        db.profiles[profileName] = profile
-    end
+function DD:Profiles_Init()
+    DD:ProfilesDefault_Init()
 end

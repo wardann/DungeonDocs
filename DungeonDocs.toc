@@ -27,6 +27,7 @@ Dungeons/TWW/S1/TheNecroticWake.lua
 Dungeons/TWW/S1/TheStonevault.lua
 
 Profiles/Profiles.lua
+Profiles/Default/Default.lua
 Profiles/Default/Dungeons/TWW/S1/AraKara.lua
 Profiles/Default/Dungeons/TWW/S1/CityOfThreads.lua
 Profiles/Default/Dungeons/TWW/S1/GrimBatol.lua

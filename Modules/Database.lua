@@ -42,7 +42,7 @@ local dbDefaults = {
             }
         },
         internal = {
-            fallbackProfile = "Default*",
+            fallbackProfile = "Default Fallback*",
             movers = false,
             seasons = {
                 TWWS1 = "The War Within - Season 1",
@@ -63,7 +63,7 @@ function DungeonDocs:DB_Init()
     db.profile.internal.showTestText = false
 
     -- Init default profiles
-    DD:Profiles_DBInitProfiles()
+    DD:Profiles_Init()
 end
 
 
