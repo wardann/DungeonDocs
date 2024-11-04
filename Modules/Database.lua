@@ -66,7 +66,6 @@ function DungeonDocs:DB_Init()
     DD:Profiles_Init()
 end
 
-
 -- A table to hold subscriber functions
 local dbChangeSubscribers = {}
 
@@ -243,16 +242,10 @@ function DungeonDocs:DB_ResetProfile(profileName)
         return
     end
 
-    -- Clear the profile
-    wipe(db.profiles[profileName])
-
-    -- Reapply default values from dbDefaults
-    db.profiles[profileName] = DeepCopy(dbDefaults.profile)
-
-    -- If the profile is currently active, apply changes immediately
-    if db:GetCurrentProfile() == profileName then
-        db:NotifyChange()
-    end
+    local currentProfile = db:GetCurrentProfile()
+    db:SetProfile(profileName)
+    db:ResetProfile()
+    db:SetProfile(currentProfile) -- Switch back to the original profile
 
     Log("Profile '" .. profileName .. "` reset to defaults")
 end
@@ -302,7 +295,7 @@ function DD:DB_GetNoteFallback(dungeonName, mobId, noteKey)
 
     if fallbackProfile == "None*" then
         return ""
-    end 
+    end
 
 
     local dungeon = fallbackProfile.docs[dungeonName]
