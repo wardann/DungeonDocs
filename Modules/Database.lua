@@ -96,12 +96,14 @@ function DungeonDocs:DB_SelectProfile(profileName)
     local db = self.db
     if db:GetCurrentProfile() ~= profileName then -- Only switch if different
         db:SetProfile(profileName)
+        DungeonDocs:NotifyDBChange()
     end
 end
 
 function DungeonDocs:DB_SelectFallbackProfile(profileName)
     local db = self.db
     db.profile.internal.fallbackProfile = profileName
+    DungeonDocs:NotifyDBChange()
 end
 
 -- Function to export the current profile, excluding the "internal" table
