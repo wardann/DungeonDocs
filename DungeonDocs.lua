@@ -42,7 +42,16 @@ local dungeonDocsWindowSize = {
     height = nil,
 }
 
-function DungeonDocs:OpenUI()
+function DungeonDocs:OpenUI(msg)
+
+    -- Split the input into the first argument and the rest
+    local arg1 = msg:match("^(%S*)%s*(.-)$")
+
+    if arg1 == "debug:db:profiles" then
+        LogTableToBugSack("db.profiles", self.db.profiles)
+        return
+    end
+
     if dungeonDocsFrame and dungeonDocsFrame:IsShown() then
         dungeonDocsFrame:Hide() -- Toggle the UI closed if it's open and return
         return 
