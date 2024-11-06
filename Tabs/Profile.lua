@@ -259,13 +259,22 @@ function DungeonDocs:Profile_AddExport(container)
     exportButton:SetText("Export")
     exportButton:SetWidth(100)
 
+    local checkbox = AceGUI:Create("CheckBox")
+    checkbox:SetLabel("Include fallback profile notes")
+    checkbox:SetValue(true) -- Default to unchecked
+
     -- Export button click handler
     exportButton:SetCallback("OnClick", function()
+        exportTextBox:SetText("")
         local profileName = profileDropdown:GetValue()
-        local encoded = DungeonDocs:DB_ExportProfile(profileName)
+        local includeFallbackProfile = checkbox:GetValue()
+        local encoded = DungeonDocs:DB_ExportProfile(profileName, includeFallbackProfile)
         exportTextBox:SetText(encoded)
     end)
+
+
     profileExport:AddChild(exportButton)
+    profileExport:AddChild(checkbox)
     profileExport:AddChild(exportTextBox)
 end
 

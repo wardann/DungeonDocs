@@ -10,6 +10,7 @@ DungeonDocs.lua
 
 Modules/Database.lua
 Modules/Utils.lua
+Modules/Helpers.lua
 Modules/Notes.lua
 
 Tabs/Docs.lua

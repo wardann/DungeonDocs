@@ -107,17 +107,33 @@ function DungeonDocs:DB_SelectFallbackProfile(profileName)
 end
 
 -- Function to export the current profile, excluding the "internal" table
-function DungeonDocs:DB_ExportProfile(profileName)
+function DungeonDocs:DB_ExportProfile(profileName, includeFallbackProfile)
     local profile = self.db.profiles[profileName] -- Access the specified profile data
+    local fallbackProfileName = profile.internal.fallbackProfile
+    local fallbackProfile = self.db.profiles[fallbackProfileName]
 
     if not profile then
         Log("Error exporting, could not find profile " .. profileName)
         return ""
     end
 
+    if includeFallbackProfile and not fallbackProfile then
+        Log("Error exporting, could not find fallback profile " .. fallbackProfileName)
+        return
+    end
+
+    local docs
+    if not includeFallbackProfile then
+        docs = profile.docs
+    else
+        docs = MergeDocs(profile.docs, fallbackProfile.docs)
+    end
+
+
     local profileCopy = {}
     profileCopy = DeepCopy(profile)
     profileCopy.internal = {}
+    profileCopy.docs = docs
 
     local serialized = LibSerialize:Serialize(profileCopy)    -- Serialize profile copy
     local compressed = LibDeflate:CompressDeflate(serialized) -- Compress serialized data
@@ -243,6 +259,11 @@ function DungeonDocs:DB_ResetProfile(profileName)
     local currentProfile = db:GetCurrentProfile()
     db:SetProfile(profileName)
     db:ResetProfile()
+
+    local defaults = DD:GetDBDefaults()
+    local profile = DeepCopy(defaults.profile)
+    db.profiles[profileName] = profile
+
     db:SetProfile(currentProfile) -- Switch back to the original profile
 
     Log("Profile '" .. profileName .. "` reset to defaults")
