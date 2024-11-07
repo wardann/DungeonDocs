@@ -56,4 +56,14 @@ end
 
 function DD:Profiles_Init()
     DD:ProfilesDefault_Init()
+
+    -- Bootstrap player Default profile 
+    if not self.db.profiles["Default"] then
+        self.db.profiles["Default"] = {}
+    end
+
+    -- Set Default profile as active if no profile is active
+    if not self.db.profile then
+        self.db:SetProfile("Default")
+    end
 end

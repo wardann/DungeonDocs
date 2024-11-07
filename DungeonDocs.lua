@@ -11,7 +11,10 @@ function DungeonDocs:OnInitialize()
     local dbDefaults = DungeonDocs:GetDBDefaults()
 
     -- Create DB
-    self.db = LibStub("AceDB-3.0"):New("DungeonDocsDB", dbDefaults, "Default")
+    self.db = LibStub("AceDB-3.0"):New("DungeonDocsDB")
+
+    -- Init default profiles
+    DD:Profiles_Init()
 
     -- Init DB
     DungeonDocs:DB_Init()

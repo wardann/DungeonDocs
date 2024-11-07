@@ -5,52 +5,50 @@ local LibDeflate = LibStub("LibDeflate")
 
 -- Define default db values
 local dbDefaults = {
-    profile = {
-        docs = {},
-        dbVersion = 1,
-        settings = {
-            noteStyle = {
-                primary = {
-                    font = "Fonts\\FRIZQT__.TTF",
-                    fontSize = 14,
-                    color = {
-                        r = 1,
-                        g = 1,
-                        b = 1,
-                    },
-                    outline = false,
-                    align = "CENTER",
+    docs = {},
+    dbVersion = 1,
+    settings = {
+        noteStyle = {
+            primary = {
+                font = "Fonts\\FRIZQT__.TTF",
+                fontSize = 14,
+                color = {
+                    r = 1,
+                    g = 1,
+                    b = 1,
                 },
-                role = {
-                    font = "Fonts\\FRIZQT__.TTF",
-                    fontSize = 14,
-                    color = {
-                        r = 1,
-                        g = 1,
-                        b = 1,
-                    },
-                    outline = false,
-                    align = "CENTER",
-                },
-                roleUsesPrimaryStyle = true,
-            }
-        },
-        notes = {
-            positions = {
-                primary = nil,
-                secondary = nil,
-            }
-        },
-        internal = {
-            fallbackProfile = "Default Fallback*",
-            movers = false,
-            seasons = {
-                TWWS1 = "The War Within - Season 1",
+                outline = false,
+                align = "CENTER",
             },
-            selectedSeason = "TWWS1",
-            testText = "This is some test to text with.\nChange it to see how your notes might look.",
-            showTestText = false,
+            role = {
+                font = "Fonts\\FRIZQT__.TTF",
+                fontSize = 14,
+                color = {
+                    r = 1,
+                    g = 1,
+                    b = 1,
+                },
+                outline = false,
+                align = "CENTER",
+            },
+            roleUsesPrimaryStyle = true,
+        }
+    },
+    notes = {
+        positions = {
+            primary = nil,
+            secondary = nil,
+        }
+    },
+    internal = {
+        fallbackProfile = "Default Fallback*",
+        movers = false,
+        seasons = {
+            TWWS1 = "The War Within - Season 1",
         },
+        selectedSeason = "TWWS1",
+        testText = "This is some test to text with.\nChange it to see how your notes might look.",
+        showTestText = false,
     },
 }
 
@@ -58,12 +56,40 @@ function DungeonDocs:GetDBDefaults()
     return dbDefaults
 end
 
+function DungeonDocs:DB_EnsureDefaults(profileName)
+    local profile = self.db.profiles[profileName]
+    if not profile then
+        Log("Error: could not ensure defaults, profile does not exist: ", profileName)
+        return
+    end
+
+    local function applyDefaults(profile, defaults)
+        for key, value in pairs(defaults) do
+            if profile[key] == nil then
+                profile[key] = DeepCopy(value)
+            elseif type(value) == "table" and type(profile[key]) == "table" then
+                applyDefaults(profile[key], value) -- Recursively apply for nested tables
+            end
+        end
+    end
+
+    applyDefaults(profile, dbDefaults)
+end
+
+function DungeonDocs:DB_EnsureDefaultsAllProfiles()
+    for profileName in pairs(self.db.profiles) do
+        DungeonDocs:DB_EnsureDefaults(profileName)
+    end
+end
+
 function DungeonDocs:DB_Init()
     local db = self.db
-    db.profile.internal.showTestText = false
 
-    -- Init default profiles
-    DD:Profiles_Init()
+    -- Init defaults on all profiles
+    DungeonDocs:DB_EnsureDefaultsAllProfiles()
+
+    -- Reset internal vars
+    db.profile.internal.showTestText = false
 end
 
 -- A table to hold subscriber functions
@@ -159,9 +185,8 @@ function DungeonDocs:DB_ImportProfile(destProfileName, encoded)
     if success then
         -- Init dest profile
         db.profiles[destProfileName] = DeepCopy(profileData)
-
-        -- Add the internal defaults
-        db.profiles[destProfileName].internal = DeepCopy(dbDefaults.profile.internal)
+        DD:DB_EnsureDefaults(destProfileName)
+        DD:NotifyDBChange()
 
         Log("Success! Imported profile " .. destProfileName)
         return true
@@ -190,6 +215,8 @@ function DungeonDocs:DB_CloneProfile(sourceProfileName, destProfileName)
 
     -- Copy the source profile
     db.profiles[destProfileName] = DeepCopy(sourceProfile)
+
+    DD:NotifyDBChange()
 
     Log("Cloned profile `" .. sourceProfileName .. "` to profile `" .. destProfileName .. "`")
 end
@@ -221,6 +248,8 @@ function DungeonDocs:DB_RenameProfile(sourceProfileName, newProfileName)
 
     -- Delete the old profile
     db.profiles[sourceProfileName] = nil
+
+    DD:NotifyDBChange()
 
     Log("Success! Profile renamed from", sourceProfileName, "to", newProfileName)
 end
@@ -258,11 +287,10 @@ function DungeonDocs:DB_ResetProfile(profileName)
 
     local currentProfile = db:GetCurrentProfile()
     db:SetProfile(profileName)
-    db:ResetProfile()
 
-    local defaults = DD:GetDBDefaults()
-    local profile = DeepCopy(defaults.profile)
-    db.profiles[profileName] = profile
+    db.profiles[profileName] = {}
+    DD:DB_EnsureDefaults(profileName)
+    DD:NotifyDBChange()
 
     db:SetProfile(currentProfile) -- Switch back to the original profile
 

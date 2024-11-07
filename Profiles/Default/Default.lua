@@ -14,12 +14,11 @@ function DD:ProfilesDefault_Init()
     local db = self.db
 
     -- Construct the profile
-    local defaults = DD:GetDBDefaults()
-    local profile = DeepCopy(defaults.profile)
-    profile.docs = docs
 
     -- Register profile in the DB
-    db.profiles[profileName] = profile
+    db.profiles[profileName] = {
+        docs = docs
+    }
 
 
     -- Reserve the profile name
