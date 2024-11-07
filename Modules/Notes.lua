@@ -61,7 +61,6 @@ function InitNotePanel(noteName, framePosition, defaultPosition)
     notePanels[noteName] = textFrame
 
     local fontString = textFrame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-    fontString:SetPoint("CENTER")
     noteFontStrings[noteName] = fontString
 end
 
@@ -110,6 +109,8 @@ function RenderNotePanelMovers(noteName)
     -- Set placeholder text
     local fontString = noteFontStrings[noteName]
     fontString:SetText(notePanelPlaceholders[noteName])
+    fontString:SetPoint("CENTER") -- Center the text in the frame
+    fontString:SetJustifyH("CENTER")                                     -- Horizontal alignment (options: "LEFT", "CENTER", "RIGHT")
 
     -- Set a transparent gray background
     textFrame.bg:SetColorTexture(0, 0, 0, 0.5) -- 50% transparent gray
@@ -125,7 +126,15 @@ function DungeonDocs:RenderNotePanelNotes(noteName, style)
 
     local fontString = noteFontStrings[noteName]
     fontString:SetText(noteContent[noteName])
-    fontString:SetPoint("CENTER") -- Center the text in the frame
+
+    local setPoint = "TOP" -- Center
+    if style.align == "LEFT" then
+        setPoint = "TOPLEFT"
+    elseif style.align == "RIGHT" then
+        setPoint = "TOPRIGHT"
+    end
+
+    fontString:SetPoint(setPoint) -- Center the text in the frame
 
     -- Set custom properties
     local outline = style.outline and "OUTLINE" or ""
