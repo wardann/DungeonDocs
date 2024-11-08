@@ -5,7 +5,7 @@ local dungeonBosses = {
   {
     bossName = "Blightbone",
     encounterId = 2395,
-    primaryNote = "",
+    primaryNote = "(1) Aim belch away from group if targeted\n(2) Kill adds ASAP (stun and CC if needed)",
     healerNote = "",
     damageNote = "",
     tankNote = "",
@@ -18,9 +18,9 @@ local dungeonBosses = {
     }
   },
   {
-    bossName = "Amarth",
+    bossName = "Amarth, The Harvester",
     encounterId = 2391,
-    primaryNote = "",
+    primaryNote = "(1) Always interrupt the boss\n(2) Kill the adds ASAP starting with the mage\n(3) Avoid beam of death & decay",
     healerNote = "",
     damageNote = "",
     tankNote = "",
@@ -35,7 +35,7 @@ local dungeonBosses = {
   {
     bossName = "Surgeon Stitchflesh",
     encounterId = 2392,
-    primaryNote = "",
+    primaryNote = "(1) Aim the meat hook (arrow) at the boss to pull him down\n(2) Save CDs for when boss is pulled down\n(3) Hit boss with meat hook arrow even after pulled down",
     healerNote = "",
     damageNote = "",
     tankNote = "",
@@ -50,7 +50,7 @@ local dungeonBosses = {
   {
     bossName = "Nalthor the Rimebinder",
     encounterId = 2396,
-    primaryNote = "",
+    primaryNote = "(1) Avoid swirlies\n(2) Ranged players spread out\n(3) When someone gets frozen, move out of their circle ASAP. Do NOT dispel the frozen buff until circle is empty\n(4) Avoid crossing each other's paths during the comet storm\n(5) If sent away, go through gauntlet & kill the mob at the end",
     healerNote = "",
     damageNote = "",
     tankNote = "",

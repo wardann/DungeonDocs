@@ -5,7 +5,7 @@ local dungeonBosses = {
   {
     bossName = "Chopper Redhook",
     encounterId = 2654,
-    primaryNote = "",
+    primaryNote = "(1) Kite boss into bombs (save big DPS CDs until boss is stunned, he takes more damage)\n(2) Avoid bombs\n(3) Run away when he sucks you in\n(4) Avoid swirlies\n(5) Cleave adds",
     healerNote = "",
     damageNote = "",
     tankNote = "",
@@ -25,7 +25,7 @@ local dungeonBosses = {
   {
     bossName = "Dread Captain Lockwood",
     encounterId = 2173,
-    primaryNote = "",
+    primaryNote = "(1) Avoid stuff on ground\n(2) Kill adds in intermission phase",
     healerNote = "",
     damageNote = "",
     tankNote = "",
@@ -50,7 +50,7 @@ local dungeonBosses = {
   {
     bossName = "Hadal Darkfathom",
     encounterId = 2134,
-    primaryNote = "",
+    primaryNote = "(1) Avoid swirlies\n(2) When [TIDAL SURGE] is cast, stand on the opposite side of the statue\n(3) Follow Tank",
     healerNote = "",
     damageNote = "",
     tankNote = "",
@@ -65,7 +65,7 @@ local dungeonBosses = {
   {
     bossName = "Viqgoth",
     encounterId = 2140,
-    primaryNote = "",
+    primaryNote = "(1) Kill Demolishing Terror before Gripping Terror\n(2) Avoid Swirlies\n(3) When tenticles are killed on a platform, hop into cannon and shoot boss\n(4) Repeat on second platform\n(5) Repeat on boat platform",
     healerNote = "",
     damageNote = "",
     tankNote = "",

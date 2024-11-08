@@ -5,7 +5,7 @@ local dungeonBosses = {
   {
     bossName = "E.D.N.A",
     encounterId = 2572,
-    primaryNote = "",
+    primaryNote = "(1) Using the boss's arrow attack, clear a few of the spikes on the ground\n(2) Do NOT break all spikes at the same time\n(3) Do NOT stack",
     healerNote = "",
     damageNote = "",
     tankNote = "",
@@ -20,7 +20,7 @@ local dungeonBosses = {
   {
     bossName = "Skarmorak",
     encounterId = 2579,
-    primaryNote = "",
+    primaryNote = "(1) When the shards spawn, destory only ONE at a time\n(2) When the orbs spawn, only pick up 1-3 at a time",
     healerNote = "",
     damageNote = "",
     tankNote = "",
@@ -40,7 +40,7 @@ local dungeonBosses = {
   {
     bossName = "Master Machinists",
     encounterId = 2590,
-    primaryNote = "",
+    primaryNote = "(1) Focus the small boss first & always interrupt\n(2) Focus big boss when small boss runs (keep interrupting small boss)\n(3) Do not stand on exhaust vents\n(4) Avoid DEATH CUBE\n(5) Kill both at the same time!",
     healerNote = "",
     damageNote = "",
     tankNote = "",
@@ -70,7 +70,7 @@ local dungeonBosses = {
   {
     bossName = "Void Speaker Eirich",
     encounterId = 2582,
-    primaryNote = "",
+    primaryNote = "(1) Drop blue circles at the edge of the room\n(2) Clear your corruption by standing near a portal, but NOT on top of it\n(3) Avoid DEATH CONE",
     healerNote = "",
     damageNote = "",
     tankNote = "",

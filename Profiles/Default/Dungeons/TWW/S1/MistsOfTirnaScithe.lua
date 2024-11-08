@@ -5,7 +5,7 @@ local dungeonBosses = {
   {
     bossName = "Ingra Maloch",
     encounterId = 2400,
-    primaryNote = "",
+    primaryNote = "(1) Save DPS cooldowns for when boss is stunned\n(2) Avoid swirlies",
     healerNote = "",
     damageNote = "",
     tankNote = "",
@@ -25,7 +25,7 @@ local dungeonBosses = {
   {
     bossName = "Mistcaller",
     encounterId = 2402,
-    primaryNote = "",
+    primaryNote = "(1) Avoid BALLS OF DEATH\n(2) Avoid FOX OF DEATH\n(3) When boss creates 4 clones, kill the odd one out",
     healerNote = "",
     damageNote = "",
     tankNote = "",
@@ -40,7 +40,7 @@ local dungeonBosses = {
   {
     bossName = "Tred'ova",
     encounterId = 2405,
-    primaryNote = "",
+    primaryNote = "(1) Avoid swirlies\n(2) The tank & the rest of party should stay on opposite sides of the boss. This makes breaking the tether easier\n(3) Kill adds\n(4) At 70% & 40% the boss shields. DPS shield down quickly and interrupt",
     healerNote = "",
     damageNote = "",
     tankNote = "",

@@ -5,7 +5,7 @@ local dungeonBosses = {
   {
     bossName = "Avanoxx",
     encounterId = 2583,
-    primaryNote = "",
+    primaryNote = "Kill adds before he eats them and wipes the group",
     healerNote = "",
     damageNote = "",
     tankNote = "",
@@ -20,7 +20,7 @@ local dungeonBosses = {
   {
     bossName = "Anubzekt",
     encounterId = 2584,
-    primaryNote = "",
+    primaryNote = "(1) Avoid swirlies throughout the fight\n(2) At 100 energy, boss summons a swarm. Stay inside the eye of the swarm to survive",
     healerNote = "",
     damageNote = "",
     tankNote = "",
@@ -35,7 +35,7 @@ local dungeonBosses = {
   {
     bossName = "Kikatal The Harvester",
     encounterId = 2585,
-    primaryNote = "",
+    primaryNote = "(1) Create 5-7 blue puddles by striking the slime mobs\n(2) Standing in blue puddles roots you in place\n(3) When the boss casts the pull, STAND IN A PUDDLE to get rooted\n(4) After the pull, KILL ALL ROOTS with EITHER damage or CC\n(5) Avoid swirlies",
     healerNote = "",
     damageNote = "",
     tankNote = "",

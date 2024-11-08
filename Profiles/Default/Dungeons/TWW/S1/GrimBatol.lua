@@ -5,7 +5,7 @@ local dungeonBosses = {
   {
     bossName = "General Umbriss",
     encounterId = 2617,
-    primaryNote = "",
+    primaryNote = "(1) Avoid orange circles on ground.\n(2) When room turns purple, look for safe lane",
     healerNote = "",
     damageNote = "",
     tankNote = "",
@@ -20,7 +20,7 @@ local dungeonBosses = {
   {
     bossName = "Forgemaster Throngus",
     encounterId = 2627,
-    primaryNote = "",
+    primaryNote = "(1) When boss changes weapon, he does lots of aoe damage\n(2) Phase 1 is Axe, drop conals next to each other\n(3) Phase 2 is dual wield, tank buster, big heals on tank\n(4) Phase 3 is 2h mace - kite phase\n(5) Rinse & Repeat",
     healerNote = "",
     damageNote = "",
     tankNote = "",
@@ -35,7 +35,7 @@ local dungeonBosses = {
   {
     bossName = "Drahga Shadowburner",
     encounterId = 2618,
-    primaryNote = "",
+    primaryNote = "(1) Phase 1 kill adds\n(2) Phase 2 kill adds and avoid stuff (this can get crazy, help your healer, avoid stuff)\n(3) Boss done at 50%",
     healerNote = "",
     damageNote = "",
     tankNote = "",
@@ -55,7 +55,7 @@ local dungeonBosses = {
   {
     bossName = "Erudax",
     encounterId = 2619,
-    primaryNote = "",
+    primaryNote = "(1) Avoid Tenticles\n(2) Compress when room starts closing in, but still stay as spread out as possible",
     healerNote = "",
     damageNote = "",
     tankNote = "",

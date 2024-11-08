@@ -4,7 +4,7 @@ local dungeonBosses = {
     {
         bossName = "Orator Krixvizk",
         encounterId = 2594,
-        primaryNote = "",
+        primaryNote = "(1) STAY IN THE CIRCLE!\n(2) At 100 energy, he drops a death puddle. Stack on tank and move out together.",
         healerNote = "",
         damageNote = "",
         tankNote = "",
@@ -17,9 +17,9 @@ local dungeonBosses = {
         },
     },
     {
-        bossName = "Nx & Vx",
+        bossName = "Fangs of the Queen",
         encounterId = 2595,
-        primaryNote = "",
+        primaryNote = "(1) Run out of purple circles or die\n(2) Avoid anything that looks like a line or die\n(3) In Phase 2 do not stand with anyone if you have the purple circle or they die\n(4) In Phase 2 stand with Tank when they get the big white circle or they die",
         healerNote = "",
         damageNote = "",
         tankNote = "",
@@ -37,24 +37,9 @@ local dungeonBosses = {
         },
     },
     {
-        bossName = "Izo The Grand Splicer",
-        encounterId = 2596,
-        primaryNote = "",
-        healerNote = "",
-        damageNote = "",
-        tankNote = "",
-        mobs = {
-            {
-                name = "Izo The Grand Splicer",
-                id = 216658,
-                displayId = 116701,
-            }
-        },
-    },
-    {
         bossName = "The Coaglamation",
         encounterId = 2600,
-        primaryNote = "",
+        primaryNote = "When boss slams the ground and knocks you back, run around and absorb 2-3 black orbs",
         healerNote = "",
         damageNote = "",
         tankNote = "",
@@ -63,6 +48,21 @@ local dungeonBosses = {
                 name = "The Coaglamation",
                 id = 216320,
                 displayId = 11725,
+            }
+        },
+    },
+    {
+        bossName = "Izo, the Grand Splicer",
+        encounterId = 2596,
+        primaryNote = "Avoid the orbs on the ground. They telegraph where they will go",
+        healerNote = "",
+        damageNote = "",
+        tankNote = "",
+        mobs = {
+            {
+                name = "Izo, the Grand Splicer",
+                id = 216658,
+                displayId = 116701,
             }
         },
     },

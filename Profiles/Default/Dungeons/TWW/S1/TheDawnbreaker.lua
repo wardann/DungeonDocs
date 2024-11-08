@@ -5,7 +5,7 @@ local dungeonBosses = {
   {
     bossName = "Speaker Shadowcrown",
     encounterId = 2580,
-    primaryNote = "",
+    primaryNote = "(1) Avoid the rotating purple beams of death\n(2) Fly away at 50% and 0% HP, when boss does instant kill spell",
     healerNote = "",
     damageNote = "",
     tankNote = "",
@@ -18,15 +18,15 @@ local dungeonBosses = {
     }
   },
   {
-    bossName = "Anubikkaj",
+    bossName = "Anub'ikkaj",
     encounterId = 2581,
-    primaryNote = "",
+    primaryNote = "(1) Run out of purple circle\n(2) Don't get hit by giant purple ball\n(3) Ball does big AoE damage if it collides with an object(4)\nIf targeted by ball, send up or down the hill",
     healerNote = "",
     damageNote = "",
     tankNote = "",
     mobs = {
       {
-        name = "Anubikkaj",
+        name = "Anub'ikkaj",
         id = 211089,
         displayId = 114315,
       },
@@ -35,7 +35,7 @@ local dungeonBosses = {
   {
     bossName = "Rashanan",
     encounterId = 2591,
-    primaryNote = "",
+    primaryNote = "(1) In the first phase, only the barrels matter, not DPS. Use barrels ASAP.\n(2) You can fly straight to second platform but first grab a gold orb\n(3) In the second phase, take the webs to the edge of the platform\n(4) Boss down at 60%",
     healerNote = "",
     damageNote = "",
     tankNote = "",
