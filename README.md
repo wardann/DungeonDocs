@@ -3,7 +3,7 @@
 </p>
 <h1 align="center">DungeonDocs</h1>
 
-<p align="center">A World of Warcraft addon to display notes during combat to help you conquer Mythic+.</p>
+<p align="center">A World of Warcraft addon to display combat notes to help you conquer Mythic+.</p>
 
 ## Features
 
