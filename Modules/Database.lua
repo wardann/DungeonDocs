@@ -90,6 +90,7 @@ function DungeonDocs:DB_Init()
 
     -- Reset internal vars
     db.profile.internal.showTestText = false
+    db.profile.internal.movers = false
 end
 
 -- A table to hold subscriber functions
