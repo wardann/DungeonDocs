@@ -3,7 +3,6 @@
 ## Notes: Docs for your dungeons.
 ## Author: Wardann
 ## Version: 0.0.1
-## Dependencies: Ace3
 ## SavedVariables: DungeonDocsDB
 
 Libs/Ace3/AceAddon-3.0/AceAddon-3.0.xml
