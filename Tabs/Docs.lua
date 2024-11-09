@@ -22,10 +22,10 @@ local function setTreeGroupFocus(treeGroup, treeData)
         if instance.name == currentInstanceName then
             for _, mobType in ipairs(instance.children) do
                 for _, mobOrBoss in ipairs(mobType.children) do
-                    if mobOrBoss.value == "bosses" then
-                        for _, mob in mobOrBoss.mobs do
+                    if mobType.value == "bosses" then
+                        for _, mob in ipairs(mobOrBoss.mobs) do
                             if mob.id == targetId then
-                                treeGroup:SelectByPath(instance.value, mobType.value, mob.value)
+                                treeGroup:SelectByPath(instance.value, mobType.value, mobOrBoss.value)
                                 return true
                             end
                         end
