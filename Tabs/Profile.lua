@@ -1,6 +1,8 @@
 local DungeonDocs = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
 local AceGUI = LibStub("AceGUI-3.0")
 
+local allProfilesDropdowns = {}
+
 local profileDropdowns = {}
 
 local fallbackProfileDropdowns = {}
@@ -22,10 +24,20 @@ function DungeonDocs:Profile_TabRoot(wrapperContainer)
     DungeonDocs:Profile_AddExport(container)
 end
 
-function DungeonDocs:PopulatePrimaryProfileDropdown(profileDropdown)
+function DungeonDocs:PopulateAllProfilesDropdown(profileDropdown)
     local profiles = {}
     for _, profileName in ipairs(self.db:GetProfiles()) do
         profiles[profileName] = profileName -- Use profile name as both key and display text
+    end
+    profileDropdown:SetList(profiles)
+end
+
+function DungeonDocs:PopulatePrimaryProfileDropdown(profileDropdown)
+    local profiles = {}
+    for _, profileName in ipairs(self.db:GetProfiles()) do
+        if not Profiles_IsReservedProfile(profileName) then
+            profiles[profileName] = profileName -- Use profile name as both key and display text
+        end
     end
     profileDropdown:SetList(profiles)
 end
@@ -41,12 +53,20 @@ function DungeonDocs:PopulateFallbackProfileDropdown(profileDropdown)
 end
 
 local function refreshProfileDropdowns()
+    for _, dropdown in ipairs(allProfilesDropdowns) do
+        DungeonDocs:PopulateAllProfilesDropdown(dropdown)
+    end
     for _, dropdown in ipairs(profileDropdowns) do
         DungeonDocs:PopulatePrimaryProfileDropdown(dropdown)
     end
     for _, dropdown in ipairs(fallbackProfileDropdowns) do
         DungeonDocs:PopulateFallbackProfileDropdown(dropdown)
     end
+end
+
+local function initAllProfilesDropdown(profileDropdown)
+    table.insert(allProfilesDropdowns, profileDropdown)
+    DungeonDocs:PopulateAllProfilesDropdown(profileDropdown)
 end
 
 local function initPrimaryProfileDropdown(profileDropdown)
@@ -113,7 +133,7 @@ function DungeonDocs:Profile_AddClone(container)
     sourceProfileDropdown:SetLabel("Select Profile to Clone")
 
     -- Populate the dropdown with available profiles
-    initPrimaryProfileDropdown(sourceProfileDropdown)
+    initAllProfilesDropdown(sourceProfileDropdown)
     sourceProfileDropdown:SetValue(self.db:GetCurrentProfile()) -- Set current profile as default
     profileClone:AddChild(sourceProfileDropdown)
 
@@ -241,7 +261,7 @@ function DungeonDocs:Profile_AddExport(container)
     profileDropdown:SetLabel("Select Profile to Export")
 
     -- Populate the dropdown with available profiles
-    initPrimaryProfileDropdown(profileDropdown)
+    initAllProfilesDropdown(profileDropdown)
 
     profileDropdown:SetValue(db:GetCurrentProfile())
     profileExport:AddChild(profileDropdown)
