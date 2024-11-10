@@ -21,6 +21,8 @@ jobs:
         with:
           luaVersion: '5.4.7'
 
+      - uses: leafo/gh-actions-luarocks@v4
+
       - name: Install luacheck
         run: luarocks install luacheck
 
