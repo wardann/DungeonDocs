@@ -1,0 +1,6 @@
+ignore:
+  - Assets
+  - .github
+
+embedded-libraries:
+  - Ace3
