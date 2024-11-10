@@ -22,13 +22,17 @@ Basic boss notes have been included for TWW Season 1 of M+, but you can easily a
 
 ## Usage
 
-DungeonDocs can be invoked with either `/dd` or `/dungeondocs`.
+### Commands
+- DungeonDocs can be invoked with either `/dd` or `/dungeondocs`
+- `/dd report` reports the primary notes for the current target to the instance, party, or say channel
+
+### UI
 
 Use the `Docs` tab to edit notes, the `Settings` tab to change the note appearance, and the `Profile` tab to manage profiles.
 
 ## Tips & Tricks
 
-- The slash command both opens and closes the UI. You can put this in a macro and bind it to a key for a quick toggle 
+- The slash command both opens and closes the UI. You can put this in a macro and bind it to a key for a quick toggle (same applies to the report command)
 - If you open the UI with an enemy targeted, the note for that enemy will be selected. Otherwise, the last note you had open will be displayed
 - The size and position of the UI is saved for the next time it's opened 
 
