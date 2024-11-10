@@ -8,6 +8,9 @@ on:
     branches:
       - main
 
+permissions:
+  contents: read  # Only read access to repository contents
+
 jobs:
   test:
     runs-on: ubuntu-latest
