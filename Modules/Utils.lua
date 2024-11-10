@@ -15,7 +15,6 @@ function GetMobIDFromGUID(unit)
     local guid = UnitGUID(unit) -- Get the GUID of the unit (e.g., "target")
     if guid then
         -- Split the GUID into its components and extract the mob ID
-        print(guid)
         local type, zero, server_id, instance_id, zone_uid, mob_id, spawn_uid = strsplit("-", guid)
         if type == "Creature" or type == "Vehicle" then -- Mobs are usually "Creature" or "Vehicle"
             return tonumber(mob_id)

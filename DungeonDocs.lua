@@ -1,29 +1,23 @@
 -- Initialize the addon using AceAddon-3.0
 local DungeonDocs = LibStub("AceAddon-3.0"):NewAddon("DungeonDocs", "AceConsole-3.0", "AceEvent-3.0")
+local DD = DungeonDocs
 local AceGUI = LibStub("AceGUI-3.0")
 
 Version = "v0.0.1 (alpha)"
 
 
 function DungeonDocs:OnInitialize()
-    -- Initialize AceDB-3.0 with the defaults
-    local dbDefaults = DungeonDocs:GetDBDefaults()
+    -- Create DB
+    self.db = LibStub("AceDB-3.0"):New("DungeonDocsDB")
 
-    -- Create DB, the third argument 'true' indicates that profiles are enabled
-    self.db = LibStub("AceDB-3.0"):New("DungeonDocsDB", dbDefaults, true)
+    -- Init default profiles
+    DD:Profiles_Init()
 
     -- Init DB
     DungeonDocs:DB_Init()
 
     -- Init dungeons
-    DungeonDocs:InitAraKara()
-    DungeonDocs:InitCityOfThreads()
-    DungeonDocs:InitGrimBatol()
-    DungeonDocs:InitMistsOfTirnaScithe()
-    DungeonDocs:InitSiegeOfBoralus()
-    DungeonDocs:InitTheDawnbreaker()
-    DungeonDocs:InitTheNecroticWake()
-    DungeonDocs:InitTheStonevault()
+    DD:Dungeons_InitAll()
 
     DungeonDocs:InitNotePanels()
 end
@@ -48,7 +42,16 @@ local dungeonDocsWindowSize = {
     height = nil,
 }
 
-function DungeonDocs:OpenUI()
+function DungeonDocs:OpenUI(msg)
+
+    -- Split the input into the first argument and the rest
+    local arg1 = msg:match("^(%S*)%s*(.-)$")
+
+    if arg1 == "debug:db:profiles" then
+        LogTableToBugSack("db.profiles", self.db.profiles)
+        return
+    end
+
     if dungeonDocsFrame and dungeonDocsFrame:IsShown() then
         dungeonDocsFrame:Hide() -- Toggle the UI closed if it's open and return
         return 

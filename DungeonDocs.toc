@@ -3,25 +3,44 @@
 ## Notes: Docs for your dungeons.
 ## Author: Wardann
 ## Version: 0.0.1
-## Dependencies: Ace3
 ## SavedVariables: DungeonDocsDB
+
+Libs/Ace3/AceAddon-3.0/AceAddon-3.0.xml
+Libs/Ace3/AceGUI-3.0/AceGUI-3.0.xml
+Libs/Ace3/AceDB-3.0/AceDB-3.0.xml
+Libs/Ace3/AceConsole-3.0/AceConsole-3.0.xml
+Libs/Ace3/AceEvent-3.0/AceEvent-3.0.xml
 
 DungeonDocs.lua
 
 Modules/Database.lua
 Modules/Utils.lua
+Modules/Helpers.lua
 Modules/Notes.lua
 
 Tabs/Docs.lua
 Tabs/Settings.lua
 Tabs/Profile.lua
 
+Dungeons/Dungeons.lua
 Dungeons/TWW/S1/AraKara.lua
 Dungeons/TWW/S1/CityOfThreads.lua
 Dungeons/TWW/S1/GrimBatol.lua
 Dungeons/TWW/S1/MistsOfTirnaScithe.lua
 Dungeons/TWW/S1/SiegeOfBoralus.lua
 Dungeons/TWW/S1/TheDawnbreaker.lua
-Dungeons/TWW/S1/TheNecroticWake.luA
-Dungeons/TWW/S1/TheStonevault.luA
+Dungeons/TWW/S1/TheNecroticWake.lua
+Dungeons/TWW/S1/TheStonevault.lua
+
+Profiles/Profiles.lua
+Profiles/Default/Default.lua
+Profiles/Default/Dungeons/TWW/S1/AraKara.lua
+Profiles/Default/Dungeons/TWW/S1/CityOfThreads.lua
+Profiles/Default/Dungeons/TWW/S1/GrimBatol.lua
+Profiles/Default/Dungeons/TWW/S1/MistsOfTirnaScithe.lua
+Profiles/Default/Dungeons/TWW/S1/SiegeOfBoralus.lua
+Profiles/Default/Dungeons/TWW/S1/TheDawnbreaker.lua
+Profiles/Default/Dungeons/TWW/S1/TheNecroticWake.lua
+Profiles/Default/Dungeons/TWW/S1/TheStonevault.lua
+
 

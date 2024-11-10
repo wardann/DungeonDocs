@@ -1,4 +1,5 @@
 local DungeonDocs = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
+local DD = DungeonDocs
 
 local notePanels = {}
 
@@ -60,7 +61,6 @@ function InitNotePanel(noteName, framePosition, defaultPosition)
     notePanels[noteName] = textFrame
 
     local fontString = textFrame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-    fontString:SetPoint("CENTER")
     noteFontStrings[noteName] = fontString
 end
 
@@ -109,6 +109,8 @@ function RenderNotePanelMovers(noteName)
     -- Set placeholder text
     local fontString = noteFontStrings[noteName]
     fontString:SetText(notePanelPlaceholders[noteName])
+    fontString:SetPoint("CENTER") -- Center the text in the frame
+    fontString:SetJustifyH("CENTER")                                     -- Horizontal alignment (options: "LEFT", "CENTER", "RIGHT")
 
     -- Set a transparent gray background
     textFrame.bg:SetColorTexture(0, 0, 0, 0.5) -- 50% transparent gray
@@ -124,13 +126,21 @@ function DungeonDocs:RenderNotePanelNotes(noteName, style)
 
     local fontString = noteFontStrings[noteName]
     fontString:SetText(noteContent[noteName])
-    fontString:SetPoint("CENTER") -- Center the text in the frame
+
+    local setPoint = "TOP" -- Center
+    if style.align == "LEFT" then
+        setPoint = "TOPLEFT"
+    elseif style.align == "RIGHT" then
+        setPoint = "TOPRIGHT"
+    end
+
+    fontString:SetPoint(setPoint) -- Center the text in the frame
 
     -- Set custom properties
     local outline = style.outline and "OUTLINE" or ""
-    fontString:SetFont(style.font, style.fontSize, outline) -- Custom font, size, and outline
-    fontString:SetTextColor(style.color.r, style.color.g, style.color.b, 1)                  -- Set color (red) with full opacity
-    fontString:SetJustifyH(style.align)                     -- Horizontal alignment (options: "LEFT", "CENTER", "RIGHT")
+    fontString:SetFont(style.font, style.fontSize, outline)                 -- Custom font, size, and outline
+    fontString:SetTextColor(style.color.r, style.color.g, style.color.b, 1) -- Set color (red) with full opacity
+    fontString:SetJustifyH(style.align)                                     -- Horizontal alignment (options: "LEFT", "CENTER", "RIGHT")
 end
 
 local function deriveRoleNoteKey()
@@ -186,53 +196,13 @@ function DungeonDocs:Notes_SyncNotesWithTarget()
         return
     end
 
-    local docs = self.db.profile.docs
     local roleNoteKey = deriveRoleNoteKey()
 
-    for _, instance in pairs(docs) do
-        if instance.nameFull == currentInstanceName then
-            -- Scan bosses for a matching mob id first
-            local found = false
-            for _, encounter in ipairs(instance.bosses) do
-                for _, boss in ipairs(encounter.mobs) do
-                    if boss.id == targetId then
-                        noteContent["primary"] = encounter.primaryNote
-                        noteContent["role"] = encounter[roleNoteKey]
-                        found = true
-                    end
-                end
-            end
+    local primaryNote = DD:DB_GetNotePrimary(currentInstanceName, targetId, "primaryNote")
+    local roleNote = DD:DB_GetNotePrimary(currentInstanceName, targetId, roleNoteKey)
 
-            if found then break end
-
-            -- Scan mobs for a matching mob id
-            for _, mob in pairs(instance.trash) do
-                if mob.id == targetId then
-                    noteContent["primary"] = mob.primaryNote
-                    noteContent["role"] = mob[roleNoteKey]
-                    found = true
-                end
-            end
-        end
-    end
+    noteContent["primary"] = primaryNote
+    noteContent["role"] = roleNote
 
     DungeonDocs:RenderNotePanels()
 end
-
--- -- Create a function to display text on screen
--- function DungeonDocs:DisplayTextOnScreen(text)
---     -- Create a frame to show text on the screen
---     if not self.textFrame then
---         self.textFrame = CreateFrame("MessageFrame", "DungeonDocsTextFrame", UIParent)
---         self.textFrame:SetSize(600, 100)  -- Width and height
---         self.textFrame:SetPoint("CENTER", 0, 200)  -- Center of the screen
---         self.textFrame:SetFontObject(GameFontNormalLarge)
---         self.textFrame:SetInsertMode("TOP")  -- Show text at the top of the frame
---         self.textFrame:SetFading(true)  -- Enable fading
---         self.textFrame:SetFadeDuration(3)  -- Fade out after 3 seconds
---         self.textFrame:SetTimeVisible(5)  -- How long to display the message
---     end
-
---     -- Display the text
---     self.textFrame:AddMessage(text, 1.0, 1.0, 1.0)  -- White color text (RGB)
--- end
