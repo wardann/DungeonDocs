@@ -21,6 +21,12 @@ jobs:
         with:
           luaVersion: '5.4.7'
 
+      - name: Install luacheck
+        run: luarocks install luacheck
+
+      - name: Run Lua linting
+        run: luacheck .
+
       - name: Install busted
         run: luarocks install busted
 
