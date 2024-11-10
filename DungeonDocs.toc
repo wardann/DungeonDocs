@@ -4,7 +4,7 @@
 ## Author: Wardann
 ## X-Curse-Project-ID: 1129010
 ## X-Wago-ID: n6VP4QGd
-## Version: 0.0.1
+## Version: 0.1.0-beta.1
 ## SavedVariables: DungeonDocsDB
 
 Libs/Ace3/AceAddon-3.0/AceAddon-3.0.xml
