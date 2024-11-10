@@ -43,7 +43,6 @@ local dungeonDocsWindowSize = {
 }
 
 function DungeonDocs:OpenUI(msg)
-
     -- Split the input into the first argument and the rest
     local arg1 = msg:match("^(%S*)%s*(.-)$")
 
@@ -52,9 +51,14 @@ function DungeonDocs:OpenUI(msg)
         return
     end
 
+    if arg1 == "report" then
+        DungeonDocs:HandleReport()
+        return
+    end
+
     if dungeonDocsFrame and dungeonDocsFrame:IsShown() then
         dungeonDocsFrame:Hide() -- Toggle the UI closed if it's open and return
-        return 
+        return
     end
 
     -- Create the main frame
@@ -150,4 +154,45 @@ function DungeonDocs:OpenUI(msg)
     end)
     tab:SelectTab("docs") -- Default tab to display
     frame:AddChild(tab)
+end
+
+function DungeonDocs:HandleReport()
+    local targetId = GetMobIDFromGUID("target")
+    if not targetId then
+        return
+    end
+
+    local currentInstanceName, currentInstanceType = GetInstanceInfo()
+    if currentInstanceType ~= "party" then
+        return
+    end
+
+    local primaryNote = DD:DB_GetNotePrimary(currentInstanceName, targetId, "primaryNote")
+
+    if not primaryNote or primaryNote == "" then
+        return
+    end
+
+    local targetName = UnitName("target")
+
+    local message = "{rt8} " .. targetName .. " {rt8}\n" .. primaryNote
+    LogToGroup(message)
+end
+
+function LogToGroup(message)
+    local function sendMultiLineMsg(message, channel)
+        for line in message:gmatch("[^\n]+") do
+            SendChatMessage(line, channel)
+        end
+    end
+
+    if IsInGroup(LE_PARTY_CATEGORY_INSTANCE) then
+        -- Player is in an instance group (e.g., dungeon finder or raid finder)
+        sendMultiLineMsg(message, "INSTANCE_CHAT")
+    elseif IsInGroup(LE_PARTY_CATEGORY_HOME) then
+        -- Player is in a regular party or raid group
+        sendMultiLineMsg(message, "PARTY")
+    else
+        sendMultiLineMsg(message, "SAY")
+    end
 end
