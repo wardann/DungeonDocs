@@ -1,4 +1,4 @@
-## Interface: 100105
+## Interface: 110005
 ## Title: DungeonDocs
 ## Version: 0.1.0-beta.1
 ## Notes: Docs for your dungeons.
