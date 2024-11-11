@@ -1,12 +1,14 @@
 -- Initialize the addon using AceAddon-3.0
+local addonName = ...
 local DungeonDocs = LibStub("AceAddon-3.0"):NewAddon("DungeonDocs", "AceConsole-3.0", "AceEvent-3.0")
 local DD = DungeonDocs
 local AceGUI = LibStub("AceGUI-3.0")
 
-Version = "v0.0.1 (alpha)"
-
+Version = ""
 
 function DungeonDocs:OnInitialize()
+    Version = C_AddOns.GetAddOnMetadata(addonName, "Version")
+
     -- Create DB
     self.db = LibStub("AceDB-3.0"):New("DungeonDocsDB")
 
@@ -75,8 +77,7 @@ function DungeonDocs:OpenUI(msg)
     end)
     dungeonDocsFrame = frame
 
-
-    frame:SetStatusText("DungeonDocs - " .. Version)
+    frame:SetStatusText("DungeonDocs - " .."v"..Version)
     frame:SetLayout("Fill") -- Important for TabGroup to fill the frame
 
     -- -- Define max size based on 80% of screen dimensions
