@@ -77,7 +77,7 @@ function DungeonDocs:OpenUI(msg)
     end)
     dungeonDocsFrame = frame
 
-    frame:SetStatusText("DungeonDocs - " .."v"..Version)
+    frame:SetStatusText("DungeonDocs - " .. Version)
     frame:SetLayout("Fill") -- Important for TabGroup to fill the frame
 
     -- -- Define max size based on 80% of screen dimensions
