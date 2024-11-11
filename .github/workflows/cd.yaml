@@ -33,7 +33,7 @@ jobs:
         
       - name: Compare with tag version
         run: |
-          tag_version="${GITHUB_REF#refs/tags}"
+          tag_version="${GITHUB_REF#refs/tags/}"
 
           echo "Tag version: $tag_version"
           echo "Addon version: $toc_version"
