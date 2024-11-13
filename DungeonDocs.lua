@@ -22,6 +22,8 @@ function DungeonDocs:OnInitialize()
     DD:Dungeons_InitAll()
 
     DungeonDocs:InitNotePanels()
+
+    DD:InitOmniNote()
 end
 
 function DungeonDocs:OnEnable()
