@@ -2,6 +2,8 @@ local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
 
 local omniAnchorFrame
 
+local omniAnchorFrame2
+
 local frame = CreateFrame("Frame")
 
 frame:RegisterEvent("PLAYER_REGEN_DISABLED")
@@ -101,6 +103,7 @@ end)
 
 -- Define a table to hold the frames for easy access
 local textFrames = {}
+local textFrames2 = {}
 
 -- Starting position for the first frame
 local startX = 0
@@ -205,6 +208,95 @@ function RenderOmniNote()
 
         ensureTextFrame(i, text, opacity)
     end
+
+    RenderOmniNote2()
+end
+
+function RenderOmniNote2()
+    for _, textFrame in ipairs(textFrames2) do
+        textFrame:Hide()
+        textFrame = nil
+    end
+
+    for i, encounteredMob in ipairs(encounteredMobs) do
+        -- local text = buildNoteText(encounteredMob)
+        -- local opacity = 0.75
+        -- if tostring(encounteredMob.id) == tostring(playerTargetMobId) then
+        --     opacity = 1.00
+        -- end
+
+        BuildMobCard(i, encounteredMob)
+    end
+end
+
+function BuildMobCard(index, encounteredMob)
+    -- Create the main card frame
+    local card = CreateFrame("Frame", "CardFrame" .. index, omniAnchorFrame2)
+    local e = encounteredMob
+
+    if e.note.primaryNote == "" and e.note.tankNote == "" and e.note.healerNote == "" and e.note.damageNote then
+        card:SetSize(0, 0)
+        return
+    end
+
+    card:SetSize(omniAnchorFrame2:GetWidth(), 30) -- Set a base width and height
+    card.bg = card:CreateTexture(nil, "BACKGROUND")
+    card.bg:SetAllPoints(card)                    -- Ensure background fills the entire card
+    card.bg:SetColorTexture(0, 0, 0, 0.5)         -- Semi-transparent for visibility
+
+    -- Ensure the card is visible
+    card:Show()
+
+    -- Position the card
+    if index == 1 then
+        card:SetPoint("CENTER", omniAnchorFrame2, "TOP", startX, omniAnchorFrame2:GetHeight())
+    else
+        local previousFrame = textFrames2[index - 1]
+        card:SetPoint("BOTTOM", previousFrame, "TOP", 0, 5) -- 5-pixel gap between cards
+    end
+
+    -- Create the first line frame and font string
+    local nameFrame = CreateFrame("Frame", "Line1" .. index, card)
+    nameFrame:SetPoint("TOP", card, "TOP", 0, -5) -- Offset from top of the card
+    nameFrame:SetWidth(card:GetWidth())
+
+    local nameLine = nameFrame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+    local fontPath, _, fontFlags = nameLine:GetFont()  -- Retrieve the current font path and flags
+    nameLine:SetFont(fontPath, 20, fontFlags)          -- Set font with new size (e.g., 14)
+    nameLine:SetPoint("LEFT", nameFrame, "LEFT", 5, 0) -- Align to left of lineFrame with padding
+    nameLine:SetWidth(nameFrame:GetWidth() - 10)       -- Account for padding
+    nameLine:SetWordWrap(true)
+    nameLine:SetText(encounteredMob.noteName)          -- Set the text to display
+    nameLine:SetAlpha(1.0)
+    nameLine:SetJustifyH("LEFT")
+    nameFrame:SetHeight(nameLine:GetStringHeight())
+
+
+    -- Create the second line frame and font string
+    local primaryNoteFrame = CreateFrame("Frame", "PrimaryNoteFrame" .. index, card)
+    primaryNoteFrame:SetPoint("TOP", nameFrame, "BOTTOM", 0, -5) -- Position below the first line
+    primaryNoteFrame:SetWidth(card:GetWidth())
+
+    local primaryNote = primaryNoteFrame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+    primaryNote:SetPoint("LEFT", lineFrame2, "LEFT", 5, 0) -- Align to left with padding
+    primaryNote:SetWidth(lineFrame2:GetWidth() - 10)       -- Account for padding
+    primaryNote:SetWordWrap(true)
+    primaryNote:SetText("Some other text")                 -- Placeholder text for debugging
+    primaryNote:SetAlpha(1.0)
+    primaryNote:SetJustifyH("LEFT")
+    primaryNoteFrame:SetHeight(primaryNote:GetStringHeight())
+
+
+    -- Store the card in the textFrames2 table for future reference
+    textFrames2[index] = card
+
+    -- Set the total height of the card based on content
+    card:SetHeight(lineFrame:GetHeight() + lineFrame2:GetHeight() + 15) -- Add padding as needed
+
+    -- Debugging print statements
+    -- print(">>> hello world, build mob card!")
+    -- print("Card frame size:", card:GetWidth(), card:GetHeight())
+    -- print("Encountered mob name:", encounteredMob.name)
 end
 
 local function createTextFrames(index, text, alpha)
@@ -249,4 +341,27 @@ function DD:InitOmniNote()
     end)
 
     startY = omniAnchorFrame:GetHeight()
+
+    -- Create the frame
+    omniAnchorFrame2 = CreateFrame("Frame", "TextPanel", UIParent)
+    omniAnchorFrame2:SetSize(300, 25)                       -- Set the size of the panel
+    omniAnchorFrame2:SetPoint("CENTER", UIParent, "CENTER") -- Center it on the screen
+    omniAnchorFrame2:EnableMouse(true)                      -- Enable mouse interactions if needed
+    omniAnchorFrame2:SetMovable(true)                       -- Allow the frame to be movable if needed
+
+    -- Create a background for the frame
+    omniAnchorFrame2.bg = omniAnchorFrame2:CreateTexture(nil, "BACKGROUND")
+    omniAnchorFrame2.bg:SetAllPoints(omniAnchorFrame2)
+    omniAnchorFrame2.bg:SetColorTexture(0, 0, 0, 0.5) -- 50% transparent gray
+
+    -- Create a font string for the title text
+    omniAnchorFrame2.text = omniAnchorFrame2:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
+    omniAnchorFrame2.text:SetPoint("CENTER")
+    omniAnchorFrame2.text:SetText("Omni Note Anchor 2")
+
+    omniAnchorFrame2:RegisterForDrag("LeftButton") -- Enable dragging
+    omniAnchorFrame2:SetScript("OnDragStart", function(self) self:StartMoving() end)
+    omniAnchorFrame2:SetScript("OnDragStop", function(self)
+        self:StopMovingOrSizing()
+    end)
 end
