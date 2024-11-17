@@ -21,6 +21,7 @@ Modules/Helpers.lua
 Modules/Notes.lua
 Modules/PrimaryNote.lua
 Modules/Movers.lua
+Modules/OmniNote.lua
 
 Tabs/Docs.lua
 Tabs/Settings.lua

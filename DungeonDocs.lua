@@ -26,6 +26,8 @@ function DungeonDocs:OnInitialize()
     DD:Movers_Init()
 
     DD:PrimaryNote_Init()
+
+    DD:InitOmniNote()
 end
 
 function DungeonDocs:OnEnable()

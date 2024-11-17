@@ -445,6 +445,15 @@ function DD:DB_GetNotePrimary(dungeonName, mobId, noteKey)
     return doc[noteKey]
 end
 
+function DD:DB_DeriveFullNote(dungeonName, mobId)
+    return {
+        primaryNote = DD:DB_GetNotePrimary(dungeonName, mobId, "primaryNote"),
+        healerNote = DD:DB_GetNotePrimary(dungeonName, mobId, "healerNote"),
+        damageNote = DD:DB_GetNotePrimary(dungeonName, mobId, "damageNote"),
+        tankNote = DD:DB_GetNotePrimary(dungeonName, mobId, "tankNote"),
+    }
+end
+
 function DD:DB_GetNoteFallback(dungeonName, mobId, noteKey)
     local db = self.db
     local fallbackProfileName = db.profile.internal.fallbackProfile
