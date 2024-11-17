@@ -19,6 +19,7 @@ Modules/Database.lua
 Modules/Utils.lua
 Modules/Helpers.lua
 Modules/Notes.lua
+Modules/PrimaryNote.lua
 Modules/Movers.lua
 
 Tabs/Docs.lua

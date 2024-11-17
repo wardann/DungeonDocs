@@ -89,22 +89,6 @@ function DungeonDocs:Settings_AddMovers(container)
     container:AddChild(toggleButton)
 end
 
-function DungeonDocs:Settings_AddSeasonSelect(container)
-    local db = self.db
-
-    -- Dropdown menu for season selection
-    local seasonDropdown = AceGUI:Create("Dropdown")
-    seasonDropdown:SetLabel("Select a Season")
-    seasonDropdown:SetList(db.profile.internal.seasons)
-    seasonDropdown:SetValue(db.profile.internal.selectedSeason)
-    seasonDropdown:SetCallback("OnValueChanged", function(_, _, key)
-        DungeonDocs:DB_Update(function()
-            db.profile.internal.selectedSeason = key
-        end)
-    end)
-
-    container:AddChild(seasonDropdown)
-end
 
 function DungeonDocs:Settings_AddTestText(container)
     local internal = self.db.profile.internal

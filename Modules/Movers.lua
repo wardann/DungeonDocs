@@ -15,6 +15,18 @@ DD:SubscribeToDBChange(function()
     DD:Movers_Render()
 end)
 
+function DD:Movers_GetPrimary()
+    return movers["primaryNote"]
+end
+
+function DD:Movers_GetRole()
+    return movers["roleNote"]
+end
+
+function DD:Movers_GetOmni()
+    return movers["omniNote"]
+end
+
 -- Create the text panel frame
 function DD:Movers_Init()
     local notesPositions = self.db.profile.notes.positions

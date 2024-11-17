@@ -6,8 +6,8 @@ local notePanels = {}
 local noteFontStrings = {}
 
 local notePanelPlaceholders = {
-    primary = "PRIMARY NOTE",
-    role = "ROLE NOTE",
+    primary = "PRIMARY NOTE (old)",
+    role = "ROLE NOTE (old)",
 }
 
 local noteContent = {
@@ -46,6 +46,7 @@ function InitNotePanel(noteName, framePosition, defaultPosition)
     textFrame.bg:SetColorTexture(0, 0, 0, 0) -- Fully transparent initially
 
     -- Create a font string for the text
+    -- Are we creating this font string twice? Once here and another below? Is that the cause of the one bug?
     textFrame.text = textFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
     textFrame.text:SetPoint("CENTER")
     textFrame.text:SetText("") -- Initially blank text
@@ -86,8 +87,8 @@ function DungeonDocs:RenderNotePanels()
     end
 
     if moversEnabled then
-        RenderNotePanelMovers("primary")
-        RenderNotePanelMovers("role")
+        -- RenderNotePanelMovers("primary")
+        -- RenderNotePanelMovers("role")
     else
         DungeonDocs:RenderNotePanelNotes("primary", primaryStyle)
         DungeonDocs:RenderNotePanelNotes("role", roleStyle)
