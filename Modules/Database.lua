@@ -8,6 +8,117 @@ local dbDefaults = {
     docs = {},
     dbVersion = 1,
     settings = {
+        defaultFont = "Fonts\\FRIZQT__.TTF",
+
+        primaryNote = {
+            enabled = true,
+            noteWidth = 100,
+            roleDisplay = "None", -- Values are "None", "Current", or "All"
+            roleNameIndent = 0,
+            roleNoteIndent = 0,
+
+            position = nil,
+
+            noteTextStyle = {
+                font = "Fonts\\FRIZQT__.TTF",
+                fontSize = 14,
+                color = {
+                    r = 1,
+                    g = 1,
+                    b = 1,
+                },
+                outline = false,
+                align = "CENTER",
+                overflow = false,
+            },
+            displayMobName = true,
+            mobNameStyle = {
+                font = "Fonts\\FRIZQT__.TTF",
+                fontSize = 14,
+                color = {
+                    r = 1,
+                    g = 1,
+                    b = 1,
+                },
+                outline = false,
+                align = "CENTER",
+                overflow = false,
+            }
+        },
+
+        roleNote = {
+            enabled = true,
+            noteWidth = 100,
+            roleDisplay = "None", -- Values are "None", "Current", or "All"
+            roleNameIndent = 0,
+            roleNoteIndent = 0,
+
+            position = nil,
+
+            noteTextStyle = {
+                font = "Fonts\\FRIZQT__.TTF",
+                fontSize = 14,
+                color = {
+                    r = 1,
+                    g = 1,
+                    b = 1,
+                },
+                outline = false,
+                align = "CENTER",
+                overflow = false,
+            },
+            displayMobName = true,
+            mobNameStyle = {
+                font = "Fonts\\FRIZQT__.TTF",
+                fontSize = 14,
+                color = {
+                    r = 1,
+                    g = 1,
+                    b = 1,
+                },
+                outline = false,
+                align = "CENTER",
+                overflow = false,
+            }
+        },
+
+        omniNote = {
+            enabled = true,
+            noteWidth = 100,
+            roleDisplay = "None", -- Values are "None", "Current", or "All"
+            roleNameIndent = 0,
+            roleNoteIndent = 0,
+
+            position = nil,
+
+            noteTextStyle = {
+                font = "Fonts\\FRIZQT__.TTF",
+                fontSize = 14,
+                color = {
+                    r = 1,
+                    g = 1,
+                    b = 1,
+                },
+                outline = false,
+                align = "CENTER",
+                overflow = false,
+            },
+            displayMobName = true,
+            mobNameStyle = {
+                font = "Fonts\\FRIZQT__.TTF",
+                fontSize = 14,
+                color = {
+                    r = 1,
+                    g = 1,
+                    b = 1,
+                },
+                outline = false,
+                align = "CENTER",
+                overflow = false,
+            }
+        },
+
+
         noteStyle = {
             primary = {
                 font = "Fonts\\FRIZQT__.TTF",
@@ -42,7 +153,11 @@ local dbDefaults = {
     },
     internal = {
         fallbackProfile = "Default Fallback*",
-        movers = false,
+        movers = {
+            primaryNote = false,
+            roleNote = false,
+            omniNote = false,
+        },
         seasons = {
             TWWS1 = "The War Within - Season 1",
         },
@@ -90,7 +205,9 @@ function DungeonDocs:DB_Init()
 
     -- Reset internal vars
     db.profile.internal.showTestText = false
-    db.profile.internal.movers = false
+    db.profile.internal.movers.primaryNote = false
+    db.profile.internal.movers.roleNote = false
+    db.profile.internal.movers.omniNote = false
 end
 
 -- A table to hold subscriber functions

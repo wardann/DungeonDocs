@@ -86,7 +86,6 @@ function DungeonDocs:ShowDocsTab(container)
     C_Timer.After(0.01, function()
         local groupWasFocused = setTreeGroupFocus(treeGroup, treeData)
         if not groupWasFocused and #lastSelected == 3 then
-            print(">>> group was NOT focused, selecting last selected")
             treeGroup:SelectByPath(lastSelected[1], lastSelected[2], lastSelected[3])
         end
     end)
