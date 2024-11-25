@@ -7,7 +7,7 @@ local moverFontStrings = {}
 local moverTitles = {
     primaryNote = "PRIMARY NOTE",
     roleNote = "ROLE NOTE",
-    omniNote = "OMNI NOTE",
+    omniNote = "DungeonDocs Anchor",
 }
 
 
@@ -29,16 +29,22 @@ end
 
 -- Create the text panel frame
 function DD:Movers_Init()
-    local notesPositions = self.db.profile.notes.positions
+    local state = self.db.profile
+    local notesPositions = state.notes.positions
 
     -- Primary mover
-    InitMover("primaryNote", notesPositions.primary, "TOP")
+    -- InitMover("primaryNote", notesPositions.primary, "TOP")
 
     -- Role mover
-    InitMover("roleNote", notesPositions.secondary, "TOPLEFT")
+    -- InitMover("roleNote", notesPositions.secondary, "TOPLEFT")
 
     -- Omni mover
     InitMover("omniNote", notesPositions.secondary, "LEFT")
+
+    -- Render and hide the note so the frame actually gets created
+    RenderMover("omniNote", state.settings.omniNote)
+    HideMover("omniNote")
+
 
     -- Initial render
     DD:Movers_Render()
@@ -47,7 +53,7 @@ end
 function InitMover(noteName, framePosition, defaultPosition)
     -- Create a frame to display the text
     local mover = CreateFrame("Frame", "TextPanel", UIParent)
-    mover:SetSize(100, 20)  -- Set the size of the panel
+    mover:SetSize(100, 20)   -- Set the size of the panel
     mover:EnableMouse(false) -- Disable mouse interactions initially
     mover:SetMovable(false)  -- Initially immovable
 
@@ -91,18 +97,18 @@ function DD:Movers_Render()
     local internal = self.db.profile.internal
 
     -- Primary
-    if internal.movers.primaryNote then
-        RenderMover("primaryNote", state.primaryNote)
-    else
-        HideMover("primaryNote")
-    end
+    -- if internal.movers.primaryNote then
+    --     RenderMover("primaryNote", state.primaryNote)
+    -- else
+    --     HideMover("primaryNote")
+    -- end
 
     -- Role
-    if internal.movers.roleNote then
-        RenderMover("roleNote", state.roleNote)
-    else
-        HideMover("roleNote")
-    end
+    -- if internal.movers.roleNote then
+    --     RenderMover("roleNote", state.roleNote)
+    -- else
+    --     HideMover("roleNote")
+    -- end
 
     -- Omni
     if internal.movers.omniNote then
@@ -118,17 +124,21 @@ function HideMover(noteName)
 
     local mover = movers[noteName]
     mover.bg:SetColorTexture(0, 0, 0, 0)
+    mover:SetMovable(false)
 end
 
 function RenderMover(noteName, state)
     local mover = movers[noteName]
 
-
     mover:SetWidth(state.noteWidth)
     mover:EnableMouse(true)             -- Enable mouse interactions
     mover:SetMovable(true)              -- Allow movement
     mover:RegisterForDrag("LeftButton") -- Enable dragging
-    mover:SetScript("OnDragStart", function(self) self:StartMoving() end)
+    mover:SetScript("OnDragStart", function(self)
+        if mover:IsMovable() then
+            self:StartMoving()
+        end
+    end)
     mover:SetScript("OnDragStop", function(self)
         self:StopMovingOrSizing()
         DD:Movers_SaveFrameCoordinates(noteName)

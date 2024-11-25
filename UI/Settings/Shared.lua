@@ -2,19 +2,21 @@ local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
 local AceGUI = LibStub("AceGUI-3.0")
 
 
-local function createCheckBox(state, key, label, frame)
+function SettingsShared_AddCheckBox(frame, label, state, stateKey, callback)
     local checkBox = AceGUI:Create("CheckBox")
     checkBox:SetLabel(label)
-    checkBox:SetValue(state[key])
+    checkBox:SetValue(state[stateKey])
     checkBox:SetCallback("OnValueChanged", function(widget, event, value)
         DD:DB_Update(function()
-            state[key] = value
+            state[stateKey] = value
+            if callback then
+                callback(value)
+            end
         end)
     end)
 
     frame:AddChild(checkBox)
 end
-
 
 function SettingsShared_AddEnabled(frame, state, callback)
     local checkBox = AceGUI:Create("CheckBox")
@@ -31,12 +33,33 @@ function SettingsShared_AddEnabled(frame, state, callback)
 end
 
 function SettingsShared_AddDisplayMobName(frame, state)
-    createCheckBox(
-        state,
-        "displayMobName",
+    SettingsShared_AddCheckBox(
+        frame,
         "Display Mob Name",
-        frame
+        state,
+        "displayMobName"
     )
+end
+
+function SettingsShared_AddRoleDisplaySelect(frame, state)
+    local options = {
+        None = "None",
+        Current = "Current role",
+        All = "All roles",
+    }
+    local dropdown = AceGUI:Create("Dropdown")
+
+    dropdown:SetLabel("Role Display")
+    dropdown:SetList(options)
+    dropdown:SetValue(options[state.roleDisplay])
+
+    dropdown:SetCallback("OnValueChanged", function(_, _, key)
+        DD:DB_Update(function()
+            state.roleDisplay = key
+        end)
+    end)
+
+    frame:AddChild(dropdown)
 end
 
 function SettingsShared_AddRoleDisplaySelect(frame, state)
@@ -71,7 +94,24 @@ function SettingsShared_AddMovers(frame, state, key)
     toggleButton:SetWidth(200) -- Set a fixed width for the button
     toggleButton:SetCallback("OnClick", function()
         DD:DB_Update(function()
-            print(">>> movers enabled", key, state[key])
+            state[key] = not state[key]
+            setMoverText()
+        end)
+    end)
+    frame:AddChild(toggleButton)
+end
+
+function SettingsShared_AddTestNoteToggle(frame, state, key)
+    local toggleButton = AceGUI:Create("Button")
+
+    local function setMoverText()
+        toggleButton:SetText(state[key] and "Turn Test Note Off" or "Turn Test Note On")
+    end
+    setMoverText()
+
+    toggleButton:SetWidth(200) -- Set a fixed width for the button
+    toggleButton:SetCallback("OnClick", function()
+        DD:DB_Update(function()
             state[key] = not state[key]
             setMoverText()
         end)
@@ -178,6 +218,25 @@ function SettingsShared_AddFontSlider(frame, state)
     frame:AddChild(fontSizeSlider)
 end
 
+function SettingsShared_AddFontSettings(frame, state)
+    SettingsShared_AddFontSelect(frame, state)
+    SettingsShared_AddNoteColor(frame, state)
+    SettingsShared_AddFontSlider(frame, state)
+end
+
+function SettingsShared_AddSlider(frame, label, state, stateKey, min, max, step)
+    local fontSizeSlider = AceGUI:Create("Slider")
+    fontSizeSlider:SetLabel(label)
+    fontSizeSlider:SetSliderValues(min, max, step)
+    fontSizeSlider:SetValue(state[stateKey])
+    fontSizeSlider:SetCallback("OnValueChanged", function(widget, event, value)
+        DD:DB_Update(function()
+            state[stateKey] = value
+        end)
+    end)
+    frame:AddChild(fontSizeSlider)
+end
+
 function SettingsShared_AddOutlineToggle(frame, state)
     local checkBox = AceGUI:Create("CheckBox")
     checkBox:SetLabel("Font Outline")
@@ -212,10 +271,48 @@ function SettingsShared_AddHorizontalFontAlignment(frame, state)
 end
 
 function SettingsShared_AddOverflow(frame, state)
-    createCheckBox(
-        state,
-        "overflow",
+    SettingsShared_AddCheckBox(
+        frame,
         "Text overflow",
-        frame
+        state,
+        "overflow"
     )
+end
+
+function SettingsShared_AddTextAlignment(frame, state, key)
+    local alignments = {
+        LEFT = "LEFT",
+        CENTER = "CENTER",
+        RIGHT = "RIGHT",
+    }
+    local dropdown = AceGUI:Create("Dropdown")
+
+    dropdown:SetLabel("Text Alignment")
+    dropdown:SetList(alignments)
+    dropdown:SetValue(alignments[state[key]])
+
+    dropdown:SetCallback("OnValueChanged", function(_, _, value)
+        DD:DB_Update(function()
+            state[key] = value
+        end)
+    end)
+
+    frame:AddChild(dropdown)
+end
+
+function SettingsShared_AddDropdown(frame, label, options, state, stateKey, callback)
+    local dropdown = AceGUI:Create("Dropdown")
+
+    dropdown:SetLabel(label)
+    dropdown:SetList(options)
+    dropdown:SetValue(options[state[stateKey]])
+
+    dropdown:SetCallback("OnValueChanged", function(_, _, optionsKey)
+        DD:DB_Update(function()
+            state[stateKey] = optionsKey
+            if callback then callback() end
+        end)
+    end)
+
+    frame:AddChild(dropdown)
 end

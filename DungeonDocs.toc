@@ -21,7 +21,8 @@ Modules/Helpers.lua
 Modules/Notes.lua
 Modules/PrimaryNote.lua
 Modules/Movers.lua
-Modules/OmniNote.lua
+Modules/Notes/Common.lua
+Modules/Notes/Omni.lua
 
 Tabs/Docs.lua
 Tabs/Settings.lua
@@ -31,7 +32,11 @@ UI/Settings/Utils.lua
 UI/Settings/Shared.lua
 UI/Settings/Settings.lua
 UI/Settings/General.lua
-UI/Settings/PrimaryNote.lua
+UI/Settings/StylePrimary.lua
+UI/Settings/StyleRole.lua
+UI/Settings/StyleRoleTank.lua
+UI/Settings/StyleRoleHealer.lua
+UI/Settings/StyleRoleDamage.lua
 
 Dungeons/Dungeons.lua
 Dungeons/TWW/S1/AraKara.lua

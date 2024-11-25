@@ -95,7 +95,7 @@ function DungeonDocs:OpenUI(msg)
     local maxWidth = UIParent:GetWidth() * 0.8
     local maxHeight = UIParent:GetHeight() * 0.8
 
-    local initWidth = math.min(700, maxWidth)   -- 700 is an initial width
+    local initWidth = math.min(750, maxWidth)   -- 700 is an initial width
     local initHeight = math.min(800, maxHeight) -- 800 is an initial height
 
     local storedWidth = dungeonDocsWindowSize.width

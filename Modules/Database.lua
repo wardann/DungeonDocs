@@ -3,154 +3,187 @@ local DD = DungeonDocs
 local LibSerialize = LibStub("LibSerialize")
 local LibDeflate = LibStub("LibDeflate")
 
+
 -- Define default db values
 local dbDefaults = {
-    docs = {},
     dbVersion = 1,
+    docs = {},
     settings = {
-        defaultFont = "Fonts\\FRIZQT__.TTF",
-
-        primaryNote = {
-            enabled = true,
-            noteWidth = 100,
-            roleDisplay = "None", -- Values are "None", "Current", or "All"
-            roleNameIndent = 0,
-            roleNoteIndent = 0,
-
-            position = nil,
-
-            noteTextStyle = {
-                font = "Fonts\\FRIZQT__.TTF",
-                fontSize = 14,
-                color = {
-                    r = 1,
-                    g = 1,
-                    b = 1,
-                },
-                outline = false,
-                align = "CENTER",
-                overflow = false,
-            },
-            displayMobName = true,
-            mobNameStyle = {
-                font = "Fonts\\FRIZQT__.TTF",
-                fontSize = 14,
-                color = {
-                    r = 1,
-                    g = 1,
-                    b = 1,
-                },
-                outline = false,
-                align = "CENTER",
-                overflow = false,
-            }
-        },
-
-        roleNote = {
-            enabled = true,
-            noteWidth = 100,
-            roleDisplay = "None", -- Values are "None", "Current", or "All"
-            roleNameIndent = 0,
-            roleNoteIndent = 0,
-
-            position = nil,
-
-            noteTextStyle = {
-                font = "Fonts\\FRIZQT__.TTF",
-                fontSize = 14,
-                color = {
-                    r = 1,
-                    g = 1,
-                    b = 1,
-                },
-                outline = false,
-                align = "CENTER",
-                overflow = false,
-            },
-            displayMobName = true,
-            mobNameStyle = {
-                font = "Fonts\\FRIZQT__.TTF",
-                fontSize = 14,
-                color = {
-                    r = 1,
-                    g = 1,
-                    b = 1,
-                },
-                outline = false,
-                align = "CENTER",
-                overflow = false,
-            }
-        },
-
         omniNote = {
-            enabled = true,
-            noteWidth = 100,
-            roleDisplay = "None", -- Values are "None", "Current", or "All"
-            roleNameIndent = 0,
-            roleNoteIndent = 0,
-
             position = nil,
+            noteWidth = 200,
 
-            noteTextStyle = {
-                font = "Fonts\\FRIZQT__.TTF",
-                fontSize = 14,
-                color = {
-                    r = 1,
-                    g = 1,
-                    b = 1,
+            textAlign = "CENTER", -- Values are "CENTER", "LEFT", "RIGHT"
+            noteGrowDirection = "UP", -- Values are "UP", "DOWN"
+            textOutline = false,
+            textOverflow = false,
+
+            showMobName = true,
+
+            roleDisplay = "None", -- Values are "None", "Current", or "All"
+            roleHeaderIndent = 0,
+            roleNoteIndent = 0,
+            displayRoleHeader = true,
+
+            tankHeader = "Tank",
+            healerHeader = "Healer",
+            damageHeader = "Damage",
+
+
+
+
+            style = {
+                defaultText = {
+                    font = "Fonts\\FRIZQT__.TTF",
+                    fontSize = 14,
+                    color = {
+                        r = 1,
+                        g = 1,
+                        b = 1,
+                    },
                 },
-                outline = false,
-                align = "CENTER",
-                overflow = false,
+                mobName = {
+                    useDefaultTextStyle = false,
+                    text = {
+                        font = "Fonts\\FRIZQT__.TTF",
+                        fontSize = 14,
+                        color = {
+                            r = 1,
+                            g = 1,
+                            b = 1,
+                        },
+                    }
+                },
+                primaryNote = {
+                    useDefaultTextStyle = true,
+                    text = {
+                        font = "Fonts\\FRIZQT__.TTF",
+                        fontSize = 14,
+                        color = {
+                            r = 1,
+                            g = 1,
+                            b = 1,
+                        },
+
+                    }
+                },
+                defaultRoleHeader = {
+                    font = "Fonts\\FRIZQT__.TTF",
+                    fontSize = 14,
+                    color = {
+                        r = 1,
+                        g = 1,
+                        b = 1,
+                    },
+                },
+                tankHeader = {
+                    useDefaultRoleHeaderStyle = true,
+                    text = {
+                        font = "Fonts\\FRIZQT__.TTF",
+                        fontSize = 14,
+                        color = {
+                            r = 1,
+                            g = 1,
+                            b = 1,
+                        },
+                    }
+                },
+                tankNote = {
+                    useDefaultTextStyle = true,
+                    text = {
+                        font = "Fonts\\FRIZQT__.TTF",
+                        fontSize = 14,
+                        color = {
+                            r = 1,
+                            g = 1,
+                            b = 1,
+                        },
+                    }
+                },
+                healerHeader = {
+                    useDefaultRoleHeaderStyle = true,
+                    text = {
+                        font = "Fonts\\FRIZQT__.TTF",
+                        fontSize = 14,
+                        color = {
+                            r = 1,
+                            g = 1,
+                            b = 1,
+                        },
+                    }
+                },
+                healerNote = {
+                    useDefaultTextStyle = true,
+                    text = {
+                        font = "Fonts\\FRIZQT__.TTF",
+                        fontSize = 14,
+                        color = {
+                            r = 1,
+                            g = 1,
+                            b = 1,
+                        },
+                    }
+                },
+                damageHeader = {
+                    useDefaultRoleHeaderStyle = true,
+                    text = {
+                        font = "Fonts\\FRIZQT__.TTF",
+                        fontSize = 14,
+                        color = {
+                            r = 1,
+                            g = 1,
+                            b = 1,
+                        },
+                    }
+                },
+                damageNote = {
+                    useDefaultTextStyle = true,
+                    text = {
+                        font = "Fonts\\FRIZQT__.TTF",
+                        fontSize = 14,
+                        color = {
+                            r = 1,
+                            g = 1,
+                            b = 1,
+                        },
+                    }
+                },
             },
-            displayMobName = true,
-            mobNameStyle = {
-                font = "Fonts\\FRIZQT__.TTF",
-                fontSize = 14,
-                color = {
-                    r = 1,
-                    g = 1,
-                    b = 1,
-                },
-                outline = false,
-                align = "CENTER",
-                overflow = false,
-            }
         },
 
 
-        noteStyle = {
-            primary = {
-                font = "Fonts\\FRIZQT__.TTF",
-                fontSize = 14,
-                color = {
-                    r = 1,
-                    g = 1,
-                    b = 1,
-                },
-                outline = false,
-                align = "CENTER",
-            },
-            role = {
-                font = "Fonts\\FRIZQT__.TTF",
-                fontSize = 14,
-                color = {
-                    r = 1,
-                    g = 1,
-                    b = 1,
-                },
-                outline = false,
-                align = "CENTER",
-            },
-            roleUsesPrimaryStyle = true,
-        }
+        -- noteStyle = {
+        --     primary = {
+        --         font = "Fonts\\FRIZQT__.TTF",
+        --         fontSize = 14,
+        --         color = {
+        --             r = 1,
+        --             g = 1,
+        --             b = 1,
+        --         },
+        --         outline = false,
+        --         align = "CENTER",
+        --     },
+        --     role = {
+        --         font = "Fonts\\FRIZQT__.TTF",
+        --         fontSize = 14,
+        --         color = {
+        --             r = 1,
+        --             g = 1,
+        --             b = 1,
+        --         },
+        --         outline = false,
+        --         align = "CENTER",
+        --     },
+        --     roleUsesPrimaryStyle = true,
+        -- }
     },
-    notes = {
-        positions = {
-            primary = nil,
-            secondary = nil,
-        }
-    },
+    -- notes = {
+    --     positions = {
+    --         primary = nil,
+    --         secondary = nil,
+    --     }
+    -- },
     internal = {
         fallbackProfile = "Default Fallback*",
         movers = {
@@ -161,6 +194,9 @@ local dbDefaults = {
         seasons = {
             TWWS1 = "The War Within - Season 1",
         },
+        showTestNote = false,
+
+
         selectedSeason = "TWWS1",
         testText = "This is some test to text with.\nChange it to see how your notes might look.",
         showTestText = false,

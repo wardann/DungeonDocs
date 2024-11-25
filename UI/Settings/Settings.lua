@@ -22,8 +22,8 @@ function DD:Settings_Tab(container)
             value = "general",
         },
         {
-            text = "Notes",
-            value = "notes",
+            text = "Style",
+            value = "style",
             children = {
                 {
                     text = "Primary",
@@ -32,10 +32,20 @@ function DD:Settings_Tab(container)
                 {
                     text = "Role",
                     value = "role",
-                },
-                {
-                    text = "Omni",
-                    value = "omni",
+                    children = {
+                        {
+                            text = "Tank",
+                            value = "tank",
+                        },
+                        {
+                            text = "Healer",
+                            value = "healer",
+                        },
+                        {
+                            text = "Damage",
+                            value = "damage",
+                        }
+                    }
                 }
             }
         },
@@ -52,26 +62,53 @@ function DD:Settings_Tab(container)
     treeGroup:SetCallback("OnGroupSelected", function(self, event, uniquePath)
         rightGroup:ReleaseChildren()
 
-        local first, second = strsplit("\001", uniquePath)
+        local first, second, third = strsplit("\001", uniquePath)
 
         if first == "general" then
             DD:SettingsGeneral_View(rightGroup)
-        elseif first == "notes" then
-            if second == "primary" then
-                DD:SettingsPrimary_View(rightGroup)
+        elseif first == "style" then
+            if not second then
+                treeGroup:SelectByPath("style" .. "\001" .. "primary")
+            elseif second == "primary" then
+                DD:SettingsStylePrimary_View(rightGroup)
             elseif second == "role" then
-                print(">>> role")
-            elseif second == "omni" then
-                print(">>> omni")
+                if not third then
+                    DD:SettingsStyleRole_View(rightGroup)
+                elseif third == "tank" then
+                    DD:SettingsStyleRoleTank_View(rightGroup)
+                elseif third == "healer" then
+                    DD:SettingsStyleRoleHealer_View(rightGroup)
+                elseif third == "damage" then
+                    DD:SettingsStyleRoleDamage_View(rightGroup)
+                end
             end
         end
     end)
 
 
     -- Force selection of all top-level nodes to ensure they're expanded
-    for _, node in ipairs(menu) do
-        treeGroup:SelectByPath(node.value)
-    end
+    -- for _, node in ipairs(menu) do
+    --     treeGroup:SelectByPath(node.value)
+    -- end
+
+
+    ExpandAllTreeNodes(treeGroup, menu)
 
     treeGroup:SetSelected("general")
 end
+
+function ExpandAllTreeNodes(treeGroup, menu, path)
+    for _, node in ipairs(menu) do
+        -- Build the current path
+        local currentPath = path and (path .. "\001" .. node.value) or node.value
+        
+        -- Expand the current node
+        treeGroup:SelectByPath(currentPath)
+
+        -- Recursively expand children
+        if node.children then
+            ExpandAllTreeNodes(treeGroup, node.children, currentPath)
+        end
+    end
+end
+

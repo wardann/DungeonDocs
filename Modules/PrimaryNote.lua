@@ -58,17 +58,9 @@ function InitPrimaryNote()
     -- notePanels[noteName] = textFrame
 
     primaryNoteFontString = primaryNoteFrame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-
-    print(">>> primary note init done")
-    print(">>> primary note init done")
-    print(">>> primary note init done")
-    print(">>> primary note init done")
-    print(">>> primary note init done")
-    print(">>> primary note init done")
 end
 
 function DD:PrimaryNote_Render()
-    print(">>> primary note render!")
     local state = self.db.profile.settings.primaryNote
 
     -- if internal.showTestText then
@@ -104,8 +96,6 @@ function DD:PrimaryNote_Render()
 
     local doc = DD:DB_GetNotePrimary(currentInstanceName, targetId, "primaryNote")
     primaryNoteContent = doc
-    print(">>> doc is", doc)
-    print(">>> target id ", targetId)
 
     DungeonDocs:RenderNotePanelNotes(state.noteTextStyle)
 end
@@ -114,10 +104,7 @@ function DungeonDocs:RenderNotePanels()
 end
 
 function DungeonDocs:RenderNotePanelNotes(style)
-    print(">>> render note panel notes")
-    print(">>> primaryNoteFontString", primaryNoteFontString)
     primaryNoteFontString:SetText(primaryNoteContent or "")
-    print(">>> primaryNoteContent", primaryNoteContent)
 
     local setPoint = "TOP" -- Center
     if style.align == "LEFT" then
