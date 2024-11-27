@@ -39,7 +39,7 @@ function DD:Movers_Init()
     -- InitMover("roleNote", notesPositions.secondary, "TOPLEFT")
 
     -- Omni mover
-    InitMover("omniNote", notesPositions.secondary, "LEFT")
+    InitMover("omniNote", state.settings.omniNote.position, "LEFT")
 
     -- Render and hide the note so the frame actually gets created
     RenderMover("omniNote", state.settings.omniNote)
