@@ -76,6 +76,11 @@ frame:SetScript("OnEvent", function(self, event)
     elseif event == "PLAYER_REGEN_ENABLED" then
         -- this event means the player has left combat
    elseif event == "COMBAT_LOG_EVENT_UNFILTERED" then
+        local inCombat = UnitAffectingCombat("player")
+        if not inCombat then
+            return
+        end
+
         local _, subEvent, _, sourceGUID, _, _, _, destGUID, destName = CombatLogGetCurrentEventInfo()
 
         if subEvent == "UNIT_DIED" or subEvent == "UNIT_DESTROYED" then return end -- Ignore deaths
@@ -178,7 +183,7 @@ function DD:RenderOmniNote()
             recordHeight(noteCard)
             lastNoteCard = noteCard
 
-            if i < #encounteredMobs then
+            if i < #encounteredMobs and noteCard:GetHeight() > 0 then
                 local spacer = CreateFrame("Frame", "Spacer" .. i, cardContainer)
                 spacer:SetWidth(cardContainer:GetWidth())
                 spacer:SetHeight(state.noteSpacing)
