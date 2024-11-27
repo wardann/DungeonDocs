@@ -42,9 +42,6 @@ function DD:SettingsOmni_View(wrapperContainer)
     -- Add text outline checkbox
     SettingsShared_AddCheckBox(baseSection, "Text outline", state, "textOutline")
 
-    -- Add text overflow checkbox
-    SettingsShared_AddCheckBox(baseSection, "Text overflow", state, "textOverflow")
-
     -- Add default font selection
     local defaultFontSection = AddSection(container, "Default Text Style")
     SettingsShared_AddFontSettings(defaultFontSection, state.style.defaultText)

@@ -42,8 +42,17 @@ function DD:SettingsStylePrimary_View(wrapperContainer)
     -- Add text outline checkbox
     SettingsShared_AddCheckBox(baseSection, "Text outline", state, "textOutline")
 
-    -- Add text overflow checkbox
-    SettingsShared_AddCheckBox(baseSection, "Text overflow", state, "textOverflow")
+    -- Add line padding
+    SettingsShared_AddLinePadding(baseSection, state)
+
+    -- Add backdrop opacity
+    SettingsShared_AddBackgroundOpacity(baseSection, state)
+
+    -- Untargeted note opacity
+    SettingsShared_AddUntargetedNoteOpacity(baseSection, state)
+
+    -- Note spacing
+    SettingsShared_AddNoteSpacing(baseSection, state)
 
     -- Add default font selection
     local defaultFontSection = AddSection(container, "Default Text Style")

@@ -9,14 +9,17 @@ local dbDefaults = {
     dbVersion = 1,
     docs = {},
     settings = {
-        omniNote = {
+     omniNote = {
             position = nil,
             noteWidth = 200,
 
             textAlign = "CENTER", -- Values are "CENTER", "LEFT", "RIGHT"
             noteGrowDirection = "UP", -- Values are "UP", "DOWN"
             textOutline = false,
-            textOverflow = false,
+            linePadding = 5,
+            backgroundOpacity = 0,
+            untargetedNoteOpacity = 0.8,
+            noteSpacing = 15,
 
             showMobName = true,
 
@@ -28,9 +31,6 @@ local dbDefaults = {
             tankHeader = "Tank",
             healerHeader = "Healer",
             damageHeader = "Damage",
-
-
-
 
             style = {
                 defaultText = {

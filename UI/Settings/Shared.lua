@@ -155,6 +155,74 @@ function SettingsShared_AddNoteWidth(frame, state)
     frame:AddChild(slider)
 end
 
+function SettingsShared_AddLinePadding(frame, state)
+    local slider = AceGUI:Create("Slider")
+    slider:SetLabel("Line padding")
+    slider:SetSliderValues(0, 25, 1)   -- Min: 0, Max: 100, Step: 5
+    slider:SetValue(state.linePadding) -- Set the initial value
+
+    -- Callback for when the slider value changes
+    slider:SetCallback("OnValueChanged", function(_, _, value)
+        DD:DB_Update(function()
+            state.linePadding = value
+        end)
+    end)
+
+    -- Add the slider to the frame
+    frame:AddChild(slider)
+end
+
+function SettingsShared_AddBackgroundOpacity(frame, state)
+    local slider = AceGUI:Create("Slider")
+    slider:SetLabel("Background opacity")
+    slider:SetSliderValues(0, 1, 0.1) 
+    slider:SetValue(state.backgroundOpacity)
+
+    -- Callback for when the slider value changes
+    slider:SetCallback("OnValueChanged", function(_, _, value)
+        DD:DB_Update(function()
+            state.backgroundOpacity = value
+        end)
+    end)
+
+    -- Add the slider to the frame
+    frame:AddChild(slider)
+end
+
+function SettingsShared_AddUntargetedNoteOpacity(frame, state)
+    local slider = AceGUI:Create("Slider")
+    slider:SetLabel("Untargeted note opacity")
+    slider:SetSliderValues(0, 1, 0.1)
+    slider:SetValue(state.untargetedNoteOpacity)
+
+    -- Callback for when the slider value changes
+    slider:SetCallback("OnValueChanged", function(_, _, value)
+        DD:DB_Update(function()
+            state.untargetedNoteOpacity = value
+        end)
+    end)
+
+    -- Add the slider to the frame
+    frame:AddChild(slider)
+end
+
+function SettingsShared_AddNoteSpacing(frame, state)
+    local slider = AceGUI:Create("Slider")
+    slider:SetLabel("Note spacing")
+    slider:SetSliderValues(0, 50, 1)
+    slider:SetValue(state.noteSpacing)
+
+    -- Callback for when the slider value changes
+    slider:SetCallback("OnValueChanged", function(_, _, value)
+        DD:DB_Update(function()
+            state.noteSpacing = value
+        end)
+    end)
+
+    -- Add the slider to the frame
+    frame:AddChild(slider)
+end
+
 function SettingsShared_AddRoleNameIndent(frame, state)
     local slider = AceGUI:Create("Slider")
     slider:SetLabel("Role name indent")
@@ -203,6 +271,19 @@ function SettingsShared_AddNoteColor(frame, state)
 
     -- Add the color picker to the frame
     frame:AddChild(colorPicker)
+end
+
+function SettingsShared_AddFontSlider(frame, state)
+    local fontSizeSlider = AceGUI:Create("Slider")
+    fontSizeSlider:SetLabel("Font Size")
+    fontSizeSlider:SetSliderValues(8, 32, 1) -- Min, max, and step for font size
+    fontSizeSlider:SetValue(state.fontSize)  -- Default font size
+    fontSizeSlider:SetCallback("OnValueChanged", function(widget, event, value)
+        DD:DB_Update(function()
+            state.fontSize = value
+        end)
+    end)
+    frame:AddChild(fontSizeSlider)
 end
 
 function SettingsShared_AddFontSlider(frame, state)
