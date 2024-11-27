@@ -37,8 +37,7 @@ end
 
 -- Returns the name of the note from a mob id. This will either be the
 -- name of the mob or name of the boss encounter
-function DD:Dungeons_MobIdToNoteName(mobId)
-    local dungeonName = DD:Dungeons_GetCurrentDungeon()
+function DD:Dungeons_MobIdToNoteName(mobId, dungeonName)
     local dungeon = DD.Dungeons[dungeonName]
 
     if not dungeon then
@@ -58,6 +57,26 @@ function DD:Dungeons_MobIdToNoteName(mobId)
     for _, mob in ipairs(dungeon.trash) do
         if tostring(mob.id) == mobId then
             return mob.name
+        end
+    end
+end
+
+function DD:Dungeons_MobIdToDungeonName(mobId)
+    for dungeonName, dungeon in pairs(DD.Dungeons) do
+        -- Search bosses in the dungeon
+        for _, boss in ipairs(dungeon.bosses) do
+            for _, mob in ipairs(boss.mobs) do
+                if tostring(mob.id) == mobId then
+                    return dungeonName
+                end
+            end
+        end
+
+        -- Search trash in the dungeon
+        for _, mob in ipairs(dungeon.trash) do
+            if tostring(mob.id) == mobId then
+                return dungeonName
+            end
         end
     end
 end

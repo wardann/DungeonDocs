@@ -177,16 +177,31 @@ function DungeonDocs:HandleSelectedBoss(dungeonName, bossName)
     RenderNote(dungeonName, boss.mobs, "healerNote", "Healer notes", scrollFrame)
     RenderNote(dungeonName, boss.mobs, "damageNote", "DPS notes", scrollFrame)
 
+    local testNoteButton = AceGUI:Create("Button")
+    testNoteButton:SetText("Render Notes")
+    testNoteButton:SetFullWidth(true)
+    testNoteButton:SetCallback("OnClick", function()
+        DD:RenderTestNote(boss.mobs[1].id)
+    end)
+    scrollFrame:AddChild(testNoteButton)
+
     local button = AceGUI:Create("Button")
     local resetButtonText = "Reset Notes to Fallback Profile"
     button:SetText(resetButtonText)
     button:SetFullWidth(true)
 
     local confirming = false
+    local doubleConfirm = false
     button:SetCallback("OnClick", function()
         if not confirming then
             button:SetText("Confirm")
             confirming = true
+            return
+        end
+
+        if not doubleConfirm then
+            button:SetText("You totally sure?")
+            doubleConfirm = true
             return
         end
 
@@ -264,6 +279,14 @@ function DungeonDocs:HandleSelectedTrash(dungeonName, mobName)
     RenderNote(dungeonName, { mob }, "healerNote", "Healer notes", scrollFrame)
     RenderNote(dungeonName, { mob }, "damageNote", "DPS notes", scrollFrame)
 
+    local testNoteButton = AceGUI:Create("Button")
+    testNoteButton:SetText("Render Notes")
+    testNoteButton:SetFullWidth(true)
+    testNoteButton:SetCallback("OnClick", function()
+        DD:RenderTestNote(mob.id)
+    end)
+    scrollFrame:AddChild(testNoteButton)
+
     -- Create the button and position it to the right
     local button = AceGUI:Create("Button")
     local resetButtonText = "Reset Notes to Fallback Profile"
@@ -271,10 +294,17 @@ function DungeonDocs:HandleSelectedTrash(dungeonName, mobName)
     button:SetFullWidth(true)
 
     local confirming = false
+    local doubleConfirm = false
     button:SetCallback("OnClick", function()
         if not confirming then
             button:SetText("Confirm")
             confirming = true
+            return
+        end
+
+        if not doubleConfirm then
+            button:SetText("You totally sure?")
+            doubleConfirm = true
             return
         end
 

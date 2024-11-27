@@ -11,6 +11,7 @@ function DD:InitOmniNote()
 end
 
 local encounteredMobs = {}
+local testNoteEnabled = false
 
 local function storeEncounteredMob(mobId)
     -- Only store the mob if it's not already stored
@@ -23,31 +24,41 @@ local function storeEncounteredMob(mobId)
     table.insert(encounteredMobs, mobId)
 end
 
--- TODO:
 local function renderEncounteredMob(mobId)
     mobId = tostring(mobId)
-    local noteName = DD:Dungeons_MobIdToNoteName(mobId)
-    if not noteName then
-        return
+
+    local dungeonName
+    if testNoteEnabled then
+        dungeonName = DD:Dungeons_MobIdToDungeonName(mobId)
+    else
+        dungeonName = DD:Dungeons_GetCurrentDungeon()
     end
 
-    local dungeonName = DD:Dungeons_GetCurrentDungeon()
     if not dungeonName then
         return
     end
 
+    local noteName = DD:Dungeons_MobIdToNoteName(mobId, dungeonName)
+    if not noteName then
+        return
+    end
 
     local note = DD:DB_DeriveFullNote(dungeonName, tonumber(mobId))
     if not note then
         return
     end
 
-
     return {
         id = mobId,
         noteName = noteName,
         note = note,
     }
+end
+
+function DD:RenderTestNote(mobId)
+    storeEncounteredMob(mobId)
+    testNoteEnabled = true
+    DD:RenderOmniNote()
 end
 
 local playerTargetMobId
@@ -61,6 +72,7 @@ frame:RegisterEvent("PLAYER_TARGET_CHANGED")
 frame:SetScript("OnEvent", function(self, event)
     if event == "PLAYER_REGEN_DISABLED" then
         encounteredMobs = {} -- Reset encountered mobs at start of combat
+        testNoteEnabled = false
     elseif event == "PLAYER_REGEN_ENABLED" then
         -- this event means the player has left combat
     elseif event == "COMBAT_LOG_EVENT_UNFILTERED" then
@@ -91,10 +103,12 @@ frame:SetScript("OnEvent", function(self, event)
         elseif not inCombat and not guid then
             playerTargetMobId = nil
             encounteredMobs = {}
+            testNoteEnabled = false
         elseif not inCombat and guid and unitType == "Player" then
             playerTargetMobId = nil
         elseif not inCombat and guid and unitType ~= "Player" then
             encounteredMobs = {}
+            testNoteEnabled = false
 
 
             playerTargetMobId = mobId
@@ -418,6 +432,10 @@ function BuildNoteCardLine(frameName, parentFrame, noteText, state, textStyle, i
     local alpha = 1.0
     if not isTargeted then
         alpha = state.untargetedNoteOpacity
+    end
+
+    if testNoteEnabled then
+        alpha = 1.0
     end
 
     local lineFrame = CreateFrame("Frame", frameName, parentFrame)
