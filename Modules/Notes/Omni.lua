@@ -75,19 +75,27 @@ frame:SetScript("OnEvent", function(self, event)
         testNoteEnabled = false
     elseif event == "PLAYER_REGEN_ENABLED" then
         -- this event means the player has left combat
-    elseif event == "COMBAT_LOG_EVENT_UNFILTERED" then
-        local _, subEvent, _, _, _, _, _, destGUID, destName = CombatLogGetCurrentEventInfo()
+   elseif event == "COMBAT_LOG_EVENT_UNFILTERED" then
+        local _, subEvent, _, sourceGUID, _, _, _, destGUID, destName = CombatLogGetCurrentEventInfo()
 
         if subEvent == "UNIT_DIED" or subEvent == "UNIT_DESTROYED" then return end -- Ignore deaths
 
-        -- Check if destination is an NPC we are encountering in combat
-        if subEvent == "SPELL_DAMAGE" or subEvent == "SWING_DAMAGE" then
-            local mobId = tonumber((destGUID):match("-(%d+)-%x+$"))
-            storeEncounteredMob(mobId)
+        local sourceMobId = tonumber((sourceGUID):match("-(%d+)-%x+$"))
+        local sourceGuidType = sourceGUID:match("^(.-)-")
 
-            -- RenderOmniNote()
+        local destMobId = tonumber((destGUID):match("-(%d+)-%x+$"))
+        local destGuidType = destGUID:match("^(.-)-")
+
+        -- Exclude players, check both the source and dest GUIDs of the event
+        if sourceMobId and sourceGuidType ~= "Player" then
+            storeEncounteredMob(sourceMobId)
             DD:RenderOmniNote()
         end
+        if destMobId and destGuidType ~= "Player" then
+            storeEncounteredMob(destMobId)
+            DD:RenderOmniNote()
+        end
+
     elseif event == "PLAYER_TARGET_CHANGED" then
         local inCombat = UnitAffectingCombat("player")
         local guid = UnitGUID("target")
