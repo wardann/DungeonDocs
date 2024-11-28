@@ -63,3 +63,21 @@ function AddSection(container, title)
 
     return section
 end
+
+function IsFollowerNPC(mobID)
+    mobID = tostring(mobID)
+    local followerNPCIDs = {
+        "214390", -- Shuja Grimaxe, Shaman
+        "209072", -- Crenna Earth-Daughter, Druid
+        "209065", -- Austin Huxworth, Hunter
+        "209059", -- Meredy Huntswell, Mage
+        "209057", -- Captain Garrick, Paladin
+    }
+
+    for _, followerMobId in ipairs(followerNPCIDs) do
+        if followerMobId == mobID then
+            return true
+        end
+    end
+    return false
+end

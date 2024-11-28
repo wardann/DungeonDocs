@@ -35,6 +35,22 @@ function DD:Dungeons_GetCurrentDungeon()
     return instanceName
 end
 
+function DD:Dungeons_IsBossInCurrentDungeon(mobId)
+    local dungeonName = DD:Dungeons_GetCurrentDungeon()
+    if not dungeonName then return false end
+
+    local dungeon = DD.Dungeons[dungeonName]
+
+    for _, boss in ipairs(dungeon.bosses) do
+        for _, mob in ipairs(boss.mobs) do
+            if tostring(mob.id) == mobId then
+                return true
+            end
+        end
+    end
+end
+
+
 -- Returns the name of the note from a mob id. This will either be the
 -- name of the mob or name of the boss encounter
 function DD:Dungeons_MobIdToNoteName(mobId, dungeonName)

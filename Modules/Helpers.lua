@@ -67,6 +67,15 @@ function IsTableEmpty(tbl)
     return next(tbl) == nil
 end
 
+function IsInArray(array, element)
+    for _, e in ipairs(array) do
+        if e == element then
+            return true
+        end
+    end
+    return false
+end
+
 function TableToString(tbl, indent)
     indent = indent or ""
     local result = "{\n"

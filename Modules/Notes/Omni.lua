@@ -69,13 +69,48 @@ frame:RegisterEvent("PLAYER_REGEN_ENABLED")
 frame:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 frame:RegisterEvent("PLAYER_TARGET_CHANGED")
 
+local ensureTarget = function()
+    local inCombat = UnitAffectingCombat("player")
+    local guid = UnitGUID("target")
+    local unitType, unitId, mobId
+
+    if guid then
+        unitType, _, _, _, _, unitId = strsplit("-", guid)
+        mobId = tonumber(unitId)
+    end
+
+    if inCombat and not guid then
+        playerTargetMobId = nil
+    elseif not inCombat and not guid then
+        playerTargetMobId = nil
+        encounteredMobs = {}
+        testNoteEnabled = false
+    elseif not inCombat and guid and unitType == "Player" then
+        playerTargetMobId = nil
+    elseif not inCombat and guid and unitType ~= "Player" then
+        encounteredMobs = {}
+        testNoteEnabled = false
+
+
+        playerTargetMobId = mobId
+        storeEncounteredMob(mobId)
+    elseif inCombat and guid and unitType ~= "Player" then
+        playerTargetMobId = tonumber(unitId)
+    end
+
+    DD:RenderOmniNote()
+end
+
 frame:SetScript("OnEvent", function(self, event)
     if event == "PLAYER_REGEN_DISABLED" then
-        encounteredMobs = {} -- Reset encountered mobs at start of combat
-        testNoteEnabled = false
+        -- Reset encountered mobs at start of combat
+        -- This caused nothing to render, skipping
     elseif event == "PLAYER_REGEN_ENABLED" then
-        -- this event means the player has left combat
-   elseif event == "COMBAT_LOG_EVENT_UNFILTERED" then
+        -- Reset encountered mobs at end of combat
+        encounteredMobs = {}
+        testNoteEnabled = false
+        ensureTarget()
+    elseif event == "COMBAT_LOG_EVENT_UNFILTERED" then
         local inCombat = UnitAffectingCombat("player")
         if not inCombat then
             return
@@ -91,46 +126,28 @@ frame:SetScript("OnEvent", function(self, event)
         local destMobId = tonumber((destGUID):match("-(%d+)-%x+$"))
         local destGuidType = destGUID:match("^(.-)-")
 
-        -- Exclude players, check both the source and dest GUIDs of the event
-        if sourceMobId and sourceGuidType ~= "Player" then
+        local isValidEvent = function(sourceMobId, sourceGuidType, destMobId, destGuidType) 
+            if sourceGuidType == "Player" and destGuidType == "Player" then
+                return false
+            end
+
+            if IsFollowerNPC(sourceMobId) or IsFollowerNPC(destMobId) then
+                return true
+            end
+
+            if sourceGuidType == "Player" or destGuidType == "Player" then
+                return true
+            end
+        end
+
+
+        if isValidEvent(sourceMobId, sourceGuidType, destMobId, destGuidType) then
             storeEncounteredMob(sourceMobId)
             DD:RenderOmniNote()
         end
-        if destMobId and destGuidType ~= "Player" then
-            storeEncounteredMob(destMobId)
-            DD:RenderOmniNote()
-        end
-
+        
     elseif event == "PLAYER_TARGET_CHANGED" then
-        local inCombat = UnitAffectingCombat("player")
-        local guid = UnitGUID("target")
-        local unitType, unitId, mobId
-
-        if guid then
-            unitType, _, _, _, _, unitId = strsplit("-", guid)
-            mobId = tonumber(unitId)
-        end
-
-        if inCombat and not guid then
-            playerTargetMobId = nil
-        elseif not inCombat and not guid then
-            playerTargetMobId = nil
-            encounteredMobs = {}
-            testNoteEnabled = false
-        elseif not inCombat and guid and unitType == "Player" then
-            playerTargetMobId = nil
-        elseif not inCombat and guid and unitType ~= "Player" then
-            encounteredMobs = {}
-            testNoteEnabled = false
-
-
-            playerTargetMobId = mobId
-            storeEncounteredMob(mobId)
-        elseif inCombat and guid and unitType ~= "Player" then
-            playerTargetMobId = tonumber(unitId)
-        end
-
-        DD:RenderOmniNote()
+        ensureTarget()
     end
 end)
 
@@ -156,51 +173,47 @@ function DD:RenderOmniNote()
         totalHeight = totalHeight + frame:GetHeight()
     end
 
+    local renderedNoteNames = {}
+
     for i, mobId in ipairs(encounteredMobs) do
         -- Build the note card
+
         local mob = renderEncounteredMob(mobId)
-        if mob then
+        if mob and not IsInArray(renderedNoteNames, mob.noteName) then
             local isTargeted = mobId == playerTargetMobId
-            local noteCard = BuildNoteCard(i, mob.noteName, mob.note, state, isTargeted)
+            local isBoss = DD:Dungeons_IsBossInCurrentDungeon(mobId)
+            local noteCard = BuildNoteCard(i, mob.noteName, mob.note, state, isTargeted, isBoss)
             noteCard:SetParent(cardContainer)
             noteCard:Show()
+
+            local spacer = CreateFrame("Frame", "Spacer" .. i, cardContainer)
+            spacer:SetWidth(cardContainer:GetWidth())
+            spacer:SetHeight(state.noteSpacing)
+            spacer:Show()
+            spacer.bg = spacer:CreateTexture(nil, "BACKGROUND")
+            spacer.bg:SetAllPoints(spacer)
+            spacer.bg:SetColorTexture(0, 0, 0, state.backgroundOpacity)
 
             -- Position the note card
             if state.noteGrowDirection == "UP" then
                 if i == 1 then
                     noteCard:SetPoint("BOTTOM", cardContainer, "BOTTOM", 0, 0)
                 else
-                    noteCard:SetPoint("BOTTOM", lastNoteCard, "TOP", 0, 0)
+                    spacer:SetPoint("BOTTOM", lastNoteCard, "TOP", 0, 0)
+                    noteCard:SetPoint("BOTTOM", spacer, "TOP", 0, 0)
                 end
             else
                 if i == 1 then
                     noteCard:SetPoint("TOP", cardContainer, "TOP", 0, 0)
                 else
-                    noteCard:SetPoint("TOP", lastNoteCard, "BOTTOM", 0, 0)
+                    spacer:SetPoint("TOP", lastNoteCard, "BOTTOM", 0, 0)
+                    noteCard:SetPoint("TOP", spacer, "BOTTOM", 0, 0)
                 end
             end
 
             recordHeight(noteCard)
             lastNoteCard = noteCard
 
-            if i < #encounteredMobs and noteCard:GetHeight() > 0 then
-                local spacer = CreateFrame("Frame", "Spacer" .. i, cardContainer)
-                spacer:SetWidth(cardContainer:GetWidth())
-                spacer:SetHeight(state.noteSpacing)
-                spacer:Show()
-                spacer.bg = spacer:CreateTexture(nil, "BACKGROUND")
-                spacer.bg:SetAllPoints(spacer)
-                spacer.bg:SetColorTexture(0, 0, 0, state.backgroundOpacity)
-
-                if state.noteGrowDirection == "UP" then
-                    spacer:SetPoint("BOTTOM", lastNoteCard, "TOP", 0, 0)
-                else
-                    spacer:SetPoint("TOP", lastNoteCard, "BOTTOM", 0, 0)
-                end
-
-                recordHeight(spacer)
-                lastNoteCard = spacer
-            end
         end
     end
 
@@ -229,7 +242,7 @@ function DD:RenderOmniNote()
     cardContainer:Show()
 end
 
-function BuildNoteCard(noteIndex, noteName, note, state, isTargeted)
+function BuildNoteCard(noteIndex, noteName, note, state, isTargeted, isBoss)
     -- Create the main card frame
     local card = CreateFrame("Frame", "CardFrame" .. noteIndex, omniAnchorFrame)
 
@@ -276,7 +289,8 @@ function BuildNoteCard(noteIndex, noteName, note, state, isTargeted)
             getIndex(),
             defaultIndent,
             withPadding(linePadding),
-            isTargeted
+            isTargeted,
+            isBoss
         )
         recordHeight(mobNameFrame)
     end
@@ -431,7 +445,8 @@ function ResolveTextStyle(state, targetKey, defaultKey)
     return textStyle
 end
 
-function BuildNoteCardLine(frameName, parentFrame, noteText, state, textStyle, index, indent, linePadding, isTargeted)
+function BuildNoteCardLine(frameName, parentFrame, noteText, state, textStyle, index, indent, linePadding, isTargeted,
+                           isBoss)
     local fontFlags
     if state.textOutline then
         fontFlags = "OUTLINE"
@@ -448,6 +463,10 @@ function BuildNoteCardLine(frameName, parentFrame, noteText, state, textStyle, i
     end
 
     if testNoteEnabled then
+        alpha = 1.0
+    end
+
+    if isBoss then
         alpha = 1.0
     end
 
