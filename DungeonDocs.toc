@@ -33,11 +33,11 @@ UI/Settings/Title.lua
 UI/Settings/Shared.lua
 UI/Settings/Settings.lua
 UI/Settings/General.lua
-UI/Settings/StylePrimary.lua
-UI/Settings/StyleRole.lua
-UI/Settings/StyleRoleTank.lua
-UI/Settings/StyleRoleHealer.lua
-UI/Settings/StyleRoleDamage.lua
+UI/Settings/Primary.lua
+UI/Settings/Role.lua
+UI/Settings/Tank.lua
+UI/Settings/Healer.lua
+UI/Settings/Damage.lua
 
 Dungeons/Dungeons.lua
 Dungeons/TWW/S1/AraKara.lua
