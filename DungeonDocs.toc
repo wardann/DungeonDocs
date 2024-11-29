@@ -18,10 +18,7 @@ DungeonDocs.lua
 Modules/Database.lua
 Modules/Utils.lua
 Modules/Helpers.lua
-Modules/Notes.lua
-Modules/PrimaryNote.lua
 Modules/Movers.lua
-Modules/Notes/Common.lua
 Modules/Notes/Omni.lua
 
 Tabs/Docs.lua
