@@ -19,7 +19,7 @@ Modules/Database.lua
 Modules/Utils.lua
 Modules/Helpers.lua
 Modules/Movers.lua
-Modules/Notes/Omni.lua
+Modules/OmniNote.lua
 
 Tabs/Docs.lua
 Tabs/Settings.lua
