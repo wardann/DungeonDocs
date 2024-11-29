@@ -21,7 +21,7 @@ local dbDefaults = {
             untargetedNoteOpacity = 0.8,
             noteSpacing = 15,
 
-            showMobName = true,
+            showNoteTitle = true,
 
             roleDisplay = "None", -- Values are "None", "Current", or "All"
             roleHeaderIndent = 0,

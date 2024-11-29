@@ -7,11 +7,9 @@ function DD:SettingsStylePrimary_View(wrapperContainer)
         DD:SettingsStylePrimary_View(wrapperContainer)
     end
 
-
     wrapperContainer:SetLayout("Flow")
 
     local state = self.db.profile.settings.omniNote
-    local internal = self.db.profile.internal
 
     local container = AceGUI:Create("ScrollFrame")
     container:SetLayout("Flow")
@@ -21,58 +19,9 @@ function DD:SettingsStylePrimary_View(wrapperContainer)
 
 
     SettingsStylePrimary_AddDescription(container)
-    Utils_AddSpacer(container)
-
-
-    local baseSection = AddSection(container, "Basic")
-
-    SettingsShared_AddMovers(baseSection, internal.movers, "omniNote")
-    SettingsShared_AddTestNoteToggle(baseSection, internal, "showTestNote")
-    SettingsShared_AddNoteWidth(baseSection, state)
-
-    -- Add note grow direction
-    local growDirections = {
-        UP = "UP",
-        DOWN = "DOWN",
-    }
-    SettingsShared_AddDropdown(baseSection, "Note Grow Direction", growDirections, state, "noteGrowDirection")
-
-    SettingsShared_AddTextAlignment(baseSection, state, "textAlign")
-
-    -- Add text outline checkbox
-    SettingsShared_AddCheckBox(baseSection, "Text outline", state, "textOutline")
-
-    -- Add line padding
-    SettingsShared_AddLinePadding(baseSection, state)
-
-    -- Add backdrop opacity
-    SettingsShared_AddBackgroundOpacity(baseSection, state)
-
-    -- Untargeted note opacity
-    SettingsShared_AddUntargetedNoteOpacity(baseSection, state)
-
-    -- Note spacing
-    SettingsShared_AddNoteSpacing(baseSection, state)
-
-    -- Add default font selection
-    local defaultFontSection = AddSection(container, "Default Text Style")
-    SettingsShared_AddFontSettings(defaultFontSection, state.style.defaultText)
-
-    -- Add mob name settings
-    local mobNameSection = AddSection(container, "Mob Name")
-    SettingsShared_AddCheckBox(mobNameSection, "Show mob name", state, "showMobName", refresh)
-
-    if state.showMobName then
-        if not state.style.mobName.useDefaultTextStyle then
-            Utils_AddSpacer(mobNameSection)
-            SettingsShared_AddFontSettings(mobNameSection, state.style.mobName.text)
-        end
-        SettingsShared_AddCheckBox(mobNameSection, "Use default text style", state.style.mobName, "useDefaultTextStyle",
-            refresh)
-    end
-
+    
     -- Add primary note settings
-    local primaryNoteSection = AddSection(container, "Primary Note")
+    local primaryNoteSection = AddSection(container, "")
     if not state.style.primaryNote.useDefaultTextStyle then
         SettingsShared_AddFontSettings(primaryNoteSection, state.style.primaryNote.text)
     end

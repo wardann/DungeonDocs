@@ -29,6 +29,7 @@ Tabs/Settings.lua
 Tabs/Profile.lua
 
 UI/Settings/Utils.lua
+UI/Settings/Title.lua
 UI/Settings/Shared.lua
 UI/Settings/Settings.lua
 UI/Settings/General.lua

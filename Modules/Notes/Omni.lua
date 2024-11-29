@@ -14,6 +14,8 @@ local encounteredMobs = {}
 local testNoteEnabled = false
 
 local function storeEncounteredMob(mobId)
+    if IsFollowerNPC(mobId) then return end
+
     -- Only store the mob if it's not already stored
     for _, v in ipairs(encounteredMobs) do
         if v == mobId then
@@ -126,7 +128,7 @@ frame:SetScript("OnEvent", function(self, event)
         local destMobId = tonumber((destGUID):match("-(%d+)-%x+$"))
         local destGuidType = destGUID:match("^(.-)-")
 
-        local isValidEvent = function(sourceMobId, sourceGuidType, destMobId, destGuidType) 
+        local isValidEvent = function(sourceMobId, sourceGuidType, destMobId, destGuidType)
             if sourceGuidType == "Player" and destGuidType == "Player" then
                 return false
             end
@@ -145,7 +147,6 @@ frame:SetScript("OnEvent", function(self, event)
             storeEncounteredMob(sourceMobId)
             DD:RenderOmniNote()
         end
-        
     elseif event == "PLAYER_TARGET_CHANGED" then
         ensureTarget()
     end
@@ -213,7 +214,6 @@ function DD:RenderOmniNote()
 
             recordHeight(noteCard)
             lastNoteCard = noteCard
-
         end
     end
 
@@ -279,7 +279,7 @@ function BuildNoteCard(noteIndex, noteName, note, state, isTargeted, isBoss)
     local defaultIndent = 5
     local linePadding = state.linePadding * -1
 
-    if state.showMobName then
+    if state.showNoteTitle then
         local mobNameFrame = BuildNoteCardLine(
             "MobName" .. noteIndex,
             previousFrame,

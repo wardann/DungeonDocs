@@ -48,9 +48,9 @@ function DD:SettingsOmni_View(wrapperContainer)
 
     -- Add mob name settings
     local mobNameSection = AddSection(container, "Mob Name")
-    SettingsShared_AddCheckBox(mobNameSection, "Show mob name", state, "showMobName", refresh)
+    SettingsShared_AddCheckBox(mobNameSection, "Show mob name", state, "showNoteTitle", refresh)
 
-    if state.showMobName then
+    if state.showNoteTitle then
         if not state.style.mobName.useDefaultTextStyle then
             Utils_AddSpacer(mobNameSection)
             SettingsShared_AddFontSettings(mobNameSection, state.style.mobName.text)

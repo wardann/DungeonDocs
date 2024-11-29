@@ -22,32 +22,28 @@ function DD:Settings_Tab(container)
             value = "general",
         },
         {
-            text = "Style",
-            value = "style",
-            children = {
-                {
-                    text = "Primary",
-                    value = "primary",
-                },
-                {
-                    text = "Role",
-                    value = "role",
-                    children = {
-                        {
-                            text = "Tank",
-                            value = "tank",
-                        },
-                        {
-                            text = "Healer",
-                            value = "healer",
-                        },
-                        {
-                            text = "Damage",
-                            value = "damage",
-                        }
-                    }
-                }
-            }
+            text = "Title",
+            value = "title",
+        },
+        {
+            text = "Primary",
+            value = "primary",
+        },
+        {
+            text = "Role",
+            value = "role",
+        },
+        {
+            text = "Tank",
+            value = "tank",
+        },
+        {
+            text = "Healer",
+            value = "healer",
+        },
+        {
+            text = "Damage",
+            value = "damage",
         },
     }
     treeGroup:SetTree(menu)
@@ -66,30 +62,21 @@ function DD:Settings_Tab(container)
 
         if first == "general" then
             DD:SettingsGeneral_View(rightGroup)
-        elseif first == "style" then
-            if not second then
-                treeGroup:SelectByPath("style" .. "\001" .. "primary")
-            elseif second == "primary" then
-                DD:SettingsStylePrimary_View(rightGroup)
-            elseif second == "role" then
-                if not third then
-                    DD:SettingsStyleRole_View(rightGroup)
-                elseif third == "tank" then
-                    DD:SettingsStyleRoleTank_View(rightGroup)
-                elseif third == "healer" then
-                    DD:SettingsStyleRoleHealer_View(rightGroup)
-                elseif third == "damage" then
-                    DD:SettingsStyleRoleDamage_View(rightGroup)
-                end
-            end
+        elseif first == "title" then
+            DD:SettingsTitle_View(rightGroup)
+        elseif first == "primary" then
+            DD:SettingsStylePrimary_View(rightGroup)
+        elseif first == "role" then
+            DD:SettingsStyleRole_View(rightGroup)
+        elseif first == "tank" then
+            DD:SettingsStyleRoleTank_View(rightGroup)
+        elseif first == "healer" then
+            DD:SettingsStyleRoleHealer_View(rightGroup)
+        elseif first == "damage" then
+            DD:SettingsStyleRoleDamage_View(rightGroup)
         end
     end)
 
-
-    -- Force selection of all top-level nodes to ensure they're expanded
-    -- for _, node in ipairs(menu) do
-    --     treeGroup:SelectByPath(node.value)
-    -- end
 
 
     ExpandAllTreeNodes(treeGroup, menu)
@@ -101,7 +88,7 @@ function ExpandAllTreeNodes(treeGroup, menu, path)
     for _, node in ipairs(menu) do
         -- Build the current path
         local currentPath = path and (path .. "\001" .. node.value) or node.value
-        
+
         -- Expand the current node
         treeGroup:SelectByPath(currentPath)
 
@@ -111,4 +98,3 @@ function ExpandAllTreeNodes(treeGroup, menu, path)
         end
     end
 end
-
