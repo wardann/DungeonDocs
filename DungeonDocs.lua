@@ -16,27 +16,14 @@ function DungeonDocs:OnInitialize()
     DD:Profiles_Init()
 
     -- Init DB
-    DungeonDocs:DB_Init()
+    DD:DB_Init()
 
     -- Init dungeons
     DD:Dungeons_InitAll()
 
-    -- DungeonDocs:InitNotePanels()
-
     DD:Movers_Init()
 
-    DD:PrimaryNote_Init()
-
-    DD:InitOmniNote()
-end
-
-function DungeonDocs:OnEnable()
-    -- Register for the event when the player changes target
-    self:RegisterEvent("PLAYER_TARGET_CHANGED", "RenderNotes")
-end
-
-function DD:RenderNotes()
-    DD:PrimaryNote_Render()
+    DD:OmniNote_Init()
 end
 
 

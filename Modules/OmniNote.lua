@@ -6,7 +6,7 @@ DD:SubscribeToDBChange(function()
     DD:RenderOmniNote()
 end)
 
-function DD:InitOmniNote()
+function DD:OmniNote_Init()
     omniAnchorFrame = DD:Movers_GetOmni()
 end
 
