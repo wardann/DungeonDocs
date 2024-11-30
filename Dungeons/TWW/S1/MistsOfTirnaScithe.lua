@@ -57,8 +57,8 @@ local noteStructures = {
     ddid = createDDID(4),
     mobs = {
       {
-      id = 216336,
-      displayId = 120876,
+        id = 216336,
+        displayId = 120876,
       }
     },
   },
@@ -67,8 +67,8 @@ local noteStructures = {
     ddid = createDDID(5),
     mobs = {
       {
-      id = 165111,
-      displayId = 86207,
+        id = 165111,
+        displayId = 86207,
       }
     },
   },
@@ -77,8 +77,8 @@ local noteStructures = {
     ddid = createDDID(6),
     mobs = {
       {
-      id = 164929,
-      displayId = 95618,
+        id = 164929,
+        displayId = 95618,
       }
     },
   },
@@ -87,8 +87,8 @@ local noteStructures = {
     ddid = createDDID(7),
     mobs = {
       {
-      id = 164920,
-      displayId = 95612,
+        id = 164920,
+        displayId = 95612,
       }
     },
   },
@@ -97,8 +97,8 @@ local noteStructures = {
     ddid = createDDID(8),
     mobs = {
       {
-      id = 164921,
-      displayId = 95613,
+        id = 164921,
+        displayId = 95613,
       }
     },
   },
@@ -107,8 +107,8 @@ local noteStructures = {
     ddid = createDDID(9),
     mobs = {
       {
-      id = 164926,
-      displayId = 95615,
+        id = 164926,
+        displayId = 95615,
       }
     },
   },
@@ -117,8 +117,8 @@ local noteStructures = {
     ddid = createDDID(10),
     mobs = {
       {
-      id = 163058,
-      displayId = 95256,
+        id = 163058,
+        displayId = 95256,
       }
     },
   },
@@ -127,8 +127,8 @@ local noteStructures = {
     ddid = createDDID(11),
     mobs = {
       {
-      id = 166301,
-      displayId = 93762,
+        id = 166301,
+        displayId = 93762,
       }
     },
   },
@@ -137,8 +137,8 @@ local noteStructures = {
     ddid = createDDID(12),
     mobs = {
       {
-      id = 166304,
-      displayId = 95198,
+        id = 166304,
+        displayId = 95198,
       }
     },
   },
@@ -147,8 +147,8 @@ local noteStructures = {
     ddid = createDDID(13),
     mobs = {
       {
-      id = 166276,
-      displayId = 95261,
+        id = 166276,
+        displayId = 95261,
       }
     },
   },
@@ -157,8 +157,8 @@ local noteStructures = {
     ddid = createDDID(14),
     mobs = {
       {
-      id = 166299,
-      displayId = 95908,
+        id = 166299,
+        displayId = 95908,
       }
     },
   },
@@ -167,8 +167,8 @@ local noteStructures = {
     ddid = createDDID(15),
     mobs = {
       {
-      id = 166275,
-      displayId = 95051,
+        id = 166275,
+        displayId = 95051,
       }
     },
   },
@@ -177,8 +177,8 @@ local noteStructures = {
     ddid = createDDID(16),
     mobs = {
       {
-      id = 173714,
-      displayId = 55772,
+        id = 173714,
+        displayId = 55772,
       }
     },
   },
@@ -187,8 +187,8 @@ local noteStructures = {
     ddid = createDDID(17),
     mobs = {
       {
-      id = 167111,
-      displayId = 94190,
+        id = 167111,
+        displayId = 94190,
       }
     },
   },
@@ -197,8 +197,8 @@ local noteStructures = {
     ddid = createDDID(18),
     mobs = {
       {
-      id = 167113,
-      displayId = 94205,
+        id = 167113,
+        displayId = 94205,
       }
     },
   },
@@ -207,8 +207,8 @@ local noteStructures = {
     ddid = createDDID(19),
     mobs = {
       {
-      id = 172312,
-      displayId = 94197,
+        id = 172312,
+        displayId = 94197,
       }
     },
   },
@@ -217,8 +217,8 @@ local noteStructures = {
     ddid = createDDID(20),
     mobs = {
       {
-      id = 167117,
-      displayId = 94208,
+        id = 167117,
+        displayId = 94208,
       }
     },
   },
@@ -227,8 +227,8 @@ local noteStructures = {
     ddid = createDDID(21),
     mobs = {
       {
-      id = 167116,
-      displayId = 95692,
+        id = 167116,
+        displayId = 95692,
       }
     },
   },
@@ -237,8 +237,8 @@ local noteStructures = {
     ddid = createDDID(22),
     mobs = {
       {
-      id = 173720,
-      displayId = 98502,
+        id = 173720,
+        displayId = 98502,
       }
     },
   },
@@ -247,8 +247,8 @@ local noteStructures = {
     ddid = createDDID(23),
     mobs = {
       {
-      id = 166304,
-      displayId = 95198,
+        id = 166304,
+        displayId = 95198,
       }
     },
   },
@@ -257,8 +257,8 @@ local noteStructures = {
     ddid = createDDID(24),
     mobs = {
       {
-      id = 173655,
-      displayId = 98569,
+        id = 173655,
+        displayId = 98569,
       }
     },
   },
