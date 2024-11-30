@@ -2,7 +2,7 @@ local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
 
 
 local function createDDID(index)
-  return "grimbatol" .. index
+  return "gb" .. index
 end
 
 local noteStructures = {

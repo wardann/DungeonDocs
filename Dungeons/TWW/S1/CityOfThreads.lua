@@ -1,7 +1,7 @@
 local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
 
 local function createDDID(index)
-    return "cityofthreads" .. index
+    return "cot" .. index
 end
 
 local noteStructures = {
