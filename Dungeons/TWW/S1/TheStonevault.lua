@@ -71,7 +71,7 @@ local dungeonBosses = {
 
 local dungeonTrash = {
   {
-    name = "Cursedheart Invader",
+    name = "Cursedheart Invader (1)",
     id = 212389,
     displayId = 118702,
   },
@@ -151,7 +151,7 @@ local dungeonTrash = {
     displayId = 120170,
   },
   {
-    name = "Cursedheart Invader",
+    name = "Cursedheart Invader (2)",
     id = 212403,
     displayId = 118702,
   },

@@ -25,3 +25,74 @@ function DD:Dungeons_GetCurrentSeason()
 
     return dungeons
 end
+
+-- Returns ame of the current dungeon the player is in
+function DD:Dungeons_GetCurrentDungeon()
+    local instanceName, instanceType = GetInstanceInfo()
+    if instanceType ~= "party" then
+        return
+    end
+    return instanceName
+end
+
+function DD:Dungeons_IsBossInCurrentDungeon(mobId)
+    local dungeonName = DD:Dungeons_GetCurrentDungeon()
+    if not dungeonName then return false end
+
+    local dungeon = DD.Dungeons[dungeonName]
+
+    for _, boss in ipairs(dungeon.bosses) do
+        for _, mob in ipairs(boss.mobs) do
+            if tostring(mob.id) == mobId then
+                return true
+            end
+        end
+    end
+end
+
+
+-- Returns the name of the note from a mob id. This will either be the
+-- name of the mob or name of the boss encounter
+function DD:Dungeons_MobIdToNoteName(mobId, dungeonName)
+    local dungeon = DD.Dungeons[dungeonName]
+
+    if not dungeon then
+        return
+    end
+
+    -- Search bosses in the dungeon
+    for _, boss in ipairs(dungeon.bosses) do
+        for _, mob in ipairs(boss.mobs) do
+            if tostring(mob.id) == mobId then
+                return boss.bossName
+            end
+        end
+    end
+
+    -- Search trash in the dungeon
+    for _, mob in ipairs(dungeon.trash) do
+        if tostring(mob.id) == mobId then
+            return mob.name
+        end
+    end
+end
+
+function DD:Dungeons_MobIdToDungeonName(mobId)
+    for dungeonName, dungeon in pairs(DD.Dungeons) do
+        -- Search bosses in the dungeon
+        for _, boss in ipairs(dungeon.bosses) do
+            for _, mob in ipairs(boss.mobs) do
+                if tostring(mob.id) == mobId then
+                    return dungeonName
+                end
+            end
+        end
+
+        -- Search trash in the dungeon
+        for _, mob in ipairs(dungeon.trash) do
+            if tostring(mob.id) == mobId then
+                return dungeonName
+            end
+        end
+    end
+end

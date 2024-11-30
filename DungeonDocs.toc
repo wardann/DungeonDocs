@@ -18,11 +18,23 @@ DungeonDocs.lua
 Modules/Database.lua
 Modules/Utils.lua
 Modules/Helpers.lua
-Modules/Notes.lua
+Modules/Movers.lua
+Modules/OmniNote.lua
 
 Tabs/Docs.lua
 Tabs/Settings.lua
 Tabs/Profile.lua
+
+UI/Settings/Utils.lua
+UI/Settings/Title.lua
+UI/Settings/Shared.lua
+UI/Settings/Settings.lua
+UI/Settings/General.lua
+UI/Settings/Primary.lua
+UI/Settings/Role.lua
+UI/Settings/Tank.lua
+UI/Settings/Healer.lua
+UI/Settings/Damage.lua
 
 Dungeons/Dungeons.lua
 Dungeons/TWW/S1/AraKara.lua

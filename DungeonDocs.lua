@@ -16,18 +16,16 @@ function DungeonDocs:OnInitialize()
     DD:Profiles_Init()
 
     -- Init DB
-    DungeonDocs:DB_Init()
+    DD:DB_Init()
 
     -- Init dungeons
     DD:Dungeons_InitAll()
 
-    DungeonDocs:InitNotePanels()
+    DD:Movers_Init()
+
+    DD:OmniNote_Init()
 end
 
-function DungeonDocs:OnEnable()
-    -- Register for the event when the player changes target
-    self:RegisterEvent("PLAYER_TARGET_CHANGED", "Notes_SyncNotesWithTarget")
-end
 
 -- Register slash command
 DungeonDocs:RegisterChatCommand("dungeondocs", "OpenUI")
@@ -84,8 +82,8 @@ function DungeonDocs:OpenUI(msg)
     local maxWidth = UIParent:GetWidth() * 0.8
     local maxHeight = UIParent:GetHeight() * 0.8
 
-    local initWidth = math.min(700, maxWidth)   -- 700 is an initial width
-    local initHeight = math.min(800, maxHeight) -- 800 is an initial height
+    local initWidth = math.min(850, maxWidth)
+    local initHeight = math.min(850, maxHeight)
 
     local storedWidth = dungeonDocsWindowSize.width
     local storedHeight = dungeonDocsWindowSize.height
@@ -142,6 +140,7 @@ function DungeonDocs:OpenUI(msg)
         { text = "Docs",     value = "docs" },
         { text = "Settings", value = "settings" },
         { text = "Profiles", value = "profiles" },
+        { text = "SettingsNew", value = "settingsnew" },
     })
     tab:SetCallback("OnGroupSelected", function(container, event, group)
         container:ReleaseChildren()
@@ -151,6 +150,8 @@ function DungeonDocs:OpenUI(msg)
             DungeonDocs:ShowSettingsTab(container)
         elseif group == "profiles" then
             DungeonDocs:Profile_TabRoot(container)
+        elseif group == "settingsnew" then
+            DungeonDocs:Settings_Tab(container)
         end
     end)
     tab:SelectTab("docs") -- Default tab to display

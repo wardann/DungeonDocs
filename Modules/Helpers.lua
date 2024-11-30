@@ -30,10 +30,6 @@ function MergeDocs(profileDocs, fallbackProfileDocs)
                     return not note and fallbackNote and #fallbackNote > 0
                 end
 
-                if mob.id == 220193 then
-                    print("found mob ", 220193)
-                end
-
                 if shouldUseFallback(found.primaryNote, mob.primaryNote) then
                     found.primaryNote = mob.primaryNote
                 end
@@ -69,6 +65,15 @@ end
 
 function IsTableEmpty(tbl)
     return next(tbl) == nil
+end
+
+function IsInArray(array, element)
+    for _, e in ipairs(array) do
+        if e == element then
+            return true
+        end
+    end
+    return false
 end
 
 function TableToString(tbl, indent)
