@@ -1,58 +1,68 @@
 local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
 
+local function createDDID(index)
+  return "sob" .. index
+end
 
-local dungeonBosses = {
+local noteStructures = {
+  --
+  -- BOSSES
+  --
   {
-    bossName = "Chopper Redhook",
-    encounterId = 2654,
+    noteName = "Chopper Redhook",
+    ddid = createDDID(1),
+    isBoss = true,
     mobs = {
       {
-        name = "Chopper Redhook",
+        -- name = "Chopper Redhook",
         id = 128650,
         displayId = 84821,
       },
       {
-        name = "Irontide Cleaver",
+        -- name = "Irontide Cleaver",
         id = 129879,
         displayId = 81286,
       },
     }
   },
   {
-    bossName = "Dread Captain Lockwood",
-    encounterId = 2173,
+    noteName = "Dread Captain Lockwood",
+    ddid = createDDID(2),
+    isBoss = true,
     mobs = {
       {
-        name = "Dread Captain Lockwood",
+        -- name = "Dread Captain Lockwood",
         id = 129208,
         displayId = 88579,
       },
       {
-        name = "Ashvane Deckhand",
+        -- name = "Ashvane Deckhand",
         id = 136483,
         displayId = 84385,
       },
       {
-        name = "Ashvane Cannoneer",
+        -- name = "Ashvane Cannoneer",
         id = 136549,
         displayId = 82852,
       },
     }
   },
   {
-    bossName = "Hadal Darkfathom",
-    encounterId = 2134,
+    noteName = "Hadal Darkfathom",
+    ddid = createDDID(3),
+    isBoss = true,
     mobs = {
       {
-        name = "Hadal Darkfathom",
+        -- name = "Hadal Darkfathom",
         id = 128651,
         displayId = 67541,
       },
     }
   },
   {
-    bossName = "Viqgoth",
-    encounterId = 2140,
+    noteName = "Viqgoth",
+    ddid = createDDID(4),
+    isBoss = true,
     mobs = {
       {
         name = "Viqgoth",
@@ -71,153 +81,286 @@ local dungeonBosses = {
       },
     }
   },
-}
-
-
-local dungeonTrash = {
+  ---
+  --- TRASH
+  ---
   {
-    name = "Scrimshaw Gutter",
-    id = 133990,
-    displayId = 83892,
+    noteName = "Scrimshaw Gutter",
+    ddid = createDDID(1),
+    mobs = {
+      {
+        id = 133990,
+        displayId = 83892,
+      }
+    },
   },
   {
-    name = "Blacktar Bomber",
-    id = 129372,
-    displayId = 84136,
+    noteName = "Blacktar Bomber",
+    ddid = createDDID(1),
+    mobs = {
+      {
+        id = 129372,
+        displayId = 84136,
+      }
+    },
   },
   {
-    name = "Scrimshaw Enforcer",
-    id = 129374,
-    displayId = 86006,
+    noteName = "Scrimshaw Enforcer",
+    ddid = createDDID(1),
+    mobs = {
+      {
+        id = 129374,
+        displayId = 86006,
+      }
+    },
   },
   {
-    name = "Irontide Waveshaper",
-    id = 129370,
-    displayId = 84327,
+    noteName = "Irontide Waveshaper",
+    ddid = createDDID(1),
+    mobs = {
+      {
+        id = 129370,
+        displayId = 84327,
+      }
+    },
   },
   {
-    name = "Irontide Raider",
-    id = 129369,
-    displayId = 84134,
+    noteName = "Irontide Raider",
+    ddid = createDDID(1),
+    mobs = {
+      {
+        id = 129369,
+        displayId = 84134,
+      }
+    },
   },
   {
-    name = "Riptide Shredder",
-    id = 129371,
-    displayId = 86085,
+    noteName = "Riptide Shredder",
+    ddid = createDDID(1),
+    mobs = {
+      {
+        id = 129371,
+        displayId = 86085,
+      }
+    },
   },
   {
-    name = "Snarling Dockhound",
-    id = 129640,
-    displayId = 30222,
+    noteName = "Snarling Dockhound",
+    ddid = createDDID(1),
+    mobs = {
+      {
+        id = 129640,
+        displayId = 30222,
+      }
+    },
   },
   {
-    name = "Irontide Curseblade",
-    id = 135258,
-    displayId = 79068,
+    noteName = "Irontide Curseblade",
+    ddid = createDDID(1),
+    mobs = {
+      {
+        id = 135258,
+        displayId = 79068,
+      }
+    },
   },
   {
-    name = "Irontide Powdershot",
-    id = 137521,
-    displayId = 85144,
+    noteName = "Irontide Powdershot",
+    ddid = createDDID(1),
+    mobs = {
+      {
+        id = 137521,
+        displayId = 85144,
+      }
+    },
   },
   {
-    name = "Ashvane Commander",
-    id = 128969,
-    displayId = 84067,
+    noteName = "Ashvane Commander",
+    ddid = createDDID(1),
+    mobs = {
+      {
+        id = 128969,
+        displayId = 84067,
+      }
+    },
   },
   {
-    name = "Ashvane Spotter",
-    id = 138255,
-    displayId = 86436,
+    noteName = "Ashvane Spotter",
+    ddid = createDDID(1),
+    mobs = {
+      {
+        id = 138255,
+        displayId = 86436,
+      }
+    },
   },
   {
-    name = "Ashvane Spotter",
-    id = 135263,
-    displayId = 86436,
+    noteName = "Ashvane Spotter",
+    ddid = createDDID(1),
+    mobs = {
+      {
+        id = 135263,
+        displayId = 86436,
+      }
+    },
   },
   {
-    name = "Ashvane Deckhand",
-    id = 138464,
-    displayId = 84385,
+    noteName = "Ashvane Deckhand",
+    ddid = createDDID(1),
+    mobs = {
+      {
+        id = 138464,
+        displayId = 84385,
+      }
+    },
   },
   {
-    name = "Ashvane Cannoneer",
-    id = 138465,
-    displayId = 88542,
+    noteName = "Ashvane Cannoneer",
+    ddid = createDDID(1),
+    mobs = {
+      {
+        id = 138465,
+        displayId = 88542,
+      }
+    },
   },
   {
-    name = "Bilge Rat Pillager",
-    id = 135241,
-    displayId = 52277,
+    noteName = "Bilge Rat Pillager",
+    ddid = createDDID(1),
+    mobs = {
+      {
+        id = 135241,
+        displayId = 52277,
+      }
+    },
   },
   {
-    name = "Bilge Rat Buccaneer",
-    id = 129366,
-    displayId = 81424,
+    noteName = "Bilge Rat Buccaneer",
+    ddid = createDDID(1),
+    mobs = {
+      {
+        id = 129366,
+        displayId = 81424,
+      }
+    },
   },
   {
-    name = "Bilge Rat Demolisher",
-    id = 135245,
-    displayId = 68059,
+    noteName = "Bilge Rat Demolisher",
+    ddid = createDDID(1),
+    mobs = {
+      {
+        id = 135245,
+        displayId = 68059,
+      }
+    },
   },
   {
-    name = "Bilge Rat Tempest",
-    id = 129367,
-    displayId = 80475,
+    noteName = "Bilge Rat Tempest",
+    ddid = createDDID(1),
+    mobs = {
+      {
+        id = 129367,
+        displayId = 80475,
+      }
+    },
   },
   {
-    name = "Bilge Rat Cutthroat",
-    id = 137511,
-    displayId = 80319,
+    noteName = "Bilge Rat Cutthroat",
+    ddid = createDDID(1),
+    mobs = {
+      {
+        id = 137511,
+        displayId = 80319,
+      }
+    },
   },
   {
-    name = "Ashvane Invader",
-    id = 137516,
-    displayId = 79889,
+    noteName = "Ashvane Invader",
+    ddid = createDDID(1),
+    mobs = {
+      {
+        id = 137516,
+        displayId = 79889,
+      }
+    },
   },
   {
-    name = "Ashvane Destroyer",
-    id = 137517,
-    displayId = 82852,
+    noteName = "Ashvane Destroyer",
+    ddid = createDDID(1),
+    mobs = {
+      {
+        id = 137517,
+        displayId = 82852,
+      }
+    },
   },
   {
-    name = "Irontide Waveshaper",
-    id = 144071,
-    displayId = 84327,
+    noteName = "Irontide Waveshaper",
+    ddid = createDDID(1),
+    mobs = {
+      {
+        id = 144071,
+        displayId = 84327,
+      }
+    },
   },
   {
-    name = "Irontide Powdershot",
-    id = 138254,
-    displayId = 85144,
+    noteName = "Irontide Powdershot",
+    ddid = createDDID(1),
+    mobs = {
+      {
+        id = 138254,
+        displayId = 85144,
+      }
+    },
   },
   {
-    name = "Ashvane Sniper",
-    id = 128967,
-    displayId = 82843,
+    noteName = "Ashvane Sniper",
+    ddid = createDDID(1),
+    mobs = {
+      {
+        id = 128967,
+        displayId = 82843,
+      }
+    },
   },
   {
-    name = "Irontide Curseblade",
-    id = 138247,
-    displayId = 79068,
+    noteName = "Irontide Curseblade",
+    ddid = createDDID(1),
+    mobs = {
+      {
+        id = 138247,
+        displayId = 79068,
+      }
+    },
   },
   {
-    name = "Irontide Powdershot",
-    id = 129928,
-    displayId = 85144,
+    noteName = "Irontide Powdershot",
+    ddid = createDDID(1),
+    mobs = {
+      {
+        id = 129928,
+        displayId = 85144,
+      }
+    },
   },
   {
-    name = "Scrimshaw Gutter",
-    id = 138002,
-    displayId = 83892,
+    noteName = "Scrimshaw Gutter",
+    ddid = createDDID(1),
+    mobs = {
+      {
+        id = 138002,
+        displayId = 83892,
+      }
+    },
   },
 }
 
 local dungeonData = {
   name = "Siege of Boralus",
   icon = "Interface\\ICONS\\inv_misc_monsterhorn_03",
-  bosses = dungeonBosses,
-  trash = dungeonTrash,
   seasonId = "TWWS1",
+  noteStructures = noteStructures
 }
 
 

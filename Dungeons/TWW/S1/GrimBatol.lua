@@ -1,138 +1,217 @@
 local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
 
 
-local dungeonBosses = {
+local function createDDID(index)
+  return "grimbatol" .. index
+end
+
+local noteStructures = {
+  --
+  -- BOSSES
+  --
   {
-    bossName = "General Umbriss",
-    encounterId = 2617,
+    noteName = "General Umbriss",
+    ddid = createDDID(1),
+    isBoss = true,
     mobs = {
       {
-        name = "General Umbriss",
+        -- name = "General Umbriss",
         id = 39625,
         displayId = 118920,
       },
     }
   },
   {
-    bossName = "Forgemaster Throngus",
-    encounterId = 2627,
+    noteName = "Forgemaster Throngus",
+    ddid = createDDID(2),
+    isBoss = true,
     mobs = {
       {
-        name = "Forgemaster Throngus",
+        -- name = "Forgemaster Throngus",
         id = 40177,
         displayId = 33429,
       },
     }
   },
   {
-    bossName = "Drahga Shadowburner",
-    encounterId = 2618,
+    noteName = "Drahga Shadowburner",
+    ddid = createDDID(3),
+    isBoss = true,
     mobs = {
       {
-        name = "Drahga Shadowburner",
+        -- name = "Drahga Shadowburner",
         id = 40319,
         displayId = 31792,
       },
       {
-        name = "Valiona",
+        -- name = "Valiona",
         id = 40320,
         displayId = 31795,
       },
     }
   },
   {
-    bossName = "Erudax",
-    encounterId = 2619,
+    noteName = "Erudax",
+    ddid = createDDID(4),
+    isBoss = true,
     mobs = {
       {
-        name = "Erudax",
+        -- name = "Erudax",
         id = 40484,
         displayId = 119801,
       },
     }
   },
-}
-
-
-local dungeonTrash = {
+  --
+  -- TRASH
+  --
   {
-    name = "Twilight Brute",
-    id = 224152,
-    displayId = 119878,
+    noteName = "Twilight Brute",
+    ddid = createDDID(5),
+    mobs = {
+      {
+        id = 224152,
+        displayId = 119878,
+      }
+    },
   },
   {
-    name = "Twilight Earthcaller",
-    id = 224219,
-    displayId = 119892,
+    noteName = "Twilight Earthcaller",
+    ddid = createDDID(6),
+    mobs = {
+      {
+        id = 224219,
+        displayId = 119892,
+      }
+    },
   },
   {
-    name = "Twilight Destroyer",
-    id = 224609,
-    displayId = 119995,
+    noteName = "Twilight Destroyer",
+    ddid = createDDID(7),
+    mobs = {
+      {
+        id = 224609,
+        displayId = 119995,
+      }
+    },
   },
   {
-    name = "Twilight Overseer",
-    id = 224221,
-    displayId = 119893,
+    noteName = "Twilight Overseer",
+    ddid = createDDID(8),
+    mobs = {
+      {
+        id = 224221,
+        displayId = 119893,
+      }
+    },
   },
   {
-    name = "Twilight Beguiler",
-    id = 40167,
-    displayId = 31584,
+    noteName = "Twilight Beguiler",
+    ddid = createDDID(9),
+    mobs = {
+      {
+        id = 40167,
+        displayId = 31584,
+      }
+    },
   },
   {
-    name = "Molten Giant",
-    id = 40166,
-    displayId = 38667,
+    noteName = "Molten Giant",
+    ddid = createDDID(10),
+    mobs = {
+      {
+        id = 40166,
+        displayId = 38667,
+      }
+    },
   },
   {
-    name = "Twilight Enforcer",
-    id = 224276,
-    displayId = 119898,
+    noteName = "Twilight Enforcer",
+    ddid = createDDID(11),
+    mobs = {
+      {
+        id = 224276,
+        displayId = 119898,
+      }
+    },
   },
   {
-    name = "Twilight Warlock",
-    id = 224271,
-    displayId = 119897,
+    noteName = "Twilight Warlock",
+    ddid = createDDID(12),
+    mobs = {
+      {
+        id = 224271,
+        displayId = 119897,
+      }
+    },
   },
   {
-    name = "Twilight Flamerender",
-    id = 224240,
-    displayId = 34353,
+    noteName = "Twilight Flamerender",
+    ddid = createDDID(13),
+    mobs = {
+      {
+        id = 224240,
+        displayId = 34353,
+      }
+    },
   },
   {
-    name = "Twilight Lavabender",
-    id = 224249,
-    displayId = 91122,
+    noteName = "Twilight Lavabender",
+    ddid = createDDID(14),
+    mobs = {
+      {
+        id = 224249,
+        displayId = 91122,
+      }
+    },
   },
   {
-    name = "Mutated Hatchling",
-    id = 224853,
-    displayId = 119810,
+    noteName = "Mutated Hatchling",
+    ddid = createDDID(15),
+    mobs = {
+      {
+        id = 224853,
+        displayId = 119810,
+      }
+    },
   },
   {
-    name = "Faceless Corruptor",
-    id = 39392,
-    displayId = 119899,
+    noteName = "Faceless Corruptor",
+    ddid = createDDID(16),
+    mobs = {
+      {
+        id = 39392,
+        displayId = 119899,
+      }
+    },
   },
   {
-    name = "Invoked Shadowflame Spirit",
-    id = 40357,
-    displayId = 116017,
+    noteName = "Invoked Shadowflame Spirit",
+    ddid = createDDID(17),
+    mobs = {
+      {
+        id = 40357,
+        displayId = 116017,
+      }
+    },
   },
   {
-    name = "Battered",
-    id = 39294,
-    displayId = 31463,
+    noteName = "Battered",
+    ddid = createDDID(18),
+    mobs = {
+      {
+        id = 39294,
+        displayId = 31463,
+      }
+    },
   },
 }
 
 local dungeonData = {
   name = "Grim Batol",
   icon = "Interface\\Icons\\inv_misc_head_dragon_black",
-  bosses = dungeonBosses,
-  trash = dungeonTrash,
   seasonId = "TWWS1",
+  noteStructures = noteStructures,
 }
 
 
