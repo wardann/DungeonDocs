@@ -1,4 +1,4 @@
-require("Helpers")
+require("Modules.Helpers")
 
 describe("MergeDocs", function()
     it("should merge two docs as expected", function()

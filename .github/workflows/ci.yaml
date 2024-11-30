@@ -36,5 +36,4 @@ jobs:
         run: luarocks install busted
 
       - name: Run Lua tests
-        working-directory: ./Modules
-        run: busted Helpers.test.lua
+        run: busted --pattern ".*.test.lua" --helper Mocks/Globals.lua .

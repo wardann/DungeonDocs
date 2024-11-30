@@ -86,7 +86,7 @@ local noteStructures = {
   ---
   {
     noteName = "Scrimshaw Gutter",
-    ddid = createDDID(1),
+    ddid = createDDID(5),
     mobs = {
       {
         id = 133990,
@@ -96,7 +96,7 @@ local noteStructures = {
   },
   {
     noteName = "Blacktar Bomber",
-    ddid = createDDID(1),
+    ddid = createDDID(6),
     mobs = {
       {
         id = 129372,
@@ -106,7 +106,7 @@ local noteStructures = {
   },
   {
     noteName = "Scrimshaw Enforcer",
-    ddid = createDDID(1),
+    ddid = createDDID(7),
     mobs = {
       {
         id = 129374,
@@ -116,7 +116,7 @@ local noteStructures = {
   },
   {
     noteName = "Irontide Waveshaper",
-    ddid = createDDID(1),
+    ddid = createDDID(8),
     mobs = {
       {
         id = 129370,
@@ -126,7 +126,7 @@ local noteStructures = {
   },
   {
     noteName = "Irontide Raider",
-    ddid = createDDID(1),
+    ddid = createDDID(9),
     mobs = {
       {
         id = 129369,
@@ -136,7 +136,7 @@ local noteStructures = {
   },
   {
     noteName = "Riptide Shredder",
-    ddid = createDDID(1),
+    ddid = createDDID(10),
     mobs = {
       {
         id = 129371,
@@ -146,7 +146,7 @@ local noteStructures = {
   },
   {
     noteName = "Snarling Dockhound",
-    ddid = createDDID(1),
+    ddid = createDDID(11),
     mobs = {
       {
         id = 129640,
@@ -156,7 +156,7 @@ local noteStructures = {
   },
   {
     noteName = "Irontide Curseblade",
-    ddid = createDDID(1),
+    ddid = createDDID(12),
     mobs = {
       {
         id = 135258,
@@ -166,7 +166,7 @@ local noteStructures = {
   },
   {
     noteName = "Irontide Powdershot",
-    ddid = createDDID(1),
+    ddid = createDDID(13),
     mobs = {
       {
         id = 137521,
@@ -176,7 +176,7 @@ local noteStructures = {
   },
   {
     noteName = "Ashvane Commander",
-    ddid = createDDID(1),
+    ddid = createDDID(14),
     mobs = {
       {
         id = 128969,
@@ -186,7 +186,7 @@ local noteStructures = {
   },
   {
     noteName = "Ashvane Spotter",
-    ddid = createDDID(1),
+    ddid = createDDID(15),
     mobs = {
       {
         id = 138255,
@@ -196,7 +196,7 @@ local noteStructures = {
   },
   {
     noteName = "Ashvane Spotter",
-    ddid = createDDID(1),
+    ddid = createDDID(16),
     mobs = {
       {
         id = 135263,
@@ -206,7 +206,7 @@ local noteStructures = {
   },
   {
     noteName = "Ashvane Deckhand",
-    ddid = createDDID(1),
+    ddid = createDDID(17),
     mobs = {
       {
         id = 138464,
@@ -216,7 +216,7 @@ local noteStructures = {
   },
   {
     noteName = "Ashvane Cannoneer",
-    ddid = createDDID(1),
+    ddid = createDDID(18),
     mobs = {
       {
         id = 138465,
@@ -226,7 +226,7 @@ local noteStructures = {
   },
   {
     noteName = "Bilge Rat Pillager",
-    ddid = createDDID(1),
+    ddid = createDDID(19),
     mobs = {
       {
         id = 135241,
@@ -236,7 +236,7 @@ local noteStructures = {
   },
   {
     noteName = "Bilge Rat Buccaneer",
-    ddid = createDDID(1),
+    ddid = createDDID(20),
     mobs = {
       {
         id = 129366,
@@ -246,7 +246,7 @@ local noteStructures = {
   },
   {
     noteName = "Bilge Rat Demolisher",
-    ddid = createDDID(1),
+    ddid = createDDID(21),
     mobs = {
       {
         id = 135245,
@@ -256,7 +256,7 @@ local noteStructures = {
   },
   {
     noteName = "Bilge Rat Tempest",
-    ddid = createDDID(1),
+    ddid = createDDID(22),
     mobs = {
       {
         id = 129367,
@@ -266,7 +266,7 @@ local noteStructures = {
   },
   {
     noteName = "Bilge Rat Cutthroat",
-    ddid = createDDID(1),
+    ddid = createDDID(23),
     mobs = {
       {
         id = 137511,
@@ -276,7 +276,7 @@ local noteStructures = {
   },
   {
     noteName = "Ashvane Invader",
-    ddid = createDDID(1),
+    ddid = createDDID(24),
     mobs = {
       {
         id = 137516,
@@ -286,7 +286,7 @@ local noteStructures = {
   },
   {
     noteName = "Ashvane Destroyer",
-    ddid = createDDID(1),
+    ddid = createDDID(25),
     mobs = {
       {
         id = 137517,
@@ -296,7 +296,7 @@ local noteStructures = {
   },
   {
     noteName = "Irontide Waveshaper",
-    ddid = createDDID(1),
+    ddid = createDDID(26),
     mobs = {
       {
         id = 144071,
@@ -306,7 +306,7 @@ local noteStructures = {
   },
   {
     noteName = "Irontide Powdershot",
-    ddid = createDDID(1),
+    ddid = createDDID(27),
     mobs = {
       {
         id = 138254,
@@ -316,7 +316,7 @@ local noteStructures = {
   },
   {
     noteName = "Ashvane Sniper",
-    ddid = createDDID(1),
+    ddid = createDDID(28),
     mobs = {
       {
         id = 128967,
@@ -326,7 +326,7 @@ local noteStructures = {
   },
   {
     noteName = "Irontide Curseblade",
-    ddid = createDDID(1),
+    ddid = createDDID(29),
     mobs = {
       {
         id = 138247,
@@ -336,7 +336,7 @@ local noteStructures = {
   },
   {
     noteName = "Irontide Powdershot",
-    ddid = createDDID(1),
+    ddid = createDDID(30),
     mobs = {
       {
         id = 129928,
@@ -346,7 +346,7 @@ local noteStructures = {
   },
   {
     noteName = "Scrimshaw Gutter",
-    ddid = createDDID(1),
+    ddid = createDDID(31),
     mobs = {
       {
         id = 138002,
