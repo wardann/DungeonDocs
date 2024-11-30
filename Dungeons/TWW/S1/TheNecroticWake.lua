@@ -21,7 +21,7 @@ local noteStructures = {
     }
   },
   {
-    noteName = "Amarth",
+    noteName = "Amarth, The Harvester",
     ddid = createDDID(2),
     isBoss = true,
     mobs = {

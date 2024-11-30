@@ -21,7 +21,7 @@ local noteStructures = {
         },
     },
     {
-        noteName = "Nx & Vx",
+        noteName = "Fangs of the Queen",
         ddid = createDDID(2),
         isBoss = true,
         mobs = {
@@ -38,26 +38,26 @@ local noteStructures = {
         },
     },
     {
-        noteName = "Izo The Grand Splicer",
-        ddid = createDDID(3),
-        isBoss = true,
-        mobs = {
-            {
-                -- name = "Izo The Grand Splicer",
-                id = 216658,
-                displayId = 116701,
-            }
-        },
-    },
-    {
         noteName = "The Coaglamation",
-        ddid = createDDID(4),
+        ddid = createDDID(3),
         isBoss = true,
         mobs = {
             {
                 -- name = "The Coaglamation",
                 id = 216320,
                 displayId = 11725,
+            }
+        },
+    },
+    {
+        noteName = "Izo, The Grand Splicer",
+        ddid = createDDID(4),
+        isBoss = true,
+        mobs = {
+            {
+                -- name = "Izo The Grand Splicer",
+                id = 216658,
+                displayId = 116701,
             }
         },
     },
