@@ -41,7 +41,7 @@ function DD:Dungeons_IsBossInDungeon(mobId, dungeonName)
     for _, noteStruct in ipairs(dungeon.noteStructures) do
         for _, mob in ipairs(noteStruct.mobs) do
             if tostring(mob.id) == tostring(mobId) then
-                return mob.isBoss
+                return noteStruct.isBoss
             end
         end
     end
