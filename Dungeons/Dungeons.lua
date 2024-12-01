@@ -35,24 +35,27 @@ function DD:Dungeons_GetCurrentDungeon()
     return instanceName
 end
 
-function DD:Dungeons_IsBossInCurrentDungeon(mobId)
-    local dungeonName = DD:Dungeons_GetCurrentDungeon()
-    if not dungeonName then return false end
-
+function DD:Dungeons_IsBossInDungeon(mobId, dungeonName)
     local dungeon = DD.Dungeons[dungeonName]
 
-    for _, boss in ipairs(dungeon.bosses) do
-        for _, mob in ipairs(boss.mobs) do
-            if tostring(mob.id) == mobId then
-                return true
+    for _, noteStruct in ipairs(dungeon.noteStructures) do
+        for _, mob in ipairs(noteStruct.mobs) do
+            if tostring(mob.id) == tostring(mobId) then
+                return mob.isBoss
             end
         end
     end
+
+    return false
 end
 
+function DD:Dungeons_IsBossInCurrentDungeon(mobId)
+    local dungeonName = DD:Dungeons_GetCurrentDungeon()
+    if not dungeonName then return false end
+    return DD:Dungeons_IsBossInDungeon(mobId, dungeonName)
+end
 
--- Returns the name of the note from a mob id. This will either be the
--- name of the mob or name of the boss encounter
+-- Returns the name of the note from a mob id
 function DD:Dungeons_MobIdToNoteName(mobId, dungeonName)
     local dungeon = DD.Dungeons[dungeonName]
 
@@ -60,38 +63,38 @@ function DD:Dungeons_MobIdToNoteName(mobId, dungeonName)
         return
     end
 
-    -- Search bosses in the dungeon
-    for _, boss in ipairs(dungeon.bosses) do
-        for _, mob in ipairs(boss.mobs) do
-            if tostring(mob.id) == mobId then
-                return boss.bossName
+    for _, noteStruct in ipairs(dungeon.noteStructures) do
+        for _, mob in ipairs(noteStruct.mobs) do
+            if tostring(mob.id) == tostring(mobId) then
+                return noteStruct.noteName
             end
-        end
-    end
-
-    -- Search trash in the dungeon
-    for _, mob in ipairs(dungeon.trash) do
-        if tostring(mob.id) == mobId then
-            return mob.name
         end
     end
 end
 
 function DD:Dungeons_MobIdToDungeonName(mobId)
     for dungeonName, dungeon in pairs(DD.Dungeons) do
-        -- Search bosses in the dungeon
-        for _, boss in ipairs(dungeon.bosses) do
-            for _, mob in ipairs(boss.mobs) do
-                if tostring(mob.id) == mobId then
+        for _, noteStruct in ipairs(dungeon.noteStructures) do
+            for _, mob in ipairs(noteStruct.mobs) do
+                if tostring(mob.id) == tostring(mobId) then
                     return dungeonName
                 end
             end
         end
+    end
+end
 
-        -- Search trash in the dungeon
-        for _, mob in ipairs(dungeon.trash) do
-            if tostring(mob.id) == mobId then
-                return dungeonName
+function DD:Dungeons_MobIDToDDID(mobId, dungeonName)
+    local dungeon = DD.Dungeons[dungeonName]
+
+    if not dungeon then
+        return
+    end
+
+    for _, noteStruct in ipairs(dungeon.noteStructures) do
+        for _, mob in ipairs(noteStruct.mobs) do
+            if tostring(mob.id) == tostring(mobId) then
+                return noteStruct.ddid
             end
         end
     end

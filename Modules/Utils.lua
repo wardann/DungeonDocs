@@ -33,7 +33,7 @@ end
 function Log(...)
     local args = { ... }                    -- Capture all arguments
     local message = table.concat(args, " ") -- Concatenate all arguments with a space
-    print("<DungeonDocs>: " .. message)     -- Add prefix and print
+    print("|cffffd700DungeonDocs|r " .. message)     -- Add prefix and print
 end
 
 function DeepCopy(orig)

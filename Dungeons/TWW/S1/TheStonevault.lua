@@ -34,6 +34,7 @@ local noteStructures = {
         -- name = "Crystal Shard",
         id = 214443,
         displayId = 37518,
+        hideModel = true,
       },
     }
   },
@@ -56,11 +57,13 @@ local noteStructures = {
         -- name = "Vent Stalker",
         id = 214049,
         displayId = 100728,
+        hideModel = true,
       },
       {
         -- name = "Scrap Block",
         id = 213694,
         displayId = 91401,
+        hideModel = true,
       },
     }
   },

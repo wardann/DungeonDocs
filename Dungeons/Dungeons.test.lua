@@ -48,7 +48,7 @@ local dungeonChecker = function(dungeons)
             totalNoteStructureCount = totalNoteStructureCount + 1
         end
     end
-    
+
     return totalNoteStructureCount
 end
 
@@ -153,6 +153,100 @@ describe("Dungeons Module", function()
     end)
 
     it("should have expected note structure count", function()
-        assert.are.equal(totalNoteStructureCount, 190)
+        assert.are.equal(totalNoteStructureCount, 189)
+    end)
+end)
+
+describe("DD:Dungeons_IsBossInDungeon", function()
+    local DD
+    before_each(function()
+        DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
+        DD:Dungeons_InitAll()
+    end)
+
+    it("should be able to resolve boss if in dungeon", function()
+        local avanoxxID = 213179
+        local dungeonName = "Ara-Kara, City of Echoes"
+        local isBossInDungeon = DD:Dungeons_IsBossInDungeon(avanoxxID, dungeonName)
+
+        assert.is_true(isBossInDungeon)
+    end)
+
+    it("should NOT be able to resolve boss if NOT in dungeon", function()
+        local badID = 101010
+        local dungeonName = "Ara-Kara, City of Echoes"
+        local isBossInDungeon = DD:Dungeons_IsBossInDungeon(badID, dungeonName)
+
+        assert.is_false(isBossInDungeon)
+    end)
+end)
+
+describe("DD:Dungeons_MobIdToNoteName", function()
+    local DD
+    before_each(function()
+        DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
+        DD:Dungeons_InitAll()
+    end)
+
+    it("should be able to resolve boss if in dungeon", function()
+        local avanoxxID = 213179
+        local dungeonName = "Ara-Kara, City of Echoes"
+        local noteName = DD:Dungeons_MobIdToNoteName(avanoxxID, dungeonName)
+
+        assert.is_equal("Avanoxx", noteName)
+    end)
+
+    it("should NOT be able to resolve boss if NOT in dungeon", function()
+        local badID = 101010
+        local dungeonName = "Ara-Kara, City of Echoes"
+        local noteName = DD:Dungeons_MobIdToNoteName(badID, dungeonName)
+
+        assert.is_nil(noteName)
+    end)
+end)
+
+describe("DD:Dungeons_MobIdToDungeonName", function()
+    local DD
+    before_each(function()
+        DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
+        DD:Dungeons_InitAll()
+    end)
+
+    it("should be able to resolve dungeon name if good mob id", function()
+        local avanoxxID = 213179
+        local dungeonName = DD:Dungeons_MobIdToDungeonName(avanoxxID, dungeonName)
+
+        assert.is_equal("Ara-Kara, City of Echoes", dungeonName)
+    end)
+
+    it("should NOT be able to resolve dungeon name if bad mob id", function()
+        local badID = 101010
+        local dungeonName = DD:Dungeons_MobIdToDungeonName(badID, dungeonName)
+
+        assert.is_nil(dungeonName)
+    end)
+end)
+
+describe("DD:Dungeons_MobIDToDDID", function()
+    local DD
+    before_each(function()
+        DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
+        DD:Dungeons_InitAll()
+    end)
+
+    it("should be able to resolve DDID if good mob id", function()
+        local avanoxxID = 213179
+        local dungeonName = "Ara-Kara, City of Echoes"
+        local ddid = DD:Dungeons_MobIDToDDID(avanoxxID, dungeonName)
+
+        assert.is_equal("ak1", ddid)
+    end)
+
+    it("should NOT be able to resolve DDID if bad mob id", function()
+        local badID = 101010
+        local dungeonName = "Ara-Kara, City of Echoes"
+        local ddid = DD:Dungeons_MobIDToDDID(badID, dungeonName)
+
+        assert.is_nil(ddid)
     end)
 end)

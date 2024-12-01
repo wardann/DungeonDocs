@@ -22,15 +22,8 @@ local function setTreeGroupFocus(treeGroup, treeData)
         if instance.name == currentInstanceName then
             for _, mobType in ipairs(instance.children) do
                 for _, mobOrBoss in ipairs(mobType.children) do
-                    if mobType.value == "bosses" then
-                        for _, mob in ipairs(mobOrBoss.mobs) do
-                            if mob.id == targetId then
-                                treeGroup:SelectByPath(instance.value, mobType.value, mobOrBoss.value)
-                                return true
-                            end
-                        end
-                    else
-                        if mobOrBoss.id == targetId then
+                    for _, mob in ipairs(mobOrBoss.mobs) do
+                        if mob.id == targetId then
                             treeGroup:SelectByPath(instance.value, mobType.value, mobOrBoss.value)
                             return true
                         end
@@ -70,8 +63,8 @@ function DungeonDocs:ShowDocsTab(container)
             return
         end
 
-        local dungeonName, enemyType, mobName = pathComponents[1], pathComponents[2], pathComponents[3]
-        DungeonDocs:HandleSelected(dungeonName, enemyType, mobName)
+        local dungeonName, enemyType, noteName = pathComponents[1], pathComponents[2], pathComponents[3]
+        DungeonDocs:HandleSelected(dungeonName, enemyType, noteName)
     end)
 
     rightGroup = AceGUI:Create("SimpleGroup")
@@ -91,33 +84,21 @@ function DungeonDocs:ShowDocsTab(container)
     end)
 end
 
-function DungeonDocs:HandleSelected(dungeonName, enemyType, mobName)
-    if enemyType == "bosses" then
-        DungeonDocs:HandleSelectedBoss(dungeonName, mobName)
-    else
-        DungeonDocs:HandleSelectedTrash(dungeonName, mobName)
-    end
-
-    lastSelected = { dungeonName, enemyType, mobName }
+local function resetNote(dungeonName, note)
+    DD:DB_SetNote(dungeonName, note.ddid, "primaryNote", nil)
+    DD:DB_SetNote(dungeonName, note.ddid, "tankNote", nil)
+    DD:DB_SetNote(dungeonName, note.ddid, "healerNote", nil)
+    DD:DB_SetNote(dungeonName, note.ddid, "damageNote", nil)
 end
 
-local function resetNote(dungeonName, mobs)
-    for _, mob in ipairs(mobs) do
-        DD:DB_SetNote(dungeonName, mob.id, "primaryNote", nil)
-        DD:DB_SetNote(dungeonName, mob.id, "tankNote", nil)
-        DD:DB_SetNote(dungeonName, mob.id, "healerNote", nil)
-        DD:DB_SetNote(dungeonName, mob.id, "damageNote", nil)
-    end
-end
-
-function DungeonDocs:HandleSelectedBoss(dungeonName, bossName)
-    local bosses = DD.Dungeons[dungeonName].bosses
-    local boss
+function DungeonDocs:HandleSelected(dungeonName, enemyType, noteName)
+    local notes = DD.Dungeons[dungeonName].noteStructures
+    local note
 
     -- Find the boss in the database
-    for _, b in ipairs(bosses) do
-        if b.bossName == bossName then
-            boss = b
+    for _, n in ipairs(notes) do
+        if n.noteName == noteName then
+            note = n
         end
     end
 
@@ -134,15 +115,26 @@ function DungeonDocs:HandleSelectedBoss(dungeonName, bossName)
 
     -- Add a title for the page
     local titleLabel = AceGUI:Create("Label")
-    titleLabel:SetText(boss.bossName)
+    titleLabel:SetText(note.noteName)
     titleLabel:SetFontObject(GameFontNormalLarge) -- Sets the font to a larger style
     titleLabel:SetFullWidth(true)
     titleLabel.label:SetJustifyH("CENTER")
     rightGroup:AddChild(titleLabel)
 
+    local mobsToRender = {}
+    for _, mob in ipairs(note.mobs) do
+        if not mob.hideModel then
+            table.insert(mobsToRender, mob)
+        end
+    end
+
+    if enemyType == "trash" then
+        mobsToRender = { note.mobs[1] }
+    end
+
     -- Render character models
-    for _, mob in ipairs(boss.mobs) do
-        local numMobs = #boss.mobs
+    for _, mob in ipairs(mobsToRender) do
+        local numMobs = #mobsToRender
         local widthPerModel = (1 / numMobs) * rightGroup.frame:GetWidth() -- Each model gets a fraction of the width
 
         local modelContainer = AceGUI:Create("SimpleGroup")
@@ -172,16 +164,16 @@ function DungeonDocs:HandleSelectedBoss(dungeonName, bossName)
     scrollFrame:SetFullHeight(true)
     rightGroup:AddChild(scrollFrame)
 
-    RenderNote(dungeonName, boss.mobs, "primaryNote", "Primary notes", scrollFrame)
-    RenderNote(dungeonName, boss.mobs, "tankNote", "Tank notes", scrollFrame)
-    RenderNote(dungeonName, boss.mobs, "healerNote", "Healer notes", scrollFrame)
-    RenderNote(dungeonName, boss.mobs, "damageNote", "DPS notes", scrollFrame)
+    RenderNote(dungeonName, note, "primaryNote", "Primary notes", scrollFrame)
+    RenderNote(dungeonName, note, "tankNote", "Tank notes", scrollFrame)
+    RenderNote(dungeonName, note, "healerNote", "Healer notes", scrollFrame)
+    RenderNote(dungeonName, note, "damageNote", "DPS notes", scrollFrame)
 
     local testNoteButton = AceGUI:Create("Button")
     testNoteButton:SetText("Render Notes")
     testNoteButton:SetFullWidth(true)
     testNoteButton:SetCallback("OnClick", function()
-        DD:RenderTestNote(boss.mobs[1].id)
+        DD:RenderTestNote(note.mobs[1].id)
     end)
     scrollFrame:AddChild(testNoteButton)
 
@@ -205,119 +197,17 @@ function DungeonDocs:HandleSelectedBoss(dungeonName, bossName)
             return
         end
 
-        resetNote(dungeonName, boss.mobs)
+        resetNote(dungeonName, note)
         confirming = false
         button:SetText(resetButtonText)
-        DungeonDocs:HandleSelectedBoss(dungeonName, bossName)
+        DungeonDocs:HandleSelected(dungeonName, enemyType, noteName)
     end)
 
     scrollFrame:AddChild(button)
+    lastSelected = { dungeonName, enemyType, noteName }
 end
 
-function DungeonDocs:HandleSelectedTrash(dungeonName, mobName)
-    local trash = DD.Dungeons[dungeonName].trash
-    local mob
-
-    -- Find the boss in the database
-    for _, t in ipairs(trash) do
-        if t.name == mobName then
-            mob = t
-        end
-    end
-
-    -- Clean up previous runs
-    rightGroup:ReleaseChildren()
-    for _, model in pairs(models) do
-        if model then
-            model:ClearModel()
-            model:Hide()
-            model = nil
-        end
-    end
-    models = {}
-
-    -- Add a title for the page
-    local titleLabel = AceGUI:Create("Label")
-    titleLabel:SetText(mob.name)
-    titleLabel:SetFontObject(GameFontNormalLarge) -- Sets the font to a larger style
-    titleLabel:SetFullWidth(true)
-    titleLabel.label:SetJustifyH("CENTER")
-    rightGroup:AddChild(titleLabel)
-
-
-    -- Render character models
-
-    local modelContainer = AceGUI:Create("SimpleGroup")
-    local widthPerModel = rightGroup.frame:GetWidth()
-
-    -- Render enemy model
-    modelContainer:SetWidth(widthPerModel)
-    -- modelContainer:SetFullHeight(true)
-    modelContainer:SetHeight(200)
-    modelContainer:SetLayout("Fill")
-    rightGroup:AddChild(modelContainer)
-
-    local model = CreateFrame("PlayerModel", nil, modelContainer.frame)
-    model:SetPoint("CENTER")
-    model:SetSize(widthPerModel, 200)
-    model:SetCamDistanceScale(1.5)
-    model:SetModelScale(1)
-    model:SetDisplayInfo(mob.displayId)
-
-    table.insert(models, model)
-
-
-
-    local scrollFrame = AceGUI:Create("ScrollFrame")
-    scrollFrame:SetLayout("Flow")
-    scrollFrame:SetFullWidth(true)
-    scrollFrame:SetFullHeight(true)
-    rightGroup:AddChild(scrollFrame)
-
-    RenderNote(dungeonName, { mob }, "primaryNote", "Primary notes", scrollFrame)
-    RenderNote(dungeonName, { mob }, "tankNote", "Tank notes", scrollFrame)
-    RenderNote(dungeonName, { mob }, "healerNote", "Healer notes", scrollFrame)
-    RenderNote(dungeonName, { mob }, "damageNote", "DPS notes", scrollFrame)
-
-    local testNoteButton = AceGUI:Create("Button")
-    testNoteButton:SetText("Render Notes")
-    testNoteButton:SetFullWidth(true)
-    testNoteButton:SetCallback("OnClick", function()
-        DD:RenderTestNote(mob.id)
-    end)
-    scrollFrame:AddChild(testNoteButton)
-
-    -- Create the button and position it to the right
-    local button = AceGUI:Create("Button")
-    local resetButtonText = "Reset Notes to Fallback Profile"
-    button:SetText(resetButtonText)
-    button:SetFullWidth(true)
-
-    local confirming = false
-    local doubleConfirm = false
-    button:SetCallback("OnClick", function()
-        if not confirming then
-            button:SetText("Confirm")
-            confirming = true
-            return
-        end
-
-        if not doubleConfirm then
-            button:SetText("You totally sure?")
-            doubleConfirm = true
-            return
-        end
-
-        resetNote(dungeonName, { mob })
-        confirming = false
-        button:SetText(resetButtonText)
-        DungeonDocs:HandleSelectedTrash(dungeonName, mobName)
-    end)
-
-    scrollFrame:AddChild(button)
-end
-
-function RenderNote(dungeonName, mobs, noteKey, noteLabel, container)
+function RenderNote(dungeonName, note, noteKey, noteLabel, container)
     -- Add notes
     -- Create a SimpleGroup for the edit box to ensure proper layout
     local noteContainer = AceGUI:Create("SimpleGroup")
@@ -326,25 +216,20 @@ function RenderNote(dungeonName, mobs, noteKey, noteLabel, container)
     noteContainer:SetLayout("Fill")
     container:AddChild(noteContainer)
 
-    local mob = mobs[1]
-
     -- Add a Multi-Line Edit Box using a standard EditBox
-    local note = AceGUI:Create("MultiLineEditBox")
-    note:SetLabel(noteLabel)
-    note:SetFullWidth(true)                                          -- Make the edit box take up the full width of the container
-    note:SetText(DD:DB_GetNotePrimary(dungeonName, mob.id, noteKey)) -- You can prefill the edit box with text if needed
-    note:DisableButton(true)                                         -- Disable the "Okay" button
-    note:SetCallback("OnTextChanged", function(widget, event, text)
-        for _, m in ipairs(mobs) do
-            DD:DB_SetNote(dungeonName, m.id, noteKey, text)
-        end
+    local noteTextBox = AceGUI:Create("MultiLineEditBox")
+    noteTextBox:SetLabel(noteLabel)
+    noteTextBox:SetFullWidth(true)                                             -- Make the edit box take up the full width of the container
+
+    noteTextBox:SetText(DD:DB_GetNotePrimary(dungeonName, note.ddid, noteKey)) -- You can prefill the edit box with text if needed
+    noteTextBox:DisableButton(true)                                            -- Disable the "Okay" button
+    noteTextBox:SetCallback("OnTextChanged", function(widget, event, text)
+        DD:DB_SetNote(dungeonName, note.ddid, noteKey, text)
     end)
-    noteContainer:AddChild(note)
+    noteContainer:AddChild(noteTextBox)
 end
 
 function DungeonDocs:DungeonDataToTreeData()
-    local db = self.db
-
     -- Get instances only from the selected season
     local instances = DD:Dungeons_GetCurrentSeason()
 
@@ -352,30 +237,23 @@ function DungeonDocs:DungeonDataToTreeData()
 
     for _, d in pairs(instances) do
         local treeBosses = {}
-        for _, b in ipairs(d.bosses) do
-            local boss = {
-                value = b.bossName,
-                text = b.bossName,
-                bossName = b.bossName,
-                encounterId = b.encounterId,
-                mobs = b.mobs
+        local treeTrash = {}
+
+        for _, noteStruct in ipairs(d.noteStructures) do
+            local target = treeTrash
+            if noteStruct.isBoss then target = treeBosses end
+
+            local note = {
+                value = noteStruct.noteName,
+                text = noteStruct.noteName,
+                noteName = noteStruct.noteName,
+                mobs = noteStruct.mobs,
+                isBoss = noteStruct.isBoss,
+                ddid = noteStruct.ddid,
             }
-            table.insert(treeBosses, boss)
+            table.insert(target, note)
         end
 
-        local treeTrash = {}
-        for _, m in ipairs(d.trash) do
-            local mob = {
-                value = m.name,
-                text = m.name,
-                name = m.name,
-                id = m.id,
-                displayId = m.displayId,
-                primaryNote = m.primaryNote,
-                roleNotes = m.roleNotes,
-            }
-            table.insert(treeTrash, mob)
-        end
         -- Sort trash alphabetically
         table.sort(treeTrash, function(a, b)
             return a.value < b.value
