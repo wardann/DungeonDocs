@@ -46,14 +46,14 @@ Dungeons/TWW/S1/TheNecroticWake.lua
 Dungeons/TWW/S1/TheStonevault.lua
 
 Profiles/Profiles.lua
-Profiles/Default/Default.lua
-Profiles/Default/Dungeons/TWW/S1/AraKara.lua
-Profiles/Default/Dungeons/TWW/S1/CityOfThreads.lua
-Profiles/Default/Dungeons/TWW/S1/GrimBatol.lua
-Profiles/Default/Dungeons/TWW/S1/MistsOfTirnaScithe.lua
-Profiles/Default/Dungeons/TWW/S1/SiegeOfBoralus.lua
-Profiles/Default/Dungeons/TWW/S1/TheDawnbreaker.lua
-Profiles/Default/Dungeons/TWW/S1/TheNecroticWake.lua
-Profiles/Default/Dungeons/TWW/S1/TheStonevault.lua
+Profiles/DefaultFallback/DefaultFallback.lua
+Profiles/DefaultFallback/Dungeons/TWW/S1/AraKara.lua
+Profiles/DefaultFallback/Dungeons/TWW/S1/CityOfThreads.lua
+Profiles/DefaultFallback/Dungeons/TWW/S1/GrimBatol.lua
+Profiles/DefaultFallback/Dungeons/TWW/S1/MistsOfTirnaScithe.lua
+Profiles/DefaultFallback/Dungeons/TWW/S1/SiegeOfBoralus.lua
+Profiles/DefaultFallback/Dungeons/TWW/S1/TheDawnbreaker.lua
+Profiles/DefaultFallback/Dungeons/TWW/S1/TheNecroticWake.lua
+Profiles/DefaultFallback/Dungeons/TWW/S1/TheStonevault.lua
 
 

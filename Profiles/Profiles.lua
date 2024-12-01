@@ -23,31 +23,9 @@ function DD:Profiles_BuildDungeonDocs(dungeonData)
         return mob.primaryNote ~= "" or mob.healerNote ~= "" or mob.damageNote ~= "" or mob.tankNote ~= ""
     end
 
-    for _, boss in ipairs(dungeonData.bosses) do
-        for _, mob in ipairs(boss.mobs) do
-            if shouldInsert(boss) then
-                table.insert(dungeonDocs, {
-                    name = mob.name,
-                    id = mob.id,
-                    primaryNote = boss.primaryNote,
-                    healerNote = boss.healerNote,
-                    damageNote = boss.damageNote,
-                    tankNote = boss.tankNote,
-                })
-            end
-        end
-    end
-
-    for _, mob in ipairs(dungeonData.trash) do
-        if shouldInsert(mob) then
-            table.insert(dungeonDocs, {
-                name = mob.name,
-                id = mob.id,
-                primaryNote = mob.primaryNote,
-                healerNote = mob.healerNote,
-                damageNote = mob.damageNote,
-                tankNote = mob.tankNote,
-            })
+    for _, note in ipairs(dungeonData.notes) do
+        if shouldInsert(note) then
+            table.insert(dungeonDocs, note)
         end
     end
 
@@ -55,9 +33,9 @@ function DD:Profiles_BuildDungeonDocs(dungeonData)
 end
 
 function DD:Profiles_Init()
-    DD:ProfilesDefault_Init()
+    DD:ProfilesDefaultFallback_Init()
 
-    -- Bootstrap player Default profile 
+    -- Bootstrap player Default profile
     if not self.db.profiles["Default"] then
         self.db.profiles["Default"] = {}
     end

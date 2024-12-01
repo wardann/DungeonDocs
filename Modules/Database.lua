@@ -9,11 +9,11 @@ local dbDefaults = {
     dbVersion = 1,
     docs = {},
     settings = {
-     omniNote = {
+        omniNote = {
             position = nil,
             noteWidth = 200,
 
-            textAlign = "CENTER", -- Values are "CENTER", "LEFT", "RIGHT"
+            textAlign = "CENTER",     -- Values are "CENTER", "LEFT", "RIGHT"
             noteGrowDirection = "UP", -- Values are "UP", "DOWN"
             textOutline = false,
             linePadding = 5,
@@ -453,17 +453,17 @@ end
 
 -- DB_GetNote gets the note from the DB for the specified note key, falling
 -- back to the secondary profile if the note is not found
-function DD:DB_GetNotePrimary(dungeonName, mobId, noteKey)
+function DD:DB_GetNotePrimary(dungeonName, ddid, noteKey)
     local db = self.db
 
     local dungeon = db.profile.docs[dungeonName]
     if not dungeon then
-        return DD:DB_GetNoteFallback(dungeonName, mobId, noteKey)
+        return DD:DB_GetNoteFallback(dungeonName, ddid, noteKey)
     end
 
     local doc
     for _, d in ipairs(dungeon) do
-        if d.id == mobId then
+        if d.ddid == ddid then
             doc = d
             break
         end
@@ -471,26 +471,26 @@ function DD:DB_GetNotePrimary(dungeonName, mobId, noteKey)
 
 
     if not doc then
-        return DD:DB_GetNoteFallback(dungeonName, mobId, noteKey)
+        return DD:DB_GetNoteFallback(dungeonName, ddid, noteKey)
     end
 
     if not doc[noteKey] then
-        return DD:DB_GetNoteFallback(dungeonName, mobId, noteKey)
+        return DD:DB_GetNoteFallback(dungeonName, ddid, noteKey)
     end
 
     return doc[noteKey]
 end
 
-function DD:DB_DeriveFullNote(dungeonName, mobId)
+function DD:DB_DeriveFullNote(dungeonName, ddid)
     return {
-        primaryNote = DD:DB_GetNotePrimary(dungeonName, mobId, "primaryNote"),
-        healerNote = DD:DB_GetNotePrimary(dungeonName, mobId, "healerNote"),
-        damageNote = DD:DB_GetNotePrimary(dungeonName, mobId, "damageNote"),
-        tankNote = DD:DB_GetNotePrimary(dungeonName, mobId, "tankNote"),
+        primaryNote = DD:DB_GetNotePrimary(dungeonName, ddid, "primaryNote"),
+        healerNote = DD:DB_GetNotePrimary(dungeonName, ddid, "healerNote"),
+        damageNote = DD:DB_GetNotePrimary(dungeonName, ddid, "damageNote"),
+        tankNote = DD:DB_GetNotePrimary(dungeonName, ddid, "tankNote"),
     }
 end
 
-function DD:DB_GetNoteFallback(dungeonName, mobId, noteKey)
+function DD:DB_GetNoteFallback(dungeonName, ddid, noteKey)
     local db = self.db
     local fallbackProfileName = db.profile.internal.fallbackProfile
 
@@ -516,7 +516,7 @@ function DD:DB_GetNoteFallback(dungeonName, mobId, noteKey)
     local doc
 
     for _, d in ipairs(dungeon) do
-        if d.id == mobId then
+        if d.ddid == ddid then
             doc = d
             break
         end
@@ -535,15 +535,15 @@ end
 
 -- DB_SetNote sets the note from the DB for the specified note key, creating the
 -- note if it's not found
-function DD:DB_SetNote(dungeonName, mobId, noteKey, newNote)
+function DD:DB_SetNote(dungeonName, ddid, noteKey, newNote)
     local db = self.db
 
-    local mobs = db.profile.docs[dungeonName]
-    if not mobs then
+    local notes = db.profile.docs[dungeonName]
+    if not notes then
         DD:DB_Update(function()
             db.profile.docs[dungeonName] = {}
             table.insert(db.profile.docs[dungeonName], {
-                id = mobId,
+                ddid = ddid,
                 [noteKey] = newNote,
             })
         end)
@@ -551,8 +551,8 @@ function DD:DB_SetNote(dungeonName, mobId, noteKey, newNote)
     end
 
     local doc
-    for _, d in ipairs(mobs) do
-        if d.id == mobId then
+    for _, d in ipairs(notes) do
+        if d.ddid == ddid then
             doc = d
             break
         end
@@ -561,7 +561,7 @@ function DD:DB_SetNote(dungeonName, mobId, noteKey, newNote)
     if not doc then
         DD:DB_Update(function()
             local newDoc = {
-                id = mobId,
+                ddid = ddid,
                 [noteKey] = newNote,
             }
             table.insert(db.profile.docs[dungeonName], newDoc)

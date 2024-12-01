@@ -45,13 +45,18 @@ local function renderEncounteredMob(mobId)
         return
     end
 
-    local note = DD:DB_DeriveFullNote(dungeonName, tonumber(mobId))
+    local ddid = DD:Dungeons_MobIDToDDID(mobId, dungeonName)
+    if not ddid then
+        return
+    end
+    
+    local note = DD:DB_DeriveFullNote(dungeonName, ddid)
     if not note then
         return
     end
 
     return {
-        id = mobId,
+        ddid = ddid,
         noteName = noteName,
         note = note,
     }
@@ -174,13 +179,13 @@ function DD:RenderOmniNote()
         totalHeight = totalHeight + frame:GetHeight()
     end
 
-    local renderedNoteNames = {}
+    local renderedNoteDDIDs = {}
 
     for i, mobId in ipairs(encounteredMobs) do
         -- Build the note card
 
         local mob = renderEncounteredMob(mobId)
-        if mob and not IsInArray(renderedNoteNames, mob.noteName) then
+        if mob and not IsInArray(renderedNoteDDIDs, mob.ddid) then
             local isTargeted = mobId == playerTargetMobId
             local isBoss = DD:Dungeons_IsBossInCurrentDungeon(mobId)
             local noteCard = BuildNoteCard(i, mob.noteName, mob.note, state, isTargeted, isBoss)
@@ -214,6 +219,7 @@ function DD:RenderOmniNote()
 
             recordHeight(noteCard)
             lastNoteCard = noteCard
+            table.insert(renderedNoteDDIDs, mob.ddid)
         end
     end
 

@@ -1,132 +1,212 @@
 local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
 
+local function createDDID(index)
+  return "tdb" .. index
+end
 
-local dungeonBosses = {
+local noteStructures = {
+  --
+  -- BOSSES
+  --
   {
-    bossName = "Speaker Shadowcrown",
-    encounterId = 2580,
+    noteName = "Speaker Shadowcrown",
+    ddid = createDDID(1),
+    isBoss = true,
     mobs = {
       {
-        name = "Speaker Shadowcrown",
+        -- name = "Speaker Shadowcrown",
         id = 211087,
         displayId = 114311,
       },
     }
   },
   {
-    bossName = "Anubikkaj",
-    encounterId = 2581,
+    noteName = "Anubikkaj",
+    ddid = createDDID(2),
+    isBoss = true,
     mobs = {
       {
-        name = "Anubikkaj",
+        -- name = "Anubikkaj",
         id = 211089,
         displayId = 114315,
       },
     }
   },
   {
-    bossName = "Rashanan",
-    encounterId = 2591,
+    noteName = "Rashanan",
+    ddid = createDDID(3),
+    isBoss = true,
     mobs = {
       {
-        name = "Rashanan",
+        -- name = "Rashanan",
         id = 213937,
         displayId = 118404,
       },
     }
   },
-}
-
-
-local dungeonTrash = {
+  ---
+  --- TRASH
+  ---
   {
-    name = "Starved Crawler",
-    id = 216336,
-    displayId = 120876,
+    noteName = "Starved Crawler",
+    ddid = createDDID(4),
+    mobs = {
+      {
+        id = 216336,
+        displayId = 120876,
+      }
+    },
   },
   {
-    name = "Nightfall Curseblade",
-    id = 213894,
-    displayId = 115528,
+    noteName = "Nightfall Curseblade",
+    ddid = createDDID(5),
+    mobs = {
+      {
+        id = 213894,
+        displayId = 115528,
+      }
+    },
   },
   {
-    name = "Nightfall Shadowmage",
-    id = 213892,
-    displayId = 115523,
+    noteName = "Nightfall Shadowmage",
+    ddid = createDDID(6),
+    mobs = {
+      {
+        id = 213892,
+        displayId = 115523,
+      }
+    },
   },
   {
-    name = "Nightfall Ritualist",
-    id = 214761,
-    displayId = 115526,
+    noteName = "Nightfall Ritualist",
+    ddid = createDDID(7),
+    mobs = {
+      {
+        id = 214761,
+        displayId = 115526,
+      }
+    },
   },
   {
-    name = "Nightfall Commander",
-    id = 214762,
-    displayId = 115535,
+    noteName = "Nightfall Commander",
+    ddid = createDDID(8),
+    mobs = {
+      {
+        id = 214762,
+        displayId = 115535,
+      }
+    },
   },
   {
-    name = "Sureki Webmage",
-    id = 210966,
-    displayId = 117315,
+    noteName = "Sureki Webmage",
+    ddid = createDDID(9),
+    mobs = {
+      {
+        id = 210966,
+        displayId = 117315,
+      }
+    },
   },
   {
-    name = "Nightfall Darkcaster",
-    id = 213893,
-    displayId = 115520,
+    noteName = "Nightfall Darkcaster",
+    ddid = createDDID(10),
+    mobs = {
+      {
+        id = 213893,
+        displayId = 115520,
+      }
+    },
   },
   {
-    name = "Nightfall Shadowalker",
-    id = 213895,
-    displayId = 115530,
+    noteName = "Nightfall Shadowalker",
+    ddid = createDDID(11),
+    mobs = {
+      {
+        id = 213895,
+        displayId = 115530,
+      }
+    },
   },
   {
-    name = "Manifested Shadow",
-    id = 211341,
-    displayId = 117518,
+    noteName = "Manifested Shadow",
+    ddid = createDDID(12),
+    mobs = {
+      {
+        id = 211341,
+        displayId = 117518,
+      }
+    },
   },
   {
-    name = "Sureki Militant",
-    id = 213932,
-    displayId = 116834,
+    noteName = "Sureki Militant",
+    ddid = createDDID(13),
+    mobs = {
+      {
+        id = 213932,
+        displayId = 116834,
+      }
+    },
   },
   {
-    name = "Nightfall Tactician",
-    id = 213934,
-    displayId = 115534,
+    noteName = "Nightfall Tactician",
+    ddid = createDDID(14),
+    mobs = {
+      {
+        id = 213934,
+        displayId = 115534,
+      }
+    },
   },
   {
-    name = "Ascendant Viscoxria",
-    id = 211261,
-    displayId = 115760,
+    noteName = "Ascendant Viscoxria",
+    ddid = createDDID(15),
+    mobs = {
+      {
+        id = 211261,
+        displayId = 115760,
+      }
+    },
   },
   {
-    name = "Deathscreamer Ikentak",
-    id = 211263,
-    displayId = 115759,
+    noteName = "Deathscreamer Ikentak",
+    ddid = createDDID(16),
+    mobs = {
+      {
+        id = 211263,
+        displayId = 115759,
+      }
+    },
   },
   {
-    name = "Ixkreten The Unbreakable",
-    id = 211262,
-    displayId = 119262,
+    noteName = "Ixkreten The Unbreakable",
+    ddid = createDDID(17),
+    mobs = {
+      {
+        id = 211262,
+        displayId = 119262,
+      }
+    },
   },
   {
-    name = "Nightfall Dark Architect",
-    id = 213885,
-    displayId = 120116,
+    noteName = "Nightfall Dark Architect",
+    ddid = createDDID(18),
+    mobs = {
+      {
+        id = 213885,
+        displayId = 120116,
+      }
+    },
   },
 }
 
 local dungeonData = {
   name = "The Dawnbreaker",
   icon = "Interface\\Icons\\inv_misc_monsterscales_19",
-  bosses = dungeonBosses,
-  trash = dungeonTrash,
   seasonId = "TWWS1",
+  noteStructures = noteStructures,
 }
 
 
 function DD:Dungeons_InitTheDawnbreaker()
-    DD.Dungeons[dungeonData.name] = dungeonData
+  DD.Dungeons[dungeonData.name] = dungeonData
 end
-
-

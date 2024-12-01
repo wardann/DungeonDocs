@@ -166,6 +166,13 @@ function DungeonDocs:HandleReport()
         return
     end
 
+    local dungeonName = DD:Dungeons_GetCurrentDungeon()
+    local ddid = DD:Dungeons_MobIDToDDID(targetId, dungeonName)
+
+    if not ddid then
+        return
+    end
+
     local primaryNote = DD:DB_GetNotePrimary(currentInstanceName, targetId, "primaryNote")
 
     if not primaryNote or primaryNote == "" then
