@@ -55,7 +55,7 @@ function DD:Profiles_BuildDungeonDocs(dungeonData)
 end
 
 function DD:Profiles_Init()
-    DD:ProfilesDefault_Init()
+    DD:ProfilesDefaultFallback_Init()
 
     -- Bootstrap player Default profile 
     if not self.db.profiles["Default"] then

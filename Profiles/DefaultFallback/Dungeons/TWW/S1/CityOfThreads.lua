@@ -234,4 +234,4 @@ local dungeonData = {
     notes = notes,
 }
 
-DD:ProfilesDefault_InitDocs(dungeonData)
+DD:ProfilesDefaultFallback_InitDocs(dungeonData)

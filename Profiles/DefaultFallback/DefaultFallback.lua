@@ -3,14 +3,14 @@ local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
 local profileName = "Default Fallback*"
 local docs = {}
 
-function DD:ProfilesDefault_InitDocs(dungeonData)
+function DD:ProfilesDefaultFallback_InitDocs(dungeonData)
     local dungeonDocs = DD:Profiles_BuildDungeonDocs(dungeonData)
     if not IsTableEmpty(dungeonDocs) then
         docs[dungeonData.name] = dungeonDocs
     end
 end
 
-function DD:ProfilesDefault_Init()
+function DD:ProfilesDefaultFallback_Init()
     local db = self.db
 
     -- Construct the profile
