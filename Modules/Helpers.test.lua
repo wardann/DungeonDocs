@@ -5,7 +5,7 @@ describe("MergeDocs", function()
         local profileDocs = {
             TestInstance1 = {
                 {
-                    id = 1,
+                    ddid = "test1_1",
                     primaryNote = "primary",
                     tankNote = "primary",
                     healerNote = "",
@@ -14,7 +14,7 @@ describe("MergeDocs", function()
             },
             TestInstance2 = {
                 {
-                    id = 2,
+                    ddid = "test2_2",
                     primaryNote = "primary",
                     tankNote = "primary",
                     healerNote = "primary",
@@ -26,7 +26,7 @@ describe("MergeDocs", function()
         local fallbackProfileDocs = {
             TestInstance1 = {
                 {
-                    id = 1,
+                    ddid = "test1_1",
                     primaryNote = "fallback",
                     tankNote = "fallback",
                     healerNote = "fallback",
@@ -35,7 +35,7 @@ describe("MergeDocs", function()
             },
             TestInstance3 = {
                 {
-                    id = 3,
+                    ddid = "test3_3",
                     primaryNote = "fallback",
                     tankNote = "fallback",
                     healerNote = "fallback",
@@ -46,7 +46,7 @@ describe("MergeDocs", function()
         local expected = {
             TestInstance1 = {
                 {
-                    id = 1,
+                    ddid = "test1_1",
                     primaryNote = "primary",
                     tankNote = "primary",
                     healerNote = "",
@@ -55,7 +55,7 @@ describe("MergeDocs", function()
             },
             TestInstance2 = {
                 {
-                    id = 2,
+                    ddid = "test2_2",
                     primaryNote = "primary",
                     tankNote = "primary",
                     healerNote = "primary",
@@ -64,7 +64,7 @@ describe("MergeDocs", function()
             },
             TestInstance3 = {
                 {
-                    id = 3,
+                    ddid = "test3_3",
                     primaryNote = "fallback",
                     tankNote = "fallback",
                     healerNote = "fallback",

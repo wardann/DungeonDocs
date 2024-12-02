@@ -30,7 +30,6 @@ end
 -- Create the text panel frame
 function DD:Movers_Init()
     local state = self.db.profile
-    local notesPositions = state.notes.positions
 
     -- Primary mover
     -- InitMover("primaryNote", notesPositions.primary, "TOP")

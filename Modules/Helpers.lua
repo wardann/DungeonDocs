@@ -6,7 +6,7 @@ function MergeDocs(profileDocs, fallbackProfileDocs)
         end
 
         for _, mob in ipairs(mobs) do
-            docs[instance][mob.id] = mob
+            docs[instance][mob.ddid] = mob
         end
     end
 
@@ -20,9 +20,9 @@ function MergeDocs(profileDocs, fallbackProfileDocs)
 
         for _, mob in ipairs(mobs) do
             (function()
-                local found = docs[instance][mob.id]
+                local found = docs[instance][mob.ddid]
                 if not found then
-                    docs[instance][mob.id] = mob
+                    docs[instance][mob.ddid] = mob
                     return
                 end
 
