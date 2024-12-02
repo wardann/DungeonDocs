@@ -318,20 +318,54 @@ function DungeonDocs:DB_ExportProfile(profileName, includeFallbackProfile)
     local serialized = LibSerialize:Serialize(profileCopy)    -- Serialize profile copy
     local compressed = LibDeflate:CompressDeflate(serialized) -- Compress serialized data
     local encoded = LibDeflate:EncodeForPrint(compressed)     -- Encode to Base64
-    return encoded
+    local wrapped = "dd:" .. profile.dbVersion .. ":" .. encoded .. ":dd"
+
+    return wrapped
+end
+
+local function validateAndParseWrappedString(wrapped)
+    -- Validate the format using a pattern
+    local pattern = "^dd:(%d+):(.+):dd$"
+    local dbVersion, encoded = wrapped:match(pattern)
+
+    if not dbVersion or not encoded then
+        return nil, "Invalid format. The string does not match the expected pattern."
+    end
+
+    -- Convert dbVersion to a number
+    dbVersion = tonumber(dbVersion)
+
+    -- Return the parsed values
+    return {
+        dbVersion = dbVersion,
+        encoded = encoded
+    }, nil
 end
 
 -- Function to import a profile from a Base64 string
-function DungeonDocs:DB_ImportProfile(destProfileName, encoded)
+function DungeonDocs:DB_ImportProfile(destProfileName, wrapped)
     local db = self.db
     local destProfile = db.profiles[destProfileName] -- Access the specified profile data
 
     if destProfile ~= nil then
         Log("Error importing, profile already exists: " .. destProfileName)
-        return
+        return false
     end
 
-    -- Step 1: Decode, decompress, and deserialize the profile string
+    local result, err = validateAndParseWrappedString(wrapped)
+    if err then
+        Log("Error importing, the provided string seems to be incomplete")
+        return false
+    end
+
+    if not result then
+        Log("Error importing, an unexpected error occurred")
+        return false
+    end
+
+    local encoded = result.encoded
+
+    -- Decode, decompress, and deserialize the profile string
     local decoded = LibDeflate:DecodeForPrint(encoded)                  -- Decode Base64
     local decompressed = LibDeflate:DecompressDeflate(decoded)          -- Decompress
     local success, profileData = LibSerialize:Deserialize(decompressed) -- Deserialize to table
