@@ -312,7 +312,8 @@ function BuildNoteCard(noteIndex, noteName, note, state, isTargeted, isBoss)
             getIndex(),
             defaultIndent,
             withPadding(linePadding),
-            isTargeted
+            isTargeted,
+            isBoss
         )
         recordHeight(primaryNoteFrame)
     end
@@ -326,9 +327,10 @@ function BuildNoteCard(noteIndex, noteName, note, state, isTargeted, isBoss)
                 state,
                 ResolveTextStyle(state, "tankHeader", "defaultRoleHeader"),
                 getIndex(),
-                state.roleHeaderIndent,
+                state.roleHeaderIndent + defaultIndent,
                 withPadding(linePadding),
-                isTargeted
+                isTargeted,
+                isBoss
             )
             recordHeight(tankHeaderFrame)
         end
@@ -341,9 +343,10 @@ function BuildNoteCard(noteIndex, noteName, note, state, isTargeted, isBoss)
             state,
             ResolveTextStyle(state, "tankNote", "defaultText"),
             getIndex(),
-            state.roleNoteIndent,
+            state.roleNoteIndent + defaultIndent,
             withPadding(linePadding),
-            isTargeted
+            isTargeted,
+            isBoss
         )
         recordHeight(tankNoteFrame)
     end
@@ -357,9 +360,10 @@ function BuildNoteCard(noteIndex, noteName, note, state, isTargeted, isBoss)
                 state,
                 ResolveTextStyle(state, "healerHeader", "defaultRoleHeader"),
                 getIndex(),
-                state.roleHeaderIndent,
+                state.roleHeaderIndent + defaultIndent,
                 withPadding(linePadding),
-                isTargeted
+                isTargeted,
+                isBoss
             )
             recordHeight(healerHeaderFrame)
         end
@@ -372,9 +376,10 @@ function BuildNoteCard(noteIndex, noteName, note, state, isTargeted, isBoss)
             state,
             ResolveTextStyle(state, "healerNote", "defaultText"),
             getIndex(),
-            state.roleNoteIndent,
+            state.roleNoteIndent + defaultIndent,
             withPadding(linePadding),
-            isTargeted
+            isTargeted,
+            isBoss
         )
         recordHeight(healerNoteFrame)
     end
@@ -388,9 +393,10 @@ function BuildNoteCard(noteIndex, noteName, note, state, isTargeted, isBoss)
                 state,
                 ResolveTextStyle(state, "damageHeader", "defaultRoleHeader"),
                 getIndex(),
-                state.roleHeaderIndent,
+                state.roleHeaderIndent + defaultIndent,
                 withPadding(linePadding),
-                isTargeted
+                isTargeted,
+                isBoss
             )
             recordHeight(damageHeaderFrame)
         end
@@ -403,9 +409,10 @@ function BuildNoteCard(noteIndex, noteName, note, state, isTargeted, isBoss)
             state,
             ResolveTextStyle(state, "damageNote", "defaultText"),
             getIndex(),
-            state.roleNoteIndent,
+            state.roleNoteIndent + defaultIndent,
             withPadding(linePadding),
-            isTargeted
+            isTargeted,
+            isBoss
         )
         recordHeight(damageNoteFrame)
     end
