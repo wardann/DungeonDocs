@@ -29,6 +29,7 @@ Modules/OmniNote.lua
 Tabs/Docs.lua
 Tabs/Settings.lua
 Tabs/Profile.lua
+Tabs/Help.lua
 
 UI/Settings/Utils.lua
 UI/Settings/Title.lua
