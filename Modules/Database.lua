@@ -11,9 +11,9 @@ local dbDefaults = {
     settings = {
         omniNote = {
             position = nil,
-            noteWidth = 200,
+            noteWidth = 380,
 
-            textAlign = "CENTER",     -- Values are "CENTER", "LEFT", "RIGHT"
+            textAlign = "LEFT",       -- Values are "CENTER", "LEFT", "RIGHT"
             noteGrowDirection = "UP", -- Values are "UP", "DOWN"
             textOutline = false,
             linePadding = 5,
@@ -23,7 +23,7 @@ local dbDefaults = {
 
             showNoteTitle = true,
 
-            roleDisplay = "None", -- Values are "None", "Current", or "All"
+            roleDisplay = "All", -- Values are "None", "Current", or "All"
             roleHeaderIndent = 0,
             roleNoteIndent = 0,
             displayRoleHeader = true,
@@ -45,12 +45,12 @@ local dbDefaults = {
                 mobName = {
                     useDefaultTextStyle = false,
                     text = {
-                        font = "Fonts\\FRIZQT__.TTF",
-                        fontSize = 14,
+                        font = "Fonts\\MORPHEUS.TTF",
+                        fontSize = 22,
                         color = {
-                            r = 1,
-                            g = 1,
-                            b = 1,
+                            r = 255 / 255,
+                            g = 213 / 255,
+                            b = 116 / 255,
                         },
                     }
                 },
@@ -68,12 +68,12 @@ local dbDefaults = {
                     }
                 },
                 defaultRoleHeader = {
-                    font = "Fonts\\FRIZQT__.TTF",
-                    fontSize = 14,
+                    font = "Fonts\\MORPHEUS.TTF",
+                    fontSize = 16,
                     color = {
-                        r = 1,
-                        g = 1,
-                        b = 1,
+                        r = 255 / 255,
+                        g = 213 / 255,
+                        b = 116 / 255,
                     },
                 },
                 tankHeader = {
