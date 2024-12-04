@@ -26,7 +26,6 @@ function DungeonDocs:OnInitialize()
     DD:OmniNote_Init()
 end
 
-
 -- Register slash command
 DungeonDocs:RegisterChatCommand("dungeondocs", "OpenUI")
 DungeonDocs:RegisterChatCommand("dd", "OpenUI")
@@ -55,6 +54,14 @@ function DungeonDocs:OpenUI(msg)
         DungeonDocs:HandleReport()
         return
     end
+
+    -- if arg1 == "reset-database" then
+    --     for profileName in pairs(self.db.profiles) do
+    --         self.db.profiles[profileName] = nil
+    --     end
+    --     Log("Database has been reset")
+    --     return
+    -- end
 
     if dungeonDocsFrame and dungeonDocsFrame:IsShown() then
         dungeonDocsFrame:Hide() -- Toggle the UI closed if it's open and return
