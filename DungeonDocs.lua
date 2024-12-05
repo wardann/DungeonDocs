@@ -183,7 +183,7 @@ function DungeonDocs:HandleReport()
         return
     end
 
-    local primaryNote = DD:DB_GetNotePrimary(currentInstanceName, targetId, "primaryNote")
+    local primaryNote = DD:DB_GetNotePrimary(currentInstanceName, ddid, "primaryNote")
 
     if not primaryNote or primaryNote == "" then
         return
