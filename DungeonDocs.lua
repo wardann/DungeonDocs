@@ -26,7 +26,6 @@ function DungeonDocs:OnInitialize()
     DD:OmniNote_Init()
 end
 
-
 -- Register slash command
 DungeonDocs:RegisterChatCommand("dungeondocs", "OpenUI")
 DungeonDocs:RegisterChatCommand("dd", "OpenUI")
@@ -55,6 +54,14 @@ function DungeonDocs:OpenUI(msg)
         DungeonDocs:HandleReport()
         return
     end
+
+    -- if arg1 == "reset-database" then
+    --     for profileName in pairs(self.db.profiles) do
+    --         self.db.profiles[profileName] = nil
+    --     end
+    --     Log("Database has been reset")
+    --     return
+    -- end
 
     if dungeonDocsFrame and dungeonDocsFrame:IsShown() then
         dungeonDocsFrame:Hide() -- Toggle the UI closed if it's open and return
@@ -140,6 +147,7 @@ function DungeonDocs:OpenUI(msg)
         { text = "Docs",     value = "docs" },
         { text = "Settings", value = "settings" },
         { text = "Profiles", value = "profiles" },
+        { text = "Help",     value = "help" },
     })
     tab:SetCallback("OnGroupSelected", function(container, event, group)
         container:ReleaseChildren()
@@ -149,6 +157,8 @@ function DungeonDocs:OpenUI(msg)
             DungeonDocs:Settings_Tab(container)
         elseif group == "profiles" then
             DungeonDocs:Profile_TabRoot(container)
+        elseif group == "help" then
+            DungeonDocs:Help_Tab(container)
         end
     end)
     tab:SelectTab("docs") -- Default tab to display
@@ -173,7 +183,7 @@ function DungeonDocs:HandleReport()
         return
     end
 
-    local primaryNote = DD:DB_GetNotePrimary(currentInstanceName, targetId, "primaryNote")
+    local primaryNote = DD:DB_GetNotePrimary(currentInstanceName, ddid, "primaryNote")
 
     if not primaryNote or primaryNote == "" then
         return

@@ -49,7 +49,7 @@ local function renderEncounteredMob(mobId)
     if not ddid then
         return
     end
-    
+
     local note = DD:DB_DeriveFullNote(dungeonName, ddid)
     if not note then
         return
@@ -125,7 +125,10 @@ frame:SetScript("OnEvent", function(self, event)
 
         local _, subEvent, _, sourceGUID, _, _, _, destGUID, destName = CombatLogGetCurrentEventInfo()
 
-        if subEvent == "UNIT_DIED" or subEvent == "UNIT_DESTROYED" then return end -- Ignore deaths
+        -- Ignore deaths
+        if subEvent == "UNIT_DIED" or subEvent == "UNIT_DESTROYED" then
+            return
+        end
 
         local sourceMobId = tonumber((sourceGUID):match("-(%d+)-%x+$"))
         local sourceGuidType = sourceGUID:match("^(.-)-")
@@ -150,12 +153,30 @@ frame:SetScript("OnEvent", function(self, event)
 
         if isValidEvent(sourceMobId, sourceGuidType, destMobId, destGuidType) then
             storeEncounteredMob(sourceMobId)
-            DD:RenderOmniNote()
+            DD:RenderOmniNoteWithDebounce()
+        else
         end
     elseif event == "PLAYER_TARGET_CHANGED" then
         ensureTarget()
     end
 end)
+
+
+local debounceTimer = nil -- Timer for debouncing
+
+function DD:RenderOmniNoteWithDebounce()
+    -- If a timer is already active, do nothing
+    if debounceTimer then return end
+
+    -- Set up the timer
+    debounceTimer = C_Timer.NewTimer(0.25, function()
+        -- Call the actual function
+        DD:RenderOmniNote()
+
+        -- Clear the timer after the function is executed
+        debounceTimer = nil
+    end)
+end
 
 local cardContainer
 
@@ -312,7 +333,8 @@ function BuildNoteCard(noteIndex, noteName, note, state, isTargeted, isBoss)
             getIndex(),
             defaultIndent,
             withPadding(linePadding),
-            isTargeted
+            isTargeted,
+            isBoss
         )
         recordHeight(primaryNoteFrame)
     end
@@ -326,9 +348,10 @@ function BuildNoteCard(noteIndex, noteName, note, state, isTargeted, isBoss)
                 state,
                 ResolveTextStyle(state, "tankHeader", "defaultRoleHeader"),
                 getIndex(),
-                state.roleHeaderIndent,
+                state.roleHeaderIndent + defaultIndent,
                 withPadding(linePadding),
-                isTargeted
+                isTargeted,
+                isBoss
             )
             recordHeight(tankHeaderFrame)
         end
@@ -341,9 +364,10 @@ function BuildNoteCard(noteIndex, noteName, note, state, isTargeted, isBoss)
             state,
             ResolveTextStyle(state, "tankNote", "defaultText"),
             getIndex(),
-            state.roleNoteIndent,
+            state.roleNoteIndent + defaultIndent,
             withPadding(linePadding),
-            isTargeted
+            isTargeted,
+            isBoss
         )
         recordHeight(tankNoteFrame)
     end
@@ -357,9 +381,10 @@ function BuildNoteCard(noteIndex, noteName, note, state, isTargeted, isBoss)
                 state,
                 ResolveTextStyle(state, "healerHeader", "defaultRoleHeader"),
                 getIndex(),
-                state.roleHeaderIndent,
+                state.roleHeaderIndent + defaultIndent,
                 withPadding(linePadding),
-                isTargeted
+                isTargeted,
+                isBoss
             )
             recordHeight(healerHeaderFrame)
         end
@@ -372,9 +397,10 @@ function BuildNoteCard(noteIndex, noteName, note, state, isTargeted, isBoss)
             state,
             ResolveTextStyle(state, "healerNote", "defaultText"),
             getIndex(),
-            state.roleNoteIndent,
+            state.roleNoteIndent + defaultIndent,
             withPadding(linePadding),
-            isTargeted
+            isTargeted,
+            isBoss
         )
         recordHeight(healerNoteFrame)
     end
@@ -388,9 +414,10 @@ function BuildNoteCard(noteIndex, noteName, note, state, isTargeted, isBoss)
                 state,
                 ResolveTextStyle(state, "damageHeader", "defaultRoleHeader"),
                 getIndex(),
-                state.roleHeaderIndent,
+                state.roleHeaderIndent + defaultIndent,
                 withPadding(linePadding),
-                isTargeted
+                isTargeted,
+                isBoss
             )
             recordHeight(damageHeaderFrame)
         end
@@ -403,9 +430,10 @@ function BuildNoteCard(noteIndex, noteName, note, state, isTargeted, isBoss)
             state,
             ResolveTextStyle(state, "damageNote", "defaultText"),
             getIndex(),
-            state.roleNoteIndent,
+            state.roleNoteIndent + defaultIndent,
             withPadding(linePadding),
-            isTargeted
+            isTargeted,
+            isBoss
         )
         recordHeight(damageNoteFrame)
     end

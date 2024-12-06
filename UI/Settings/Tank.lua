@@ -40,7 +40,7 @@ function DD:SettingsStyleRoleTank_View(wrapperContainer)
     -- Use default role header
     SettingsShared_AddCheckBox(
         tankRoleNoteSection,
-        "Use Default Role Header Style",
+        "Use Default Role Header",
         state.style.tankHeader,
         "useDefaultRoleHeaderStyle",
         refresh
