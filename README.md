@@ -7,7 +7,7 @@
 
 ## Overview
 
-DungeonDocs is a World of Warcraft addon that displays notes during combat in Mythic+. Notes are enemy-specific and will change depending on the enemy targeted.  
+DungeonDocs is a World of Warcraft addon that displays notes during combat in Mythic+. Notes are enemy-specific and will be displayed depending on the enemies detected in combat.  
 
 Basic boss notes have been included for TWW Season 1 of M+, but you can easily add your own.
 
@@ -18,6 +18,7 @@ Basic boss notes have been included for TWW Season 1 of M+, but you can easily a
 - Postition and style the notes on your screen
 - Profile support allows for importing & exporting notes for easy sharing
 - Fallback profiles make it possible to inherit notes from another profile
+- Report notes in party chat with a slash command
 
 
 ## Usage
@@ -40,8 +41,8 @@ Use the `Docs` tab to edit notes, the `Settings` tab to change the note appearan
 
 DungeonDocs can be installed using [WowUp](https://wowup.io/).
 
-For manual installation, the addon is made available on the usual sites:
-- CurseForge
+For manual installation, the addon is made available here:
+- [CurseForge](https://www.curseforge.com/wow/addons/dungeondocs)
 - [Wago](https://addons.wago.io/addons/dungeondocs)
 - [GitHub Releases](https://github.com/wardann/DungeonDocs/releases)
 
