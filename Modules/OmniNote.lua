@@ -55,6 +55,10 @@ local function renderEncounteredMob(mobId)
         return
     end
 
+    if note.primaryNote == "" and note.tankNote == "" and note.healerNote == "" and note.damageNote == "" then
+        return
+    end
+
     return {
         ddid = ddid,
         noteName = noteName,
