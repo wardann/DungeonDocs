@@ -32,7 +32,16 @@ end
 
 function Log(...)
     local args = { ... }                    -- Capture all arguments
-    local message = table.concat(args, " ") -- Concatenate all arguments with a space
+    local message = ""
+    for i, v in ipairs(args) do
+        if i == 1 then
+            message = tostring(v)
+        else
+            message = message .. " " .. tostring(v)
+        end
+
+        
+    end
     print("|cffffd700DungeonDocs|r " .. message)     -- Add prefix and print
 end
 
