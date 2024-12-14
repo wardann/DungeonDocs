@@ -18,7 +18,7 @@ local dbDefaults = {
             textOutline = false,
             linePadding = 5,
             backgroundOpacity = 0,
-            untargetedNoteOpacity = 0.8,
+            untargetedNoteOpacity = 0.7,
             noteSpacing = 15,
 
             showNoteTitle = true,
