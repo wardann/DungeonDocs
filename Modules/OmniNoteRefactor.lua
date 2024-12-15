@@ -69,7 +69,6 @@ local function initNoteFrames()
 end
 
 local function storeEncounteredMob(mobId)
-    Log(">>> storeEncounteredMob", mobId)
     if IsFollowerNPC(mobId) then return end
 
     local dungeonName = DD:Dungeons_GetCurrentDungeon()
@@ -86,7 +85,8 @@ local function storeEncounteredMob(mobId)
     table.insert(ddidsToRender, ddid)
     ddidToDungeon[ddid] = dungeonName
 
-    Log(">>> storeEncounteredMob ddid", ddid)
+    Log(">>> storing ddid", ddid)
+    return true
 end
 
 local function renderEncounteredMob(ddid, dungeonName)
@@ -112,7 +112,6 @@ end
 
 
 function DD:RenderNote(index, anchor)
-    Log("Start RenderNote", index)
     local noteCardFrame = noteFrames[buildNoteCardName(index)]
     local spacerFrame = noteFrames[buildSpacerName(index)]
 
@@ -130,6 +129,7 @@ function DD:RenderNote(index, anchor)
     local dungeonName = ddidToDungeon[ddid]
     local noteInfo = renderEncounteredMob(ddid, dungeonName)
 
+
     if not noteInfo then
         FrameHide(noteCardFrame)
         FrameHeight(noteCardFrame, 0)
@@ -137,6 +137,9 @@ function DD:RenderNote(index, anchor)
         FrameHeight(spacerFrame, 0)
         return spacerFrame
     end
+
+    local note = noteInfo.note
+    local noteName = noteInfo.noteName
 
     Log(">>> noteName", noteInfo.noteName)
     Log(">>> noteCardFrame", noteCardFrame)
@@ -151,6 +154,18 @@ function DD:RenderNote(index, anchor)
     local previousFrame = noteCardFrame
     local totalHeight   = 0
 
+    local function resolveText(lineName)
+        if lineName == "mobName" then
+            return noteName
+        end
+
+        if string.find(lineName, "Header") then
+            return state[lineName]
+        end
+
+        return note[lineName]
+    end
+
     local function updateLine(lineName, lineIndex)
         local frame = noteCardLines[lineIndex]
 
@@ -158,21 +173,20 @@ function DD:RenderNote(index, anchor)
         if lineIndex == 1 then
             anchorPoint = "TOP"
         end
-        
+
         FrameShow(frame)
         FrameSetPoint(frame, "TOP", previousFrame, anchorPoint, 0, 0) -- TODO add line padding
-        FontText(frame, lineName)
+        FontText(frame, resolveText(lineName))
 
         local height = frame.fontString:GetStringHeight()
         FrameHeight(frame, height)
         totalHeight = totalHeight + height
 
         FrameWidth(frame, width)
-        frame.fontString:SetPoint("LEFT", frame, "LEFT", 0, 0) -- TODO fix 
+        frame.fontString:SetPoint("LEFT", frame, "LEFT", 0, 0) -- TODO fix
 
 
         frame.bg:SetColorTexture(1, 0, 0, 0.5) -- Green with 50% opacity
-        
 
         previousFrame = frame
     end
@@ -202,22 +216,27 @@ function DD:RenderNote(index, anchor)
             Log(">>> hello world")
             noteCardFrame:SetPoint("BOTTOM", anchor, "BOTTOM", 0, 0)
         else
-            spacerFrame:SetPoint("BOTTOM", anchor, "TOP", 0, 0)
-            noteCardFrame:SetPoint("BOTTOM", spacerFrame, "TOP", 0, 0)
+            -- spacerFrame:SetPoint("BOTTOM", anchor, "TOP", 0, 0)
+            -- noteCardFrame:SetPoint("BOTTOM", spacerFrame, "TOP", 0, 0)
+
+            noteCardFrame:SetPoint("BOTTOM", anchor, "TOP", 0, 0)
         end
     else
         if index == 1 then
             noteCardFrame:SetPoint("TOP", anchor, "TOP", 0, 0)
         else
-            spacerFrame:SetPoint("TOP", anchor, "BOTTOM", 0, 0)
-            noteCardFrame:SetPoint("TOP", spacerFrame, "BOTTOM", 0, 0)
+            -- spacerFrame:SetPoint("TOP", anchor, "BOTTOM", 0, 0)
+            -- noteCardFrame:SetPoint("TOP", spacerFrame, "BOTTOM", 0, 0)
+
+            noteCardFrame:SetPoint("TOP", anchor, "BOTTOM", 0, 0)
         end
     end
     noteCardFrame.bg:SetAllPoints(noteCardFrame)   -- Make the texture cover the entire frame
     noteCardFrame.bg:SetColorTexture(0, 0, 1, 0.5) -- Green with 50% opacity
 
     Log("End RenderNote", index)
-    return spacerFrame
+    -- return spacerFrame
+    return noteCardFrame
 end
 
 function DD:RenderOmniNote()
@@ -305,12 +324,14 @@ eventFrame:SetScript("OnEvent", function(self, event)
     if event == "PLAYER_REGEN_DISABLED" then
         -- Reset encountered mobs at start of combat
         -- This caused nothing to render, skipping
+        Log(">>> COMBAT BEGIN")
     elseif event == "PLAYER_REGEN_ENABLED" then
         -- Reset encountered mobs at end of combat
         ddidsToRender = {}
         ddidToDungeon = {}
         testNoteEnabled = false
         ensureTarget()
+        Log(">>> COMBAT END")
     elseif event == "COMBAT_LOG_EVENT_UNFILTERED" then
         local inCombat = UnitAffectingCombat("player")
         if not inCombat then
@@ -344,11 +365,14 @@ eventFrame:SetScript("OnEvent", function(self, event)
             end
         end
 
-
         if isValidEvent(sourceMobId, sourceGuidType, destMobId, destGuidType) then
-            storeEncounteredMob(sourceMobId)
-            DD:RenderOmniNoteWithDebounce()
-        else
+            if sourceGuidType ~= "Player" then
+                storeEncounteredMob(sourceMobId)
+            end
+            if destGuidType ~= "Player" then
+                storeEncounteredMob(destMobId)
+            end
+            DD:RenderOmniNote()
         end
     elseif event == "PLAYER_TARGET_CHANGED" then
         ensureTarget()
