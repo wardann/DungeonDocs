@@ -213,7 +213,6 @@ function DD:RenderNote(index, anchor)
     -- TODO: revisit this logic
     if state.noteGrowDirection == "UP" then
         if index == 1 then
-            Log(">>> hello world")
             noteCardFrame:SetPoint("BOTTOM", anchor, "BOTTOM", 0, 0)
         else
             -- spacerFrame:SetPoint("BOTTOM", anchor, "TOP", 0, 0)
@@ -378,3 +377,10 @@ eventFrame:SetScript("OnEvent", function(self, event)
         ensureTarget()
     end
 end)
+
+function DD:RenderTestNote(ddid, dungeonName)
+    testNoteEnabled = true
+    table.insert(ddidsToRender, ddid)
+    ddidToDungeon[ddid] = dungeonName
+    DD:RenderOmniNote()
+end
