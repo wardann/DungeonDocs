@@ -168,7 +168,7 @@ function DD:RenderNote(index, anchor)
         totalHeight = totalHeight + height
 
         FrameWidth(frame, width)
-        frame.fontString:SetPoint("LEFT", frame, "LEFT", 0, 0) -- TODO fix
+        frame.fontString:SetPoint("LEFT", frame, "LEFT", 0, 0) -- TODO add indent, switch to FrameSetPoint
 
         previousFrame = frame
     end
@@ -197,21 +197,21 @@ function DD:RenderNote(index, anchor)
     -- Handle grow direction UP
     if state.noteGrowDirection == "UP" then
         if index == 1 then
-            noteCardFrame:SetPoint("BOTTOM", anchor, "BOTTOM", 0, 0)
+            FrameSetPoint(noteCardFrame, "BOTTOM", anchor, "BOTTOM", 0, 0)
         else
-            noteCardFrame:SetPoint("BOTTOM", anchor, "TOP", 0, 0)
+            FrameSetPoint(noteCardFrame, "BOTTOM", anchor, "TOP", 0, 0)
         end
-        spacerFrame:SetPoint("BOTTOM", noteCardFrame, "TOP", 0, 0)
+        FrameSetPoint(spacerFrame, "BOTTOM", noteCardFrame, "TOP", 0, 0)
     end
 
     -- Handle grow direction DOWN
     if state.noteGrowDirection == "DOWN" then
         if index == 1 then
-            noteCardFrame:SetPoint("TOP", anchor, "TOP", 0, 0)
+            FrameSetPoint(noteCardFrame, "TOP", anchor, "TOP", 0, 0)
         else
-            noteCardFrame:SetPoint("TOP", anchor, "BOTTOM", 0, 0)
+            FrameSetPoint(noteCardFrame, "TOP", anchor, "BOTTOM", 0, 0)
         end
-        spacerFrame:SetPoint("TOP", noteCardFrame, "BOTTOM", 0, 0)
+        FrameSetPoint(spacerFrame, "TOP", noteCardFrame, "BOTTOM", 0, 0)
     end
 
     -- TEMP ADD BACKGROUND
@@ -251,15 +251,15 @@ function DD:RenderOmniNote()
 
     if state.noteGrowDirection == "UP" then
         if internal.movers.omniNote then
-            omniNoteFrame:SetPoint("BOTTOM", omniAnchorFrame, "TOP", 0, 0)
+            FrameSetPoint(omniNoteFrame, "BOTTOM", omniAnchorFrame, "TOP", 0, 0)
         else
-            omniNoteFrame:SetPoint("BOTTOM", omniAnchorFrame, "BOTTOM", 0, 0)
+            FrameSetPoint(omniNoteFrame, "BOTTOM", omniAnchorFrame, "BOTTOM", 0, 0)
         end
     else
         if internal.movers.omniNote then
-            omniNoteFrame:SetPoint("TOP", omniAnchorFrame, "BOTTOM", 0, 0)
+            FrameSetPoint(omniNoteFrame, "TOP", omniAnchorFrame, "BOTTOM", 0, 0)
         else
-            omniNoteFrame:SetPoint("TOP", omniAnchorFrame, "TOP", 0, 0)
+            FrameSetPoint(omniNoteFrame, "TOP", omniAnchorFrame, "TOP", 0, 0)
         end
     end
 end
