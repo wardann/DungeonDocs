@@ -117,6 +117,11 @@ function FrameHeight(frame, height)
     end
 end
 
+function FrameCollapse(frame)
+    FrameHide(frame)
+    FrameHeight(frame, 0)
+end
+
 function FrameSetPoint(frame, point, relativeTo, relativePoint, offsetX, offsetY)
     local existingPoint = { frame:GetPoint() } -- Get the current point
 

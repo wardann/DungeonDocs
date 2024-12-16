@@ -39,13 +39,12 @@ local function initNoteFrames()
     end
 
     omniNoteFrame = initFrame(omniAnchorFrame, true)
-    omniNoteFrame:SetHeight(500)
 
     for i = 1, targetNoteCount do
         -- Init note card
         local noteCardName = buildNoteCardName(i)
         local noteCardFrame = initFrame(omniNoteFrame, true)
-        noteCardFrame:SetHeight(200)
+        noteFrames[noteCardName] = noteCardFrame
 
         -- Init note card lines
         initFrame(noteCardFrame, true, true) -- MobName
@@ -57,14 +56,11 @@ local function initNoteFrames()
         initFrame(noteCardFrame, true, true) -- DamageHeader
         initFrame(noteCardFrame, true, true) -- DamageNote
 
-        noteFrames[noteCardName] = noteCardFrame
 
         -- Init spacer
         local spacerName = buildSpacerName(i)
         local spacerFrame = initFrame(omniNoteFrame, true)
         noteFrames[spacerName] = spacerFrame
-
-        Log(">>> initNoteFrames", i)
     end
 end
 
@@ -117,34 +113,23 @@ function DD:RenderNote(index, anchor)
 
     local ddid = ddidsToRender[index]
     if not ddid then
-        FrameHide(noteCardFrame)
-        FrameHeight(noteCardFrame, 0)
-        FrameHide(spacerFrame)
-        FrameHeight(spacerFrame, 0)
+        FrameCollapse(noteCardFrame)
+        FrameCollapse(spacerFrame)
         return spacerFrame
     end
-
-    Log(">>> ddid", ddid)
 
     local dungeonName = ddidToDungeon[ddid]
     local noteInfo = renderEncounteredMob(ddid, dungeonName)
 
 
     if not noteInfo then
-        FrameHide(noteCardFrame)
-        FrameHeight(noteCardFrame, 0)
-        FrameHide(spacerFrame)
-        FrameHeight(spacerFrame, 0)
+        FrameCollapse(noteCardFrame)
+        FrameCollapse(spacerFrame)
         return spacerFrame
     end
 
     local note = noteInfo.note
     local noteName = noteInfo.noteName
-
-    Log(">>> noteName", noteInfo.noteName)
-    Log(">>> noteCardFrame", noteCardFrame)
-    Log(">>> noteCardName", buildNoteCardName(index))
-
 
     local state         = self.db.profile.settings.omniNote
     local internal      = self.db.profile.internal
@@ -185,9 +170,6 @@ function DD:RenderNote(index, anchor)
         FrameWidth(frame, width)
         frame.fontString:SetPoint("LEFT", frame, "LEFT", 0, 0) -- TODO fix
 
-
-        frame.bg:SetColorTexture(1, 0, 0, 0.5) -- Green with 50% opacity
-
         previousFrame = frame
     end
 
@@ -208,44 +190,61 @@ function DD:RenderNote(index, anchor)
     FrameHeight(noteCardFrame, totalHeight)
 
     -- Update spacer frame
+    FrameShow(spacerFrame)
     FrameWidth(spacerFrame, width)
+    FrameHeight(spacerFrame, state.noteSpacing)
 
-    -- TODO: revisit this logic
+    -- Handle grow direction UP
     if state.noteGrowDirection == "UP" then
         if index == 1 then
             noteCardFrame:SetPoint("BOTTOM", anchor, "BOTTOM", 0, 0)
         else
-            -- spacerFrame:SetPoint("BOTTOM", anchor, "TOP", 0, 0)
-            -- noteCardFrame:SetPoint("BOTTOM", spacerFrame, "TOP", 0, 0)
-
             noteCardFrame:SetPoint("BOTTOM", anchor, "TOP", 0, 0)
         end
-    else
+        spacerFrame:SetPoint("BOTTOM", noteCardFrame, "TOP", 0, 0)
+    end
+
+    -- Handle grow direction DOWN
+    if state.noteGrowDirection == "DOWN" then
         if index == 1 then
             noteCardFrame:SetPoint("TOP", anchor, "TOP", 0, 0)
         else
-            -- spacerFrame:SetPoint("TOP", anchor, "BOTTOM", 0, 0)
-            -- noteCardFrame:SetPoint("TOP", spacerFrame, "BOTTOM", 0, 0)
-
             noteCardFrame:SetPoint("TOP", anchor, "BOTTOM", 0, 0)
         end
+        spacerFrame:SetPoint("TOP", noteCardFrame, "BOTTOM", 0, 0)
     end
-    noteCardFrame.bg:SetAllPoints(noteCardFrame)   -- Make the texture cover the entire frame
-    noteCardFrame.bg:SetColorTexture(0, 0, 1, 0.5) -- Green with 50% opacity
 
-    Log("End RenderNote", index)
-    -- return spacerFrame
-    return noteCardFrame
+    -- TEMP ADD BACKGROUND
+    noteCardFrame.bg:SetAllPoints(noteCardFrame)   -- Make the texture cover the entire frame
+    noteCardFrame.bg:SetColorTexture(0, 0, 1, 0.5) -- Blue with 50% opacity
+
+    spacerFrame.bg:SetAllPoints(spacerFrame)       -- Make the texture cover the entire frame
+    spacerFrame.bg:SetColorTexture(0, 1, 0, 0.5)   -- Green with 50% opacity
+
+    return spacerFrame
 end
 
 function DD:RenderOmniNote()
-    local anchor = omniNoteFrame
+    local previousSpacer = omniNoteFrame
     for i = 1, targetNoteCount do
-        anchor = DD:RenderNote(i, anchor)
+        local newSpacer = DD:RenderNote(i, previousSpacer)
+        
+        -- Collapse the previous spacer if there are no more notes
+        if newSpacer:GetHeight() == 0 then
+            FrameCollapse(previousSpacer)
+        end
+
+        previousSpacer = newSpacer
     end
 
-    -- omniNoteFrame.bg:SetAllPoints(omniNoteFrame) -- Make the texture cover the entire frame
-    -- omniNoteFrame.bg:SetColorTexture(0, 1, 0, 0.5) -- Green with 50% opacity
+    local totalHeight = 0
+    for _, frame in pairs(noteFrames) do
+        totalHeight = totalHeight + frame:GetHeight()
+    end
+
+    FrameShow(omniNoteFrame)
+    FrameHeight(omniNoteFrame, totalHeight)
+    FrameWidth(omniNoteFrame, omniAnchorFrame:GetWidth())
 
     local state    = self.db.profile.settings.omniNote
     local internal = self.db.profile.internal
@@ -266,10 +265,8 @@ function DD:RenderOmniNote()
 end
 
 function DD:OmniNote_Init()
-    Log(">>> init note frames BEGIN!")
     omniAnchorFrame = DD:Movers_GetOmni()
     initNoteFrames()
-    Log(">>> init note frames END!")
 end
 
 DD:SubscribeToDBChange(function()
