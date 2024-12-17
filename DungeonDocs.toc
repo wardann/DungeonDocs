@@ -24,7 +24,7 @@ Modules/Database.lua
 Modules/Utils.lua
 Modules/Helpers.lua
 Modules/Movers.lua
-Modules/OmniNote.lua
+Modules/OmniNoteRefactor.lua
 
 Tabs/Docs.lua
 Tabs/Settings.lua

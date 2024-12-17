@@ -151,6 +151,10 @@ function DungeonDocs:OpenUI(msg)
     })
     tab:SetCallback("OnGroupSelected", function(container, event, group)
         container:ReleaseChildren()
+
+        -- Remove character model display to prevent accidental rendering when in a different tab
+        DungeonDocs:ClearModels()
+
         if group == "docs" then
             DungeonDocs:ShowDocsTab(container)
         elseif group == "settings" then

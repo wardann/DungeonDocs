@@ -91,6 +91,17 @@ local function resetNote(dungeonName, note)
     DD:DB_SetNote(dungeonName, note.ddid, "damageNote", nil)
 end
 
+function DungeonDocs:ClearModels()
+    for _, model in pairs(models) do
+        if model then
+            model:ClearModel()
+            model:Hide()
+            model = nil
+        end
+    end
+    models = {}
+end
+
 function DungeonDocs:HandleSelected(dungeonName, enemyType, noteName)
     local notes = DD.Dungeons[dungeonName].noteStructures
     local note
@@ -104,14 +115,7 @@ function DungeonDocs:HandleSelected(dungeonName, enemyType, noteName)
 
     -- Clean up previous runs
     rightGroup:ReleaseChildren()
-    for _, model in pairs(models) do
-        if model then
-            model:ClearModel()
-            model:Hide()
-            model = nil
-        end
-    end
-    models = {}
+    DungeonDocs:ClearModels()
 
     -- Add a title for the page
     local titleLabel = AceGUI:Create("Label")
@@ -173,7 +177,7 @@ function DungeonDocs:HandleSelected(dungeonName, enemyType, noteName)
     testNoteButton:SetText("Render Notes")
     testNoteButton:SetFullWidth(true)
     testNoteButton:SetCallback("OnClick", function()
-        DD:RenderTestNote(note.mobs[1].id)
+        DD:RenderTestNote(note.ddid, dungeonName)
     end)
     scrollFrame:AddChild(testNoteButton)
 

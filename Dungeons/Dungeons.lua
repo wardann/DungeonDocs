@@ -72,6 +72,50 @@ function DD:Dungeons_MobIdToNoteName(mobId, dungeonName)
     end
 end
 
+function DD:Dungeons_MobIdToDDID(mobId, dungeonName)
+    local dungeon = DD.Dungeons[dungeonName]
+
+    if not dungeon then
+        return
+    end
+
+    for _, noteStruct in ipairs(dungeon.noteStructures) do
+        for _, mob in ipairs(noteStruct.mobs) do
+            if tostring(mob.id) == tostring(mobId) then
+                return noteStruct.ddid
+            end
+        end
+    end
+end
+
+function DD:Dungeons_DDIDToNoteName(ddid, dungeonName)
+    local dungeon = DD.Dungeons[dungeonName]
+
+    if not dungeon then
+        return
+    end
+
+    for _, noteStruct in ipairs(dungeon.noteStructures) do
+        if noteStruct.ddid == ddid then
+            return noteStruct.noteName
+        end
+    end
+end
+
+function DD:Dungeons_DDIDToNoteStruct(ddid, dungeonName)
+    local dungeon = DD.Dungeons[dungeonName]
+
+    if not dungeon then
+        return
+    end
+
+    for _, noteStruct in ipairs(dungeon.noteStructures) do
+        if noteStruct.ddid == ddid then
+            return noteStruct
+        end
+    end
+end
+
 function DD:Dungeons_MobIdToDungeonName(mobId)
     for dungeonName, dungeon in pairs(DD.Dungeons) do
         for _, noteStruct in ipairs(dungeon.noteStructures) do

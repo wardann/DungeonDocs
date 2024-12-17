@@ -31,7 +31,7 @@ function Utils_AddSpacer(container)
 end
 
 function Log(...)
-    local args = { ... }                    -- Capture all arguments
+    local args = { ... } -- Capture all arguments
     local message = ""
     for i, v in ipairs(args) do
         if i == 1 then
@@ -39,10 +39,8 @@ function Log(...)
         else
             message = message .. " " .. tostring(v)
         end
-
-        
     end
-    print("|cffffd700DungeonDocs|r " .. message)     -- Add prefix and print
+    print("|cffffd700DungeonDocs|r " .. message) -- Add prefix and print
 end
 
 function DeepCopy(orig)
@@ -90,3 +88,96 @@ function IsFollowerNPC(mobID)
     end
     return false
 end
+
+--
+-- Frame helpers
+--
+
+function FrameHide(frame)
+    if frame:IsShown() then
+        frame:Hide()
+    end
+end
+
+function FrameShow(frame)
+    if not frame:IsShown() then
+        frame:Show()
+    end
+end
+
+function FrameWidth(frame, width)
+    if frame:GetWidth() ~= width then
+        frame:SetWidth(width)
+    end
+end
+
+function FrameHeight(frame, height)
+    if frame:GetHeight() ~= height then
+        frame:SetHeight(height)
+    end
+end
+
+function FrameCollapse(frame)
+    FrameHide(frame)
+    FrameHeight(frame, 0)
+end
+
+function FrameSetPoint(frame, point, relativeTo, relativePoint, offsetX, offsetY)
+    local existingPoint = { frame:GetPoint() } -- Get the current point
+
+    -- Check if the new point matches the existing one
+    if existingPoint[1] ~= point or
+        existingPoint[2] ~= relativeTo or
+        existingPoint[3] ~= relativePoint or
+        existingPoint[4] ~= offsetX or
+        existingPoint[5] ~= offsetY then
+        frame:SetPoint(point, relativeTo, relativePoint, offsetX, offsetY)
+    end
+end
+
+function FontText(frame, text)
+    if frame.fontString:GetText() ~= text then
+        frame.fontString:SetText(text)
+    end
+end
+
+function SafeSetFont(fontString, fontPath, fontSize, fontFlags)
+    local currentFont, currentSize, currentFlags = fontString:GetFont()
+    if currentFont ~= fontPath or currentSize ~= fontSize or currentFlags ~= fontFlags then
+        fontString:SetFont(fontPath, fontSize, fontFlags)
+    end
+end
+
+function SafeSetTextColor(fontString, r, g, b, a)
+    local cr, cg, cb, ca = fontString:GetTextColor()
+    if cr ~= r or cg ~= g or cb ~= b or ca ~= a then
+        fontString:SetTextColor(r, g, b, a)
+    end
+end
+
+function SafeSetAlpha(frame, newAlpha)
+    if frame:GetAlpha() ~= newAlpha then
+        frame:SetAlpha(newAlpha)
+    end
+end
+
+function SafeSetJustifyH(fontString, align)
+    if fontString:GetJustifyH() ~= align then
+        fontString:SetJustifyH(align)
+    end
+end
+
+function SafeSetAllPoints(texture, parentFrame)
+    local point1, relativeTo1 = texture:GetPoint(1)
+    if not point1 or relativeTo1 ~= parentFrame then
+        texture:SetAllPoints(parentFrame)
+    end
+end
+
+function SafeSetColorTexture(texture, r, g, b, a)
+    local cr, cg, cb, ca = texture:GetVertexColor()
+    if cr ~= r or cg ~= g or cb ~= b or ca ~= a then
+        texture:SetColorTexture(r, g, b, a)
+    end
+end
+
