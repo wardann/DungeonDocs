@@ -55,13 +55,13 @@ function DungeonDocs:OpenUI(msg)
         return
     end
 
-    if arg1 == "reset-database" then
-        for profileName in pairs(self.db.profiles) do
-            self.db.profiles[profileName] = nil
-        end
-        Log("Database has been reset")
-        return
-    end
+    -- if arg1 == "reset-database" then
+    --     for profileName in pairs(self.db.profiles) do
+    --         self.db.profiles[profileName] = nil
+    --     end
+    --     Log("Database has been reset")
+    --     return
+    -- end
 
     if dungeonDocsFrame and dungeonDocsFrame:IsShown() then
         dungeonDocsFrame:Hide() -- Toggle the UI closed if it's open and return
