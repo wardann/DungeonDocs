@@ -137,7 +137,47 @@ end
 
 function FontText(frame, text)
     if frame.fontString:GetText() ~= text then
-        Log(">>> setting text", text)
         frame.fontString:SetText(text)
     end
 end
+
+function SafeSetFont(fontString, fontPath, fontSize, fontFlags)
+    local currentFont, currentSize, currentFlags = fontString:GetFont()
+    if currentFont ~= fontPath or currentSize ~= fontSize or currentFlags ~= fontFlags then
+        fontString:SetFont(fontPath, fontSize, fontFlags)
+    end
+end
+
+function SafeSetTextColor(fontString, r, g, b, a)
+    local cr, cg, cb, ca = fontString:GetTextColor()
+    if cr ~= r or cg ~= g or cb ~= b or ca ~= a then
+        fontString:SetTextColor(r, g, b, a)
+    end
+end
+
+function SafeSetAlpha(frame, newAlpha)
+    if frame:GetAlpha() ~= newAlpha then
+        frame:SetAlpha(newAlpha)
+    end
+end
+
+function SafeSetJustifyH(fontString, align)
+    if fontString:GetJustifyH() ~= align then
+        fontString:SetJustifyH(align)
+    end
+end
+
+function SafeSetAllPoints(texture, parentFrame)
+    local point1, relativeTo1 = texture:GetPoint(1)
+    if not point1 or relativeTo1 ~= parentFrame then
+        texture:SetAllPoints(parentFrame)
+    end
+end
+
+function SafeSetColorTexture(texture, r, g, b, a)
+    local cr, cg, cb, ca = texture:GetVertexColor()
+    if cr ~= r or cg ~= g or cb ~= b or ca ~= a then
+        texture:SetColorTexture(r, g, b, a)
+    end
+end
+

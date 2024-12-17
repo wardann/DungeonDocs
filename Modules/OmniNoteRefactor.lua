@@ -9,6 +9,11 @@ local testNoteEnabled = false
 local ddidsToRender = {}
 local ddidToDungeon = {}
 
+local playerTargetMobId
+
+local testNoteOpacityEnabled = false
+
+
 local function buildNoteCardName(index)
     return "NoteCard" .. index
 end
@@ -33,6 +38,7 @@ local function initNoteFrames()
 
         if addFontString then
             frame.fontString = frame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+            frame.fontString:SetWordWrap(true)
         end
 
         return frame
@@ -81,13 +87,12 @@ local function storeEncounteredMob(mobId)
     table.insert(ddidsToRender, ddid)
     ddidToDungeon[ddid] = dungeonName
 
-    Log(">>> storing ddid", ddid)
     return true
 end
 
 local function renderEncounteredMob(ddid, dungeonName)
-    local noteName = DD:Dungeons_DDIDToNoteName(ddid, dungeonName)
-    if not noteName then
+    local noteStruct = DD:Dungeons_DDIDToNoteStruct(ddid, dungeonName)
+    if not noteStruct then
         return
     end
 
@@ -101,7 +106,7 @@ local function renderEncounteredMob(ddid, dungeonName)
     end
 
     return {
-        noteName = noteName,
+        noteStruct = noteStruct,
         note = note,
     }
 end
@@ -128,20 +133,25 @@ function DD:RenderNote(index, anchor)
         return spacerFrame
     end
 
-    local note = noteInfo.note
-    local noteName = noteInfo.noteName
+    local note          = noteInfo.note
+    local noteStruct    = noteInfo.noteStruct
 
     local state         = self.db.profile.settings.omniNote
-    local internal      = self.db.profile.internal
 
-    local width         = omniAnchorFrame:GetWidth()
     local noteCardLines = { noteCardFrame:GetChildren() }
+    local width         = omniAnchorFrame:GetWidth()
     local previousFrame = noteCardFrame
     local totalHeight   = 0
+    local linePadding   = state.linePadding * -1
+
+    local withPadding   = function(padding)
+        totalHeight = totalHeight + math.abs(padding)
+        return padding
+    end
 
     local function resolveText(lineName)
         if lineName == "mobName" then
-            return noteName
+            return noteStruct.noteName
         end
 
         if string.find(lineName, "Header") then
@@ -151,37 +161,164 @@ function DD:RenderNote(index, anchor)
         return note[lineName]
     end
 
-    local function updateLine(lineName, lineIndex)
-        local frame = noteCardLines[lineIndex]
+    local function resolveTextStyle(lineName)
+        local defaultTextStyle = state.style.defaultText
+        if string.find(lineName, "Header") then
+            defaultTextStyle = state.style.defaultRoleHeader
+        end
+
+        local styleState = state.style[lineName]
+        local textStyle = styleState.text
+
+        if styleState.useDefaultTextStyle or styleState.useDefaultRoleHeaderStyle then
+            textStyle = defaultTextStyle
+        end
+
+        return textStyle
+    end
+
+
+    local function updateLine(line)
+        local frame = noteCardLines[line.index]
 
         local anchorPoint = "BOTTOM"
-        if lineIndex == 1 then
+        if line.index == 1 then
             anchorPoint = "TOP"
         end
 
+        if not line.displayed then
+            FrameSetPoint(frame, "TOP", previousFrame, anchorPoint, 0, 0)
+            FrameCollapse(frame)
+            return
+        end
+
+
+        local textStyle = resolveTextStyle(line.name)
+
+        local fontFlags
+        if state.textOutline then
+            fontFlags = "OUTLINE"
+        end
+
+        local alpha = 1.0
+        local isTargeted = false
+        for _, mob in ipairs(noteStruct.mobs) do
+            if playerTargetMobId == mob.id then
+                isTargeted = true
+            end
+        end
+
+        if not isTargeted then
+            alpha = state.untargetedNoteOpacity
+        end
+
+        if testNoteEnabled then
+            alpha = 1.0
+        end
+
+        if note.isBoss then
+            alpha = 1.0
+        end
+
+        -- Update font string properties
+        if textStyle then
+            SafeSetFont(frame.fontString, textStyle.font, textStyle.fontSize, fontFlags)
+            SafeSetTextColor(frame.fontString, textStyle.color.r, textStyle.color.g, textStyle.color.b, 1)
+        end
+
+        SafeSetAlpha(frame.fontString, alpha)
+        SafeSetJustifyH(frame.fontString, state.textAlign)
+        FrameWidth(frame.fontString, width)
+        FrameSetPoint(frame.fontString, "LEFT", frame, "LEFT", line.indent, 0)
+
+        -- Update frame properties
         FrameShow(frame)
-        FrameSetPoint(frame, "TOP", previousFrame, anchorPoint, 0, 0) -- TODO add line padding
-        FontText(frame, resolveText(lineName))
+        FrameSetPoint(frame, "TOP", previousFrame, anchorPoint, 0, withPadding(linePadding))
+        FontText(frame, resolveText(line.name))
+        FrameWidth(frame, width)
 
         local height = frame.fontString:GetStringHeight()
         FrameHeight(frame, height)
         totalHeight = totalHeight + height
 
-        FrameWidth(frame, width)
-        frame.fontString:SetPoint("LEFT", frame, "LEFT", 0, 0) -- TODO add indent, switch to FrameSetPoint
+        if testNoteOpacityEnabled then
+            SafeSetAllPoints(frame.bg, frame)
+            SafeSetColorTexture(frame.bg, 1, 0, 0, 0.5)
+        end
 
         previousFrame = frame
     end
 
-    -- Update note card lines
-    updateLine("mobName", 1)
-    updateLine("primaryNote", 2)
-    updateLine("tankHeader", 3)
-    updateLine("tankNote", 4)
-    updateLine("healerHeader", 5)
-    updateLine("healerNote", 6)
-    updateLine("damageHeader", 7)
-    updateLine("damageNote", 8)
+    local defaultIndent = 5
+    local roleNoteIndent = defaultIndent + state.roleNoteIndent
+    local roleHeaderIndent = defaultIndent + state.roleHeaderIndent
+
+    -- Mob Name line
+    updateLine({
+        name = "mobName",
+        index = 1,
+        indent = defaultIndent,
+        displayed = state.showNoteTitle,
+    })
+
+    -- Primary note line
+    updateLine({
+        name = "primaryNote",
+        index = 2,
+        indent = defaultIndent,
+        displayed = note.primaryNote ~= "",
+    })
+
+    -- Tank header line
+    local tankDisplayed = DD:ShouldDisplayRole(note.tankNote, "Tank")
+    updateLine({
+        name = "tankHeader",
+        index = 3,
+        indent = roleHeaderIndent,
+        displayed = tankDisplayed,
+    })
+
+    -- Tank note line
+    updateLine({
+        name = "tankNote",
+        index = 4,
+        indent = roleNoteIndent,
+        displayed = tankDisplayed,
+    })
+
+    -- Healer header line
+    local healerDisplayed = DD:ShouldDisplayRole(note.healerNote, "Healer")
+    updateLine({
+        name = "healerHeader",
+        index = 5,
+        indent = roleHeaderIndent,
+        displayed = healerDisplayed,
+    })
+
+    -- Healer note line
+    updateLine({
+        name = "healerNote",
+        index = 6,
+        indent = roleNoteIndent,
+        displayed = healerDisplayed,
+    })
+
+    -- Damage header line
+    local damageDisplayed = DD:ShouldDisplayRole(note.damageNote, "Damage")
+    updateLine({
+        name = "damageHeader",
+        index = 7,
+        indent = roleHeaderIndent,
+        displayed = damageDisplayed,
+    })
+
+    -- Damage note line
+    updateLine({
+        name = "damageNote",
+        index = 8,
+        indent = roleNoteIndent,
+        displayed = damageDisplayed,
+    })
 
 
     -- Update note card frame
@@ -214,12 +351,13 @@ function DD:RenderNote(index, anchor)
         FrameSetPoint(spacerFrame, "TOP", noteCardFrame, "BOTTOM", 0, 0)
     end
 
-    -- TEMP ADD BACKGROUND
-    noteCardFrame.bg:SetAllPoints(noteCardFrame)   -- Make the texture cover the entire frame
-    noteCardFrame.bg:SetColorTexture(0, 0, 1, 0.5) -- Blue with 50% opacity
+    if testNoteOpacityEnabled then
+        SafeSetAllPoints(noteCardFrame.bg, noteCardFrame)
+        SafeSetColorTexture(noteCardFrame.bg, 0, 0, 1, 0.5)
 
-    spacerFrame.bg:SetAllPoints(spacerFrame)       -- Make the texture cover the entire frame
-    spacerFrame.bg:SetColorTexture(0, 1, 0, 0.5)   -- Green with 50% opacity
+        SafeSetAllPoints(spacerFrame.bg, spacerFrame)
+        SafeSetColorTexture(spacerFrame.bg, 0, 1, 0, 0.5)
+    end
 
     return spacerFrame
 end
@@ -228,7 +366,7 @@ function DD:RenderOmniNote()
     local previousSpacer = omniNoteFrame
     for i = 1, targetNoteCount do
         local newSpacer = DD:RenderNote(i, previousSpacer)
-        
+
         -- Collapse the previous spacer if there are no more notes
         if newSpacer:GetHeight() == 0 then
             FrameCollapse(previousSpacer)
@@ -262,6 +400,10 @@ function DD:RenderOmniNote()
             FrameSetPoint(omniNoteFrame, "TOP", omniAnchorFrame, "TOP", 0, 0)
         end
     end
+
+    -- Set opacity
+    SafeSetAllPoints(omniNoteFrame.bg, omniNoteFrame)
+    SafeSetColorTexture(omniNoteFrame.bg, 0, 0, 0, state.backgroundOpacity)
 end
 
 function DD:OmniNote_Init()
@@ -272,8 +414,6 @@ end
 DD:SubscribeToDBChange(function()
     DD:RenderOmniNote()
 end)
-
-local playerTargetMobId
 
 local eventFrame = CreateFrame("Frame")
 eventFrame:RegisterEvent("PLAYER_REGEN_DISABLED")
@@ -320,14 +460,12 @@ eventFrame:SetScript("OnEvent", function(self, event)
     if event == "PLAYER_REGEN_DISABLED" then
         -- Reset encountered mobs at start of combat
         -- This caused nothing to render, skipping
-        Log(">>> COMBAT BEGIN")
     elseif event == "PLAYER_REGEN_ENABLED" then
         -- Reset encountered mobs at end of combat
         ddidsToRender = {}
         ddidToDungeon = {}
         testNoteEnabled = false
         ensureTarget()
-        Log(">>> COMBAT END")
     elseif event == "COMBAT_LOG_EVENT_UNFILTERED" then
         local inCombat = UnitAffectingCombat("player")
         if not inCombat then
@@ -380,4 +518,29 @@ function DD:RenderTestNote(ddid, dungeonName)
     table.insert(ddidsToRender, ddid)
     ddidToDungeon[ddid] = dungeonName
     DD:RenderOmniNote()
+end
+
+function DD:ShouldDisplayRole(note, role)
+    if note == "" then return false end
+
+    local state = self.db.profile.settings.omniNote
+
+    if state.roleDisplay == "All" then
+        return true
+    end
+
+    if state.roleDisplay == "None" then
+        return false
+    end
+
+    -- Handle state.roleDisplay == "Current"
+    local specIndex = GetSpecialization()
+    local specRole = GetSpecializationRole(specIndex)
+
+    local normalizeRole = function(r)
+        r = string.sub(r, 1, 1)
+        return string.lower(r)
+    end
+
+    return normalizeRole(role) == normalizeRole(specRole)
 end
