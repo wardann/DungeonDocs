@@ -113,17 +113,21 @@ function DD:Movers_Render()
     if internal.movers.omniNote then
         RenderMover("omniNote", state.omniNote)
     else
-        HideMover("omniNote")
+        HideMover("omniNote", state.omniNote)
     end
 end
 
-function HideMover(noteName)
+function HideMover(noteName, state)
     local fontString = moverFontStrings[noteName]
     fontString:SetText("")
 
     local mover = movers[noteName]
     mover.bg:SetColorTexture(0, 0, 0, 0)
     mover:SetMovable(false)
+
+    if state then
+        mover:SetWidth(state.noteWidth)
+    end
 end
 
 function RenderMover(noteName, state)
