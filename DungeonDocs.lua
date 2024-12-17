@@ -55,13 +55,13 @@ function DungeonDocs:OpenUI(msg)
         return
     end
 
-    -- if arg1 == "reset-database" then
-    --     for profileName in pairs(self.db.profiles) do
-    --         self.db.profiles[profileName] = nil
-    --     end
-    --     Log("Database has been reset")
-    --     return
-    -- end
+    if arg1 == "reset-database" then
+        for profileName in pairs(self.db.profiles) do
+            self.db.profiles[profileName] = nil
+        end
+        Log("Database has been reset")
+        return
+    end
 
     if dungeonDocsFrame and dungeonDocsFrame:IsShown() then
         dungeonDocsFrame:Hide() -- Toggle the UI closed if it's open and return
@@ -151,6 +151,10 @@ function DungeonDocs:OpenUI(msg)
     })
     tab:SetCallback("OnGroupSelected", function(container, event, group)
         container:ReleaseChildren()
+
+        -- Remove character model display to prevent accidental rendering when in a different tab
+        DungeonDocs:ClearModels()
+
         if group == "docs" then
             DungeonDocs:ShowDocsTab(container)
         elseif group == "settings" then
