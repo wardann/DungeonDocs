@@ -1,5 +1,4 @@
-local DungeonDocs = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
-local DD = DungeonDocs
+local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
 local LibSerialize = LibStub("LibSerialize")
 local LibDeflate = LibStub("LibDeflate")
 
@@ -203,11 +202,11 @@ local dbDefaults = {
     },
 }
 
-function DungeonDocs:GetDBDefaults()
+function DD:GetDBDefaults()
     return dbDefaults
 end
 
-function DungeonDocs:DB_EnsureDefaults(profileName)
+function DD:DB_EnsureDefaults(profileName)
     local profile = self.db.profiles[profileName]
     if not profile then
         Log("Error: could not ensure defaults, profile does not exist: ", profileName)
@@ -227,17 +226,17 @@ function DungeonDocs:DB_EnsureDefaults(profileName)
     applyDefaults(profile, dbDefaults)
 end
 
-function DungeonDocs:DB_EnsureDefaultsAllProfiles()
+function DD:DB_EnsureDefaultsAllProfiles()
     for profileName in pairs(self.db.profiles) do
-        DungeonDocs:DB_EnsureDefaults(profileName)
+        DD:DB_EnsureDefaults(profileName)
     end
 end
 
-function DungeonDocs:DB_Init()
+function DD:DB_Init()
     local db = self.db
 
     -- Init defaults on all profiles
-    DungeonDocs:DB_EnsureDefaultsAllProfiles()
+    DD:DB_EnsureDefaultsAllProfiles()
 
     -- Reset internal vars
     db.profile.internal.showTestText = false
@@ -249,11 +248,11 @@ end
 -- A table to hold subscriber functions
 local dbChangeSubscribers = {}
 
-function DungeonDocs:SubscribeToDBChange(callback)
+function DD:SubscribeToDBChange(callback)
     table.insert(dbChangeSubscribers, callback)
 end
 
-function DungeonDocs:NotifyDBChange()
+function DD:NotifyDBChange()
     for _, callback in ipairs(dbChangeSubscribers) do
         local status, err = pcall(callback)
         if not status then
@@ -262,32 +261,32 @@ function DungeonDocs:NotifyDBChange()
     end
 end
 
-function DungeonDocs:DB_Update(updater)
+function DD:DB_Update(updater)
     updater()
-    DungeonDocs:NotifyDBChange()
+    DD:NotifyDBChange()
 end
 
-function DungeonDocs:DB_ListProfiles()
+function DD:DB_ListProfiles()
     local db = self.db
     return db:GetProfiles()
 end
 
-function DungeonDocs:DB_SelectProfile(profileName)
+function DD:DB_SelectProfile(profileName)
     local db = self.db
     if db:GetCurrentProfile() ~= profileName then -- Only switch if different
         db:SetProfile(profileName)
-        DungeonDocs:NotifyDBChange()
+        DD:NotifyDBChange()
     end
 end
 
-function DungeonDocs:DB_SelectFallbackProfile(profileName)
+function DD:DB_SelectFallbackProfile(profileName)
     local db = self.db
     db.profile.internal.fallbackProfile = profileName
-    DungeonDocs:NotifyDBChange()
+    DD:NotifyDBChange()
 end
 
 -- Function to export the current profile, excluding the "internal" table
-function DungeonDocs:DB_ExportProfile(profileName, includeFallbackProfile)
+function DD:DB_ExportProfile(profileName, includeFallbackProfile)
     local profile = self.db.profiles[profileName] -- Access the specified profile data
     local fallbackProfileName = profile.internal.fallbackProfile
     local fallbackProfile = self.db.profiles[fallbackProfileName]
@@ -343,7 +342,7 @@ local function validateAndParseWrappedString(wrapped)
 end
 
 -- Function to import a profile from a Base64 string
-function DungeonDocs:DB_ImportProfile(destProfileName, wrapped)
+function DD:DB_ImportProfile(destProfileName, wrapped)
     local db = self.db
     local destProfile = db.profiles[destProfileName] -- Access the specified profile data
 
@@ -384,7 +383,7 @@ function DungeonDocs:DB_ImportProfile(destProfileName, wrapped)
     end
 end
 
-function DungeonDocs:DB_CloneProfile(sourceProfileName, destProfileName)
+function DD:DB_CloneProfile(sourceProfileName, destProfileName)
     local db = self.db
     local sourceProfile = db.profiles[sourceProfileName]
 
@@ -409,7 +408,7 @@ function DungeonDocs:DB_CloneProfile(sourceProfileName, destProfileName)
     Log("Cloned profile `" .. sourceProfileName .. "` to profile `" .. destProfileName .. "`")
 end
 
-function DungeonDocs:DB_RenameProfile(sourceProfileName, newProfileName)
+function DD:DB_RenameProfile(sourceProfileName, newProfileName)
     local db = self.db
 
     -- Check if the current profile exists
@@ -442,7 +441,7 @@ function DungeonDocs:DB_RenameProfile(sourceProfileName, newProfileName)
     Log("Success! Profile renamed from", sourceProfileName, "to", newProfileName)
 end
 
-function DungeonDocs:DB_DeleteProfile(profileName)
+function DD:DB_DeleteProfile(profileName)
     local db = self.db
 
     if profileName == "Default" then
@@ -465,7 +464,7 @@ function DungeonDocs:DB_DeleteProfile(profileName)
     Log("Profile `" .. profileName .. "` deleted successfully")
 end
 
-function DungeonDocs:DB_ResetProfile(profileName)
+function DD:DB_ResetProfile(profileName)
     local db = self.db
 
     if not db.profiles[profileName] then

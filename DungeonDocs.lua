@@ -1,12 +1,11 @@
 -- Initialize the addon using AceAddon-3.0
 local addonName = ...
-local DungeonDocs = LibStub("AceAddon-3.0"):NewAddon("DungeonDocs", "AceConsole-3.0", "AceEvent-3.0")
-local DD = DungeonDocs
+local DD = LibStub("AceAddon-3.0"):NewAddon("DungeonDocs", "AceConsole-3.0", "AceEvent-3.0")
 local AceGUI = LibStub("AceGUI-3.0")
 
 Version = ""
 
-function DungeonDocs:OnInitialize()
+function DD:OnInitialize()
     Version = C_AddOns.GetAddOnMetadata(addonName, "Version")
 
     -- Create DB
@@ -27,8 +26,8 @@ function DungeonDocs:OnInitialize()
 end
 
 -- Register slash command
-DungeonDocs:RegisterChatCommand("dungeondocs", "OpenUI")
-DungeonDocs:RegisterChatCommand("dd", "OpenUI")
+DD:RegisterChatCommand("dungeondocs", "OpenUI")
+DD:RegisterChatCommand("dd", "OpenUI")
 
 
 local dungeonDocsFrame = nil
@@ -41,7 +40,7 @@ local dungeonDocsWindowSize = {
     height = nil,
 }
 
-function DungeonDocs:OpenUI(msg)
+function DD:OpenUI(msg)
     -- Split the input into the first argument and the rest
     local arg1 = msg:match("^(%S*)%s*(.-)$")
 
@@ -51,7 +50,7 @@ function DungeonDocs:OpenUI(msg)
     end
 
     if arg1 == "report" then
-        DungeonDocs:HandleReport()
+        DD:HandleReport()
         return
     end
 
@@ -153,23 +152,23 @@ function DungeonDocs:OpenUI(msg)
         container:ReleaseChildren()
 
         -- Remove character model display to prevent accidental rendering when in a different tab
-        DungeonDocs:ClearModels()
+        DD:ClearModels()
 
         if group == "docs" then
-            DungeonDocs:ShowDocsTab(container)
+            DD:ShowDocsTab(container)
         elseif group == "settings" then
-            DungeonDocs:Settings_Tab(container)
+            DD:Settings_Tab(container)
         elseif group == "profiles" then
-            DungeonDocs:Profile_TabRoot(container)
+            DD:Profile_TabRoot(container)
         elseif group == "help" then
-            DungeonDocs:Help_Tab(container)
+            DD:Help_Tab(container)
         end
     end)
     tab:SelectTab("docs") -- Default tab to display
     frame:AddChild(tab)
 end
 
-function DungeonDocs:HandleReport()
+function DD:HandleReport()
     local targetId = GetMobIDFromGUID("target")
     if not targetId then
         return

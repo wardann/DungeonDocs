@@ -1,5 +1,4 @@
-local DungeonDocs = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
-local DD = DungeonDocs
+local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
 local AceGUI = LibStub("AceGUI-3.0")
 
 local treeGroup
@@ -39,7 +38,7 @@ end
 local lastSelected = {}
 
 -- Function to show the Default tab content
-function DungeonDocs:ShowDocsTab(container)
+function DD:ShowDocsTab(container)
     -- Create a TreeGroup for the hierarchical mob list
     treeGroup = AceGUI:Create("TreeGroup")
     treeGroup:SetLayout("Fill")
@@ -51,7 +50,7 @@ function DungeonDocs:ShowDocsTab(container)
     -- Define the tree data structure
 
     -- Set the tree data
-    local treeData = DungeonDocs:DungeonDataToTreeData()
+    local treeData = DD:DungeonDataToTreeData()
     treeGroup:SetTree(treeData)
 
     -- Set a callback for when a node is selected
@@ -64,7 +63,7 @@ function DungeonDocs:ShowDocsTab(container)
         end
 
         local dungeonName, enemyType, noteName = pathComponents[1], pathComponents[2], pathComponents[3]
-        DungeonDocs:HandleSelected(dungeonName, enemyType, noteName)
+        DD:HandleSelected(dungeonName, enemyType, noteName)
     end)
 
     rightGroup = AceGUI:Create("SimpleGroup")
@@ -91,7 +90,7 @@ local function resetNote(dungeonName, note)
     DD:DB_SetNote(dungeonName, note.ddid, "damageNote", nil)
 end
 
-function DungeonDocs:ClearModels()
+function DD:ClearModels()
     for _, model in pairs(models) do
         if model then
             model:ClearModel()
@@ -102,7 +101,7 @@ function DungeonDocs:ClearModels()
     models = {}
 end
 
-function DungeonDocs:HandleSelected(dungeonName, enemyType, noteName)
+function DD:HandleSelected(dungeonName, enemyType, noteName)
     local notes = DD.Dungeons[dungeonName].noteStructures
     local note
 
@@ -115,7 +114,7 @@ function DungeonDocs:HandleSelected(dungeonName, enemyType, noteName)
 
     -- Clean up previous runs
     rightGroup:ReleaseChildren()
-    DungeonDocs:ClearModels()
+    DD:ClearModels()
 
     -- Add a title for the page
     local titleLabel = AceGUI:Create("Label")
@@ -204,7 +203,7 @@ function DungeonDocs:HandleSelected(dungeonName, enemyType, noteName)
         resetNote(dungeonName, note)
         confirming = false
         button:SetText(resetButtonText)
-        DungeonDocs:HandleSelected(dungeonName, enemyType, noteName)
+        DD:HandleSelected(dungeonName, enemyType, noteName)
     end)
 
     scrollFrame:AddChild(button)
@@ -233,7 +232,7 @@ function RenderNote(dungeonName, note, noteKey, noteLabel, container)
     noteContainer:AddChild(noteTextBox)
 end
 
-function DungeonDocs:DungeonDataToTreeData()
+function DD:DungeonDataToTreeData()
     -- Get instances only from the selected season
     local instances = DD:Dungeons_GetCurrentSeason()
 
