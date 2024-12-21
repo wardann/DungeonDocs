@@ -7,6 +7,7 @@ std = "lua52"
 
 exclude_files = {
     "Libs/**",
+    ".luarocks/**",
 }
 
 -- Specify allowed globals (e.g., WoW API or Ace3 globals)
