@@ -1,15 +1,21 @@
+--- @class DungeonDocs
 local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
 local AceGUI = LibStub("AceGUI-3.0")
 
-function DD:SettingsStyleRoleDamage_View(wrapperContainer)
+--- @class UI
+DD.ui = DD.ui or {}
+
+--- @class SettingsUI
+DD.ui.settings = DD.ui.settings or {}
+
+function DD.ui.settings.StyleRoleDamage_View(wrapperContainer)
     local refresh = function()
         wrapperContainer:ReleaseChildren()
-        DD:SettingsStyleRoleDamage_View(wrapperContainer)
+        DD.ui.settings.StyleRoleDamage_View(wrapperContainer)
     end
     wrapperContainer:SetLayout("Flow")
 
-    local state = self.db.profile.settings.omniNote
-    local internal = self.db.profile.internal
+    local state = DD.db.profile.settings.omniNote
 
     local container = AceGUI:Create("ScrollFrame")
     container:SetLayout("Flow")
@@ -17,29 +23,29 @@ function DD:SettingsStyleRoleDamage_View(wrapperContainer)
     container:SetFullHeight(true)
     wrapperContainer:AddChild(container)
 
-    SettingsStyleRoleDamage_AddDescription(container)
+    DD.ui.settings.StyleRoleDamage_AddDescription(container)
 
     --
     --
     -- Damage role note section
     --
     --
-    local damageRoleNoteSection = AddSection(container, "")
+    local damageRoleNoteSection = DD.utils.AddSection(container, "")
     local damageHeaderInput = AceGUI:Create("EditBox")
     damageHeaderInput:SetLabel("Header")
     damageHeaderInput:SetText(state.damageHeader)
     damageHeaderInput:DisableButton(true)
-    damageHeaderInput:SetCallback("OnTextChanged", function(widget, event, value)
+    damageHeaderInput:SetCallback("OnTextChanged", function(_, _, value)
         DD:DB_Update(function()
             state.damageHeader = value
         end)
     end)
     damageRoleNoteSection:AddChild(damageHeaderInput)
 
-    Utils_AddSpacer(damageRoleNoteSection)
+    DD.utils.AddSpacer(damageRoleNoteSection)
 
     -- Use default role header
-    SettingsShared_AddCheckBox(
+    DD.ui.shared.AddCheckBox(
         damageRoleNoteSection,
         "Use Default Role Header",
         state.style.damageHeader,
@@ -48,7 +54,7 @@ function DD:SettingsStyleRoleDamage_View(wrapperContainer)
     )
 
     -- Use default text style
-    SettingsShared_AddCheckBox(
+    DD.ui.shared.AddCheckBox(
         damageRoleNoteSection,
         "Use Default Text Style",
         state.style.damageNote,
@@ -57,19 +63,19 @@ function DD:SettingsStyleRoleDamage_View(wrapperContainer)
     )
 
     if not state.style.damageHeader.useDefaultRoleHeaderStyle then
-        local damageHeaderStyleSection = AddSection(container, "Damage Header Style")
-        SettingsShared_AddFontSettings(damageHeaderStyleSection, state.style.damageHeader.text)
+        local damageHeaderStyleSection = DD.utils.AddSection(container, "Damage Header Style")
+        DD.ui.shared.AddFontSettings(damageHeaderStyleSection, state.style.damageHeader.text)
     end
 
     if not state.style.damageNote.useDefaultTextStyle then
-        local damageNoteStyleSection = AddSection(container, "Damage Note Style")
-        SettingsShared_AddFontSettings(damageNoteStyleSection, state.style.damageNote.text)
+        local damageNoteStyleSection = DD.utils.AddSection(container, "Damage Note Style")
+        DD.ui.shared.AddFontSettings(damageNoteStyleSection, state.style.damageNote.text)
     end
 
 
 end
 
-function SettingsStyleRoleDamage_AddDescription(frame)
+function DD.ui.settings.StyleRoleDamage_AddDescription(frame)
     -- Create a title label
     local title = AceGUI:Create("Label")
     title:SetText("|cffffd700Damage Notes Style|r")    -- Gold-colored text for the title

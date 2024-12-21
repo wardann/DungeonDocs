@@ -1,6 +1,12 @@
 {
   "Lua.runtime.version": "Lua 5.1",
+  "Lua.workspace.library": [
+    "./Types"
+  ],
   "Lua.diagnostics.globals": [
+    // Placeholder for unused vars
+    "_",
+    // Testing Vars
     "describe",
     "it",
     "before_each",
@@ -8,6 +14,24 @@
     "setup",
     "teardown",
     "assert",
-    "assert.has_no"
+    "assert.has_no",
+    // WoW Globals
+    "UnitGUID",
+    "strsplit",
+    "UIParent",
+    "C_AddOns",
+    "GetMobIDFromGUID",
+    "GetInstanceInfo",
+    "UnitName",
+    "IsInGroup",
+    "SendChatMessage",
+    "LE_PARTY_CATEGORY_INSTANCE",
+    "LE_PARTY_CATEGORY_HOME",
+    "C_Timer",
+    "GameFontNormalLarge",
+    "UnitAffectingCombat",
+    "GetSpecialization",
+    "GetSpecializationRole",
+    "CombatLogGetCurrentEventInfo"
   ]
 }

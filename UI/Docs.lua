@@ -1,12 +1,21 @@
+--- @class DungeonDocs
 local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
 local AceGUI = LibStub("AceGUI-3.0")
 
+--- @class DocsUI
+local M = {}
+
+--- @type TreeGroup
 local treeGroup
+
 local rightGroup
+
 local models = {}
 
 
-local function setTreeGroupFocus(treeGroup, treeData)
+--- @param localTreeGroup TreeGroup
+--- @param treeData table
+local function setTreeGroupFocus(localTreeGroup, treeData)
     local targetId = GetMobIDFromGUID("target")
     if not targetId then
         return
@@ -23,7 +32,7 @@ local function setTreeGroupFocus(treeGroup, treeData)
                 for _, mobOrBoss in ipairs(mobType.children) do
                     for _, mob in ipairs(mobOrBoss.mobs) do
                         if mob.id == targetId then
-                            treeGroup:SelectByPath(instance.value, mobType.value, mobOrBoss.value)
+                            localTreeGroup:SelectByPath(instance.value, mobType.value, mobOrBoss.value)
                             return true
                         end
                     end
@@ -38,7 +47,7 @@ end
 local lastSelected = {}
 
 -- Function to show the Default tab content
-function DD:ShowDocsTab(container)
+function M.TabRoot(container)
     -- Create a TreeGroup for the hierarchical mob list
     treeGroup = AceGUI:Create("TreeGroup")
     treeGroup:SetLayout("Fill")
@@ -47,14 +56,12 @@ function DD:ShowDocsTab(container)
     treeGroup:SetTreeWidth(200, false) -- Set the width of the tree part
     container:AddChild(treeGroup)
 
-    -- Define the tree data structure
-
     -- Set the tree data
-    local treeData = DD:DungeonDataToTreeData()
+    local treeData = M.DungeonDataToTreeData()
     treeGroup:SetTree(treeData)
 
     -- Set a callback for when a node is selected
-    treeGroup:SetCallback("OnGroupSelected", function(self, event, uniquePath)
+    treeGroup:SetCallback("OnGroupSelected", function(_, _, uniquePath)
         local pathComponents = { strsplit("\001", uniquePath) }
         local numComponents = #pathComponents
 
@@ -63,7 +70,7 @@ function DD:ShowDocsTab(container)
         end
 
         local dungeonName, enemyType, noteName = pathComponents[1], pathComponents[2], pathComponents[3]
-        DD:HandleSelected(dungeonName, enemyType, noteName)
+        M.HandleSelected(dungeonName, enemyType, noteName)
     end)
 
     rightGroup = AceGUI:Create("SimpleGroup")
@@ -84,25 +91,27 @@ function DD:ShowDocsTab(container)
 end
 
 local function resetNote(dungeonName, note)
-    DD:DB_SetNote(dungeonName, note.ddid, "primaryNote", nil)
-    DD:DB_SetNote(dungeonName, note.ddid, "tankNote", nil)
-    DD:DB_SetNote(dungeonName, note.ddid, "healerNote", nil)
-    DD:DB_SetNote(dungeonName, note.ddid, "damageNote", nil)
+    DD.db.SetNote(dungeonName, note.ddid, "primaryNote", nil)
+    DD.db.SetNote(dungeonName, note.ddid, "tankNote", nil)
+    DD.db.SetNote(dungeonName, note.ddid, "healerNote", nil)
+    DD.db.SetNote(dungeonName, note.ddid, "damageNote", nil)
 end
 
-function DD:ClearModels()
+function M.ClearModels()
     for _, model in pairs(models) do
         if model then
             model:ClearModel()
             model:Hide()
-            model = nil
         end
     end
     models = {}
 end
 
-function DD:HandleSelected(dungeonName, enemyType, noteName)
-    local notes = DD.Dungeons[dungeonName].noteStructures
+--- @param dungeonName string
+--- @param enemyType "boss"|"trash"
+--- @param noteName string
+function M.HandleSelected(dungeonName, enemyType, noteName)
+    local notes = DD.dungeons.List[dungeonName].noteStructures
     local note
 
     -- Find the boss in the database
@@ -114,7 +123,7 @@ function DD:HandleSelected(dungeonName, enemyType, noteName)
 
     -- Clean up previous runs
     rightGroup:ReleaseChildren()
-    DD:ClearModels()
+    M.ClearModels()
 
     -- Add a title for the page
     local titleLabel = AceGUI:Create("Label")
@@ -150,7 +159,8 @@ function DD:HandleSelected(dungeonName, enemyType, noteName)
         modelContainer:SetLayout("Fill")
         rightGroup:AddChild(modelContainer)
 
-        local model = CreateFrame("PlayerModel", nil, modelContainer.frame)
+        --- @type PlayerModel
+        local model = CreateFrame("PlayerModel", nil, modelContainer.frame) --[[@as PlayerModel]]
         model:SetPoint("CENTER")
         model:SetSize(widthPerModel, 200)
         model:SetCamDistanceScale(1.5)
@@ -167,16 +177,16 @@ function DD:HandleSelected(dungeonName, enemyType, noteName)
     scrollFrame:SetFullHeight(true)
     rightGroup:AddChild(scrollFrame)
 
-    RenderNote(dungeonName, note, "primaryNote", "Primary notes", scrollFrame)
-    RenderNote(dungeonName, note, "tankNote", "Tank notes", scrollFrame)
-    RenderNote(dungeonName, note, "healerNote", "Healer notes", scrollFrame)
-    RenderNote(dungeonName, note, "damageNote", "DPS notes", scrollFrame)
+    M.RenderNote(dungeonName, note, "primaryNote", "Primary notes", scrollFrame)
+    M.RenderNote(dungeonName, note, "tankNote", "Tank notes", scrollFrame)
+    M.RenderNote(dungeonName, note, "healerNote", "Healer notes", scrollFrame)
+    M.RenderNote(dungeonName, note, "damageNote", "DPS notes", scrollFrame)
 
     local testNoteButton = AceGUI:Create("Button")
     testNoteButton:SetText("Render Notes")
     testNoteButton:SetFullWidth(true)
     testNoteButton:SetCallback("OnClick", function()
-        DD:RenderTestNote(note.ddid, dungeonName)
+        DD.omniNote.RenderTestNote(note.ddid, dungeonName)
     end)
     scrollFrame:AddChild(testNoteButton)
 
@@ -203,14 +213,14 @@ function DD:HandleSelected(dungeonName, enemyType, noteName)
         resetNote(dungeonName, note)
         confirming = false
         button:SetText(resetButtonText)
-        DD:HandleSelected(dungeonName, enemyType, noteName)
+        M.HandleSelected(dungeonName, enemyType, noteName)
     end)
 
     scrollFrame:AddChild(button)
     lastSelected = { dungeonName, enemyType, noteName }
 end
 
-function RenderNote(dungeonName, note, noteKey, noteLabel, container)
+function M.RenderNote(dungeonName, note, noteKey, noteLabel, container)
     -- Add notes
     -- Create a SimpleGroup for the edit box to ensure proper layout
     local noteContainer = AceGUI:Create("SimpleGroup")
@@ -224,17 +234,18 @@ function RenderNote(dungeonName, note, noteKey, noteLabel, container)
     noteTextBox:SetLabel(noteLabel)
     noteTextBox:SetFullWidth(true)                                             -- Make the edit box take up the full width of the container
 
-    noteTextBox:SetText(DD:DB_GetNotePrimary(dungeonName, note.ddid, noteKey)) -- You can prefill the edit box with text if needed
+    noteTextBox:SetText(DD.db.GetNotePrimary(dungeonName, note.ddid, noteKey)) -- You can prefill the edit box with text if needed
     noteTextBox:DisableButton(true)                                            -- Disable the "Okay" button
-    noteTextBox:SetCallback("OnTextChanged", function(widget, event, text)
-        DD:DB_SetNote(dungeonName, note.ddid, noteKey, text)
+    noteTextBox:SetCallback("OnTextChanged", function(_, _, text)
+        DD.db.SetNote(dungeonName, note.ddid, noteKey, text)
     end)
     noteContainer:AddChild(noteTextBox)
 end
 
-function DD:DungeonDataToTreeData()
+--- @returns table
+function M.DungeonDataToTreeData()
     -- Get instances only from the selected season
-    local instances = DD:Dungeons_GetCurrentSeason()
+    local instances = DD.dungeons.GetCurrentSeason()
 
     local treeData = {}
 
@@ -292,3 +303,7 @@ function DD:DungeonDataToTreeData()
 
     return treeData
 end
+
+--- @class UI
+DD.ui = DD.ui or {}
+DD.ui.docs = M

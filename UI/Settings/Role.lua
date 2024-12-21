@@ -1,14 +1,21 @@
+--- @class DungeonDocs
 local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
 local AceGUI = LibStub("AceGUI-3.0")
 
-function DD:SettingsStyleRole_View(wrapperContainer)
+--- @class UI
+DD.ui = DD.ui or {}
+
+--- @class SettingsUI
+DD.ui.settings = DD.ui.settings or {}
+
+function DD.ui.settings.StyleRole_View(wrapperContainer)
     local refresh = function()
         wrapperContainer:ReleaseChildren()
-        DD:SettingsStyleRole_View(wrapperContainer)
+        DD.ui.settings.StyleRole_View(wrapperContainer)
     end
     wrapperContainer:SetLayout("Flow")
 
-    local state = self.db.profile.settings.omniNote
+    local state = DD.db.profile.settings.omniNote
 
     local container = AceGUI:Create("ScrollFrame")
     container:SetLayout("Flow")
@@ -16,22 +23,22 @@ function DD:SettingsStyleRole_View(wrapperContainer)
     container:SetFullHeight(true)
     wrapperContainer:AddChild(container)
 
-    SettingsStyleRole_AddDescription(container)
+    DD.ui.settings.StyleRole_AddDescription(container)
 
     -- Add role notes settings
-    local roleNotesSection = AddSection(container, "")
+    local roleNotesSection = DD.utils.AddSection(container, "")
     -- Add role display dropdown
     local roleDisplays = {
         None = "None",
         Current = "Current",
         All = "All",
     }
-    SettingsShared_AddDropdown(roleNotesSection, "Role Display", roleDisplays, state, "roleDisplay", refresh)
+    DD.ui.shared.AddDropdown(roleNotesSection, "Role Display", roleDisplays, state, "roleDisplay", refresh)
 
     if state.roleDisplay == "None" then return end
 
     -- Display role header
-    SettingsShared_AddCheckBox(
+    DD.ui.shared.AddCheckBox(
         roleNotesSection,
         "Display role header",
         state,
@@ -40,7 +47,7 @@ function DD:SettingsStyleRole_View(wrapperContainer)
     )
 
     -- Add role header indent slider
-    SettingsShared_AddSlider(
+    DD.ui.shared.AddSlider(
         roleNotesSection,
         "Role Header Indent",
         state,
@@ -51,7 +58,7 @@ function DD:SettingsStyleRole_View(wrapperContainer)
     )
 
     -- Add role note indent slider
-    SettingsShared_AddSlider(
+    DD.ui.shared.AddSlider(
         roleNotesSection,
         "Role Note Indent",
         state,
@@ -61,11 +68,11 @@ function DD:SettingsStyleRole_View(wrapperContainer)
         1
     )
 
-    local defaultRoleHeaderStyle = AddSection(container, "Default Role Header Style")
-    SettingsShared_AddFontSettings(defaultRoleHeaderStyle, state.style.defaultRoleHeader)
+    local defaultRoleHeaderStyle = DD.utils.AddSection(container, "Default Role Header Style")
+    DD.ui.shared.AddFontSettings(defaultRoleHeaderStyle, state.style.defaultRoleHeader)
 end
 
-function SettingsStyleRole_AddDescription(frame)
+function DD.ui.settings.StyleRole_AddDescription(frame)
     -- Create a title label
     local title = AceGUI:Create("Label")
     title:SetText("|cffffd700Role Notes|r")    -- Gold-colored text for the title

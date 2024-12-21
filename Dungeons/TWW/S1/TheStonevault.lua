@@ -1,9 +1,15 @@
+--- @type DungeonDocs
 local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
 
+--- @type CreateDDID
 local function createDDID(index)
   return "tsv" .. index
 end
 
+--- @class Dungeons
+DD.dungeons = DD.dungeons or {}
+
+--- @type NoteStructures
 local noteStructures = {
   --
   -- BOSSES
@@ -248,14 +254,15 @@ local noteStructures = {
   },
 }
 
+--- @type DungeonData
 local dungeonData = {
-  name = "The Stonevault",
+  dungeonName = "The Stonevault",
   icon = "Interface\\ICONS\\inv_misc_stonetablet_05",
   seasonId = "TWWS1",
   noteStructures = noteStructures,
 }
 
 
-function DD:Dungeons_InitTheStonevault()
-  DD.Dungeons[dungeonData.name] = dungeonData
+function DD.dungeons.InitTheStonevault()
+  DD.dungeons.List[dungeonData.dungeonName] = dungeonData
 end

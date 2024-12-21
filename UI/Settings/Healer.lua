@@ -1,15 +1,21 @@
+--- @class DungeonDocs
 local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
 local AceGUI = LibStub("AceGUI-3.0")
 
-function DD:SettingsStyleRoleHealer_View(wrapperContainer)
+--- @class UI
+DD.ui = DD.ui or {}
+
+--- @class SettingsUI
+DD.ui.settings = DD.ui.settings or {}
+
+function DD.ui.settings.StyleRoleHealer_View(wrapperContainer)
     local refresh = function()
         wrapperContainer:ReleaseChildren()
-        DD:SettingsStyleRoleHealer_View(wrapperContainer)
+        DD.ui.settings.StyleRoleHealer_View(wrapperContainer)
     end
     wrapperContainer:SetLayout("Flow")
 
-    local state = self.db.profile.settings.omniNote
-    local internal = self.db.profile.internal
+    local state = DD.db.database.profile.settings.omniNote
 
     local container = AceGUI:Create("ScrollFrame")
     container:SetLayout("Flow")
@@ -17,29 +23,29 @@ function DD:SettingsStyleRoleHealer_View(wrapperContainer)
     container:SetFullHeight(true)
     wrapperContainer:AddChild(container)
 
-    SettingsStyleRoleHealer_AddDescription(container)
+    DD.ui.settings.StyleRoleHealer_AddDescription(container)
 
     --
     --
     -- Healer role note section
     --
     --
-    local healerRoleNoteSection = AddSection(container, "")
+    local healerRoleNoteSection = DD.utils.AddSection(container, "")
     local healerHeaderInput = AceGUI:Create("EditBox")
     healerHeaderInput:SetLabel("Header")
     healerHeaderInput:DisableButton(true)
     healerHeaderInput:SetText(state.healerHeader)
-    healerHeaderInput:SetCallback("OnTextChanged", function(widget, event, value)
-        DD:DB_Update(function()
+    healerHeaderInput:SetCallback("OnTextChanged", function(_, _, value)
+        DD.db.UpdateDB(function()
             state.healerHeader = value
         end)
     end)
     healerRoleNoteSection:AddChild(healerHeaderInput)
 
-    Utils_AddSpacer(healerRoleNoteSection)
+    DD.utils.AddSpacer(healerRoleNoteSection)
 
     -- Use default role header
-    SettingsShared_AddCheckBox(
+    DD.ui.shared.AddCheckBox(
         healerRoleNoteSection,
         "Use Default Role Header",
         state.style.healerHeader,
@@ -48,7 +54,7 @@ function DD:SettingsStyleRoleHealer_View(wrapperContainer)
     )
 
     -- Use default text style
-    SettingsShared_AddCheckBox(
+    DD.ui.shared.AddCheckBox(
         healerRoleNoteSection,
         "Use Default Text Style",
         state.style.healerNote,
@@ -57,18 +63,18 @@ function DD:SettingsStyleRoleHealer_View(wrapperContainer)
     )
 
     if not state.style.healerHeader.useDefaultRoleHeaderStyle then
-        local healerHeaderStyleSection = AddSection(container, "Healer Header Style")
-        SettingsShared_AddFontSettings(healerHeaderStyleSection, state.style.healerHeader.text)
+        local healerHeaderStyleSection = DD.utils.AddSection(container, "Healer Header Style")
+        DD.ui.shared.AddFontSettings(healerHeaderStyleSection, state.style.healerHeader.text)
     end
 
     if not state.style.healerNote.useDefaultTextStyle then
-        local healerNoteStyleSection = AddSection(container, "Healer Note Style")
-        SettingsShared_AddFontSettings(healerNoteStyleSection, state.style.healerNote.text)
+        local healerNoteStyleSection = DD.utils.AddSection(container, "Healer Note Style")
+        DD.ui.shared.AddFontSettings(healerNoteStyleSection, state.style.healerNote.text)
     end
 
 end
 
-function SettingsStyleRoleHealer_AddDescription(frame)
+function DD.ui.settings.StyleRoleHealer_AddDescription(frame)
     -- Create a title label
     local title = AceGUI:Create("Label")
     title:SetText("|cffffd700Healer Notes Style|r")    -- Gold-colored text for the title

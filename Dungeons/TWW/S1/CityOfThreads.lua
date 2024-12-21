@@ -1,9 +1,15 @@
+--- @type DungeonDocs
 local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
 
+--- @type CreateDDID
 local function createDDID(index)
     return "cot" .. index
 end
 
+--- @class Dungeons
+DD.dungeons = DD.dungeons or {}
+
+--- @type NoteStructures
 local noteStructures = {
     --
     -- BOSSES
@@ -307,13 +313,14 @@ local noteStructures = {
     },
 }
 
+--- @type DungeonData
 local dungeonData = {
-    name = "City of Threads",
+    dungeonName = "City of Threads",
     icon = "Interface\\Icons\\achievement_zone_silithus_01",
     seasonId = "TWWS1",
     noteStructures = noteStructures
 }
 
-function DD:Dungeons_InitCityOfThreads()
-    DD.Dungeons[dungeonData.name] = dungeonData
+function DD.dungeons.InitCityOfThreads()
+    DD.dungeons.List[dungeonData.dungeonName] = dungeonData
 end

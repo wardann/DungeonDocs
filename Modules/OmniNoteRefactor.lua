@@ -1,4 +1,9 @@
+--- @class DungeonDocs
 local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
+
+--- @class OmniNote
+local M = {}
+
 
 local omniAnchorFrame
 local omniNoteFrame
@@ -13,11 +18,12 @@ local playerTargetMobId
 
 local testNoteOpacityEnabled = false
 
-
+--- @param index number
 local function buildNoteCardName(index)
     return "NoteCard" .. index
 end
 
+--- @param index number
 local function buildSpacerName(index)
     return "Spacer" .. index
 end
@@ -25,6 +31,10 @@ end
 local function initNoteFrames()
     local width = omniAnchorFrame:GetWidth()
 
+    --- @param parent Frame
+    --- @param addBackground boolean|nil
+    --- @param addFontString boolean|nil
+    --- @return Frame
     local function initFrame(parent, addBackground, addFontString)
         local frame = CreateFrame("Frame", nil, parent)
         frame:SetWidth(width)
@@ -71,10 +81,10 @@ local function initNoteFrames()
 end
 
 local function storeEncounteredMob(mobId)
-    if IsFollowerNPC(mobId) then return end
+    if DD.utils.IsFollowerNPC(mobId) then return end
 
-    local dungeonName = DD:Dungeons_GetCurrentDungeon()
-    local ddid = DD:Dungeons_MobIdToDDID(mobId, dungeonName)
+    local dungeonName = DD.dungeons.GetCurrentDungeon()
+    local ddid = DD.dungeons.MobIdToDDID(mobId, dungeonName)
 
     if not ddid then return end
 
@@ -91,12 +101,12 @@ local function storeEncounteredMob(mobId)
 end
 
 local function renderEncounteredMob(ddid, dungeonName)
-    local noteStruct = DD:Dungeons_DDIDToNoteStruct(ddid, dungeonName)
+    local noteStruct = DD.dungeons.DDIDToNoteStruct(ddid, dungeonName)
     if not noteStruct then
         return
     end
 
-    local note = DD:DB_DeriveFullNote(dungeonName, ddid)
+    local note = DD.db.DeriveFullNote(dungeonName, ddid)
     if not note then
         return
     end
@@ -112,14 +122,15 @@ local function renderEncounteredMob(ddid, dungeonName)
 end
 
 
-function DD:RenderNote(index, anchor)
+function M.RenderNote(index, anchor)
+    local u = DD.utils
     local noteCardFrame = noteFrames[buildNoteCardName(index)]
     local spacerFrame = noteFrames[buildSpacerName(index)]
 
     local ddid = ddidsToRender[index]
     if not ddid then
-        FrameCollapse(noteCardFrame)
-        FrameCollapse(spacerFrame)
+        u.FrameCollapse(noteCardFrame)
+        u.FrameCollapse(spacerFrame)
         return spacerFrame
     end
 
@@ -128,15 +139,15 @@ function DD:RenderNote(index, anchor)
 
 
     if not noteInfo then
-        FrameCollapse(noteCardFrame)
-        FrameCollapse(spacerFrame)
+        u.FrameCollapse(noteCardFrame)
+        u.FrameCollapse(spacerFrame)
         return spacerFrame
     end
 
     local note          = noteInfo.note
     local noteStruct    = noteInfo.noteStruct
 
-    local state         = self.db.profile.settings.omniNote
+    local state         = DD.db.database.profile.settings.omniNote
 
     local noteCardLines = { noteCardFrame:GetChildren() }
     local width         = omniAnchorFrame:GetWidth()
@@ -149,13 +160,15 @@ function DD:RenderNote(index, anchor)
         return padding
     end
 
+    --- @param lineName string
+    --- @returns string
     local function resolveText(lineName)
         if lineName == "mobName" then
             return noteStruct.noteName
         end
 
         if string.find(lineName, "Header") then
-            return state[lineName]
+            return state[lineName] --- @type string
         end
 
         return note[lineName]
@@ -187,8 +200,8 @@ function DD:RenderNote(index, anchor)
         end
 
         if not line.displayed then
-            FrameSetPoint(frame, "TOP", previousFrame, anchorPoint, 0, 0)
-            FrameCollapse(frame)
+            u.FrameSetPoint(frame, "TOP", previousFrame, anchorPoint, 0, 0)
+            u.FrameCollapse(frame)
             return
         end
 
@@ -222,28 +235,28 @@ function DD:RenderNote(index, anchor)
 
         -- Update font string properties
         if textStyle then
-            SafeSetFont(frame.fontString, textStyle.font, textStyle.fontSize, fontFlags)
-            SafeSetTextColor(frame.fontString, textStyle.color.r, textStyle.color.g, textStyle.color.b, 1)
+            u.SafeSetFont(frame.fontString, textStyle.font, textStyle.fontSize, fontFlags)
+            u.SafeSetTextColor(frame.fontString, textStyle.color.r, textStyle.color.g, textStyle.color.b, 1)
         end
 
-        SafeSetAlpha(frame.fontString, alpha)
-        SafeSetJustifyH(frame.fontString, state.textAlign)
-        FrameWidth(frame.fontString, width)
-        FrameSetPoint(frame.fontString, "LEFT", frame, "LEFT", line.indent, 0)
+        u.SafeSetAlpha(frame.fontString, alpha)
+        u.SafeSetJustifyH(frame.fontString, state.textAlign)
+        u.FrameWidth(frame.fontString, width)
+        u.FrameSetPoint(frame.fontString, "LEFT", frame, "LEFT", line.indent, 0)
 
         -- Update frame properties
-        FrameShow(frame)
-        FrameSetPoint(frame, "TOP", previousFrame, anchorPoint, 0, withPadding(linePadding))
-        FontText(frame, resolveText(line.name))
-        FrameWidth(frame, width)
+        u.FrameShow(frame)
+        u.FrameSetPoint(frame, "TOP", previousFrame, anchorPoint, 0, withPadding(linePadding))
+        u.FontText(frame, resolveText(line.name))
+        u.FrameWidth(frame, width)
 
         local height = frame.fontString:GetStringHeight()
-        FrameHeight(frame, height)
+        u.FrameHeight(frame, height)
         totalHeight = totalHeight + height
 
         if testNoteOpacityEnabled then
-            SafeSetAllPoints(frame.bg, frame)
-            SafeSetColorTexture(frame.bg, 1, 0, 0, 0.5)
+            u.SafeSetAllPoints(frame.bg, frame)
+            u.SafeSetColorTexture(frame.bg, 1, 0, 0, 0.5)
         end
 
         previousFrame = frame
@@ -270,7 +283,7 @@ function DD:RenderNote(index, anchor)
     })
 
     -- Tank header line
-    local tankDisplayed = DD:ShouldDisplayRole(note.tankNote, "Tank")
+    local tankDisplayed = M.ShouldDisplayRole(note.tankNote, "Tank")
     updateLine({
         name = "tankHeader",
         index = 3,
@@ -287,7 +300,7 @@ function DD:RenderNote(index, anchor)
     })
 
     -- Healer header line
-    local healerDisplayed = DD:ShouldDisplayRole(note.healerNote, "Healer")
+    local healerDisplayed = M.ShouldDisplayRole(note.healerNote, "Healer")
     updateLine({
         name = "healerHeader",
         index = 5,
@@ -304,7 +317,7 @@ function DD:RenderNote(index, anchor)
     })
 
     -- Damage header line
-    local damageDisplayed = DD:ShouldDisplayRole(note.damageNote, "Damage")
+    local damageDisplayed = M.ShouldDisplayRole(note.damageNote, "Damage")
     updateLine({
         name = "damageHeader",
         index = 7,
@@ -322,54 +335,55 @@ function DD:RenderNote(index, anchor)
 
 
     -- Update note card frame
-    FrameShow(noteCardFrame)
-    FrameWidth(noteCardFrame, width)
-    FrameHeight(noteCardFrame, totalHeight)
+    u.FrameShow(noteCardFrame)
+    u.FrameWidth(noteCardFrame, width)
+    u.FrameHeight(noteCardFrame, totalHeight)
 
     -- Update spacer frame
-    FrameShow(spacerFrame)
-    FrameWidth(spacerFrame, width)
-    FrameHeight(spacerFrame, state.noteSpacing)
+    u.FrameShow(spacerFrame)
+    u.FrameWidth(spacerFrame, width)
+    u.FrameHeight(spacerFrame, state.noteSpacing)
 
     -- Handle grow direction UP
     if state.noteGrowDirection == "UP" then
         if index == 1 then
-            FrameSetPoint(noteCardFrame, "BOTTOM", anchor, "BOTTOM", 0, 0)
+            u.FrameSetPoint(noteCardFrame, "BOTTOM", anchor, "BOTTOM", 0, 0)
         else
-            FrameSetPoint(noteCardFrame, "BOTTOM", anchor, "TOP", 0, 0)
+            u.FrameSetPoint(noteCardFrame, "BOTTOM", anchor, "TOP", 0, 0)
         end
-        FrameSetPoint(spacerFrame, "BOTTOM", noteCardFrame, "TOP", 0, 0)
+        u.FrameSetPoint(spacerFrame, "BOTTOM", noteCardFrame, "TOP", 0, 0)
     end
 
     -- Handle grow direction DOWN
     if state.noteGrowDirection == "DOWN" then
         if index == 1 then
-            FrameSetPoint(noteCardFrame, "TOP", anchor, "TOP", 0, 0)
+            u.FrameSetPoint(noteCardFrame, "TOP", anchor, "TOP", 0, 0)
         else
-            FrameSetPoint(noteCardFrame, "TOP", anchor, "BOTTOM", 0, 0)
+            u.FrameSetPoint(noteCardFrame, "TOP", anchor, "BOTTOM", 0, 0)
         end
-        FrameSetPoint(spacerFrame, "TOP", noteCardFrame, "BOTTOM", 0, 0)
+        u.FrameSetPoint(spacerFrame, "TOP", noteCardFrame, "BOTTOM", 0, 0)
     end
 
     if testNoteOpacityEnabled then
-        SafeSetAllPoints(noteCardFrame.bg, noteCardFrame)
-        SafeSetColorTexture(noteCardFrame.bg, 0, 0, 1, 0.5)
+        u.SafeSetAllPoints(noteCardFrame.bg, noteCardFrame)
+        u.SafeSetColorTexture(noteCardFrame.bg, 0, 0, 1, 0.5)
 
-        SafeSetAllPoints(spacerFrame.bg, spacerFrame)
-        SafeSetColorTexture(spacerFrame.bg, 0, 1, 0, 0.5)
+        u.SafeSetAllPoints(spacerFrame.bg, spacerFrame)
+        u.SafeSetColorTexture(spacerFrame.bg, 0, 1, 0, 0.5)
     end
 
     return spacerFrame
 end
 
-function DD:RenderOmniNote()
+function M.RenderOmniNote()
+    local u = DD.utils
     local previousSpacer = omniNoteFrame
     for i = 1, targetNoteCount do
-        local newSpacer = DD:RenderNote(i, previousSpacer)
+        local newSpacer = M.RenderNote(i, previousSpacer)
 
         -- Collapse the previous spacer if there are no more notes
         if newSpacer:GetHeight() == 0 then
-            FrameCollapse(previousSpacer)
+            DD.utils.FrameCollapse(previousSpacer)
         end
 
         previousSpacer = newSpacer
@@ -380,39 +394,39 @@ function DD:RenderOmniNote()
         totalHeight = totalHeight + frame:GetHeight()
     end
 
-    FrameShow(omniNoteFrame)
-    FrameHeight(omniNoteFrame, totalHeight)
-    FrameWidth(omniNoteFrame, omniAnchorFrame:GetWidth())
+    u.FrameShow(omniNoteFrame)
+    u.FrameHeight(omniNoteFrame, totalHeight)
+    u.FrameWidth(omniNoteFrame, omniAnchorFrame:GetWidth())
 
-    local state    = self.db.profile.settings.omniNote
-    local internal = self.db.profile.internal
+    local state    = DD.db.database.profile.settings.omniNote
+    local internal = DD.db.database.profile.internal
 
     if state.noteGrowDirection == "UP" then
         if internal.movers.omniNote then
-            FrameSetPoint(omniNoteFrame, "BOTTOM", omniAnchorFrame, "TOP", 0, 0)
+            u.FrameSetPoint(omniNoteFrame, "BOTTOM", omniAnchorFrame, "TOP", 0, 0)
         else
-            FrameSetPoint(omniNoteFrame, "BOTTOM", omniAnchorFrame, "BOTTOM", 0, 0)
+            u.FrameSetPoint(omniNoteFrame, "BOTTOM", omniAnchorFrame, "BOTTOM", 0, 0)
         end
     else
         if internal.movers.omniNote then
-            FrameSetPoint(omniNoteFrame, "TOP", omniAnchorFrame, "BOTTOM", 0, 0)
+            u.FrameSetPoint(omniNoteFrame, "TOP", omniAnchorFrame, "BOTTOM", 0, 0)
         else
-            FrameSetPoint(omniNoteFrame, "TOP", omniAnchorFrame, "TOP", 0, 0)
+            u.FrameSetPoint(omniNoteFrame, "TOP", omniAnchorFrame, "TOP", 0, 0)
         end
     end
 
     -- Set opacity
-    SafeSetAllPoints(omniNoteFrame.bg, omniNoteFrame)
-    SafeSetColorTexture(omniNoteFrame.bg, 0, 0, 0, state.backgroundOpacity)
+    u.SafeSetAllPoints(omniNoteFrame.bg, omniNoteFrame)
+    u.SafeSetColorTexture(omniNoteFrame.bg, 0, 0, 0, state.backgroundOpacity)
 end
 
-function DD:OmniNote_Init()
-    omniAnchorFrame = DD:Movers_GetOmni()
+function M.Init()
+    omniAnchorFrame = DD.movers.GetOmni()
     initNoteFrames()
 end
 
-DD:SubscribeToDBChange(function()
-    DD:RenderOmniNote()
+DD.db.SubscribeToDBChange(function()
+    M.RenderOmniNote()
 end)
 
 local eventFrame = CreateFrame("Frame")
@@ -453,10 +467,11 @@ local ensureTarget = function()
         playerTargetMobId = tonumber(unitId)
     end
 
-    DD:RenderOmniNote()
+    M.RenderOmniNote()
 end
 
-eventFrame:SetScript("OnEvent", function(self, event)
+eventFrame:SetScript("OnEvent", function(_, event)
+    -- luacheck: ignore
     if event == "PLAYER_REGEN_DISABLED" then
         -- Reset encountered mobs at start of combat
         -- This caused nothing to render, skipping
@@ -472,7 +487,7 @@ eventFrame:SetScript("OnEvent", function(self, event)
             return
         end
 
-        local _, subEvent, _, sourceGUID, _, _, _, destGUID, destName = CombatLogGetCurrentEventInfo()
+        local _, subEvent, _, sourceGUID, _, _, _, destGUID, _ = CombatLogGetCurrentEventInfo()
 
         -- Ignore deaths
         if subEvent == "UNIT_DIED" or subEvent == "UNIT_DESTROYED" then
@@ -485,12 +500,12 @@ eventFrame:SetScript("OnEvent", function(self, event)
         local destMobId = tonumber((destGUID):match("-(%d+)-%x+$"))
         local destGuidType = destGUID:match("^(.-)-")
 
-        local isValidEvent = function(sourceMobId, sourceGuidType, destMobId, destGuidType)
+        local isValidEvent = function()
             if sourceGuidType == "Player" and destGuidType == "Player" then
                 return false
             end
 
-            if IsFollowerNPC(sourceMobId) or IsFollowerNPC(destMobId) then
+            if DD.utils.IsFollowerNPC(sourceMobId) or DD.utils.IsFollowerNPC(destMobId) then
                 return true
             end
 
@@ -499,31 +514,31 @@ eventFrame:SetScript("OnEvent", function(self, event)
             end
         end
 
-        if isValidEvent(sourceMobId, sourceGuidType, destMobId, destGuidType) then
+        if isValidEvent() then
             if sourceGuidType ~= "Player" then
                 storeEncounteredMob(sourceMobId)
             end
             if destGuidType ~= "Player" then
                 storeEncounteredMob(destMobId)
             end
-            DD:RenderOmniNote()
+            M.RenderOmniNote()
         end
     elseif event == "PLAYER_TARGET_CHANGED" then
         ensureTarget()
     end
 end)
 
-function DD:RenderTestNote(ddid, dungeonName)
+function M.RenderTestNote(ddid, dungeonName)
     testNoteEnabled = true
     table.insert(ddidsToRender, ddid)
     ddidToDungeon[ddid] = dungeonName
-    DD:RenderOmniNote()
+    M.RenderOmniNote()
 end
 
-function DD:ShouldDisplayRole(note, role)
+function M.ShouldDisplayRole(note, role)
     if note == "" then return false end
 
-    local state = self.db.profile.settings.omniNote
+    local state = DD.db.database.profile.settings.omniNote
 
     if state.roleDisplay == "All" then
         return true
@@ -535,6 +550,7 @@ function DD:ShouldDisplayRole(note, role)
 
     -- Handle state.roleDisplay == "Current"
     local specIndex = GetSpecialization()
+    if not specIndex then return false end
     local specRole = GetSpecializationRole(specIndex)
 
     local normalizeRole = function(r)
@@ -544,3 +560,5 @@ function DD:ShouldDisplayRole(note, role)
 
     return normalizeRole(role) == normalizeRole(specRole)
 end
+
+DD.omniNote = M

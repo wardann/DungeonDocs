@@ -1,7 +1,12 @@
+--- @class DungeonDocs
 local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
 local AceGUI = LibStub("AceGUI-3.0")
 
-function DD:Help_Tab(container)
+--- @class HelpUI
+local M = {}
+
+
+function M.TabRoot(container)
     container:SetLayout("Fill")
 
     local label = AceGUI:Create("Label")
@@ -18,3 +23,7 @@ Need more help? Want to request a feature? Found a bug? Please open an issue:
 
     container:AddChild(label)
 end
+
+--- @class UI
+DD.ui = DD.ui or {}
+DD.ui.help = M

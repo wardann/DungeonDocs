@@ -1,15 +1,23 @@
+--- @class DungeonDocs
 local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
-local LibSerialize = LibStub("LibSerialize")
-local LibDeflate = LibStub("LibDeflate")
 
+local LibSerialize = LibStub("LibSerialize") --- @type LibSerialize
+local LibDeflate = LibStub("LibDeflate") --- @type LibDeflate
+
+
+--- @class DB
+local M = {}
 
 -- Define default db values
+--- @class DatabaseStructure
 local dbDefaults = {
     dbVersion = 1,
     docs = {},
     settings = {
         omniNote = {
-            position = nil,
+
+            --- @alias Position { point: string, relativePoint: string, xOffset: number, yOffset: number }
+            position = nil, --- @type nil|Position
             noteWidth = 380,
 
             textAlign = "LEFT",       -- Values are "CENTER", "LEFT", "RIGHT"
@@ -202,57 +210,58 @@ local dbDefaults = {
     },
 }
 
-function DD:GetDBDefaults()
+--- @returns DatabaseStructure
+function M.GetDBDefaults()
     return dbDefaults
 end
 
-function DD:DB_EnsureDefaults(profileName)
-    local profile = self.db.profiles[profileName]
-    if not profile then
-        Log("Error: could not ensure defaults, profile does not exist: ", profileName)
+function M.EnsureDefaults(profileName)
+    local p = M.database.profiles[profileName]
+    if not p then
+        DD.utils.Log("Error: could not ensure defaults, profile does not exist: ", profileName)
         return
     end
 
     local function applyDefaults(profile, defaults)
         for key, value in pairs(defaults) do
             if profile[key] == nil then
-                profile[key] = DeepCopy(value)
+                profile[key] = DD.utils.DeepCopy(value)
             elseif type(value) == "table" and type(profile[key]) == "table" then
                 applyDefaults(profile[key], value) -- Recursively apply for nested tables
             end
         end
     end
 
-    applyDefaults(profile, dbDefaults)
+    applyDefaults(p, dbDefaults)
 end
 
-function DD:DB_EnsureDefaultsAllProfiles()
-    for profileName in pairs(self.db.profiles) do
-        DD:DB_EnsureDefaults(profileName)
+function M.EnsureDefaultsAllProfiles()
+    for profileName in pairs(M.database.profiles) do
+        M.EnsureDefaults(profileName)
     end
 end
 
-function DD:DB_Init()
-    local db = self.db
+function M.Init()
+    M.database = LibStub("AceDB-3.0"):New("DungeonDocsDB") --- @type AceDB
 
     -- Init defaults on all profiles
-    DD:DB_EnsureDefaultsAllProfiles()
+    M.EnsureDefaultsAllProfiles()
 
     -- Reset internal vars
-    db.profile.internal.showTestText = false
-    db.profile.internal.movers.primaryNote = false
-    db.profile.internal.movers.roleNote = false
-    db.profile.internal.movers.omniNote = false
+    M.database.profile.internal.showTestText = false
+    M.database.profile.internal.movers.primaryNote = false
+    M.database.profile.internal.movers.roleNote = false
+    M.database.profile.internal.movers.omniNote = false
 end
 
 -- A table to hold subscriber functions
 local dbChangeSubscribers = {}
 
-function DD:SubscribeToDBChange(callback)
+function M.SubscribeToDBChange(callback)
     table.insert(dbChangeSubscribers, callback)
 end
 
-function DD:NotifyDBChange()
+function M.NotifyDBChange()
     for _, callback in ipairs(dbChangeSubscribers) do
         local status, err = pcall(callback)
         if not status then
@@ -261,43 +270,42 @@ function DD:NotifyDBChange()
     end
 end
 
-function DD:DB_Update(updater)
+function M.UpdateDB(updater)
     updater()
-    DD:NotifyDBChange()
+    M.NotifyDBChange()
 end
 
-function DD:DB_ListProfiles()
-    local db = self.db
-    return db:GetProfiles()
+function M.ListProfiles()
+    return M.database:GetProfiles()
 end
 
-function DD:DB_SelectProfile(profileName)
-    local db = self.db
+function M.SelectProfile(profileName)
+    local db = M.database
     if db:GetCurrentProfile() ~= profileName then -- Only switch if different
         db:SetProfile(profileName)
-        DD:NotifyDBChange()
+        M.NotifyDBChange()
     end
 end
 
-function DD:DB_SelectFallbackProfile(profileName)
-    local db = self.db
+function M.SelectFallbackProfile(profileName)
+    local db = M.database
     db.profile.internal.fallbackProfile = profileName
-    DD:NotifyDBChange()
+    M.NotifyDBChange()
 end
 
 -- Function to export the current profile, excluding the "internal" table
-function DD:DB_ExportProfile(profileName, includeFallbackProfile)
-    local profile = self.db.profiles[profileName] -- Access the specified profile data
+function M.ExportProfile(profileName, includeFallbackProfile)
+    local profile = M.database.profiles[profileName] -- Access the specified profile data
     local fallbackProfileName = profile.internal.fallbackProfile
-    local fallbackProfile = self.db.profiles[fallbackProfileName]
+    local fallbackProfile = M.database.profiles[fallbackProfileName]
 
     if not profile then
-        Log("Error exporting, could not find profile " .. profileName)
+        DD.utils.Log("Error exporting, could not find profile " .. profileName)
         return ""
     end
 
     if includeFallbackProfile and not fallbackProfile then
-        Log("Error exporting, could not find fallback profile " .. fallbackProfileName)
+        DD.utils.Log("Error exporting, could not find fallback profile " .. fallbackProfileName)
         return
     end
 
@@ -305,12 +313,11 @@ function DD:DB_ExportProfile(profileName, includeFallbackProfile)
     if not includeFallbackProfile then
         docs = profile.docs
     else
-        docs = MergeDocs(profile.docs, fallbackProfile.docs)
+        docs = DD.utils.MergeDocs(profile.docs, fallbackProfile.docs)
     end
 
 
-    local profileCopy = {}
-    profileCopy = DeepCopy(profile)
+    local profileCopy = DD.utils.DeepCopy(profile)
     profileCopy.internal = {}
     profileCopy.docs = docs
 
@@ -342,23 +349,23 @@ local function validateAndParseWrappedString(wrapped)
 end
 
 -- Function to import a profile from a Base64 string
-function DD:DB_ImportProfile(destProfileName, wrapped)
-    local db = self.db
+function M.ImportProfile(destProfileName, wrapped)
+    local db = M.database
     local destProfile = db.profiles[destProfileName] -- Access the specified profile data
 
     if destProfile ~= nil then
-        Log("Error importing, profile already exists: " .. destProfileName)
+        DD.utils.Log("Error importing, profile already exists: " .. destProfileName)
         return false
     end
 
     local result, err = validateAndParseWrappedString(wrapped)
     if err then
-        Log("Error importing, the provided string seems to be incomplete")
+        DD.utils.Log("Error importing, the provided string seems to be incomplete")
         return false
     end
 
     if not result then
-        Log("Error importing, an unexpected error occurred")
+        DD.utils.Log("Error importing, an unexpected error occurred")
         return false
     end
 
@@ -366,34 +373,42 @@ function DD:DB_ImportProfile(destProfileName, wrapped)
 
     -- Decode, decompress, and deserialize the profile string
     local decoded = LibDeflate:DecodeForPrint(encoded)                  -- Decode Base64
+    if not decoded then
+        DD.utils.Log("Error decoding, got nil")
+        return false
+    end
     local decompressed = LibDeflate:DecompressDeflate(decoded)          -- Decompress
+    if not decompressed then
+        DD.utils.Log("Error deflating, got nil")
+        return false
+    end
     local success, profileData = LibSerialize:Deserialize(decompressed) -- Deserialize to table
 
-    if success then
+    if success and profileData then
         -- Init dest profile
-        db.profiles[destProfileName] = DeepCopy(profileData)
-        DD:DB_EnsureDefaults(destProfileName)
-        DD:NotifyDBChange()
+        db.profiles[destProfileName] = DD.utils.DeepCopy(profileData)
+        M.EnsureDefaults(destProfileName)
+        M.NotifyDBChange()
 
-        Log("Success! Imported profile " .. destProfileName)
+        DD.utils.Log("Success! Imported profile " .. destProfileName)
         return true
     else
-        Log("Error! Could not import profile " .. destProfileName)
+        DD.utils.Log("Error! Could not import profile " .. destProfileName)
         return false
     end
 end
 
-function DD:DB_CloneProfile(sourceProfileName, destProfileName)
-    local db = self.db
+function M.CloneProfile(sourceProfileName, destProfileName)
+    local db = M.database
     local sourceProfile = db.profiles[sourceProfileName]
 
     if sourceProfile == nil then
-        Log("Error! Could not clone profile, source `" .. sourceProfileName .. "` does not exist")
+        DD.utils.Log("Error! Could not clone profile, source `" .. sourceProfileName .. "` does not exist")
         return
     end
 
     if db.profiles[destProfileName] then
-        Log("Error! Could not clone profile, destination profile `" .. sourceProfileName .. "` already exists")
+        DD.utils.Log("Error! Could not clone profile, destination profile `" .. sourceProfileName .. "` already exists")
         return
     end
 
@@ -401,32 +416,32 @@ function DD:DB_CloneProfile(sourceProfileName, destProfileName)
     db.profiles[destProfileName] = {}
 
     -- Copy the source profile
-    db.profiles[destProfileName] = DeepCopy(sourceProfile)
+    db.profiles[destProfileName] = DD.utils.DeepCopy(sourceProfile)
 
-    DD:NotifyDBChange()
+    M.NotifyDBChange()
 
-    Log("Cloned profile `" .. sourceProfileName .. "` to profile `" .. destProfileName .. "`")
+    DD.utils.Log("Cloned profile `" .. sourceProfileName .. "` to profile `" .. destProfileName .. "`")
 end
 
-function DD:DB_RenameProfile(sourceProfileName, newProfileName)
-    local db = self.db
+function M.RenameProfile(sourceProfileName, newProfileName)
+    local db = M.database
 
     -- Check if the current profile exists
     local sourceProfile = db.profiles[sourceProfileName]
     if not sourceProfile then
-        Log("Error! Profile does not exist: ", sourceProfileName)
+        DD.utils.Log("Error! Profile does not exist: ", sourceProfileName)
         return
     end
 
     -- Check if the new profile name is already taken
     if db.profiles[newProfileName] then
-        Log("Error! Profile with the name '" .. newProfileName .. "' already exists.")
+        DD.utils.Log("Error! Profile with the name '" .. newProfileName .. "' already exists.")
         return
     end
 
     -- Copy current profile data to the new profile
     db.profiles[newProfileName] = {} -- Create an empty table for the new profile
-    db.profiles[newProfileName] = DeepCopy(sourceProfile)
+    db.profiles[newProfileName] = DD.utils.DeepCopy(sourceProfile)
 
     -- If the old profile was active, switch to the new profile
     if db:GetCurrentProfile() == sourceProfileName then
@@ -436,21 +451,21 @@ function DD:DB_RenameProfile(sourceProfileName, newProfileName)
     -- Delete the old profile
     db.profiles[sourceProfileName] = nil
 
-    DD:NotifyDBChange()
+    M.NotifyDBChange()
 
-    Log("Success! Profile renamed from", sourceProfileName, "to", newProfileName)
+    DD.utils.Log("Success! Profile renamed from", sourceProfileName, "to", newProfileName)
 end
 
-function DD:DB_DeleteProfile(profileName)
-    local db = self.db
+function M.DeleteProfile(profileName)
+    local db = M.database
 
     if profileName == "Default" then
-        Log("Error! Cannot delete the default profile")
+        DD.utils.Log("Error! Cannot delete the default profile")
         return
     end
     -- Check if the profile exists
     if not db.profiles[profileName] then
-        Log("Error! Cannot delete, profile does not exist:", profileName)
+        DD.utils.Log("Error! Cannot delete, profile does not exist:", profileName)
         return
     end
 
@@ -461,14 +476,14 @@ function DD:DB_DeleteProfile(profileName)
 
     -- Delete the profile
     db.profiles[profileName] = nil
-    Log("Profile `" .. profileName .. "` deleted successfully")
+    DD.utils.Log("Profile `" .. profileName .. "` deleted successfully")
 end
 
-function DD:DB_ResetProfile(profileName)
-    local db = self.db
+function M.ResetProfile(profileName)
+    local db = M.database
 
     if not db.profiles[profileName] then
-        Log("Error! Cannot reset, profile does not exist:", profileName)
+        DD.utils.Log("Error! Cannot reset, profile does not exist:", profileName)
         return
     end
 
@@ -476,22 +491,22 @@ function DD:DB_ResetProfile(profileName)
     db:SetProfile(profileName)
 
     db.profiles[profileName] = {}
-    DD:DB_EnsureDefaults(profileName)
-    DD:NotifyDBChange()
+    M.EnsureDefaults(profileName)
+    M.NotifyDBChange()
 
     db:SetProfile(currentProfile) -- Switch back to the original profile
 
-    Log("Profile '" .. profileName .. "` reset to defaults")
+    DD.utils.Log("Profile '" .. profileName .. "` reset to defaults")
 end
 
--- DB_GetNote gets the note from the DB for the specified note key, falling
+-- GetNotePrimary gets the note from the DB for the specified note key, falling
 -- back to the secondary profile if the note is not found
-function DD:DB_GetNotePrimary(dungeonName, ddid, noteKey)
-    local db = self.db
+function M.GetNotePrimary(dungeonName, ddid, noteKey)
+    local db = M.database
 
     local dungeon = db.profile.docs[dungeonName]
     if not dungeon then
-        return DD:DB_GetNoteFallback(dungeonName, ddid, noteKey)
+        return M.GetNoteFallback(dungeonName, ddid, noteKey)
     end
 
     local doc
@@ -504,27 +519,27 @@ function DD:DB_GetNotePrimary(dungeonName, ddid, noteKey)
 
 
     if not doc then
-        return DD:DB_GetNoteFallback(dungeonName, ddid, noteKey)
+        return M.GetNoteFallback(dungeonName, ddid, noteKey)
     end
 
     if not doc[noteKey] then
-        return DD:DB_GetNoteFallback(dungeonName, ddid, noteKey)
+        return M.GetNoteFallback(dungeonName, ddid, noteKey)
     end
 
     return doc[noteKey]
 end
 
-function DD:DB_DeriveFullNote(dungeonName, ddid)
+function M.DeriveFullNote(dungeonName, ddid)
     return {
-        primaryNote = DD:DB_GetNotePrimary(dungeonName, ddid, "primaryNote"),
-        healerNote = DD:DB_GetNotePrimary(dungeonName, ddid, "healerNote"),
-        damageNote = DD:DB_GetNotePrimary(dungeonName, ddid, "damageNote"),
-        tankNote = DD:DB_GetNotePrimary(dungeonName, ddid, "tankNote"),
+        primaryNote = M.GetNotePrimary(dungeonName, ddid, "primaryNote"),
+        healerNote = M.GetNotePrimary(dungeonName, ddid, "healerNote"),
+        damageNote = M.GetNotePrimary(dungeonName, ddid, "damageNote"),
+        tankNote = M.GetNotePrimary(dungeonName, ddid, "tankNote"),
     }
 end
 
-function DD:DB_GetNoteFallback(dungeonName, ddid, noteKey)
-    local db = self.db
+function M.GetNoteFallback(dungeonName, ddid, noteKey)
+    local db = M.database
     local fallbackProfileName = db.profile.internal.fallbackProfile
 
     if not fallbackProfileName then
@@ -566,14 +581,14 @@ function DD:DB_GetNoteFallback(dungeonName, ddid, noteKey)
     return doc[noteKey]
 end
 
--- DB_SetNote sets the note from the DB for the specified note key, creating the
+-- SetNote sets the note from the DB for the specified note key, creating the
 -- note if it's not found
-function DD:DB_SetNote(dungeonName, ddid, noteKey, newNote)
-    local db = self.db
+function M.SetNote(dungeonName, ddid, noteKey, newNote)
+    local db = M.database
 
     local notes = db.profile.docs[dungeonName]
     if not notes then
-        DD:DB_Update(function()
+        M.UpdateDB(function()
             db.profile.docs[dungeonName] = {}
             table.insert(db.profile.docs[dungeonName], {
                 ddid = ddid,
@@ -592,7 +607,7 @@ function DD:DB_SetNote(dungeonName, ddid, noteKey, newNote)
     end
 
     if not doc then
-        DD:DB_Update(function()
+        M.UpdateDB(function()
             local newDoc = {
                 ddid = ddid,
                 [noteKey] = newNote,
@@ -602,7 +617,10 @@ function DD:DB_SetNote(dungeonName, ddid, noteKey, newNote)
         return
     end
 
-    DD:DB_Update(function()
+    M.UpdateDB(function()
         doc[noteKey] = newNote
     end)
 end
+
+
+DD.db = M

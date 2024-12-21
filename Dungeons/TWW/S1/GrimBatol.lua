@@ -1,10 +1,16 @@
+--- @class DungeonDocs
 local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
 
 
+--- @type CreateDDID
 local function createDDID(index)
   return "gb" .. index
 end
 
+--- @class Dungeons
+DD.dungeons = DD.dungeons or {}
+
+--- @type NoteStructures
 local noteStructures = {
   --
   -- BOSSES
@@ -207,14 +213,15 @@ local noteStructures = {
   },
 }
 
+--- @type DungeonData
 local dungeonData = {
-  name = "Grim Batol",
+  dungeonName = "Grim Batol",
   icon = "Interface\\Icons\\inv_misc_head_dragon_black",
   seasonId = "TWWS1",
   noteStructures = noteStructures,
 }
 
 
-function DD:Dungeons_InitGrimBatol()
-  DD.Dungeons[dungeonData.name] = dungeonData
+function DD.dungeons.InitGrimBatol()
+  DD.dungeons.List[dungeonData.dungeonName] = dungeonData
 end

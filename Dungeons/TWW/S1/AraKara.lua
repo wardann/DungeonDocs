@@ -1,10 +1,16 @@
+--- @type DungeonDocs
 local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
 
+--- @type CreateDDID
 local function createDDID(index)
   return "ak" .. index
 end
 
 
+--- @class Dungeons
+DD.dungeons = DD.dungeons or {}
+
+--- @type NoteStructures
 local noteStructures = {
   --
   -- BOSSES
@@ -209,14 +215,15 @@ local noteStructures = {
   }
 }
 
+--- @type DungeonData
 local dungeonData = {
-  name = "Ara-Kara, City of Echoes",
+  dungeonName = "Ara-Kara, City of Echoes",
   icon = "Interface\\Icons\\inv_misc_web_01",
   seasonId = "TWWS1",
   noteStructures = noteStructures,
 }
 
 
-function DD:Dungeons_InitAraKara()
-  DD.Dungeons[dungeonData.name] = dungeonData
+function DD.dungeons.InitAraKara()
+  DD.dungeons.List[dungeonData.dungeonName] = dungeonData
 end
