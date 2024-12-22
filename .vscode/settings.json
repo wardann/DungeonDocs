@@ -3,6 +3,9 @@
   "Lua.workspace.library": [
     "./Types"
   ],
+  "Lua.workspace.ignoreDir": [
+    "Libs/**" // Relative to the workspace root
+  ],
   "Lua.diagnostics.globals": [
     // Placeholder for unused vars
     "_",
