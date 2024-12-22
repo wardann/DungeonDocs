@@ -49,7 +49,7 @@ jobs:
         uses: Homebrew/actions/setup-homebrew@master
 
       - name: Install lua-language-server
-        run: brew install lua-languange-server
+        run: brew install lua-language-server
 
       - name: Run typecheck
         run: make typecheck
