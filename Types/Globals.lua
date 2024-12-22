@@ -13,10 +13,6 @@ UIParent = UIParent
 --- @type C_AddOns
 C_AddOns = C_AddOns
 
---- @type fun(unit: string): number|nil Gets the Mob ID from a GUID.
---- Takes a unit identifier (e.g., "target").
-GetMobIDFromGUID = GetMobIDFromGUID
-
 --- @type fun(): string, string, number, string, string, number, number, number Returns instance information.
 --- Returns values such as instance name, instance type, difficulty ID, and more.
 GetInstanceInfo = GetInstanceInfo

@@ -25,9 +25,10 @@ function M.Init()
     M.InitTheStonevault()
 end
 
+--- @returns DungeonList
 function M.GetCurrentSeason()
     local db = DD.db.database
-    local dungeons = {}
+    local dungeons = {} --- @type DungeonList
 
     for dungeonName, d in pairs(M.List) do
         if d.seasonId == db.profile.internal.selectedSeason then

@@ -120,7 +120,7 @@ function M.Render()
     -- end
 
     -- Omni
-    if internal.moverFrames.omniNote then
+    if internal.movers.omniNote then
         M.RenderMover("omniNote", state.omniNote)
     else
         M.HideMover("omniNote", state.omniNote)

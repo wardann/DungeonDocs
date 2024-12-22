@@ -16,7 +16,7 @@ local models = {}
 --- @param localTreeGroup TreeGroup
 --- @param treeData table
 local function setTreeGroupFocus(localTreeGroup, treeData)
-    local targetId = GetMobIDFromGUID("target")
+    local targetId = DD.utils.GetMobIDFromGUID("target")
     if not targetId then
         return
     end
@@ -274,9 +274,9 @@ function M.DungeonDataToTreeData()
         end)
 
         local treeDungeon = {
-            value = d.name,
-            text = d.name,
-            name = d.name,
+            value = d.dungeonName,
+            text = d.dungeonName,
+            name = d.dungeonName,
             icon = d.icon,
             children = {
                 {

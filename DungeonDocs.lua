@@ -9,16 +9,10 @@ local Version = ""
 function DD:OnInitialize()
     Version = C_AddOns.GetAddOnMetadata(addonName, "Version") or ""
 
-    -- Create DB
-    -- self.db = LibStub("AceDB-3.0"):New("DungeonDocsDB")
-
-    -- Init default profiles
-    DD.profiles.Init()
-
-    -- Init DB
     DD.db.Init()
 
-    -- Init dungeons
+    DD.profiles.Init()
+
     DD.dungeons.Init()
 
     DD.movers.Init()
@@ -172,7 +166,7 @@ function DD:OpenUI(msg)
 end
 
 function DD.HandleReport()
-    local targetId = GetMobIDFromGUID("target")
+    local targetId = DD.utils.GetMobIDFromGUID("target")
     if not targetId then
         return
     end

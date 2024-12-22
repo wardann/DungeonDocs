@@ -34,9 +34,9 @@ function DD.ui.settings.Title_View(wrapperContainer)
     if state.showNoteTitle then
         if not state.style.mobName.useDefaultTextStyle then
             DD.utils.AddSpacer(mobNameSection)
-            DD.utils.shared.AddFontSettings(mobNameSection, state.style.mobName.text)
+            DD.ui.shared.AddFontSettings(mobNameSection, state.style.mobName.text)
         end
-        DD.utils.shared.AddCheckBox(mobNameSection, "Use default text style", state.style.mobName, "useDefaultTextStyle",
+        DD.ui.shared.AddCheckBox(mobNameSection, "Use default text style", state.style.mobName, "useDefaultTextStyle",
             refresh)
     end
 end

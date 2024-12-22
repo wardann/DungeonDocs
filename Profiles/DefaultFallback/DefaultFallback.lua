@@ -7,10 +7,11 @@ DD.profiles = DD.profiles or {}
 local profileName = "Default Fallback*"
 local docs = {}
 
+--- @param dungeonData ProfileDungeonNotes
 function DD.profiles.DefaultFallback_InitDocs(dungeonData)
     local dungeonDocs = DD.profiles.BuildProfileNotes(dungeonData)
     if not DD.utils.IsTableEmpty(dungeonDocs) then
-        docs[dungeonData.name] = dungeonDocs
+        docs[dungeonData.dungeonName] = dungeonDocs
     end
 end
 

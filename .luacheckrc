@@ -32,7 +32,6 @@ globals = {
     "strsplit",
     "UIParent",
     "C_AddOns",
-    "GetMobIDFromGUID",
     "GetInstanceInfo",
     "UnitName",
     "IsInGroup",
