@@ -9,8 +9,9 @@ DD.ui = DD.ui or {}
 DD.ui.settings = DD.ui.settings or {}
 
 function DD.ui.settings.General_View(wrapperContainer)
-    local state = DD.db.profile.settings.omniNote
-    local internal = DD.db.profile.internal
+    local db = DD.db.database
+    local state = db.profile.settings.omniNote
+    local internal = db.profile.internal
 
     wrapperContainer:SetLayout("Flow")
 
@@ -62,7 +63,7 @@ function DD.ui.settings.General_View(wrapperContainer)
 end
 
 function DD.ui.settings.General_AddSeasonSelect(container)
-    local db = DD.db
+    local db = DD.db.database
 
     -- Dropdown menu for season selection
     local seasonDropdown = AceGUI:Create("Dropdown")
@@ -70,28 +71,12 @@ function DD.ui.settings.General_AddSeasonSelect(container)
     seasonDropdown:SetList(db.profile.internal.seasons)
     seasonDropdown:SetValue(db.profile.internal.selectedSeason)
     seasonDropdown:SetCallback("OnValueChanged", function(_, _, key)
-        DD:DB_Update(function()
+        DD.db.UpdateDB(function()
             db.profile.internal.selectedSeason = key
         end)
     end)
 
     container:AddChild(seasonDropdown)
-end
-
-function DD.ui.settings.General_AddDefaultFontSelect(container)
-    local db = DD.db
-    local currentSelection = db.profile.defaultFont
-
-    DD.utils.AddFontSelect(
-        container,
-        "Default Font",
-        DD.utils.FontPathToName(currentSelection),
-        function(selection)
-            DD:DB_Update(function()
-                db.profile.defaultFont = DD.utils.FontNameToPath(selection)
-            end)
-        end
-    )
 end
 
 function DD.ui.settings.General_AddDescription(frame)

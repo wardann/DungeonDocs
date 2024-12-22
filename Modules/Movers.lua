@@ -17,7 +17,7 @@ local moverTitles = {
 }
 
 
-DD:SubscribeToDBChange(function()
+DD.db.SubscribeToDBChange(function()
     M.Render()
 end)
 
@@ -35,7 +35,7 @@ end
 
 -- Create the text panel frame
 function M.Init()
-    local state = DD.db.profile
+    local state = DD.db.database.profile
 
     -- Primary mover
     -- InitMover("primaryNote", notesPositions.primary, "TOP")
@@ -91,7 +91,7 @@ end
 
 --- @param noteName string
 function M.SaveFrameCoordinates(noteName)
-    local state = DD.db.profile.settings
+    local state = DD.db.database.profile.settings
     local mover = moverFrames[noteName]
 
     -- Get the anchor point and position (relative to parent)
@@ -102,8 +102,8 @@ function M.SaveFrameCoordinates(noteName)
 end
 
 function M.Render()
-    local state = DD.db.profile.settings
-    local internal = DD.db.profile.internal
+    local state = DD.db.database.profile.settings
+    local internal = DD.db.database.profile.internal
 
     -- Primary
     -- if internal.moverFrames.primaryNote then

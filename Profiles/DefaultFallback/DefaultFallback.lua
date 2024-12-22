@@ -16,7 +16,7 @@ end
 
 function DD.profiles.DefaultFallback_Init()
     -- Register profile in the DB
-    DD.db.profiles[profileName] = {
+    DD.db.database.profiles[profileName] = {
         docs = docs
     }
 

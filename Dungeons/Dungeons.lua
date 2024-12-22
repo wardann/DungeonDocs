@@ -26,7 +26,7 @@ function M.Init()
 end
 
 function M.GetCurrentSeason()
-    local db = DD.db
+    local db = DD.db.database
     local dungeons = {}
 
     for dungeonName, d in pairs(M.List) do

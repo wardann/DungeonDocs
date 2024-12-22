@@ -15,7 +15,7 @@ function DD.ui.settings.StyleRoleTank_View(wrapperContainer)
     end
     wrapperContainer:SetLayout("Flow")
 
-    local state = DD.db.profile.settings.omniNote
+    local state = DD.db.database.profile.settings.omniNote
 
     local container = AceGUI:Create("ScrollFrame")
     container:SetLayout("Flow")
@@ -36,7 +36,7 @@ function DD.ui.settings.StyleRoleTank_View(wrapperContainer)
     tankHeaderInput:SetText(state.tankHeader)
     tankHeaderInput:DisableButton(true)
     tankHeaderInput:SetCallback("OnTextChanged", function(_, _, value)
-        DD:DB_Update(function()
+        DD.db.UpdateDB(function()
             state.tankHeader = value
         end)
     end)

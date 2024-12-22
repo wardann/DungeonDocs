@@ -66,6 +66,7 @@ describe("dungeonChecker", function()
                 }
             }
         }
+        --- @diagnostic disable-next-line
         assert.has_no.error(function()
             dungeonChecker(dungeons)
         end)
@@ -141,12 +142,14 @@ describe("Dungeons Module", function()
     end)
 
     it("should initialize all dungeons without errors", function()
+        --- @diagnostic disable-next-line
         assert.has_no.errors(function()
             DD.dungeons.InitAll()
         end)
     end)
 
     it("should have expected DDID properties in note structures", function()
+        --- @diagnostic disable-next-line
         assert.has_no.errors(function()
             totalNoteStructureCount = dungeonChecker(DD.dungeons.List)
         end)

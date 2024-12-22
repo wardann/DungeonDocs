@@ -211,6 +211,16 @@ local dbDefaults = {
 }
 
 --- @returns DatabaseStructure
+function M.GetEmptyDatabaseStructure()
+    return {
+        dbVersion = 1,        -- Default version
+        docs = {},            -- Empty table for docs
+        settings = {},        -- Empty table for settings
+        internal = {},        -- Empty table for internal data
+    }
+end
+
+--- @returns DatabaseStructure
 function M.GetDBDefaults()
     return dbDefaults
 end
@@ -413,7 +423,7 @@ function M.CloneProfile(sourceProfileName, destProfileName)
     end
 
     -- Init the profile
-    db.profiles[destProfileName] = {}
+    db.profiles[destProfileName] = M.GetEmptyDatabaseStructure()
 
     -- Copy the source profile
     db.profiles[destProfileName] = DD.utils.DeepCopy(sourceProfile)
@@ -440,7 +450,7 @@ function M.RenameProfile(sourceProfileName, newProfileName)
     end
 
     -- Copy current profile data to the new profile
-    db.profiles[newProfileName] = {} -- Create an empty table for the new profile
+    db.profiles[newProfileName] = M.GetEmptyDatabaseStructure()
     db.profiles[newProfileName] = DD.utils.DeepCopy(sourceProfile)
 
     -- If the old profile was active, switch to the new profile
@@ -490,7 +500,8 @@ function M.ResetProfile(profileName)
     local currentProfile = db:GetCurrentProfile()
     db:SetProfile(profileName)
 
-    db.profiles[profileName] = {}
+    --- @type DatabaseStructure
+    db.profiles[profileName] = M.GetEmptyDatabaseStructure()
     M.EnsureDefaults(profileName)
     M.NotifyDBChange()
 

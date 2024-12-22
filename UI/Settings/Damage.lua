@@ -15,7 +15,7 @@ function DD.ui.settings.StyleRoleDamage_View(wrapperContainer)
     end
     wrapperContainer:SetLayout("Flow")
 
-    local state = DD.db.profile.settings.omniNote
+    local state = DD.db.database.profile.settings.omniNote
 
     local container = AceGUI:Create("ScrollFrame")
     container:SetLayout("Flow")
@@ -36,7 +36,7 @@ function DD.ui.settings.StyleRoleDamage_View(wrapperContainer)
     damageHeaderInput:SetText(state.damageHeader)
     damageHeaderInput:DisableButton(true)
     damageHeaderInput:SetCallback("OnTextChanged", function(_, _, value)
-        DD:DB_Update(function()
+        DD.db.UpdateDB(function()
             state.damageHeader = value
         end)
     end)

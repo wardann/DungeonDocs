@@ -48,7 +48,7 @@ function DD:OpenUI(msg)
     local arg1 = msg:match("^(%S*)%s*(.-)$")
 
     if arg1 == "debug:db:profiles" then
-        DD.utils.LogTableToBugSack("db.profiles", self.db.profiles)
+        DD.utils.LogTableToBugSack("db.profiles", self.db.database.profiles)
         return
     end
 

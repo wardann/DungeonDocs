@@ -16,7 +16,7 @@ function DD.ui.settings.StylePrimary_View(wrapperContainer)
 
     wrapperContainer:SetLayout("Flow")
 
-    local state = DD.db.profile.settings.omniNote
+    local state = DD.db.database.profile.settings.omniNote
 
     local container = AceGUI:Create("ScrollFrame")
     container:SetLayout("Flow")
