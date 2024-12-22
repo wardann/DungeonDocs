@@ -1,14 +1,21 @@
+--- @class DungeonDocs
 local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
 local AceGUI = LibStub("AceGUI-3.0")
 
-function DD:SettingsStyleRoleTank_View(wrapperContainer)
+--- @class UI
+DD.ui = DD.ui or {}
+
+--- @class SettingsUI
+DD.ui.settings = DD.ui.settings or {}
+
+function DD.ui.settings.StyleRoleTank_View(wrapperContainer)
     local refresh = function()
         wrapperContainer:ReleaseChildren()
-        DD:SettingsStyleRoleTank_View(wrapperContainer)
+        DD.ui.settings.StyleRoleTank_View(wrapperContainer)
     end
     wrapperContainer:SetLayout("Flow")
 
-    local state = self.db.profile.settings.omniNote
+    local state = DD.db.database.profile.settings.omniNote
 
     local container = AceGUI:Create("ScrollFrame")
     container:SetLayout("Flow")
@@ -16,29 +23,29 @@ function DD:SettingsStyleRoleTank_View(wrapperContainer)
     container:SetFullHeight(true)
     wrapperContainer:AddChild(container)
 
-    SettingsStyleRoleTank_AddDescription(container)
+    DD.ui.settings.StyleRoleTank_AddDescription(container)
 
     --
     --
     -- Tank role note section
     --
     --
-    local tankRoleNoteSection = AddSection(container, "")
+    local tankRoleNoteSection = DD.utils.AddSection(container, "")
     local tankHeaderInput = AceGUI:Create("EditBox")
     tankHeaderInput:SetLabel("Header")
     tankHeaderInput:SetText(state.tankHeader)
     tankHeaderInput:DisableButton(true)
-    tankHeaderInput:SetCallback("OnTextChanged", function(widget, event, value)
-        DD:DB_Update(function()
+    tankHeaderInput:SetCallback("OnTextChanged", function(_, _, value)
+        DD.db.UpdateDB(function()
             state.tankHeader = value
         end)
     end)
     tankRoleNoteSection:AddChild(tankHeaderInput)
 
-    Utils_AddSpacer(tankRoleNoteSection)
+    DD.utils.AddSpacer(tankRoleNoteSection)
 
     -- Use default role header
-    SettingsShared_AddCheckBox(
+    DD.ui.shared.AddCheckBox(
         tankRoleNoteSection,
         "Use Default Role Header",
         state.style.tankHeader,
@@ -47,7 +54,7 @@ function DD:SettingsStyleRoleTank_View(wrapperContainer)
     )
 
     -- Use default text style
-    SettingsShared_AddCheckBox(
+    DD.ui.shared.AddCheckBox(
         tankRoleNoteSection,
         "Use Default Text Style",
         state.style.tankNote,
@@ -56,18 +63,18 @@ function DD:SettingsStyleRoleTank_View(wrapperContainer)
     )
 
     if not state.style.tankHeader.useDefaultRoleHeaderStyle then
-        local tankHeaderStyleSection = AddSection(container, "Tank Header Style")
-        SettingsShared_AddFontSettings(tankHeaderStyleSection, state.style.tankHeader.text)
+        local tankHeaderStyleSection = DD.utils.AddSection(container, "Tank Header Style")
+        DD.ui.shared.AddFontSettings(tankHeaderStyleSection, state.style.tankHeader.text)
     end
 
     if not state.style.tankNote.useDefaultTextStyle then
-        local tankNoteStyleSection = AddSection(container, "Tank Note Style")
-        SettingsShared_AddFontSettings(tankNoteStyleSection, state.style.tankNote.text)
+        local tankNoteStyleSection = DD.utils.AddSection(container, "Tank Note Style")
+        DD.ui.shared.AddFontSettings(tankNoteStyleSection, state.style.tankNote.text)
     end
 
 end
 
-function SettingsStyleRoleTank_AddDescription(frame)
+function DD.ui.settings.StyleRoleTank_AddDescription(frame)
     -- Create a title label
     local title = AceGUI:Create("Label")
     title:SetText("|cffffd700Tank Notes Style|r")    -- Gold-colored text for the title

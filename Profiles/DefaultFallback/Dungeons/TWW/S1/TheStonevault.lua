@@ -1,6 +1,8 @@
+--- @type DungeonDocs
 local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
 
 
+--- @type ProfileNotes
 local notes = {
   {
     -- bossName = "E.D.N.A",
@@ -165,9 +167,10 @@ local notes = {
   },
 }
 
-local dungeonData = {
-  name = "The Stonevault",
+--- @type ProfileDungeonNotes
+local profileDungeonNotes = {
+  dungeonName = "The Stonevault",
   notes = notes,
 }
 
-DD:ProfilesDefaultFallback_InitDocs(dungeonData)
+DD.profiles.DefaultFallback_InitDocs(profileDungeonNotes)

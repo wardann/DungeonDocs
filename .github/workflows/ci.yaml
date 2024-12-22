@@ -22,7 +22,7 @@ jobs:
       - name: Set up Lua
         uses: leafo/gh-actions-lua@v8
         with:
-          luaVersion: '5.4.7'
+          luaVersion: '5.1'
 
       - uses: leafo/gh-actions-luarocks@v4
 
@@ -37,3 +37,19 @@ jobs:
 
       - name: Run Lua tests
         run: busted --pattern ".*.test.lua" --helper Mocks/Globals.lua .
+
+  typecheck:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Set up Homebrew
+        uses: Homebrew/actions/setup-homebrew@master
+
+      - name: Install lua-language-server
+        run: brew install lua-language-server
+
+      - name: Run typecheck
+        run: make typecheck

@@ -14,12 +14,30 @@ _G.LibStub = setmetatable({
     end
 }, {
     __call = function(self, libraryName)
+        if libraryName == "LibSharedMedia-3.0" then
+            return _G.LibSharedMedia
+        end
         return self  -- Simulate LibStub being callable
     end
 })
 
+-- Mock LibSharedMedia-3.0
+_G.LibSharedMedia = {
+    fonts = {
+        ["Font A"] = "path/to/fontA.ttf",
+        ["Font B"] = "path/to/fontB.ttf",
+    },
+    HashTable = function(self, mediaType)
+        if mediaType == "font" then
+            return self.fonts
+        end
+        error("Unsupported media type: " .. tostring(mediaType))
+    end
+}
+
 -- Mock WoW globals
-_G.CreateFrame = function(frameType, frameName, parent)
+--- @type fun(frameType: string, name: string|nil, parent: Frame|nil, inherits: string|nil): Frame
+_G.CreateFrame = function(_, _, _)
     return {
         SetSize = function() end,
         SetPoint = function() end,

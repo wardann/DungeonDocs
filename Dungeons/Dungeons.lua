@@ -1,23 +1,36 @@
+--- @class DungeonDocs
 local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
 
-DD.Dungeons = {}
+--- @alias NoteStructure {noteName: string, ddid: DDID, isBoss: boolean|nil, mobs: table<{id: number, displayId: number}>}
+--- @alias NoteStructures table<NoteStructure>
+--- @alias DungeonData {dungeonName: DungeonName, icon: string, seasonId: string, noteStructures: NoteStructures}
+--- @alias CreateDDID fun(index: number): DDID
 
-function DD:Dungeons_InitAll()
-    DD:Dungeons_InitAraKara()
-    DD:Dungeons_InitCityOfThreads()
-    DD:Dungeons_InitGrimBatol()
-    DD:Dungeons_InitMistsOfTirnaScithe()
-    DD:Dungeons_InitSiegeOfBoralus()
-    DD:Dungeons_InitTheDawnbreaker()
-    DD:Dungeons_InitTheNecroticWake()
-    DD:Dungeons_InitTheStonevault()
+--- @class Dungeons
+local M = {}
+
+--- @alias DungeonList table<DungeonName, DungeonData>
+--- @type DungeonList
+M.List = {}
+
+
+function M.Init()
+    M.InitAraKara()
+    M.InitCityOfThreads()
+    M.InitGrimBatol()
+    M.InitMistsOfTirnaScithe()
+    M.InitSiegeOfBoralus()
+    M.InitTheDawnbreaker()
+    M.InitTheNecroticWake()
+    M.InitTheStonevault()
 end
 
-function DD:Dungeons_GetCurrentSeason()
-    local db = self.db
-    local dungeons = {}
+--- @returns DungeonList
+function M.GetCurrentSeason()
+    local db = DD.db.database
+    local dungeons = {} --- @type DungeonList
 
-    for dungeonName, d in pairs(DD.Dungeons) do
+    for dungeonName, d in pairs(M.List) do
         if d.seasonId == db.profile.internal.selectedSeason then
             dungeons[dungeonName] = d
         end
@@ -27,7 +40,7 @@ function DD:Dungeons_GetCurrentSeason()
 end
 
 -- Returns ame of the current dungeon the player is in
-function DD:Dungeons_GetCurrentDungeon()
+function M.GetCurrentDungeon()
     local instanceName, instanceType = GetInstanceInfo()
     if instanceType ~= "party" then
         return
@@ -35,8 +48,8 @@ function DD:Dungeons_GetCurrentDungeon()
     return instanceName
 end
 
-function DD:Dungeons_IsBossInDungeon(mobId, dungeonName)
-    local dungeon = DD.Dungeons[dungeonName]
+function M.IsBossInDungeon(mobId, dungeonName)
+    local dungeon = M.List[dungeonName]
 
     for _, noteStruct in ipairs(dungeon.noteStructures) do
         for _, mob in ipairs(noteStruct.mobs) do
@@ -49,15 +62,15 @@ function DD:Dungeons_IsBossInDungeon(mobId, dungeonName)
     return false
 end
 
-function DD:Dungeons_IsBossInCurrentDungeon(mobId)
-    local dungeonName = DD:Dungeons_GetCurrentDungeon()
+function M.IsBossInCurrentDungeon(mobId)
+    local dungeonName = M.GetCurrentDungeon()
     if not dungeonName then return false end
-    return DD:Dungeons_IsBossInDungeon(mobId, dungeonName)
+    return M.IsBossInDungeon(mobId, dungeonName)
 end
 
 -- Returns the name of the note from a mob id
-function DD:Dungeons_MobIdToNoteName(mobId, dungeonName)
-    local dungeon = DD.Dungeons[dungeonName]
+function M.MobIdToNoteName(mobId, dungeonName)
+    local dungeon = M.List[dungeonName]
 
     if not dungeon then
         return
@@ -72,8 +85,8 @@ function DD:Dungeons_MobIdToNoteName(mobId, dungeonName)
     end
 end
 
-function DD:Dungeons_MobIdToDDID(mobId, dungeonName)
-    local dungeon = DD.Dungeons[dungeonName]
+function M.MobIdToDDID(mobId, dungeonName)
+    local dungeon = M.List[dungeonName]
 
     if not dungeon then
         return
@@ -88,8 +101,8 @@ function DD:Dungeons_MobIdToDDID(mobId, dungeonName)
     end
 end
 
-function DD:Dungeons_DDIDToNoteName(ddid, dungeonName)
-    local dungeon = DD.Dungeons[dungeonName]
+function M.DDIDToNoteName(ddid, dungeonName)
+    local dungeon = M.List[dungeonName]
 
     if not dungeon then
         return
@@ -102,8 +115,8 @@ function DD:Dungeons_DDIDToNoteName(ddid, dungeonName)
     end
 end
 
-function DD:Dungeons_DDIDToNoteStruct(ddid, dungeonName)
-    local dungeon = DD.Dungeons[dungeonName]
+function M.DDIDToNoteStruct(ddid, dungeonName)
+    local dungeon = M.List[dungeonName]
 
     if not dungeon then
         return
@@ -116,8 +129,8 @@ function DD:Dungeons_DDIDToNoteStruct(ddid, dungeonName)
     end
 end
 
-function DD:Dungeons_MobIdToDungeonName(mobId)
-    for dungeonName, dungeon in pairs(DD.Dungeons) do
+function M.MobIdToDungeonName(mobId)
+    for dungeonName, dungeon in pairs(M.List) do
         for _, noteStruct in ipairs(dungeon.noteStructures) do
             for _, mob in ipairs(noteStruct.mobs) do
                 if tostring(mob.id) == tostring(mobId) then
@@ -128,8 +141,8 @@ function DD:Dungeons_MobIdToDungeonName(mobId)
     end
 end
 
-function DD:Dungeons_MobIDToDDID(mobId, dungeonName)
-    local dungeon = DD.Dungeons[dungeonName]
+function M.MobIDToDDID(mobId, dungeonName)
+    local dungeon = M.List[dungeonName]
 
     if not dungeon then
         return
@@ -143,3 +156,5 @@ function DD:Dungeons_MobIDToDDID(mobId, dungeonName)
         end
     end
 end
+
+DD.dungeons = M

@@ -1,13 +1,17 @@
+--- @class DungeonDocs
 local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
 local AceGUI = LibStub("AceGUI-3.0")
 
+--- @class SharedUI
+local M = {}
 
-function SettingsShared_AddCheckBox(frame, label, state, stateKey, callback)
+
+function M.AddCheckBox(frame, label, state, stateKey, callback)
     local checkBox = AceGUI:Create("CheckBox")
     checkBox:SetLabel(label)
     checkBox:SetValue(state[stateKey])
-    checkBox:SetCallback("OnValueChanged", function(widget, event, value)
-        DD:DB_Update(function()
+    checkBox:SetCallback("OnValueChanged", function(_, _, value)
+        DD.db.UpdateDB(function()
             state[stateKey] = value
             if callback then
                 callback(value)
@@ -18,12 +22,12 @@ function SettingsShared_AddCheckBox(frame, label, state, stateKey, callback)
     frame:AddChild(checkBox)
 end
 
-function SettingsShared_AddEnabled(frame, state, callback)
+function M.AddEnabled(frame, state, callback)
     local checkBox = AceGUI:Create("CheckBox")
     checkBox:SetLabel("Primary Note Enabled")
     checkBox:SetValue(state.enabled)
-    checkBox:SetCallback("OnValueChanged", function(widget, event, value)
-        DD:DB_Update(function()
+    checkBox:SetCallback("OnValueChanged", function(_, _, value)
+        DD.db.UpdateDB(function()
             state.enabled = value
             callback(value)
         end)
@@ -32,8 +36,8 @@ function SettingsShared_AddEnabled(frame, state, callback)
     frame:AddChild(checkBox)
 end
 
-function SettingsShared_AddDisplayMobName(frame, state)
-    SettingsShared_AddCheckBox(
+function M.AddDisplayMobName(frame, state)
+    M.AddCheckBox(
         frame,
         "Display Mob Name",
         state,
@@ -41,7 +45,7 @@ function SettingsShared_AddDisplayMobName(frame, state)
     )
 end
 
-function SettingsShared_AddRoleDisplaySelect(frame, state)
+function M.AddRoleDisplaySelect(frame, state)
     local options = {
         None = "None",
         Current = "Current role",
@@ -54,7 +58,7 @@ function SettingsShared_AddRoleDisplaySelect(frame, state)
     dropdown:SetValue(options[state.roleDisplay])
 
     dropdown:SetCallback("OnValueChanged", function(_, _, key)
-        DD:DB_Update(function()
+        DD.db.UpdateDB(function()
             state.roleDisplay = key
         end)
     end)
@@ -62,28 +66,7 @@ function SettingsShared_AddRoleDisplaySelect(frame, state)
     frame:AddChild(dropdown)
 end
 
-function SettingsShared_AddRoleDisplaySelect(frame, state)
-    local options = {
-        None = "None",
-        Current = "Current role",
-        All = "All roles",
-    }
-    local dropdown = AceGUI:Create("Dropdown")
-
-    dropdown:SetLabel("Role Display")
-    dropdown:SetList(options)
-    dropdown:SetValue(options[state.roleDisplay])
-
-    dropdown:SetCallback("OnValueChanged", function(_, _, key)
-        DD:DB_Update(function()
-            state.roleDisplay = key
-        end)
-    end)
-
-    frame:AddChild(dropdown)
-end
-
-function SettingsShared_AddMovers(frame, state, key)
+function M.AddMovers(frame, state, key)
     local toggleButton = AceGUI:Create("Button")
 
     local function setMoverText()
@@ -93,7 +76,7 @@ function SettingsShared_AddMovers(frame, state, key)
 
     toggleButton:SetWidth(200) -- Set a fixed width for the button
     toggleButton:SetCallback("OnClick", function()
-        DD:DB_Update(function()
+        DD.db.UpdateDB(function()
             state[key] = not state[key]
             setMoverText()
         end)
@@ -101,7 +84,7 @@ function SettingsShared_AddMovers(frame, state, key)
     frame:AddChild(toggleButton)
 end
 
-function SettingsShared_AddTestNoteToggle(frame, state, key)
+function M.AddTestNoteToggle(frame, state, key)
     local toggleButton = AceGUI:Create("Button")
 
     local function setMoverText()
@@ -111,7 +94,7 @@ function SettingsShared_AddTestNoteToggle(frame, state, key)
 
     toggleButton:SetWidth(200) -- Set a fixed width for the button
     toggleButton:SetCallback("OnClick", function()
-        DD:DB_Update(function()
+        DD.db.UpdateDB(function()
             state[key] = not state[key]
             setMoverText()
         end)
@@ -119,7 +102,7 @@ function SettingsShared_AddTestNoteToggle(frame, state, key)
     frame:AddChild(toggleButton)
 end
 
-function SettingsShared_AddRoleNoteIndent(frame, state)
+function M.AddRoleNoteIndent(frame, state)
     local slider = AceGUI:Create("Slider")
     slider:SetLabel("Role note indent")
     slider:SetSliderValues(0, 15, 1)
@@ -128,7 +111,7 @@ function SettingsShared_AddRoleNoteIndent(frame, state)
 
     -- Callback for when the slider value changes
     slider:SetCallback("OnValueChanged", function(_, _, value)
-        DD:DB_Update(function()
+        DD.db.UpdateDB(function()
             state.roleNoteIndent = value
         end)
     end)
@@ -137,7 +120,7 @@ function SettingsShared_AddRoleNoteIndent(frame, state)
     frame:AddChild(slider)
 end
 
-function SettingsShared_AddNoteWidth(frame, state)
+function M.AddNoteWidth(frame, state)
     local slider = AceGUI:Create("Slider")
     slider:SetLabel("Note width")
     slider:SetSliderValues(200, 750, 5) -- Min: 0, Max: 100, Step: 5
@@ -146,7 +129,7 @@ function SettingsShared_AddNoteWidth(frame, state)
 
     -- Callback for when the slider value changes
     slider:SetCallback("OnValueChanged", function(_, _, value)
-        DD:DB_Update(function()
+        DD.db.UpdateDB(function()
             state.noteWidth = value
         end)
     end)
@@ -155,7 +138,7 @@ function SettingsShared_AddNoteWidth(frame, state)
     frame:AddChild(slider)
 end
 
-function SettingsShared_AddLinePadding(frame, state)
+function M.AddLinePadding(frame, state)
     local slider = AceGUI:Create("Slider")
     slider:SetLabel("Line padding")
     slider:SetSliderValues(0, 25, 1)   -- Min: 0, Max: 100, Step: 5
@@ -163,7 +146,7 @@ function SettingsShared_AddLinePadding(frame, state)
 
     -- Callback for when the slider value changes
     slider:SetCallback("OnValueChanged", function(_, _, value)
-        DD:DB_Update(function()
+        DD.db.UpdateDB(function()
             state.linePadding = value
         end)
     end)
@@ -172,15 +155,15 @@ function SettingsShared_AddLinePadding(frame, state)
     frame:AddChild(slider)
 end
 
-function SettingsShared_AddBackgroundOpacity(frame, state)
+function M.AddBackgroundOpacity(frame, state)
     local slider = AceGUI:Create("Slider")
     slider:SetLabel("Background opacity")
-    slider:SetSliderValues(0, 1, 0.1) 
+    slider:SetSliderValues(0, 1, 0.1)
     slider:SetValue(state.backgroundOpacity)
 
     -- Callback for when the slider value changes
     slider:SetCallback("OnValueChanged", function(_, _, value)
-        DD:DB_Update(function()
+        DD.db.UpdateDB(function()
             state.backgroundOpacity = value
         end)
     end)
@@ -189,7 +172,7 @@ function SettingsShared_AddBackgroundOpacity(frame, state)
     frame:AddChild(slider)
 end
 
-function SettingsShared_AddUntargetedNoteOpacity(frame, state)
+function M.AddUntargetedNoteOpacity(frame, state)
     local slider = AceGUI:Create("Slider")
     slider:SetLabel("Untargeted note opacity")
     slider:SetSliderValues(0, 1, 0.1)
@@ -197,7 +180,7 @@ function SettingsShared_AddUntargetedNoteOpacity(frame, state)
 
     -- Callback for when the slider value changes
     slider:SetCallback("OnValueChanged", function(_, _, value)
-        DD:DB_Update(function()
+        DD.db.UpdateDB(function()
             state.untargetedNoteOpacity = value
         end)
     end)
@@ -206,7 +189,7 @@ function SettingsShared_AddUntargetedNoteOpacity(frame, state)
     frame:AddChild(slider)
 end
 
-function SettingsShared_AddNoteSpacing(frame, state)
+function M.AddNoteSpacing(frame, state)
     local slider = AceGUI:Create("Slider")
     slider:SetLabel("Note spacing")
     slider:SetSliderValues(0, 50, 1)
@@ -214,7 +197,7 @@ function SettingsShared_AddNoteSpacing(frame, state)
 
     -- Callback for when the slider value changes
     slider:SetCallback("OnValueChanged", function(_, _, value)
-        DD:DB_Update(function()
+        DD.db.UpdateDB(function()
             state.noteSpacing = value
         end)
     end)
@@ -223,7 +206,7 @@ function SettingsShared_AddNoteSpacing(frame, state)
     frame:AddChild(slider)
 end
 
-function SettingsShared_AddRoleNameIndent(frame, state)
+function M.AddRoleNameIndent(frame, state)
     local slider = AceGUI:Create("Slider")
     slider:SetLabel("Role name indent")
     slider:SetSliderValues(0, 15, 1)
@@ -232,7 +215,7 @@ function SettingsShared_AddRoleNameIndent(frame, state)
 
     -- Callback for when the slider value changes
     slider:SetCallback("OnValueChanged", function(_, _, value)
-        DD:DB_Update(function()
+        DD.db.UpdateDB(function()
             state.roleNameIndent = value
         end)
     end)
@@ -241,28 +224,28 @@ function SettingsShared_AddRoleNameIndent(frame, state)
     frame:AddChild(slider)
 end
 
-function SettingsShared_AddFontSelect(frame, state)
-    AddFontSelect(
+function M.AddFontSelect(frame, state)
+    DD.utils.AddFontSelect(
         frame,
         "Font",
-        FontPathToName(state.font),
+        DD.utils.FontPathToName(state.font),
         function(selection)
-            DD:DB_Update(function()
-                state.font = FontNameToPath(selection)
+            DD.db.UpdateDB(function()
+                state.font = DD.utils.FontNameToPath(selection)
             end)
         end
     )
 end
 
-function SettingsShared_AddNoteColor(frame, state)
+function M.AddNoteColor(frame, state)
     -- Create the color picker widget
     local colorPicker = AceGUI:Create("ColorPicker")
     colorPicker:SetLabel("Color")
     colorPicker:SetColor(state.color.r, state.color.g, state.color.b) -- Default to red (RGB)
 
     -- Callback function when the color is changed
-    colorPicker:SetCallback("OnValueChanged", function(widget, event, r, g, b, a)
-        DD:DB_Update(function()
+    colorPicker:SetCallback("OnValueChanged", function(_, _, r, g, b, _)
+        DD.db.UpdateDB(function()
             state.color.r = r
             state.color.g = g
             state.color.b = b
@@ -273,64 +256,51 @@ function SettingsShared_AddNoteColor(frame, state)
     frame:AddChild(colorPicker)
 end
 
-function SettingsShared_AddFontSlider(frame, state)
+function M.AddFontSlider(frame, state)
     local fontSizeSlider = AceGUI:Create("Slider")
     fontSizeSlider:SetLabel("Font Size")
     fontSizeSlider:SetSliderValues(8, 32, 1) -- Min, max, and step for font size
     fontSizeSlider:SetValue(state.fontSize)  -- Default font size
-    fontSizeSlider:SetCallback("OnValueChanged", function(widget, event, value)
-        DD:DB_Update(function()
+    fontSizeSlider:SetCallback("OnValueChanged", function(_, _, value)
+        DD.db.UpdateDB(function()
             state.fontSize = value
         end)
     end)
     frame:AddChild(fontSizeSlider)
 end
 
-function SettingsShared_AddFontSlider(frame, state)
-    local fontSizeSlider = AceGUI:Create("Slider")
-    fontSizeSlider:SetLabel("Font Size")
-    fontSizeSlider:SetSliderValues(8, 32, 1) -- Min, max, and step for font size
-    fontSizeSlider:SetValue(state.fontSize)  -- Default font size
-    fontSizeSlider:SetCallback("OnValueChanged", function(widget, event, value)
-        DD:DB_Update(function()
-            state.fontSize = value
-        end)
-    end)
-    frame:AddChild(fontSizeSlider)
+function M.AddFontSettings(frame, state)
+    M.AddFontSelect(frame, state)
+    M.AddNoteColor(frame, state)
+    M.AddFontSlider(frame, state)
 end
 
-function SettingsShared_AddFontSettings(frame, state)
-    SettingsShared_AddFontSelect(frame, state)
-    SettingsShared_AddNoteColor(frame, state)
-    SettingsShared_AddFontSlider(frame, state)
-end
-
-function SettingsShared_AddSlider(frame, label, state, stateKey, min, max, step)
+function M.AddSlider(frame, label, state, stateKey, min, max, step)
     local fontSizeSlider = AceGUI:Create("Slider")
     fontSizeSlider:SetLabel(label)
     fontSizeSlider:SetSliderValues(min, max, step)
     fontSizeSlider:SetValue(state[stateKey])
-    fontSizeSlider:SetCallback("OnValueChanged", function(widget, event, value)
-        DD:DB_Update(function()
+    fontSizeSlider:SetCallback("OnValueChanged", function(_, _, value)
+        DD.db.UpdateDB(function()
             state[stateKey] = value
         end)
     end)
     frame:AddChild(fontSizeSlider)
 end
 
-function SettingsShared_AddOutlineToggle(frame, state)
+function M.AddOutlineToggle(frame, state)
     local checkBox = AceGUI:Create("CheckBox")
     checkBox:SetLabel("Font Outline")
     checkBox:SetValue(state.outline) -- Set initial value
-    checkBox:SetCallback("OnValueChanged", function(widget, event, value)
-        DD:DB_Update(function()
+    checkBox:SetCallback("OnValueChanged", function(_, _, value)
+        DD.db.UpdateDB(function()
             state.outline = value
         end)
     end)
     frame:AddChild(checkBox)
 end
 
-function SettingsShared_AddHorizontalFontAlignment(frame, state)
+function M.AddHorizontalFontAlignment(frame, state)
     local alignmentsH = {
         LEFT = "LEFT",
         CENTER = "CENTER",
@@ -343,7 +313,7 @@ function SettingsShared_AddHorizontalFontAlignment(frame, state)
     dropdown:SetValue(alignmentsH[state.align])
 
     dropdown:SetCallback("OnValueChanged", function(_, _, key)
-        DD:DB_Update(function()
+        DD.db.UpdateDB(function()
             state.align = key
         end)
     end)
@@ -351,8 +321,8 @@ function SettingsShared_AddHorizontalFontAlignment(frame, state)
     frame:AddChild(dropdown)
 end
 
-function SettingsShared_AddOverflow(frame, state)
-    SettingsShared_AddCheckBox(
+function M.AddOverflow(frame, state)
+    M.AddCheckBox(
         frame,
         "Text overflow",
         state,
@@ -360,7 +330,7 @@ function SettingsShared_AddOverflow(frame, state)
     )
 end
 
-function SettingsShared_AddTextAlignment(frame, state, key)
+function M.AddTextAlignment(frame, state, key)
     local alignments = {
         LEFT = "LEFT",
         CENTER = "CENTER",
@@ -373,7 +343,7 @@ function SettingsShared_AddTextAlignment(frame, state, key)
     dropdown:SetValue(alignments[state[key]])
 
     dropdown:SetCallback("OnValueChanged", function(_, _, value)
-        DD:DB_Update(function()
+        DD.db.UpdateDB(function()
             state[key] = value
         end)
     end)
@@ -381,7 +351,7 @@ function SettingsShared_AddTextAlignment(frame, state, key)
     frame:AddChild(dropdown)
 end
 
-function SettingsShared_AddDropdown(frame, label, options, state, stateKey, callback)
+function M.AddDropdown(frame, label, options, state, stateKey, callback)
     local dropdown = AceGUI:Create("Dropdown")
 
     dropdown:SetLabel(label)
@@ -389,7 +359,7 @@ function SettingsShared_AddDropdown(frame, label, options, state, stateKey, call
     dropdown:SetValue(options[state[stateKey]])
 
     dropdown:SetCallback("OnValueChanged", function(_, _, optionsKey)
-        DD:DB_Update(function()
+        DD.db.UpdateDB(function()
             state[stateKey] = optionsKey
             if callback then callback() end
         end)
@@ -397,3 +367,7 @@ function SettingsShared_AddDropdown(frame, label, options, state, stateKey, call
 
     frame:AddChild(dropdown)
 end
+
+--- @class UI
+DD.ui = DD.ui or {}
+DD.ui.shared = M

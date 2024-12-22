@@ -1,0 +1,11 @@
+--- @class Font
+--- @field SetFont fun(self: Font, fontFile: string, height: number, flags?: string): nil Sets the font properties.
+--- @field GetFont fun(self: Font): string, number, string|nil Gets the font properties.
+--- @field SetTextColor fun(self: Font, r: number, g: number, b: number, a?: number): nil Sets the text color.
+--- @field GetTextColor fun(self: Font): number, number, number, number Gets the text color.
+--- @field SetJustifyH fun(self: Font, justifyH: string): nil Sets horizontal text alignment.
+--- @field GetJustifyH fun(self: Font): string Gets horizontal text alignment.
+--- @field SetJustifyV fun(self: Font, justifyV: string): nil Sets vertical text alignment.
+--- @field GetJustifyV fun(self: Font): string Gets vertical text alignment.
+--- @field SetText fun(self: Font, text: string): nil Sets the text.
+--- @field GetText fun(self: Font): string Gets the text.

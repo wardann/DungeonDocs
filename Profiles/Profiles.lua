@@ -1,13 +1,24 @@
+--- @class DungeonDocs
 local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
 
+--- @class Profiles
+local M = {}
 
+--- @alias ProfileNote {ddid: string, primaryNote: string, healerNote: string, damageNote: string, tankNote: string}
+--- @alias ProfileNotes table<ProfileNote>
+--- @alias ProfileDungeonNotes {dungeonName: string, notes: ProfileNotes}
+
+--- @type table<string>
 local reservedProfileNames = {}
 
-function DD:Profiles_ReserveProfileName(profileName)
+--- @param profileName string
+function M.ReserveProfileName(profileName)
     table.insert(reservedProfileNames, profileName)
 end
 
-function Profiles_IsReservedProfile(profileName)
+--- @param profileName string
+--- @returns boolean
+function M.IsReservedProfile(profileName)
     for _, value in ipairs(reservedProfileNames) do
         if value == profileName then
             return true
@@ -16,32 +27,40 @@ function Profiles_IsReservedProfile(profileName)
     return false
 end
 
-function DD:Profiles_BuildDungeonDocs(dungeonData)
-    local dungeonDocs = {}
+--- @param profileDungeonNotes ProfileDungeonNotes
+--- @returns ProfileNotes
+function M.BuildProfileNotes(profileDungeonNotes)
+    --- @type ProfileNotes
+    local profileNotes = {}
 
-    local function shouldInsert(mob)
-        return mob.primaryNote ~= "" or mob.healerNote ~= "" or mob.damageNote ~= "" or mob.tankNote ~= ""
+    --- @param note ProfileNote
+    local function shouldInsert(note)
+        return note.primaryNote ~= "" or note.healerNote ~= "" or note.damageNote ~= "" or note.tankNote ~= ""
     end
 
-    for _, note in ipairs(dungeonData.notes) do
+    for _, note in ipairs(profileDungeonNotes.notes) do
         if shouldInsert(note) then
-            table.insert(dungeonDocs, note)
+            table.insert(profileNotes, note)
         end
     end
 
-    return dungeonDocs
+    return profileNotes
 end
 
-function DD:Profiles_Init()
-    DD:ProfilesDefaultFallback_Init()
+function M.Init()
+    M.DefaultFallback_Init()
+
+    local db = DD.db.database
 
     -- Bootstrap player Default profile
-    if not self.db.profiles["Default"] then
-        self.db.profiles["Default"] = {}
+    if not db.profiles["Default"] then
+        db.profiles["Default"] = {}
     end
 
     -- Set Default profile as active if no profile is active
-    if not self.db.profile then
-        self.db:SetProfile("Default")
+    if not db.profile then
+        db:SetProfile("Default")
     end
 end
+
+DD.profiles = M

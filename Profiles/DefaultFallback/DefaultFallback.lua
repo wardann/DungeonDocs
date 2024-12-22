@@ -1,26 +1,26 @@
+--- @type DungeonDocs
 local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
+
+--- @class Profiles
+DD.profiles = DD.profiles or {}
 
 local profileName = "Default Fallback*"
 local docs = {}
 
-function DD:ProfilesDefaultFallback_InitDocs(dungeonData)
-    local dungeonDocs = DD:Profiles_BuildDungeonDocs(dungeonData)
-    if not IsTableEmpty(dungeonDocs) then
-        docs[dungeonData.name] = dungeonDocs
+--- @param dungeonData ProfileDungeonNotes
+function DD.profiles.DefaultFallback_InitDocs(dungeonData)
+    local dungeonDocs = DD.profiles.BuildProfileNotes(dungeonData)
+    if not DD.utils.IsTableEmpty(dungeonDocs) then
+        docs[dungeonData.dungeonName] = dungeonDocs
     end
 end
 
-function DD:ProfilesDefaultFallback_Init()
-    local db = self.db
-
-    -- Construct the profile
-
+function DD.profiles.DefaultFallback_Init()
     -- Register profile in the DB
-    db.profiles[profileName] = {
+    DD.db.database.profiles[profileName] = {
         docs = docs
     }
 
-
     -- Reserve the profile name
-    DD:Profiles_ReserveProfileName(profileName)
+    DD.profiles.ReserveProfileName(profileName)
 end

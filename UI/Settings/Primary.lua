@@ -1,15 +1,22 @@
+--- @class DungeonDocs
 local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
 local AceGUI = LibStub("AceGUI-3.0")
 
-function DD:SettingsStylePrimary_View(wrapperContainer)
+--- @class UI
+DD.ui = DD.ui or {}
+
+--- @class SettingsUI
+DD.ui.settings = DD.ui.settings or {}
+
+function DD.ui.settings.StylePrimary_View(wrapperContainer)
     local refresh = function()
         wrapperContainer:ReleaseChildren()
-        DD:SettingsStylePrimary_View(wrapperContainer)
+        DD.ui.settings.StylePrimary_View(wrapperContainer)
     end
 
     wrapperContainer:SetLayout("Flow")
 
-    local state = self.db.profile.settings.omniNote
+    local state = DD.db.database.profile.settings.omniNote
 
     local container = AceGUI:Create("ScrollFrame")
     container:SetLayout("Flow")
@@ -18,14 +25,14 @@ function DD:SettingsStylePrimary_View(wrapperContainer)
     wrapperContainer:AddChild(container)
 
 
-    SettingsStylePrimary_AddDescription(container)
-    
+    DD.ui.settings.StylePrimary_AddDescription(container)
+
     -- Add primary note settings
-    local primaryNoteSection = AddSection(container, "")
+    local primaryNoteSection = DD.utils.AddSection(container, "")
     if not state.style.primaryNote.useDefaultTextStyle then
-        SettingsShared_AddFontSettings(primaryNoteSection, state.style.primaryNote.text)
+        DD.ui.shared.AddFontSettings(primaryNoteSection, state.style.primaryNote.text)
     end
-    SettingsShared_AddCheckBox(
+    DD.ui.shared.AddCheckBox(
         primaryNoteSection,
         "Use default text style",
         state.style.primaryNote,
@@ -34,7 +41,7 @@ function DD:SettingsStylePrimary_View(wrapperContainer)
     )
 end
 
-function SettingsStylePrimary_AddDescription(frame)
+function DD.ui.settings.StylePrimary_AddDescription(frame)
     -- Create a title label
     local title = AceGUI:Create("Label")
     title:SetText("|cffffd700Primary Note|r")    -- Gold-colored text for the title

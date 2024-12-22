@@ -1,9 +1,17 @@
+--- @class DungeonDocs
 local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
 local AceGUI = LibStub("AceGUI-3.0")
 
-function DD:SettingsGeneral_View(wrapperContainer)
-    local state = self.db.profile.settings.omniNote
-    local internal = self.db.profile.internal
+--- @class UI
+DD.ui = DD.ui or {}
+
+--- @class SettingsUI
+DD.ui.settings = DD.ui.settings or {}
+
+function DD.ui.settings.General_View(wrapperContainer)
+    local db = DD.db.database
+    local state = db.profile.settings.omniNote
+    local internal = db.profile.internal
 
     wrapperContainer:SetLayout("Flow")
 
@@ -13,49 +21,49 @@ function DD:SettingsGeneral_View(wrapperContainer)
     container:SetFullHeight(true)
     wrapperContainer:AddChild(container)
 
-    SettingsGeneral_AddDescription(container)
+    DD.ui.settings.General_AddDescription(container)
 
-    local baseSection = AddSection(container, "")
-    SettingsShared_AddMovers(baseSection, internal.movers, "omniNote")
-    SettingsShared_AddNoteWidth(baseSection, state)
+    local baseSection = DD.utils.AddSection(container, "")
+    DD.ui.shared.AddMovers(baseSection, internal.movers, "omniNote")
+    DD.ui.shared.AddNoteWidth(baseSection, state)
 
     -- Add note grow direction
     local growDirections = {
         UP = "UP",
         DOWN = "DOWN",
     }
-    SettingsShared_AddDropdown(baseSection, "Note Grow Direction", growDirections, state, "noteGrowDirection")
+    DD.ui.shared.AddDropdown(baseSection, "Note Grow Direction", growDirections, state, "noteGrowDirection")
 
-    SettingsShared_AddTextAlignment(baseSection, state, "textAlign")
+    DD.ui.shared.AddTextAlignment(baseSection, state, "textAlign")
 
 
     -- Add line padding
-    SettingsShared_AddLinePadding(baseSection, state)
+    DD.ui.shared.AddLinePadding(baseSection, state)
 
     -- Add backdrop opacity
-    SettingsShared_AddBackgroundOpacity(baseSection, state)
+    DD.ui.shared.AddBackgroundOpacity(baseSection, state)
 
     -- Untargeted note opacity
-    SettingsShared_AddUntargetedNoteOpacity(baseSection, state)
+    DD.ui.shared.AddUntargetedNoteOpacity(baseSection, state)
 
     -- Note spacing
-    SettingsShared_AddNoteSpacing(baseSection, state)
+    DD.ui.shared.AddNoteSpacing(baseSection, state)
 
     -- Add text outline checkbox
-    SettingsShared_AddCheckBox(baseSection, "Text outline", state, "textOutline")
+    DD.ui.shared.AddCheckBox(baseSection, "Text outline", state, "textOutline")
 
     -- Add default font selection
-    local defaultFontSection = AddSection(container, "Default Text Style")
-    SettingsShared_AddFontSettings(defaultFontSection, state.style.defaultText)
+    local defaultFontSection = DD.utils.AddSection(container, "Default Text Style")
+    DD.ui.shared.AddFontSettings(defaultFontSection, state.style.defaultText)
 
 
 
-    local seasonSection = AddSection(container, "Season")
-    DD:SettingsGeneral_AddSeasonSelect(seasonSection)
+    local seasonSection = DD.utils.AddSection(container, "Season")
+    DD.ui.settings.General_AddSeasonSelect(seasonSection)
 end
 
-function DD:SettingsGeneral_AddSeasonSelect(container)
-    local db = self.db
+function DD.ui.settings.General_AddSeasonSelect(container)
+    local db = DD.db.database
 
     -- Dropdown menu for season selection
     local seasonDropdown = AceGUI:Create("Dropdown")
@@ -63,7 +71,7 @@ function DD:SettingsGeneral_AddSeasonSelect(container)
     seasonDropdown:SetList(db.profile.internal.seasons)
     seasonDropdown:SetValue(db.profile.internal.selectedSeason)
     seasonDropdown:SetCallback("OnValueChanged", function(_, _, key)
-        DD:DB_Update(function()
+        DD.db.UpdateDB(function()
             db.profile.internal.selectedSeason = key
         end)
     end)
@@ -71,23 +79,7 @@ function DD:SettingsGeneral_AddSeasonSelect(container)
     container:AddChild(seasonDropdown)
 end
 
-function DD:SettingsGeneral_AddDefaultFontSelect(container)
-    local db = self.db
-    local currentSelection = db.profile.defaultFont
-
-    AddFontSelect(
-        container,
-        "Default Font",
-        FontPathToName(currentSelection),
-        function(selection)
-            DD:DB_Update(function()
-                db.profile.defaultFont = FontNameToPath(selection)
-            end)
-        end
-    )
-end
-
-function SettingsGeneral_AddDescription(frame)
+function DD.ui.settings.General_AddDescription(frame)
     -- Create a title label
     local title = AceGUI:Create("Label")
     title:SetText("|cffffd700General|r")    -- Gold-colored text for the title
