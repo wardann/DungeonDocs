@@ -144,7 +144,7 @@ describe("Dungeons Module", function()
     it("should initialize all dungeons without errors", function()
         --- @diagnostic disable-next-line
         assert.has_no.errors(function()
-            DD.dungeons.InitAll()
+            DD.dungeons.Init()
         end)
     end)
 
@@ -164,7 +164,7 @@ describe("DD.dungeons.IsBossInDungeon", function()
     local DD
     before_each(function()
         DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
-        DD.dungeons.InitAll()
+        DD.dungeons.Init()
     end)
 
     it("should be able to resolve boss if in dungeon", function()
@@ -188,7 +188,7 @@ describe("DD.dungeons.MobIdToNoteName", function()
     local DD
     before_each(function()
         DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
-        DD.dungeons.InitAll()
+        DD.dungeons.Init()
     end)
 
     it("should be able to resolve boss if in dungeon", function()
@@ -212,7 +212,7 @@ describe("DD.dungeons.MobIdToDungeonName", function()
     local DD
     before_each(function()
         DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
-        DD.dungeons.InitAll()
+        DD.dungeons.Init()
     end)
 
     it("should be able to resolve dungeon name if good mob id", function()
@@ -234,7 +234,7 @@ describe("DD.dungeons.MobIDToDDID", function()
     local DD
     before_each(function()
         DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
-        DD.dungeons.InitAll()
+        DD.dungeons.Init()
     end)
 
     it("should be able to resolve DDID if good mob id", function()
