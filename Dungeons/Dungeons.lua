@@ -1,9 +1,9 @@
 --- @class DungeonDocs
 local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
 
---- @alias NoteStructure {noteName: string, ddid: DDID, isBoss: boolean|nil, mobs: table<{id: number, displayId: number}>}
---- @alias NoteStructures table<NoteStructure>
---- @alias DungeonData {dungeonName: DungeonName, icon: string, seasonId: string, noteStructures: NoteStructures}
+--- @alias NoteMob {id: number, displayId: number, hideModel?: boolean}
+--- @alias NoteStructure {noteName: string, ddid: DDID, isBoss: boolean|nil, mobs: NoteMob[]}
+--- @alias DungeonData {dungeonName: DungeonName, icon: string, seasonId: string, noteStructures: NoteStructure[]}
 --- @alias CreateDDID fun(index: number): DDID
 
 --- @class Dungeons

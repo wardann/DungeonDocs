@@ -10,7 +10,7 @@ end
 --- @class Dungeons
 DD.dungeons = DD.dungeons or {}
 
---- @type NoteStructures
+--- @type NoteStructure[]
 local noteStructures = {
   --
   -- BOSSES

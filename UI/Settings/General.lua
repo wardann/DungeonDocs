@@ -1,6 +1,6 @@
 --- @class DungeonDocs
 local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
-local AceGUI = LibStub("AceGUI-3.0")
+local AceGUI = LibStub("AceGUI-3.0") --- @type AceGUI
 
 --- @class UI
 DD.ui = DD.ui or {}
@@ -8,22 +8,23 @@ DD.ui = DD.ui or {}
 --- @class SettingsUI
 DD.ui.settings = DD.ui.settings or {}
 
-function DD.ui.settings.General_View(wrapperContainer)
+---@param container AceGUIContainer
+function DD.ui.settings.General_View(container)
     local db = DD.db.database
     local state = db.profile.settings.omniNote
     local internal = db.profile.internal
 
-    wrapperContainer:SetLayout("Flow")
-
-    local container = AceGUI:Create("ScrollFrame")
     container:SetLayout("Flow")
-    container:SetFullWidth(true)
-    container:SetFullHeight(true)
-    wrapperContainer:AddChild(container)
 
-    DD.ui.settings.General_AddDescription(container)
+    local scrollFrame = AceGUI:Create("ScrollFrame") ---@type ScrollFrame
+    scrollFrame:SetLayout("Flow")
+    scrollFrame:SetFullWidth(true)
+    scrollFrame:SetFullHeight(true)
+    container:AddChild(scrollFrame)
 
-    local baseSection = DD.utils.AddSection(container, "")
+    DD.ui.settings.General_AddDescription(scrollFrame)
+
+    local baseSection = DD.utils.AddSection(scrollFrame, "")
     DD.ui.shared.AddMovers(baseSection, internal.movers, "omniNote")
     DD.ui.shared.AddNoteWidth(baseSection, state)
 
@@ -53,20 +54,21 @@ function DD.ui.settings.General_View(wrapperContainer)
     DD.ui.shared.AddCheckBox(baseSection, "Text outline", state, "textOutline")
 
     -- Add default font selection
-    local defaultFontSection = DD.utils.AddSection(container, "Default Text Style")
+    local defaultFontSection = DD.utils.AddSection(scrollFrame, "Default Text Style")
     DD.ui.shared.AddFontSettings(defaultFontSection, state.style.defaultText)
 
 
 
-    local seasonSection = DD.utils.AddSection(container, "Season")
+    local seasonSection = DD.utils.AddSection(scrollFrame, "Season")
     DD.ui.settings.General_AddSeasonSelect(seasonSection)
 end
 
+---@param container AceGUIContainer
 function DD.ui.settings.General_AddSeasonSelect(container)
     local db = DD.db.database
 
     -- Dropdown menu for season selection
-    local seasonDropdown = AceGUI:Create("Dropdown")
+    local seasonDropdown = AceGUI:Create("Dropdown") ---@type Dropdown
     seasonDropdown:SetLabel("Select a Season")
     seasonDropdown:SetList(db.profile.internal.seasons)
     seasonDropdown:SetValue(db.profile.internal.selectedSeason)
@@ -79,11 +81,12 @@ function DD.ui.settings.General_AddSeasonSelect(container)
     container:AddChild(seasonDropdown)
 end
 
-function DD.ui.settings.General_AddDescription(frame)
+---@param container AceGUIContainer
+function DD.ui.settings.General_AddDescription(container)
     -- Create a title label
-    local title = AceGUI:Create("Label")
+    local title = AceGUI:Create("Label") ---@type Label
     title:SetText("|cffffd700General|r")    -- Gold-colored text for the title
     title:SetFont(GameFontNormalLarge:GetFont()) -- Use a larger font for the title
     title:SetFullWidth(true)                     -- Stretch across the frame
-    frame:AddChild(title)
+    container:AddChild(title)
 end

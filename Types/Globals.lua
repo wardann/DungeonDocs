@@ -63,3 +63,6 @@ CombatLogGetCurrentEventInfo = CombatLogGetCurrentEventInfo
 
 --- @type any
 _ = _
+
+--- @type fun(delimiter: string, str: string): string, ... # Splits a string into components based on a delimiter.
+strsplit = strsplit

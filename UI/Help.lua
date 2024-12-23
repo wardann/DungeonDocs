@@ -1,15 +1,16 @@
 --- @class DungeonDocs
 local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
-local AceGUI = LibStub("AceGUI-3.0")
+local AceGUI = LibStub("AceGUI-3.0") ---@type AceGUI
 
 --- @class HelpUI
 local M = {}
 
 
+---@param container AceGUIContainer
 function M.TabRoot(container)
     container:SetLayout("Fill")
 
-    local label = AceGUI:Create("Label")
+    local label = AceGUI:Create("Label") ---@type Label
     label:SetText([[
 Welcome to DungeonDocs!
 

@@ -231,9 +231,9 @@ describe("DD.dungeons.MobIdToDungeonName", function()
 end)
 
 describe("DD.dungeons.MobIDToDDID", function()
-    local DD
+    local DD --- @type DungeonDocs
     before_each(function()
-        DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
+        DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs") --- @type DungeonDocs
         DD.dungeons.Init()
     end)
 

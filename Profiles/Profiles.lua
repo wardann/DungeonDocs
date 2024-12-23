@@ -5,10 +5,9 @@ local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
 local M = {}
 
 --- @alias ProfileNote {ddid: string, primaryNote: string, healerNote: string, damageNote: string, tankNote: string}
---- @alias ProfileNotes table<ProfileNote>
---- @alias ProfileDungeonNotes {dungeonName: string, notes: ProfileNotes}
+--- @alias ProfileDungeonNotes {dungeonName: string, notes: ProfileNote[]}
 
---- @type table<string>
+--- @type string[]
 local reservedProfileNames = {}
 
 --- @param profileName string
@@ -28,10 +27,9 @@ function M.IsReservedProfile(profileName)
 end
 
 --- @param profileDungeonNotes ProfileDungeonNotes
---- @returns ProfileNotes
+--- @returns ProfileNote[]
 function M.BuildProfileNotes(profileDungeonNotes)
-    --- @type ProfileNotes
-    local profileNotes = {}
+    local profileNotes = {} ---@type ProfileNote[]
 
     --- @param note ProfileNote
     local function shouldInsert(note)

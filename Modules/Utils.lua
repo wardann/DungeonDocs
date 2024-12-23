@@ -1,11 +1,11 @@
---- @class DungeonDocs
+---@class DungeonDocs
 local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
-local AceGUI = LibStub("AceGUI-3.0")
+local AceGUI = LibStub("AceGUI-3.0") ---@type AceGUI
 local M = {}
 
 
---- @param t table
---- @param indent number
+---@param t table
+---@param indent number
 function M.InspectTable(t, indent)
     indent = indent or 0
     local prefix = string.rep("  ", indent)
@@ -17,7 +17,7 @@ function M.InspectTable(t, indent)
 end
 
 --- Gets the mob ID from the target's GUID
---- @param unit string
+---@param unit string
 function M.GetMobIDFromGUID(unit)
     local guid = UnitGUID(unit) -- Get the GUID of the unit (e.g., "target")
     if guid then
@@ -72,13 +72,12 @@ function M.DeepCopy(orig)
     return copy
 end
 
---- TODO: need to fix the typing here, I think this takes a an acegui thing, NOT a frame
 --- @param container AceGUIContainer
 --- @param title string
 --- @returns AceGUIInlineGroup
 function M.AddSection(container, title)
     -- Create an InlineGroup as a section container
-    local section = AceGUI:Create("InlineGroup")
+    local section = AceGUI:Create("InlineGroup") ---@type InlineGroup
     section:SetTitle(title)
     section:SetFullWidth(true)
     section:SetLayout("Flow")

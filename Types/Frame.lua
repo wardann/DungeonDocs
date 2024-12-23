@@ -48,3 +48,4 @@
 --- @field SetCamDistanceScale fun(self: PlayerModel, scale: number): nil Sets the camera distance scale.
 --- @field SetModelScale fun(self: PlayerModel, scale: number): nil Sets the scale of the model.
 --- @field SetDisplayInfo fun(self: PlayerModel, displayId: number): nil Sets the model display info.
+--- @field ClearModel fun(self: PlayerModel): nil # Clears the currently displayed model.

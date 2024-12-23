@@ -1,13 +1,18 @@
 --- @class DungeonDocs
 local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
-local AceGUI = LibStub("AceGUI-3.0")
+local AceGUI = LibStub("AceGUI-3.0") --- @type AceGUI
 
 --- @class SharedUI
 local M = {}
 
 
-function M.AddCheckBox(frame, label, state, stateKey, callback)
-    local checkBox = AceGUI:Create("CheckBox")
+---@param container AceGUIContainer
+---@param label string
+---@param state table<string, any>
+---@param stateKey string
+---@param callback fun(boolean)|nil
+function M.AddCheckBox(container, label, state, stateKey, callback)
+    local checkBox = AceGUI:Create("CheckBox") ---@type CheckBox
     checkBox:SetLabel(label)
     checkBox:SetValue(state[stateKey])
     checkBox:SetCallback("OnValueChanged", function(_, _, value)
@@ -19,11 +24,14 @@ function M.AddCheckBox(frame, label, state, stateKey, callback)
         end)
     end)
 
-    frame:AddChild(checkBox)
+    container:AddChild(checkBox)
 end
 
-function M.AddEnabled(frame, state, callback)
-    local checkBox = AceGUI:Create("CheckBox")
+---@param container AceGUIContainer
+---@param state table<string, any>
+---@param callback fun(boolean)
+function M.AddEnabled(container, state, callback)
+    local checkBox = AceGUI:Create("CheckBox") ---@type CheckBox
     checkBox:SetLabel("Primary Note Enabled")
     checkBox:SetValue(state.enabled)
     checkBox:SetCallback("OnValueChanged", function(_, _, value)
@@ -33,25 +41,29 @@ function M.AddEnabled(frame, state, callback)
         end)
     end)
 
-    frame:AddChild(checkBox)
+    container:AddChild(checkBox)
 end
 
-function M.AddDisplayMobName(frame, state)
+---@param container AceGUIContainer
+---@param state table<string, any>
+function M.AddDisplayMobName(container, state)
     M.AddCheckBox(
-        frame,
+        container,
         "Display Mob Name",
         state,
         "displayMobName"
     )
 end
 
-function M.AddRoleDisplaySelect(frame, state)
+---@param container AceGUIContainer
+---@param state table<string, any>
+function M.AddRoleDisplaySelect(container, state)
     local options = {
         None = "None",
         Current = "Current role",
         All = "All roles",
     }
-    local dropdown = AceGUI:Create("Dropdown")
+    local dropdown = AceGUI:Create("Dropdown") ---@type Dropdown
 
     dropdown:SetLabel("Role Display")
     dropdown:SetList(options)
@@ -63,46 +75,54 @@ function M.AddRoleDisplaySelect(frame, state)
         end)
     end)
 
-    frame:AddChild(dropdown)
+    container:AddChild(dropdown)
 end
 
-function M.AddMovers(frame, state, key)
-    local toggleButton = AceGUI:Create("Button")
+---@param container AceGUIContainer
+---@param state table<string, any>
+---@param stateKey string
+function M.AddMovers(container, state, stateKey)
+    local toggleButton = AceGUI:Create("Button") ---@type Button
 
     local function setMoverText()
-        toggleButton:SetText(state[key] and "Turn Movers Off" or "Turn Movers On")
+        toggleButton:SetText(state[stateKey] and "Turn Movers Off" or "Turn Movers On")
     end
     setMoverText()
 
     toggleButton:SetWidth(200) -- Set a fixed width for the button
     toggleButton:SetCallback("OnClick", function()
         DD.db.UpdateDB(function()
-            state[key] = not state[key]
+            state[stateKey] = not state[stateKey]
             setMoverText()
         end)
     end)
-    frame:AddChild(toggleButton)
+    container:AddChild(toggleButton)
 end
 
-function M.AddTestNoteToggle(frame, state, key)
-    local toggleButton = AceGUI:Create("Button")
+---@param container AceGUIContainer
+---@param state table<string, any>
+---@param stateKey string
+function M.AddTestNoteToggle(container, state, stateKey)
+    local toggleButton = AceGUI:Create("Button") ---@type Button
 
     local function setMoverText()
-        toggleButton:SetText(state[key] and "Turn Test Note Off" or "Turn Test Note On")
+        toggleButton:SetText(state[stateKey] and "Turn Test Note Off" or "Turn Test Note On")
     end
     setMoverText()
 
     toggleButton:SetWidth(200) -- Set a fixed width for the button
     toggleButton:SetCallback("OnClick", function()
         DD.db.UpdateDB(function()
-            state[key] = not state[key]
+            state[stateKey] = not state[stateKey]
             setMoverText()
         end)
     end)
-    frame:AddChild(toggleButton)
+    container:AddChild(toggleButton)
 end
 
-function M.AddRoleNoteIndent(frame, state)
+---@param container AceGUIContainer
+---@param state table<string, any>
+function M.AddRoleNoteIndent(container, state)
     local slider = AceGUI:Create("Slider")
     slider:SetLabel("Role note indent")
     slider:SetSliderValues(0, 15, 1)
@@ -116,16 +136,18 @@ function M.AddRoleNoteIndent(frame, state)
         end)
     end)
 
-    -- Add the slider to the frame
-    frame:AddChild(slider)
+    -- Add the slider to the container
+    container:AddChild(slider)
 end
 
-function M.AddNoteWidth(frame, state)
-    local slider = AceGUI:Create("Slider")
+---@param container AceGUIContainer
+---@param state table<string, any>
+function M.AddNoteWidth(container, state)
+    local slider = AceGUI:Create("Slider") ---@type Slider
     slider:SetLabel("Note width")
     slider:SetSliderValues(200, 750, 5) -- Min: 0, Max: 100, Step: 5
     slider:SetValue(state.noteWidth)    -- Set the initial value
-    slider:SetFullWidth(true)           -- Make it stretch across the frame
+    slider:SetFullWidth(true)           -- Make it stretch across the container
 
     -- Callback for when the slider value changes
     slider:SetCallback("OnValueChanged", function(_, _, value)
@@ -134,12 +156,14 @@ function M.AddNoteWidth(frame, state)
         end)
     end)
 
-    -- Add the slider to the frame
-    frame:AddChild(slider)
+    -- Add the slider to the container
+    container:AddChild(slider)
 end
 
-function M.AddLinePadding(frame, state)
-    local slider = AceGUI:Create("Slider")
+---@param container AceGUIContainer
+---@param state table<string, any>
+function M.AddLinePadding(container, state)
+    local slider = AceGUI:Create("Slider") ---@type Slider
     slider:SetLabel("Line padding")
     slider:SetSliderValues(0, 25, 1)   -- Min: 0, Max: 100, Step: 5
     slider:SetValue(state.linePadding) -- Set the initial value
@@ -151,12 +175,14 @@ function M.AddLinePadding(frame, state)
         end)
     end)
 
-    -- Add the slider to the frame
-    frame:AddChild(slider)
+    -- Add the slider to the container
+    container:AddChild(slider)
 end
 
-function M.AddBackgroundOpacity(frame, state)
-    local slider = AceGUI:Create("Slider")
+---@param container AceGUIContainer
+---@param state table<string, any>
+function M.AddBackgroundOpacity(container, state)
+    local slider = AceGUI:Create("Slider") ---@type Slider
     slider:SetLabel("Background opacity")
     slider:SetSliderValues(0, 1, 0.1)
     slider:SetValue(state.backgroundOpacity)
@@ -168,12 +194,14 @@ function M.AddBackgroundOpacity(frame, state)
         end)
     end)
 
-    -- Add the slider to the frame
-    frame:AddChild(slider)
+    -- Add the slider to the container
+    container:AddChild(slider)
 end
 
-function M.AddUntargetedNoteOpacity(frame, state)
-    local slider = AceGUI:Create("Slider")
+---@param container AceGUIContainer
+---@param state table<string, any>
+function M.AddUntargetedNoteOpacity(container, state)
+    local slider = AceGUI:Create("Slider") ---@type Slider
     slider:SetLabel("Untargeted note opacity")
     slider:SetSliderValues(0, 1, 0.1)
     slider:SetValue(state.untargetedNoteOpacity)
@@ -185,12 +213,14 @@ function M.AddUntargetedNoteOpacity(frame, state)
         end)
     end)
 
-    -- Add the slider to the frame
-    frame:AddChild(slider)
+    -- Add the slider to the container
+    container:AddChild(slider)
 end
 
-function M.AddNoteSpacing(frame, state)
-    local slider = AceGUI:Create("Slider")
+---@param container AceGUIContainer
+---@param state table<string, any>
+function M.AddNoteSpacing(container, state)
+    local slider = AceGUI:Create("Slider") ---@type Slider
     slider:SetLabel("Note spacing")
     slider:SetSliderValues(0, 50, 1)
     slider:SetValue(state.noteSpacing)
@@ -202,12 +232,14 @@ function M.AddNoteSpacing(frame, state)
         end)
     end)
 
-    -- Add the slider to the frame
-    frame:AddChild(slider)
+    -- Add the slider to the container
+    container:AddChild(slider)
 end
 
-function M.AddRoleNameIndent(frame, state)
-    local slider = AceGUI:Create("Slider")
+---@param container AceGUIContainer
+---@param state table<string, any>
+function M.AddRoleNameIndent(container, state)
+    local slider = AceGUI:Create("Slider") ---@type Slider
     slider:SetLabel("Role name indent")
     slider:SetSliderValues(0, 15, 1)
     slider:SetValue(state.roleNameIndent)
@@ -220,13 +252,15 @@ function M.AddRoleNameIndent(frame, state)
         end)
     end)
 
-    -- Add the slider to the frame
-    frame:AddChild(slider)
+    -- Add the slider to the container
+    container:AddChild(slider)
 end
 
-function M.AddFontSelect(frame, state)
+---@param container AceGUIContainer
+---@param state table<string, any>
+function M.AddFontSelect(container, state)
     DD.utils.AddFontSelect(
-        frame,
+        container,
         "Font",
         DD.utils.FontPathToName(state.font),
         function(selection)
@@ -237,9 +271,11 @@ function M.AddFontSelect(frame, state)
     )
 end
 
-function M.AddNoteColor(frame, state)
+---@param container AceGUIContainer
+---@param state table<string, any>
+function M.AddNoteColor(container, state)
     -- Create the color picker widget
-    local colorPicker = AceGUI:Create("ColorPicker")
+    local colorPicker = AceGUI:Create("ColorPicker") ---@type ColorPicker
     colorPicker:SetLabel("Color")
     colorPicker:SetColor(state.color.r, state.color.g, state.color.b) -- Default to red (RGB)
 
@@ -252,12 +288,14 @@ function M.AddNoteColor(frame, state)
         end)
     end)
 
-    -- Add the color picker to the frame
-    frame:AddChild(colorPicker)
+    -- Add the color picker to the container
+    container:AddChild(colorPicker)
 end
 
-function M.AddFontSlider(frame, state)
-    local fontSizeSlider = AceGUI:Create("Slider")
+---@param container AceGUIContainer
+---@param state table<string, any>
+function M.AddFontSlider(container, state)
+    local fontSizeSlider = AceGUI:Create("Slider") ---@type Slider
     fontSizeSlider:SetLabel("Font Size")
     fontSizeSlider:SetSliderValues(8, 32, 1) -- Min, max, and step for font size
     fontSizeSlider:SetValue(state.fontSize)  -- Default font size
@@ -266,17 +304,26 @@ function M.AddFontSlider(frame, state)
             state.fontSize = value
         end)
     end)
-    frame:AddChild(fontSizeSlider)
+    container:AddChild(fontSizeSlider)
 end
 
-function M.AddFontSettings(frame, state)
-    M.AddFontSelect(frame, state)
-    M.AddNoteColor(frame, state)
-    M.AddFontSlider(frame, state)
+---@param container AceGUIContainer
+---@param state table<string, any>
+function M.AddFontSettings(container, state)
+    M.AddFontSelect(container, state)
+    M.AddNoteColor(container, state)
+    M.AddFontSlider(container, state)
 end
 
-function M.AddSlider(frame, label, state, stateKey, min, max, step)
-    local fontSizeSlider = AceGUI:Create("Slider")
+---@param container AceGUIContainer
+---@param label string
+---@param state table<string, any>
+---@param stateKey string
+---@param min number
+---@param max number
+---@param step number
+function M.AddSlider(container, label, state, stateKey, min, max, step)
+    local fontSizeSlider = AceGUI:Create("Slider") ---@type Slider
     fontSizeSlider:SetLabel(label)
     fontSizeSlider:SetSliderValues(min, max, step)
     fontSizeSlider:SetValue(state[stateKey])
@@ -285,11 +332,13 @@ function M.AddSlider(frame, label, state, stateKey, min, max, step)
             state[stateKey] = value
         end)
     end)
-    frame:AddChild(fontSizeSlider)
+    container:AddChild(fontSizeSlider)
 end
 
-function M.AddOutlineToggle(frame, state)
-    local checkBox = AceGUI:Create("CheckBox")
+---@param container AceGUIContainer
+---@param state table<string, any>
+function M.AddOutlineToggle(container, state)
+    local checkBox = AceGUI:Create("CheckBox") ---@type CheckBox
     checkBox:SetLabel("Font Outline")
     checkBox:SetValue(state.outline) -- Set initial value
     checkBox:SetCallback("OnValueChanged", function(_, _, value)
@@ -297,10 +346,12 @@ function M.AddOutlineToggle(frame, state)
             state.outline = value
         end)
     end)
-    frame:AddChild(checkBox)
+    container:AddChild(checkBox)
 end
 
-function M.AddHorizontalFontAlignment(frame, state)
+---@param container AceGUIContainer
+---@param state table<string, any>
+function M.AddHorizontalFontAlignment(container, state)
     local alignmentsH = {
         LEFT = "LEFT",
         CENTER = "CENTER",
@@ -318,19 +369,24 @@ function M.AddHorizontalFontAlignment(frame, state)
         end)
     end)
 
-    frame:AddChild(dropdown)
+    container:AddChild(dropdown)
 end
 
-function M.AddOverflow(frame, state)
+---@param container AceGUIContainer
+---@param state table<string, any>
+function M.AddOverflow(container, state)
     M.AddCheckBox(
-        frame,
+        container,
         "Text overflow",
         state,
         "overflow"
     )
 end
 
-function M.AddTextAlignment(frame, state, key)
+---@param container AceGUIContainer
+---@param state table<string, any>
+---@param stateKey string
+function M.AddTextAlignment(container, state, stateKey)
     local alignments = {
         LEFT = "LEFT",
         CENTER = "CENTER",
@@ -340,19 +396,25 @@ function M.AddTextAlignment(frame, state, key)
 
     dropdown:SetLabel("Text Alignment")
     dropdown:SetList(alignments)
-    dropdown:SetValue(alignments[state[key]])
+    dropdown:SetValue(alignments[state[stateKey]])
 
     dropdown:SetCallback("OnValueChanged", function(_, _, value)
         DD.db.UpdateDB(function()
-            state[key] = value
+            state[stateKey] = value
         end)
     end)
 
-    frame:AddChild(dropdown)
+    container:AddChild(dropdown)
 end
 
-function M.AddDropdown(frame, label, options, state, stateKey, callback)
-    local dropdown = AceGUI:Create("Dropdown")
+---@param container AceGUIContainer
+---@param label string
+---@param options table<string, any>
+---@param state table<string, any>
+---@param stateKey string
+---@param callback fun()|nil
+function M.AddDropdown(container, label, options, state, stateKey, callback)
+    local dropdown = AceGUI:Create("Dropdown") --- @type Dropdown
 
     dropdown:SetLabel(label)
     dropdown:SetList(options)
@@ -365,7 +427,7 @@ function M.AddDropdown(frame, label, options, state, stateKey, callback)
         end)
     end)
 
-    frame:AddChild(dropdown)
+    container:AddChild(dropdown)
 end
 
 --- @class UI

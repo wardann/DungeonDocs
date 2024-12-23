@@ -5,8 +5,8 @@ local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
 local M = {}
 
 
-local omniAnchorFrame
-local omniNoteFrame
+local omniAnchorFrame ---@type Frame
+local omniNoteFrame ---@type Frame
 local noteFrames = {}
 local targetNoteCount = 10
 

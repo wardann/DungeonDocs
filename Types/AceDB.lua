@@ -11,7 +11,7 @@
 --- @field UnregisterCallback fun(self: AceDB, obj: any, event: string) # Unregisters a callback for a specific event
 --- @field ResetProfile fun(self: AceDB, silent?: boolean) # Resets the active profile to its defaults
 --- @field SetProfile fun(self: AceDB, profileName: string) # Switches to a different profile
---- @field GetProfiles fun(self: AceDB, tbl?: table): table, number # Returns a table of profile names and the count
+--- @field GetProfiles fun(self: AceDB, tbl?: table): string[], number # Returns a table of profile names and the count
 --- @field GetCurrentProfile fun(self: AceDB): string # Returns the current profile name
 --- @field DeleteProfile fun(self: AceDB, name: string, silent?: boolean) # Deletes a specified profile
 --- @field CopyProfile fun(self: AceDB, name: string, silent?: boolean) # Copies a specified profile into the current profile

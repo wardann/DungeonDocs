@@ -1,6 +1,6 @@
 --- @class DungeonDocs
 local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
-local AceGUI = LibStub("AceGUI-3.0")
+local AceGUI = LibStub("AceGUI-3.0") ---@type AceGUI
 
 --- @class UI
 DD.ui = DD.ui or {}
@@ -8,30 +8,31 @@ DD.ui = DD.ui or {}
 --- @class SettingsUI
 DD.ui.settings = DD.ui.settings or {}
 
-function DD.ui.settings.StyleRoleTank_View(wrapperContainer)
+---@param container AceGUIContainer
+function DD.ui.settings.StyleRoleTank_View(container)
     local refresh = function()
-        wrapperContainer:ReleaseChildren()
-        DD.ui.settings.StyleRoleTank_View(wrapperContainer)
+        container:ReleaseChildren()
+        DD.ui.settings.StyleRoleTank_View(container)
     end
-    wrapperContainer:SetLayout("Flow")
+    container:SetLayout("Flow")
 
     local state = DD.db.database.profile.settings.omniNote
 
-    local container = AceGUI:Create("ScrollFrame")
-    container:SetLayout("Flow")
-    container:SetFullWidth(true)
-    container:SetFullHeight(true)
-    wrapperContainer:AddChild(container)
+    local scrollFrame = AceGUI:Create("ScrollFrame")
+    scrollFrame:SetLayout("Flow")
+    scrollFrame:SetFullWidth(true)
+    scrollFrame:SetFullHeight(true)
+    container:AddChild(scrollFrame)
 
-    DD.ui.settings.StyleRoleTank_AddDescription(container)
+    DD.ui.settings.StyleRoleTank_AddDescription(scrollFrame)
 
     --
     --
     -- Tank role note section
     --
     --
-    local tankRoleNoteSection = DD.utils.AddSection(container, "")
-    local tankHeaderInput = AceGUI:Create("EditBox")
+    local tankRoleNoteSection = DD.utils.AddSection(scrollFrame, "")
+    local tankHeaderInput = AceGUI:Create("EditBox") ---@type EditBox
     tankHeaderInput:SetLabel("Header")
     tankHeaderInput:SetText(state.tankHeader)
     tankHeaderInput:DisableButton(true)
@@ -63,24 +64,26 @@ function DD.ui.settings.StyleRoleTank_View(wrapperContainer)
     )
 
     if not state.style.tankHeader.useDefaultRoleHeaderStyle then
-        local tankHeaderStyleSection = DD.utils.AddSection(container, "Tank Header Style")
+        local tankHeaderStyleSection = DD.utils.AddSection(scrollFrame, "Tank Header Style")
         DD.ui.shared.AddFontSettings(tankHeaderStyleSection, state.style.tankHeader.text)
     end
 
     if not state.style.tankNote.useDefaultTextStyle then
-        local tankNoteStyleSection = DD.utils.AddSection(container, "Tank Note Style")
+        local tankNoteStyleSection = DD.utils.AddSection(scrollFrame, "Tank Note Style")
         DD.ui.shared.AddFontSettings(tankNoteStyleSection, state.style.tankNote.text)
     end
 
 end
 
-function DD.ui.settings.StyleRoleTank_AddDescription(frame)
+
+---@param container AceGUIContainer
+function DD.ui.settings.StyleRoleTank_AddDescription(container)
     -- Create a title label
-    local title = AceGUI:Create("Label")
+    local title = AceGUI:Create("Label") ---@type Label
     title:SetText("|cffffd700Tank Notes Style|r")    -- Gold-colored text for the title
     title:SetFont(GameFontNormalLarge:GetFont()) -- Use a larger font for the title
     title:SetFullWidth(true)                     -- Stretch across the frame
-    frame:AddChild(title)
+    container:AddChild(title)
 
     -- Create an explanation label
     -- local explanation = AceGUI:Create("Label")

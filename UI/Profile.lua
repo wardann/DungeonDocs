@@ -1,43 +1,46 @@
 --- @class DungeonDocs
 local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
-local AceGUI = LibStub("AceGUI-3.0")
+local AceGUI = LibStub("AceGUI-3.0") ---@type AceGUI
 
 --- @class ProfileUI
 local M = {}
 
-local allProfilesDropdowns = {}
+local allProfilesDropdowns = {} ---@type Dropdown[]
 
-local profileDropdowns = {}
+local profileDropdowns = {} ---@type Dropdown[]
 
-local fallbackProfileDropdowns = {}
+local fallbackProfileDropdowns = {} ---@type Dropdown[]
 
-function M.TabRoot(wrapperContainer)
-    wrapperContainer:SetLayout("Flow")
-
-    local container = AceGUI:Create("ScrollFrame")
+---@param container AceGUIContainer
+function M.TabRoot(container)
     container:SetLayout("Flow")
-    container:SetFullWidth(true)
-    container:SetFullHeight(true)
-    wrapperContainer:AddChild(container)
 
-    M.AddSelect(container)
-    M.AddClone(container)
-    M.AddDelete(container)
-    M.AddReset(container)
-    M.AddImport(container)
-    M.AddExport(container)
+    local scrollFrame = AceGUI:Create("ScrollFrame") ---@type ScrollFrame
+    scrollFrame:SetLayout("Flow")
+    scrollFrame:SetFullWidth(true)
+    scrollFrame:SetFullHeight(true)
+    container:AddChild(scrollFrame)
+
+    M.AddSelect(scrollFrame)
+    M.AddClone(scrollFrame)
+    M.AddDelete(scrollFrame)
+    M.AddReset(scrollFrame)
+    M.AddImport(scrollFrame)
+    M.AddExport(scrollFrame)
 end
 
+---@param profileDropdown Dropdown
 function M.PopulateAllProfilesDropdown(profileDropdown)
-    local profiles = {}
+    local profiles = {} ---@type table<string, string>
     for _, profileName in ipairs(DD.db.database:GetProfiles()) do
         profiles[profileName] = profileName -- Use profile name as both key and display text
     end
     profileDropdown:SetList(profiles)
 end
 
+---@param profileDropdown Dropdown
 function M.PopulatePrimaryProfileDropdown(profileDropdown)
-    local profiles = {}
+    local profiles = {} ---@type table<string, string>
     for _, profileName in ipairs(DD.db.database:GetProfiles()) do
         if not DD.profiles.IsReservedProfile(profileName) then
             profiles[profileName] = profileName -- Use profile name as both key and display text
@@ -46,6 +49,7 @@ function M.PopulatePrimaryProfileDropdown(profileDropdown)
     profileDropdown:SetList(profiles)
 end
 
+---@param profileDropdown Dropdown
 function M.PopulateFallbackProfileDropdown(profileDropdown)
     local fallbackProfiles = {
         ["None*"] = "None*",
@@ -68,29 +72,34 @@ local function refreshProfileDropdowns()
     end
 end
 
+---@param profileDropdown Dropdown
 local function initAllProfilesDropdown(profileDropdown)
     table.insert(allProfilesDropdowns, profileDropdown)
     M.PopulateAllProfilesDropdown(profileDropdown)
 end
 
+---@param profileDropdown Dropdown
 local function initPrimaryProfileDropdown(profileDropdown)
     table.insert(profileDropdowns, profileDropdown)
     M.PopulatePrimaryProfileDropdown(profileDropdown)
 end
 
+---@param profileDropdown Dropdown
 local function initFallbackProfileDropdown(profileDropdown)
     table.insert(fallbackProfileDropdowns, profileDropdown)
     M.PopulateFallbackProfileDropdown(profileDropdown)
 end
 
+---@param container AceGUIContainer
 function M.AddSelect(container)
     local profileSelect = DD.utils.AddSection(container, "Profile Select")
     M.AddPrimaryProfileSelect(profileSelect)
     M.AddFallbackProfileSelect(profileSelect)
 end
 
+---@param container AceGUIContainer
 function M.AddPrimaryProfileSelect(container)
-    local profileDropdown = AceGUI:Create("Dropdown")
+    local profileDropdown = AceGUI:Create("Dropdown") ---@type Dropdown
     profileDropdown:SetLabel("Primary")
 
 
@@ -108,8 +117,9 @@ function M.AddPrimaryProfileSelect(container)
     container:AddChild(profileDropdown)
 end
 
+---@param container AceGUIContainer
 function M.AddFallbackProfileSelect(container)
-    local profileDropdown = AceGUI:Create("Dropdown")
+    local profileDropdown = AceGUI:Create("Dropdown") ---@type Dropdown
     -- profileDropdown:SetFullWidth(true)
     profileDropdown:SetLabel("Fallback")
 
@@ -128,11 +138,12 @@ function M.AddFallbackProfileSelect(container)
     container:AddChild(profileDropdown)
 end
 
+---@param container AceGUIContainer
 function M.AddClone(container)
     local profileClone = DD.utils.AddSection(container, "Clone")
 
     -- Dropdown for selecting the source profile
-    local sourceProfileDropdown = AceGUI:Create("Dropdown")
+    local sourceProfileDropdown = AceGUI:Create("Dropdown")  ---@type Dropdown
     sourceProfileDropdown:SetLabel("Select Profile to Clone")
 
     -- Populate the dropdown with available profiles
@@ -141,14 +152,14 @@ function M.AddClone(container)
     profileClone:AddChild(sourceProfileDropdown)
 
     -- Text input for new profile name
-    local newProfileInput = AceGUI:Create("EditBox")
+    local newProfileInput = AceGUI:Create("EditBox") ---@type EditBox
     newProfileInput:SetLabel("New Profile Name")
     -- newProfileInput:SetFullWidth(true)
     newProfileInput:DisableButton(true)
     profileClone:AddChild(newProfileInput)
 
     -- Clone button
-    local cloneButton = AceGUI:Create("Button")
+    local cloneButton = AceGUI:Create("Button") ---@type Button
     cloneButton:SetText("Clone")
     cloneButton:SetWidth(100)
     profileClone:AddChild(cloneButton)
@@ -164,11 +175,12 @@ function M.AddClone(container)
     end)
 end
 
+---@param container AceGUIContainer
 function M.AddDelete(container)
     local profileDelete = DD.utils.AddSection(container, "Delete")
 
     -- Dropdown for selecting the profile to delete
-    local profileDropdown = AceGUI:Create("Dropdown")
+    local profileDropdown = AceGUI:Create("Dropdown") ---@type Dropdown
     profileDropdown:SetLabel("Select Profile to Delete")
 
 
@@ -178,12 +190,12 @@ function M.AddDelete(container)
     profileDelete:AddChild(profileDropdown)
 
     -- Delete button to reveal confirm option
-    local deleteButton = AceGUI:Create("Button")
+    local deleteButton = AceGUI:Create("Button") ---@type Button
     deleteButton:SetText("Delete")
     deleteButton:SetWidth(100)
 
     -- Confirm button (initially hidden)
-    local confirmButton = AceGUI:Create("Button")
+    local confirmButton = AceGUI:Create("Button") ---@type Button
     confirmButton:SetText("Confirm")
     confirmButton:SetWidth(100)
     confirmButton:SetDisabled(true) -- Hide initially by disabling it
@@ -199,7 +211,7 @@ function M.AddDelete(container)
     -- Confirm button click handler to delete the profile
     confirmButton:SetCallback("OnClick", function()
         DD.db.DeleteProfile(profileDropdown:GetValue())
-        profileDropdown:SetValue()
+        profileDropdown:SetValue("")
         confirmButton:SetDisabled(true)
         refreshProfileDropdowns()
     end)
@@ -209,11 +221,12 @@ function M.AddDelete(container)
     end)
 end
 
+---@param container AceGUIContainer
 function M.AddReset(container)
     local profileReset = DD.utils.AddSection(container, "Reset")
 
     -- Dropdown for selecting the profile to delete
-    local profileDropdown = AceGUI:Create("Dropdown")
+    local profileDropdown = AceGUI:Create("Dropdown") ---@type Dropdown
     profileDropdown:SetLabel("Select Profile to Reset to Defaults")
 
 
@@ -222,12 +235,12 @@ function M.AddReset(container)
     profileReset:AddChild(profileDropdown)
 
     -- Reset button to reveal confirm option
-    local resetButton = AceGUI:Create("Button")
+    local resetButton = AceGUI:Create("Button") ---@type Button
     resetButton:SetText("Reset")
     resetButton:SetWidth(100)
 
     -- Confirm button (initially hidden)
-    local confirmButton = AceGUI:Create("Button")
+    local confirmButton = AceGUI:Create("Button") ---@type Button
     confirmButton:SetText("Confirm")
     confirmButton:SetWidth(100)
     confirmButton:SetDisabled(true) -- Hide initially by disabling it
@@ -243,7 +256,7 @@ function M.AddReset(container)
     -- Confirm button click handler to delete the profile
     confirmButton:SetCallback("OnClick", function()
         DD.db.ResetProfile(profileDropdown:GetValue())
-        profileDropdown:SetValue()
+        profileDropdown:SetValue("")
         confirmButton:SetDisabled(true)
         refreshProfileDropdowns()
     end)
@@ -253,12 +266,13 @@ function M.AddReset(container)
     end)
 end
 
+---@param container AceGUIContainer
 function M.AddExport(container)
     local db = DD.db.database
     local profileExport = DD.utils.AddSection(container, "Export")
 
     -- Dropdown for selecting the profile to export
-    local profileDropdown = AceGUI:Create("Dropdown")
+    local profileDropdown = AceGUI:Create("Dropdown") ---@type Dropdown
     profileDropdown:SetLabel("Select Profile to Export")
 
     -- Populate the dropdown with available profiles
@@ -268,7 +282,7 @@ function M.AddExport(container)
     profileExport:AddChild(profileDropdown)
 
     -- Multi-line edit box to display the export string
-    local exportTextBox = AceGUI:Create("MultiLineEditBox")
+    local exportTextBox = AceGUI:Create("MultiLineEditBox") ---@type MultiLineEditBox
     exportTextBox:SetLabel("Exported Profile String")
     exportTextBox:SetFullWidth(true)
     exportTextBox:SetNumLines(4)
@@ -276,11 +290,11 @@ function M.AddExport(container)
     exportTextBox:DisableButton(true) -- Remove the "Okay" button
 
     -- Export button
-    local exportButton = AceGUI:Create("Button")
+    local exportButton = AceGUI:Create("Button") ---@type Button
     exportButton:SetText("Export")
     exportButton:SetWidth(100)
 
-    local checkbox = AceGUI:Create("CheckBox")
+    local checkbox = AceGUI:Create("CheckBox") ---@type CheckBox
     checkbox:SetLabel("Include fallback profile notes")
     checkbox:SetValue(true) -- Default to unchecked
 
@@ -290,7 +304,7 @@ function M.AddExport(container)
         local profileName = profileDropdown:GetValue()
         local includeFallbackProfile = checkbox:GetValue()
         local encoded = DD.db.ExportProfile(profileName, includeFallbackProfile)
-        exportTextBox:SetText(encoded)
+        exportTextBox:SetText(encoded or "")
     end)
 
 
@@ -299,18 +313,19 @@ function M.AddExport(container)
     profileExport:AddChild(exportTextBox)
 end
 
+---@param container AceGUIContainer
 function M.AddImport(container)
     local profileImport = DD.utils.AddSection(container, "Import")
 
     -- Text input for the new profile name
-    local profileNameInput = AceGUI:Create("EditBox")
+    local profileNameInput = AceGUI:Create("EditBox") ---@type EditBox
     profileNameInput:SetLabel("New Profile Name")
     -- profileNameInput:SetFullWidth(true)
     profileNameInput:DisableButton(true) -- Remove the "Okay" button
     profileImport:AddChild(profileNameInput)
 
     -- Multi-line edit box to paste the import string
-    local importTextBox = AceGUI:Create("MultiLineEditBox")
+    local importTextBox = AceGUI:Create("MultiLineEditBox") ---@type MultiLineEditBox
     importTextBox:SetLabel("Paste Profile String Here")
     importTextBox:SetFullWidth(true)
     importTextBox:SetNumLines(4)
@@ -318,7 +333,7 @@ function M.AddImport(container)
     importTextBox:DisableButton(true) -- Remove the "Okay" button
 
     -- Import button
-    local importButton = AceGUI:Create("Button")
+    local importButton = AceGUI:Create("Button") ---@type Button
     importButton:SetText("Import")
     importButton:SetWidth(100)
 
