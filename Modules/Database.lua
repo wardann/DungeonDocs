@@ -9,7 +9,7 @@ local LibDeflate = LibStub("LibDeflate") --- @type LibDeflate
 local M = {}
 
 -- Define default db values
---- @class DatabaseStructure
+--- @class DatabaseSchema
 local dbDefaults = {
     dbVersion = 1,
     docs = {},
@@ -500,7 +500,7 @@ function M.ResetProfile(profileName)
     local currentProfile = db:GetCurrentProfile()
     db:SetProfile(profileName)
 
-    --- @type DatabaseStructure
+    --- @type DatabaseSchema
     db.profiles[profileName] = M.GetEmptyDatabaseStructure()
     M.EnsureDefaults(profileName)
     M.NotifyDBChange()
