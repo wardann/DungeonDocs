@@ -35,6 +35,12 @@
 --- @field SetWordWrap fun(self: FontString, enable: boolean): nil Enables or disables word wrapping for the text.
 --- @field SetPoint fun(self: FontString, point: string, relativeTo: Frame|nil, relativePoint: string|nil, offsetX: number|nil, offsetY: number|nil): nil
 --- @field SetJustifyH fun(self: FontString, align: string): nil Sets the horizontal alignment of the text (e.g., "LEFT", "CENTER", "RIGHT").
+--- @field SetFont fun(self: FontString, fontPath: string, fontSize: number, flags?: string): nil # Sets the font, size, and style of the text.
+--- @field GetFont fun(self: FontString): string, number, string # Gets the font path, font size, and style currently in use.
+--- @field GetTextColor fun(self: FontString): number, number, number, number # Returns the red, green, blue, and alpha components of the text color.
+--- @field SetTextColor fun(self: FontString, r: number, g: number, b: number, a?: number): nil # Sets the red, green, blue, and alpha components of the text color.
+--- @field GetJustifyH fun(self: FontString): string # Gets the horizontal alignment of the text (e.g., "LEFT", "CENTER", "RIGHT").
+
 
 
 
@@ -42,6 +48,8 @@
 --- @field SetColorTexture fun(self: Texture, r: number, g: number, b: number, a: number): nil Sets the color and alpha of the texture.
 --- @field GetVertexColor fun(self: Texture): number, number, number, number Gets the current color and alpha.
 --- @field SetAllPoints fun(self: Texture, parent: Frame|nil): nil Sets the texture to fill the specified parent frame.
+--- @field GetPoint fun(self: Texture, index: number): string, Region|nil, string|nil, number|nil, number|nil # Gets the anchor point at the specified index.
+
 
 
 --- @class PlayerModel : Frame

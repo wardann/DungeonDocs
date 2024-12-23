@@ -1,0 +1,10 @@
+--- @class Region : UIObject
+--- @field SetPoint fun(self: Region, point: string, relativeTo?: Region, relativePoint?: string, offsetX?: number, offsetY?: number): nil # Sets the anchor point of the region.
+--- @field GetPoint fun(self: Region, index: number): string, Region|nil, string|nil, number|nil, number|nil # Gets the anchor point at the specified index.
+--- @field ClearAllPoints fun(self: Region): nil # Removes all anchor points from the region.
+--- @field SetParent fun(self: Region, parent: Region|nil): nil # Sets the parent region.
+--- @field GetParent fun(self: Region): Region|nil # Returns the parent region.
+--- @field Show fun(self: Region): nil # Makes the region visible.
+--- @field Hide fun(self: Region): nil # Hides the region.
+--- @field IsShown fun(self: Region): boolean # Returns whether the region is visible.
+--- @field SetAlpha fun(self: Region, alpha: number): nil # Sets the transparency of the region.

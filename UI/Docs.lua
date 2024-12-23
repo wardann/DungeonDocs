@@ -69,6 +69,7 @@ end
 local lastSelected = {}
 
 -- Function to show the Default tab content
+--- @param container AceGUIContainer
 function M.TabRoot(container)
     -- Create a TreeGroup for the hierarchical mob list
     treeGroup = AceGUI:Create("TreeGroup") ---@type TreeGroup
@@ -114,6 +115,7 @@ function M.TabRoot(container)
     end)
 end
 
+--- TODO!
 local function resetNote(dungeonName, note)
     DD.db.SetNote(dungeonName, note.ddid, "primaryNote", nil)
     DD.db.SetNote(dungeonName, note.ddid, "tankNote", nil)
@@ -121,6 +123,7 @@ local function resetNote(dungeonName, note)
     DD.db.SetNote(dungeonName, note.ddid, "damageNote", nil)
 end
 
+--- TODO!
 function M.ClearModels()
     for _, model in pairs(models) do
         if model then
@@ -245,6 +248,7 @@ function M.HandleSelected(dungeonName, enemyType, noteName)
     lastSelected = { dungeonName, enemyType, noteName }
 end
 
+--- TODO type this
 function M.RenderNote(dungeonName, note, noteKey, noteLabel, container)
     -- Add notes
     -- Create a SimpleGroup for the edit box to ensure proper layout
