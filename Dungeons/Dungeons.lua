@@ -1,9 +1,10 @@
 --- @class DungeonDocs
 local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
 
---- @alias NoteMob {id: number, displayId: number, hideModel?: boolean}
---- @alias NoteStructure {noteName: string, ddid: DDID, isBoss: boolean|nil, mobs: NoteMob[]}
---- @alias DungeonData {dungeonName: DungeonName, icon: string, seasonId: string, noteStructures: NoteStructure[]}
+--- @alias DocMob {id: number, displayId: number, hideModel?: boolean}
+--- @alias DocStructure {docName: string, ddid: DDID, isBoss: boolean|nil, mobs: DocMob[]}
+--- @alias DungeonData {dungeonName: DungeonName, icon: string, seasonId: string, docStructures: DocStructure[]}
+
 --- @alias CreateDDID fun(index: number): DDID
 
 --- @class Dungeons
@@ -51,10 +52,10 @@ end
 function M.IsBossInDungeon(mobId, dungeonName)
     local dungeon = M.List[dungeonName]
 
-    for _, noteStruct in ipairs(dungeon.noteStructures) do
-        for _, mob in ipairs(noteStruct.mobs) do
+    for _, docStruct in ipairs(dungeon.docStructures) do
+        for _, mob in ipairs(docStruct.mobs) do
             if tostring(mob.id) == tostring(mobId) then
-                return noteStruct.isBoss
+                return docStruct.isBoss
             end
         end
     end
@@ -76,10 +77,10 @@ function M.MobIdToNoteName(mobId, dungeonName)
         return
     end
 
-    for _, noteStruct in ipairs(dungeon.noteStructures) do
-        for _, mob in ipairs(noteStruct.mobs) do
+    for _, docStruct in ipairs(dungeon.docStructures) do
+        for _, mob in ipairs(docStruct.mobs) do
             if tostring(mob.id) == tostring(mobId) then
-                return noteStruct.noteName
+                return docStruct.docName
             end
         end
     end
@@ -92,10 +93,10 @@ function M.MobIdToDDID(mobId, dungeonName)
         return
     end
 
-    for _, noteStruct in ipairs(dungeon.noteStructures) do
-        for _, mob in ipairs(noteStruct.mobs) do
+    for _, docStruct in ipairs(dungeon.docStructures) do
+        for _, mob in ipairs(docStruct.mobs) do
             if tostring(mob.id) == tostring(mobId) then
-                return noteStruct.ddid
+                return docStruct.ddid
             end
         end
     end
@@ -108,9 +109,9 @@ function M.DDIDToNoteName(ddid, dungeonName)
         return
     end
 
-    for _, noteStruct in ipairs(dungeon.noteStructures) do
-        if noteStruct.ddid == ddid then
-            return noteStruct.noteName
+    for _, docStruct in ipairs(dungeon.docStructures) do
+        if docStruct.ddid == ddid then
+            return docStruct.docName
         end
     end
 end
@@ -122,17 +123,17 @@ function M.DDIDToNoteStruct(ddid, dungeonName)
         return
     end
 
-    for _, noteStruct in ipairs(dungeon.noteStructures) do
-        if noteStruct.ddid == ddid then
-            return noteStruct
+    for _, docStruct in ipairs(dungeon.docStructures) do
+        if docStruct.ddid == ddid then
+            return docStruct
         end
     end
 end
 
 function M.MobIdToDungeonName(mobId)
     for dungeonName, dungeon in pairs(M.List) do
-        for _, noteStruct in ipairs(dungeon.noteStructures) do
-            for _, mob in ipairs(noteStruct.mobs) do
+        for _, docStruct in ipairs(dungeon.docStructures) do
+            for _, mob in ipairs(docStruct.mobs) do
                 if tostring(mob.id) == tostring(mobId) then
                     return dungeonName
                 end
@@ -148,10 +149,10 @@ function M.MobIDToDDID(mobId, dungeonName)
         return
     end
 
-    for _, noteStruct in ipairs(dungeon.noteStructures) do
-        for _, mob in ipairs(noteStruct.mobs) do
+    for _, docStruct in ipairs(dungeon.docStructures) do
+        for _, mob in ipairs(docStruct.mobs) do
             if tostring(mob.id) == tostring(mobId) then
-                return noteStruct.ddid
+                return docStruct.ddid
             end
         end
     end

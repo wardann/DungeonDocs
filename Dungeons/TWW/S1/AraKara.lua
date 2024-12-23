@@ -10,13 +10,13 @@ end
 --- @class Dungeons
 DD.dungeons = DD.dungeons or {}
 
---- @type NoteStructure[]
-local noteStructures = {
+--- @type DocStructure[]
+local docStructures = {
   --
   -- BOSSES
   --
   {
-    noteName = "Avanoxx",
+    docName = "Avanoxx",
     ddid = createDDID(1),
     isBoss = true,
     mobs = {
@@ -28,7 +28,7 @@ local noteStructures = {
     }
   },
   {
-    noteName = "Anubzekt",
+    docName = "Anubzekt",
     ddid = createDDID(2),
     isBoss = true,
     mobs = {
@@ -40,7 +40,7 @@ local noteStructures = {
     }
   },
   {
-    noteName = "Kikatal The Harvester",
+    docName = "Kikatal The Harvester",
     ddid = createDDID(3),
     isBoss = true,
     mobs = {
@@ -54,7 +54,7 @@ local noteStructures = {
 
   -- TRASH
   {
-    noteName = "Starved Crawler",
+    docName = "Starved Crawler",
     ddid = createDDID(4),
     mobs = {
       {
@@ -64,7 +64,7 @@ local noteStructures = {
     }
   },
   {
-    noteName = "Jabbing Flyer",
+    docName = "Jabbing Flyer",
     ddid = createDDID(5),
     mobs = {
       {
@@ -74,7 +74,7 @@ local noteStructures = {
     }
   },
   {
-    noteName = "Trilling Attendant",
+    docName = "Trilling Attendant",
     ddid = createDDID(6),
     mobs = {
       {
@@ -84,7 +84,7 @@ local noteStructures = {
     }
   },
   {
-    noteName = "Engorged Crawler",
+    docName = "Engorged Crawler",
     ddid = createDDID(7),
     mobs = {
       {
@@ -94,7 +94,7 @@ local noteStructures = {
     }
   },
   {
-    noteName = "Atik",
+    docName = "Atik",
     ddid = createDDID(8),
     mobs = {
       {
@@ -104,7 +104,7 @@ local noteStructures = {
     }
   },
   {
-    noteName = "Nakt",
+    docName = "Nakt",
     ddid = createDDID(9),
     mobs = {
       {
@@ -114,7 +114,7 @@ local noteStructures = {
     }
   },
   {
-    noteName = "Ixin",
+    docName = "Ixin",
     ddid = createDDID(10),
     mobs = {
       {
@@ -124,7 +124,7 @@ local noteStructures = {
     }
   },
   {
-    noteName = "Bloodworker",
+    docName = "Bloodworker",
     ddid = createDDID(11),
     mobs = {
       {
@@ -134,7 +134,7 @@ local noteStructures = {
     }
   },
   {
-    noteName = "Bloodstained Assistant",
+    docName = "Bloodstained Assistant",
     ddid = createDDID(12),
     mobs = {
       {
@@ -144,7 +144,7 @@ local noteStructures = {
     }
   },
   {
-    noteName = "Bloodstained Webmage",
+    docName = "Bloodstained Webmage",
     ddid = createDDID(13),
     mobs = {
       {
@@ -154,7 +154,7 @@ local noteStructures = {
     }
   },
   {
-    noteName = "Hulking Bloodguard",
+    docName = "Hulking Bloodguard",
     ddid = createDDID(14),
     mobs = {
       {
@@ -164,7 +164,7 @@ local noteStructures = {
     }
   },
   {
-    noteName = "Sentry Stagshell",
+    docName = "Sentry Stagshell",
     ddid = createDDID(15),
     mobs = {
       {
@@ -174,7 +174,7 @@ local noteStructures = {
     }
   },
   {
-    noteName = "Blood Overseer",
+    docName = "Blood Overseer",
     ddid = createDDID(16),
     mobs = {
       {
@@ -184,7 +184,7 @@ local noteStructures = {
     }
   },
   {
-    noteName = "Winged Carrier",
+    docName = "Winged Carrier",
     ddid = createDDID(17),
     mobs = {
       {
@@ -194,7 +194,7 @@ local noteStructures = {
     }
   },
   {
-    noteName = "Nerubian Hauler",
+    docName = "Nerubian Hauler",
     ddid = createDDID(18),
     mobs = {
       {
@@ -204,7 +204,7 @@ local noteStructures = {
     }
   },
   {
-    noteName = "Reinforced Drone",
+    docName = "Reinforced Drone",
     ddid = createDDID(19),
     mobs = {
       {
@@ -220,7 +220,7 @@ local dungeonData = {
   dungeonName = "Ara-Kara, City of Echoes",
   icon = "Interface\\Icons\\inv_misc_web_01",
   seasonId = "TWWS1",
-  noteStructures = noteStructures,
+  docStructures = docStructures,
 }
 
 

@@ -9,7 +9,7 @@ local M = {}
 ---    value: string,
 ---    text: string,
 ---    noteName: string,
----    mobs: NoteMob[],
+---    mobs: DocMob[],
 ---    isBoss: boolean,
 ---    ddid: DDID,
 ---}
@@ -138,12 +138,12 @@ end
 --- @param enemyType "boss"|"trash"
 --- @param noteName string
 function M.HandleSelected(dungeonName, enemyType, noteName)
-    local notes = DD.dungeons.List[dungeonName].noteStructures
-    local note ---@type NoteStructure
+    local notes = DD.dungeons.List[dungeonName].docStructures
+    local note ---@type DocStructure
 
     -- Find the boss in the database
     for _, n in ipairs(notes) do
-        if n.noteName == noteName then
+        if n.docName == noteName then
             note = n
         end
     end
@@ -154,7 +154,7 @@ function M.HandleSelected(dungeonName, enemyType, noteName)
 
     -- Add a title for the page
     local titleLabel = AceGUI:Create("Label") ---@type Label
-    titleLabel:SetText(note.noteName)
+    titleLabel:SetText(note.docName)
     titleLabel:SetFontObject(GameFontNormalLarge) -- Sets the font to a larger style
     titleLabel.label:SetJustifyH("CENTER")
     titleLabel:SetFullWidth(true)
@@ -283,14 +283,14 @@ function M.DungeonDataToTreeData()
         local treeBossNotes = {} ---@type TreeNote[]
         local treeTrashNotes = {} ---@type TreeNote[]
 
-        for _, noteStruct in ipairs(d.noteStructures) do
+        for _, noteStruct in ipairs(d.docStructures) do
             local target = treeTrashNotes
             if noteStruct.isBoss then target = treeBossNotes end
 
             local note = {
-                value = noteStruct.noteName,
-                text = noteStruct.noteName,
-                noteName = noteStruct.noteName,
+                value = noteStruct.docName,
+                text = noteStruct.docName,
+                noteName = noteStruct.docName,
                 mobs = noteStruct.mobs,
                 isBoss = noteStruct.isBoss,
                 ddid = noteStruct.ddid,

@@ -9,13 +9,13 @@ end
 --- @class Dungeons
 DD.dungeons = DD.dungeons or {}
 
---- @type NoteStructure[]
-local noteStructures = {
+--- @type DocStructure[]
+local docStructures = {
   --
   -- BOSSES
   --
   {
-    noteName = "E.D.N.A",
+    docName = "E.D.N.A",
     ddid = createDDID(1),
     isBoss = true,
     mobs = {
@@ -27,7 +27,7 @@ local noteStructures = {
     }
   },
   {
-    noteName = "Skarmorak",
+    docName = "Skarmorak",
     ddid = createDDID(2),
     isBoss = true,
     mobs = {
@@ -45,7 +45,7 @@ local noteStructures = {
     }
   },
   {
-    noteName = "Master Machinists",
+    docName = "Master Machinists",
     ddid = createDDID(3),
     isBoss = true,
     mobs = {
@@ -74,7 +74,7 @@ local noteStructures = {
     }
   },
   {
-    noteName = "Void Speaker Eirich",
+    docName = "Void Speaker Eirich",
     ddid = createDDID(4),
     isBoss = true,
     mobs = {
@@ -89,7 +89,7 @@ local noteStructures = {
   -- TRASH
   --
   {
-    noteName = "Cursedheart Invader",
+    docName = "Cursedheart Invader",
     ddid = createDDID(5),
     mobs = {
       {
@@ -103,7 +103,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Earth Infused Golem",
+    docName = "Earth Infused Golem",
     ddid = createDDID(6),
     mobs = {
       {
@@ -113,7 +113,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Ghastly Voidsoul",
+    docName = "Ghastly Voidsoul",
     ddid = createDDID(7),
     mobs = {
       {
@@ -123,7 +123,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Repurposed Loaderbot",
+    docName = "Repurposed Loaderbot",
     ddid = createDDID(8),
     mobs = {
       {
@@ -133,7 +133,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Void Bound Despoiler",
+    docName = "Void Bound Despoiler",
     ddid = createDDID(9),
     mobs = {
       {
@@ -143,7 +143,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Engine Speaker",
+    docName = "Engine Speaker",
     ddid = createDDID(10),
     mobs = {
       {
@@ -153,7 +153,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Void Bound Howler",
+    docName = "Void Bound Howler",
     ddid = createDDID(11),
     mobs = {
       {
@@ -163,7 +163,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Turned Speaker",
+    docName = "Turned Speaker",
     ddid = createDDID(12),
     mobs = {
       {
@@ -173,7 +173,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Void Touched Elemental",
+    docName = "Void Touched Elemental",
     ddid = createDDID(13),
     mobs = {
       {
@@ -183,7 +183,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Aspiring Forgehand",
+    docName = "Aspiring Forgehand",
     ddid = createDDID(14),
     mobs = {
       {
@@ -193,7 +193,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Forgebound Mender",
+    docName = "Forgebound Mender",
     ddid = createDDID(15),
     mobs = {
       {
@@ -203,7 +203,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Forge Loader",
+    docName = "Forge Loader",
     ddid = createDDID(16),
     mobs = {
       {
@@ -213,7 +213,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Cursedforge Honor Guard",
+    docName = "Cursedforge Honor Guard",
     ddid = createDDID(17),
     mobs = {
       {
@@ -223,7 +223,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Cursedforge Stoneshaper",
+    docName = "Cursedforge Stoneshaper",
     ddid = createDDID(18),
     mobs = {
       {
@@ -233,7 +233,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Rock Smasher",
+    docName = "Rock Smasher",
     ddid = createDDID(19),
     mobs = {
       {
@@ -243,7 +243,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Cursedforge Mender",
+    docName = "Cursedforge Mender",
     ddid = createDDID(20),
     mobs = {
       {
@@ -259,7 +259,7 @@ local dungeonData = {
   dungeonName = "The Stonevault",
   icon = "Interface\\ICONS\\inv_misc_stonetablet_05",
   seasonId = "TWWS1",
-  noteStructures = noteStructures,
+  docStructures = docStructures,
 }
 
 

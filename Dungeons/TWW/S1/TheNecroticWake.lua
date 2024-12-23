@@ -9,13 +9,13 @@ end
 --- @class Dungeons
 DD.dungeons = DD.dungeons or {}
 
---- @type NoteStructure[]
-local noteStructures = {
+--- @type DocStructure[]
+local docStructures = {
   --
   -- BOSSES
   --
   {
-    noteName = "Blightbone",
+    docName = "Blightbone",
     ddid = createDDID(1),
     isBoss = true,
     mobs = {
@@ -27,7 +27,7 @@ local noteStructures = {
     }
   },
   {
-    noteName = "Amarth, The Harvester",
+    docName = "Amarth, The Harvester",
     ddid = createDDID(2),
     isBoss = true,
     mobs = {
@@ -39,7 +39,7 @@ local noteStructures = {
     }
   },
   {
-    noteName = "Surgeon Stitchflesh",
+    docName = "Surgeon Stitchflesh",
     ddid = createDDID(3),
     isBoss = true,
     mobs = {
@@ -51,7 +51,7 @@ local noteStructures = {
     }
   },
   {
-    noteName = "Nalthor the Rimebinder",
+    docName = "Nalthor the Rimebinder",
     ddid = createDDID(4),
     isBoss = true,
     mobs = {
@@ -63,7 +63,7 @@ local noteStructures = {
     }
   },
   {
-    noteName = "Patchwerk Soldier",
+    docName = "Patchwerk Soldier",
     ddid = createDDID(5),
     mobs = {
       {
@@ -73,7 +73,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Blight Bag",
+    docName = "Blight Bag",
     ddid = createDDID(6),
     mobs = {
       {
@@ -83,7 +83,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Corpse Harvester",
+    docName = "Corpse Harvester",
     ddid = createDDID(7),
     mobs = {
       {
@@ -93,7 +93,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Stitched Vanguard",
+    docName = "Stitched Vanguard",
     ddid = createDDID(8),
     mobs = {
       {
@@ -103,7 +103,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Zolramus Gatekeeper",
+    docName = "Zolramus Gatekeeper",
     ddid = createDDID(9),
     mobs = {
       {
@@ -113,7 +113,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Flesh Crafter",
+    docName = "Flesh Crafter",
     ddid = createDDID(10),
     mobs = {
       {
@@ -123,7 +123,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Zolramus Sorcerer",
+    docName = "Zolramus Sorcerer",
     ddid = createDDID(11),
     mobs = {
       {
@@ -133,7 +133,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Zolramus Bonecarver",
+    docName = "Zolramus Bonecarver",
     ddid = createDDID(12),
     mobs = {
       {
@@ -143,7 +143,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Zolramus Necromancer",
+    docName = "Zolramus Necromancer",
     ddid = createDDID(13),
     mobs = {
       {
@@ -153,7 +153,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Brittlebone Mage",
+    docName = "Brittlebone Mage",
     ddid = createDDID(14),
     mobs = {
       {
@@ -163,7 +163,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Brittlebone Warrior",
+    docName = "Brittlebone Warrior",
     ddid = createDDID(15),
     mobs = {
       {
@@ -173,7 +173,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Skeletal Marauder",
+    docName = "Skeletal Marauder",
     ddid = createDDID(16),
     mobs = {
       {
@@ -183,7 +183,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Zolramus Bonemender",
+    docName = "Zolramus Bonemender",
     ddid = createDDID(17),
     mobs = {
       {
@@ -193,7 +193,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Nar'zudah",
+    docName = "Nar'zudah",
     ddid = createDDID(18),
     mobs = {
       {
@@ -203,7 +203,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Skeletal Monstrosity",
+    docName = "Skeletal Monstrosity",
     ddid = createDDID(19),
     mobs = {
       {
@@ -213,7 +213,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Brittlebone Crossbowman",
+    docName = "Brittlebone Crossbowman",
     ddid = createDDID(20),
     mobs = {
       {
@@ -223,7 +223,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Shuffling Corpse",
+    docName = "Shuffling Corpse",
     ddid = createDDID(21),
     mobs = {
       {
@@ -233,7 +233,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Corpse Collector",
+    docName = "Corpse Collector",
     ddid = createDDID(22),
     mobs = {
       {
@@ -243,7 +243,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Kyrian Stitchwerk",
+    docName = "Kyrian Stitchwerk",
     ddid = createDDID(23),
     mobs = {
       {
@@ -253,7 +253,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Spare Parts",
+    docName = "Spare Parts",
     ddid = createDDID(24),
     mobs = {
       {
@@ -263,7 +263,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Loyal Creation",
+    docName = "Loyal Creation",
     ddid = createDDID(25),
     mobs = {
       {
@@ -273,7 +273,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Separation Assistant",
+    docName = "Separation Assistant",
     ddid = createDDID(26),
     mobs = {
       {
@@ -283,7 +283,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Stitching Assistant",
+    docName = "Stitching Assistant",
     ddid = createDDID(27),
     mobs = {
       {
@@ -293,7 +293,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Goregrind",
+    docName = "Goregrind",
     ddid = createDDID(28),
     mobs = {
       {
@@ -303,7 +303,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Goregrind Bits",
+    docName = "Goregrind Bits",
     ddid = createDDID(29),
     mobs = {
       {
@@ -313,7 +313,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Rotspew Leftovers",
+    docName = "Rotspew Leftovers",
     ddid = createDDID(30),
     mobs = {
       {
@@ -323,7 +323,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Rotspew",
+    docName = "Rotspew",
     ddid = createDDID(31),
     mobs = {
       {
@@ -333,7 +333,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Stitchflesh's Creation",
+    docName = "Stitchflesh's Creation",
     ddid = createDDID(32),
     mobs = {
       {
@@ -349,7 +349,7 @@ local dungeonData = {
   dungeonName = "The Necrotic Wake",
   icon = "Interface\\Icons\\inv_misc_bone_skull_02",
   seasonId = "TWWS1",
-  noteStructures = noteStructures,
+  docStructures = docStructures,
 }
 
 

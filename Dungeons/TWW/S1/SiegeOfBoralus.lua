@@ -9,13 +9,13 @@ end
 --- @class Dungeons
 DD.dungeons = DD.dungeons or {}
 
---- @type NoteStructure[]
-local noteStructures = {
+--- @type DocStructure[]
+local docStructures = {
   --
   -- BOSSES
   --
   {
-    noteName = "Chopper Redhook",
+    docName = "Chopper Redhook",
     ddid = createDDID(1),
     isBoss = true,
     mobs = {
@@ -32,7 +32,7 @@ local noteStructures = {
     }
   },
   {
-    noteName = "Dread Captain Lockwood",
+    docName = "Dread Captain Lockwood",
     ddid = createDDID(2),
     isBoss = true,
     mobs = {
@@ -54,7 +54,7 @@ local noteStructures = {
     }
   },
   {
-    noteName = "Hadal Darkfathom",
+    docName = "Hadal Darkfathom",
     ddid = createDDID(3),
     isBoss = true,
     mobs = {
@@ -66,7 +66,7 @@ local noteStructures = {
     }
   },
   {
-    noteName = "Viqgoth",
+    docName = "Viqgoth",
     ddid = createDDID(4),
     isBoss = true,
     mobs = {
@@ -91,7 +91,7 @@ local noteStructures = {
   --- TRASH
   ---
   {
-    noteName = "Scrimshaw Gutter",
+    docName = "Scrimshaw Gutter",
     ddid = createDDID(5),
     mobs = {
       {
@@ -101,7 +101,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Blacktar Bomber",
+    docName = "Blacktar Bomber",
     ddid = createDDID(6),
     mobs = {
       {
@@ -111,7 +111,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Scrimshaw Enforcer",
+    docName = "Scrimshaw Enforcer",
     ddid = createDDID(7),
     mobs = {
       {
@@ -121,7 +121,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Irontide Waveshaper",
+    docName = "Irontide Waveshaper",
     ddid = createDDID(8),
     mobs = {
       {
@@ -131,7 +131,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Irontide Raider",
+    docName = "Irontide Raider",
     ddid = createDDID(9),
     mobs = {
       {
@@ -141,7 +141,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Riptide Shredder",
+    docName = "Riptide Shredder",
     ddid = createDDID(10),
     mobs = {
       {
@@ -151,7 +151,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Snarling Dockhound",
+    docName = "Snarling Dockhound",
     ddid = createDDID(11),
     mobs = {
       {
@@ -161,7 +161,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Irontide Curseblade",
+    docName = "Irontide Curseblade",
     ddid = createDDID(12),
     mobs = {
       {
@@ -171,7 +171,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Irontide Powdershot",
+    docName = "Irontide Powdershot",
     ddid = createDDID(13),
     mobs = {
       {
@@ -181,7 +181,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Ashvane Commander",
+    docName = "Ashvane Commander",
     ddid = createDDID(14),
     mobs = {
       {
@@ -191,7 +191,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Ashvane Spotter",
+    docName = "Ashvane Spotter",
     ddid = createDDID(15),
     mobs = {
       {
@@ -205,7 +205,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Ashvane Deckhand",
+    docName = "Ashvane Deckhand",
     ddid = createDDID(16),
     mobs = {
       {
@@ -215,7 +215,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Ashvane Cannoneer",
+    docName = "Ashvane Cannoneer",
     ddid = createDDID(17),
     mobs = {
       {
@@ -225,7 +225,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Bilge Rat Pillager",
+    docName = "Bilge Rat Pillager",
     ddid = createDDID(18),
     mobs = {
       {
@@ -235,7 +235,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Bilge Rat Buccaneer",
+    docName = "Bilge Rat Buccaneer",
     ddid = createDDID(19),
     mobs = {
       {
@@ -245,7 +245,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Bilge Rat Demolisher",
+    docName = "Bilge Rat Demolisher",
     ddid = createDDID(20),
     mobs = {
       {
@@ -255,7 +255,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Bilge Rat Tempest",
+    docName = "Bilge Rat Tempest",
     ddid = createDDID(21),
     mobs = {
       {
@@ -265,7 +265,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Bilge Rat Cutthroat",
+    docName = "Bilge Rat Cutthroat",
     ddid = createDDID(22),
     mobs = {
       {
@@ -275,7 +275,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Ashvane Invader",
+    docName = "Ashvane Invader",
     ddid = createDDID(23),
     mobs = {
       {
@@ -285,7 +285,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Ashvane Destroyer",
+    docName = "Ashvane Destroyer",
     ddid = createDDID(24),
     mobs = {
       {
@@ -295,7 +295,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Irontide Waveshaper",
+    docName = "Irontide Waveshaper",
     ddid = createDDID(25),
     mobs = {
       {
@@ -305,7 +305,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Irontide Powdershot",
+    docName = "Irontide Powdershot",
     ddid = createDDID(26),
     mobs = {
       {
@@ -315,7 +315,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Ashvane Sniper",
+    docName = "Ashvane Sniper",
     ddid = createDDID(27),
     mobs = {
       {
@@ -325,7 +325,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Irontide Curseblade",
+    docName = "Irontide Curseblade",
     ddid = createDDID(28),
     mobs = {
       {
@@ -335,7 +335,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Irontide Powdershot",
+    docName = "Irontide Powdershot",
     ddid = createDDID(29),
     mobs = {
       {
@@ -345,7 +345,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Scrimshaw Gutter",
+    docName = "Scrimshaw Gutter",
     ddid = createDDID(30),
     mobs = {
       {
@@ -361,7 +361,7 @@ local dungeonData = {
   dungeonName = "Siege of Boralus",
   icon = "Interface\\ICONS\\inv_misc_monsterhorn_03",
   seasonId = "TWWS1",
-  noteStructures = noteStructures
+  docStructures = docStructures
 }
 
 

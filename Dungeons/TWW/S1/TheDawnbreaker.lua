@@ -9,13 +9,13 @@ end
 --- @class Dungeons
 DD.dungeons = DD.dungeons or {}
 
---- @type NoteStructure[]
-local noteStructures = {
+--- @type DocStructure[]
+local docStructures = {
   --
   -- BOSSES
   --
   {
-    noteName = "Speaker Shadowcrown",
+    docName = "Speaker Shadowcrown",
     ddid = createDDID(1),
     isBoss = true,
     mobs = {
@@ -27,7 +27,7 @@ local noteStructures = {
     }
   },
   {
-    noteName = "Anubikkaj",
+    docName = "Anubikkaj",
     ddid = createDDID(2),
     isBoss = true,
     mobs = {
@@ -39,7 +39,7 @@ local noteStructures = {
     }
   },
   {
-    noteName = "Rashanan",
+    docName = "Rashanan",
     ddid = createDDID(3),
     isBoss = true,
     mobs = {
@@ -54,7 +54,7 @@ local noteStructures = {
   --- TRASH
   ---
   {
-    noteName = "Starved Crawler",
+    docName = "Starved Crawler",
     ddid = createDDID(4),
     mobs = {
       {
@@ -64,7 +64,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Nightfall Curseblade",
+    docName = "Nightfall Curseblade",
     ddid = createDDID(5),
     mobs = {
       {
@@ -74,7 +74,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Nightfall Shadowmage",
+    docName = "Nightfall Shadowmage",
     ddid = createDDID(6),
     mobs = {
       {
@@ -84,7 +84,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Nightfall Ritualist",
+    docName = "Nightfall Ritualist",
     ddid = createDDID(7),
     mobs = {
       {
@@ -94,7 +94,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Nightfall Commander",
+    docName = "Nightfall Commander",
     ddid = createDDID(8),
     mobs = {
       {
@@ -104,7 +104,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Sureki Webmage",
+    docName = "Sureki Webmage",
     ddid = createDDID(9),
     mobs = {
       {
@@ -114,7 +114,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Nightfall Darkcaster",
+    docName = "Nightfall Darkcaster",
     ddid = createDDID(10),
     mobs = {
       {
@@ -124,7 +124,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Nightfall Shadowalker",
+    docName = "Nightfall Shadowalker",
     ddid = createDDID(11),
     mobs = {
       {
@@ -134,7 +134,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Manifested Shadow",
+    docName = "Manifested Shadow",
     ddid = createDDID(12),
     mobs = {
       {
@@ -144,7 +144,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Sureki Militant",
+    docName = "Sureki Militant",
     ddid = createDDID(13),
     mobs = {
       {
@@ -154,7 +154,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Nightfall Tactician",
+    docName = "Nightfall Tactician",
     ddid = createDDID(14),
     mobs = {
       {
@@ -164,7 +164,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Ascendant Viscoxria",
+    docName = "Ascendant Viscoxria",
     ddid = createDDID(15),
     mobs = {
       {
@@ -174,7 +174,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Deathscreamer Ikentak",
+    docName = "Deathscreamer Ikentak",
     ddid = createDDID(16),
     mobs = {
       {
@@ -184,7 +184,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Ixkreten The Unbreakable",
+    docName = "Ixkreten The Unbreakable",
     ddid = createDDID(17),
     mobs = {
       {
@@ -194,7 +194,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Nightfall Dark Architect",
+    docName = "Nightfall Dark Architect",
     ddid = createDDID(18),
     mobs = {
       {
@@ -210,7 +210,7 @@ local dungeonData = {
   dungeonName = "The Dawnbreaker",
   icon = "Interface\\Icons\\inv_misc_monsterscales_19",
   seasonId = "TWWS1",
-  noteStructures = noteStructures,
+  docStructures = docStructures,
 }
 
 

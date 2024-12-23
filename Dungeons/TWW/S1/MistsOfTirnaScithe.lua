@@ -9,13 +9,13 @@ end
 --- @class Dungeons
 DD.dungeons = DD.dungeons or {}
 
---- @type NoteStructure[]
-local noteStructures = {
+--- @type DocStructure[]
+local docStructures = {
   --
   -- BOSSES
   --
   {
-    noteName = "Ingra Maloch",
+    docName = "Ingra Maloch",
     ddid = createDDID(1),
     isBoss = true,
     mobs = {
@@ -32,7 +32,7 @@ local noteStructures = {
     }
   },
   {
-    noteName = "Mistcaller",
+    docName = "Mistcaller",
     ddid = createDDID(2),
     isBoss = true,
     mobs = {
@@ -44,7 +44,7 @@ local noteStructures = {
     }
   },
   {
-    noteName = "Tred'ova",
+    docName = "Tred'ova",
     ddid = createDDID(3),
     isBoss = true,
     mobs = {
@@ -59,7 +59,7 @@ local noteStructures = {
   --- TRASH
   ---
   {
-    noteName = "Starved Crawler",
+    docName = "Starved Crawler",
     ddid = createDDID(4),
     mobs = {
       {
@@ -69,7 +69,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Drust Spiteclaw",
+    docName = "Drust Spiteclaw",
     ddid = createDDID(5),
     mobs = {
       {
@@ -79,7 +79,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Tirnenn Villager",
+    docName = "Tirnenn Villager",
     ddid = createDDID(6),
     mobs = {
       {
@@ -89,7 +89,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Drust Soulcleaver",
+    docName = "Drust Soulcleaver",
     ddid = createDDID(7),
     mobs = {
       {
@@ -99,7 +99,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Drust Harvester",
+    docName = "Drust Harvester",
     ddid = createDDID(8),
     mobs = {
       {
@@ -109,7 +109,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Drust Boughbreaker",
+    docName = "Drust Boughbreaker",
     ddid = createDDID(9),
     mobs = {
       {
@@ -119,7 +119,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Mistveil Defender",
+    docName = "Mistveil Defender",
     ddid = createDDID(10),
     mobs = {
       {
@@ -129,7 +129,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Mistveil Stalker",
+    docName = "Mistveil Stalker",
     ddid = createDDID(11),
     mobs = {
       {
@@ -139,7 +139,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Mistveil Stinger",
+    docName = "Mistveil Stinger",
     ddid = createDDID(12),
     mobs = {
       {
@@ -149,7 +149,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Mistveil Guardian",
+    docName = "Mistveil Guardian",
     ddid = createDDID(13),
     mobs = {
       {
@@ -159,7 +159,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Mistveil Tender",
+    docName = "Mistveil Tender",
     ddid = createDDID(14),
     mobs = {
       {
@@ -169,7 +169,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Mistveil Shaper",
+    docName = "Mistveil Shaper",
     ddid = createDDID(15),
     mobs = {
       {
@@ -179,7 +179,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Mistveil Nightblossom",
+    docName = "Mistveil Nightblossom",
     ddid = createDDID(16),
     mobs = {
       {
@@ -189,7 +189,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Spinemaw Staghorn",
+    docName = "Spinemaw Staghorn",
     ddid = createDDID(17),
     mobs = {
       {
@@ -199,7 +199,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Spinemaw Acidgullet",
+    docName = "Spinemaw Acidgullet",
     ddid = createDDID(18),
     mobs = {
       {
@@ -209,7 +209,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Spinemaw Gorger",
+    docName = "Spinemaw Gorger",
     ddid = createDDID(19),
     mobs = {
       {
@@ -219,7 +219,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Spinemaw Larva",
+    docName = "Spinemaw Larva",
     ddid = createDDID(20),
     mobs = {
       {
@@ -229,7 +229,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Spinemaw Reaver",
+    docName = "Spinemaw Reaver",
     ddid = createDDID(21),
     mobs = {
       {
@@ -239,7 +239,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Mistveil Gorgegullet",
+    docName = "Mistveil Gorgegullet",
     ddid = createDDID(22),
     mobs = {
       {
@@ -249,7 +249,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Mistveil Stinger",
+    docName = "Mistveil Stinger",
     ddid = createDDID(23),
     mobs = {
       {
@@ -259,7 +259,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Mistveil Matriarch",
+    docName = "Mistveil Matriarch",
     ddid = createDDID(24),
     mobs = {
       {
@@ -275,7 +275,7 @@ local dungeonData = {
   dungeonName = "Mists of Tirna Scithe",
   icon = "Interface\\ICONS\\spell_nature_moonkey",
   seasonId = "TWWS1",
-  noteStructures = noteStructures,
+  docStructures = docStructures,
 }
 
 

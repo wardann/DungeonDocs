@@ -10,13 +10,13 @@ end
 --- @class Dungeons
 DD.dungeons = DD.dungeons or {}
 
---- @type NoteStructure[]
-local noteStructures = {
+--- @type DocStructure[]
+local docStructures = {
   --
   -- BOSSES
   --
   {
-    noteName = "General Umbriss",
+    docName = "General Umbriss",
     ddid = createDDID(1),
     isBoss = true,
     mobs = {
@@ -28,7 +28,7 @@ local noteStructures = {
     }
   },
   {
-    noteName = "Forgemaster Throngus",
+    docName = "Forgemaster Throngus",
     ddid = createDDID(2),
     isBoss = true,
     mobs = {
@@ -40,7 +40,7 @@ local noteStructures = {
     }
   },
   {
-    noteName = "Drahga Shadowburner",
+    docName = "Drahga Shadowburner",
     ddid = createDDID(3),
     isBoss = true,
     mobs = {
@@ -57,7 +57,7 @@ local noteStructures = {
     }
   },
   {
-    noteName = "Erudax",
+    docName = "Erudax",
     ddid = createDDID(4),
     isBoss = true,
     mobs = {
@@ -72,7 +72,7 @@ local noteStructures = {
   -- TRASH
   --
   {
-    noteName = "Twilight Brute",
+    docName = "Twilight Brute",
     ddid = createDDID(5),
     mobs = {
       {
@@ -82,7 +82,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Twilight Earthcaller",
+    docName = "Twilight Earthcaller",
     ddid = createDDID(6),
     mobs = {
       {
@@ -92,7 +92,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Twilight Destroyer",
+    docName = "Twilight Destroyer",
     ddid = createDDID(7),
     mobs = {
       {
@@ -102,7 +102,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Twilight Overseer",
+    docName = "Twilight Overseer",
     ddid = createDDID(8),
     mobs = {
       {
@@ -112,7 +112,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Twilight Beguiler",
+    docName = "Twilight Beguiler",
     ddid = createDDID(9),
     mobs = {
       {
@@ -122,7 +122,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Molten Giant",
+    docName = "Molten Giant",
     ddid = createDDID(10),
     mobs = {
       {
@@ -132,7 +132,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Twilight Enforcer",
+    docName = "Twilight Enforcer",
     ddid = createDDID(11),
     mobs = {
       {
@@ -142,7 +142,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Twilight Warlock",
+    docName = "Twilight Warlock",
     ddid = createDDID(12),
     mobs = {
       {
@@ -152,7 +152,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Twilight Flamerender",
+    docName = "Twilight Flamerender",
     ddid = createDDID(13),
     mobs = {
       {
@@ -162,7 +162,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Twilight Lavabender",
+    docName = "Twilight Lavabender",
     ddid = createDDID(14),
     mobs = {
       {
@@ -172,7 +172,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Mutated Hatchling",
+    docName = "Mutated Hatchling",
     ddid = createDDID(15),
     mobs = {
       {
@@ -182,7 +182,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Faceless Corruptor",
+    docName = "Faceless Corruptor",
     ddid = createDDID(16),
     mobs = {
       {
@@ -192,7 +192,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Invoked Shadowflame Spirit",
+    docName = "Invoked Shadowflame Spirit",
     ddid = createDDID(17),
     mobs = {
       {
@@ -202,7 +202,7 @@ local noteStructures = {
     },
   },
   {
-    noteName = "Battered",
+    docName = "Battered",
     ddid = createDDID(18),
     mobs = {
       {
@@ -218,7 +218,7 @@ local dungeonData = {
   dungeonName = "Grim Batol",
   icon = "Interface\\Icons\\inv_misc_head_dragon_black",
   seasonId = "TWWS1",
-  noteStructures = noteStructures,
+  docStructures = docStructures,
 }
 
 

@@ -164,7 +164,7 @@ function M.RenderNote(index, anchor)
     --- @returns string
     local function resolveText(lineName)
         if lineName == "mobName" then
-            return noteStruct.noteName
+            return noteStruct.docName
         end
 
         if string.find(lineName, "Header") then

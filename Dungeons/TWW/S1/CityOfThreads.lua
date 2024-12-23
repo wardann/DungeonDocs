@@ -9,13 +9,13 @@ end
 --- @class Dungeons
 DD.dungeons = DD.dungeons or {}
 
---- @type NoteStructure[]
-local noteStructures = {
+--- @type DocStructure[]
+local docStructures = {
     --
     -- BOSSES
     --
     {
-        noteName = "Orator Krixvizk",
+        docName = "Orator Krixvizk",
         ddid = createDDID(1),
         isBoss = true,
         mobs = {
@@ -27,7 +27,7 @@ local noteStructures = {
         },
     },
     {
-        noteName = "Fangs of the Queen",
+        docName = "Fangs of the Queen",
         ddid = createDDID(2),
         isBoss = true,
         mobs = {
@@ -44,7 +44,7 @@ local noteStructures = {
         },
     },
     {
-        noteName = "The Coaglamation",
+        docName = "The Coaglamation",
         ddid = createDDID(3),
         isBoss = true,
         mobs = {
@@ -56,7 +56,7 @@ local noteStructures = {
         },
     },
     {
-        noteName = "Izo, The Grand Splicer",
+        docName = "Izo, The Grand Splicer",
         ddid = createDDID(4),
         isBoss = true,
         mobs = {
@@ -72,7 +72,7 @@ local noteStructures = {
     -- TRASH
     --
     {
-        noteName = "Starved Crawler",
+        docName = "Starved Crawler",
         ddid = createDDID(5),
         mobs = {
             {
@@ -82,7 +82,7 @@ local noteStructures = {
         }
     },
     {
-        noteName = "Sureki Silkbinder",
+        docName = "Sureki Silkbinder",
         ddid = createDDID(6),
         mobs = {
             {
@@ -92,7 +92,7 @@ local noteStructures = {
         }
     },
     {
-        noteName = "Sureki Venomblade",
+        docName = "Sureki Venomblade",
         ddid = createDDID(7),
         mobs = {
             {
@@ -102,7 +102,7 @@ local noteStructures = {
         },
     },
     {
-        noteName = "Royal Swarmguard",
+        docName = "Royal Swarmguard",
         ddid = createDDID(8),
         mobs = {
             {
@@ -112,7 +112,7 @@ local noteStructures = {
         },
     },
     {
-        noteName = "Herald Of Ansurek",
+        docName = "Herald Of Ansurek",
         ddid = createDDID(9),
         mobs = {
             {
@@ -122,7 +122,7 @@ local noteStructures = {
         },
     },
     {
-        noteName = "Xephitik",
+        docName = "Xephitik",
         ddid = createDDID(10),
         mobs = {
             {
@@ -132,7 +132,7 @@ local noteStructures = {
         },
     },
     {
-        noteName = "Eye Of The Queen",
+        docName = "Eye Of The Queen",
         ddid = createDDID(11),
         mobs = {
             {
@@ -142,7 +142,7 @@ local noteStructures = {
         },
     },
     {
-        noteName = "Web Marauder",
+        docName = "Web Marauder",
         ddid = createDDID(12),
         mobs = {
             {
@@ -152,7 +152,7 @@ local noteStructures = {
         },
     },
     {
-        noteName = "Agile Pursuer",
+        docName = "Agile Pursuer",
         ddid = createDDID(13),
         mobs = {
             {
@@ -162,7 +162,7 @@ local noteStructures = {
         },
     },
     {
-        noteName = "Congealed Droplet",
+        docName = "Congealed Droplet",
         ddid = createDDID(14),
         mobs = {
             {
@@ -172,7 +172,7 @@ local noteStructures = {
         },
     },
     {
-        noteName = "Battle Scarab",
+        docName = "Battle Scarab",
         ddid = createDDID(15),
         mobs = {
             {
@@ -182,7 +182,7 @@ local noteStructures = {
         },
     },
     {
-        noteName = "Covert Webmancer",
+        docName = "Covert Webmancer",
         ddid = createDDID(16),
         mobs = {
             {
@@ -192,7 +192,7 @@ local noteStructures = {
         },
     },
     {
-        noteName = "Sureki Conscript",
+        docName = "Sureki Conscript",
         ddid = createDDID(17),
         mobs = {
             {
@@ -202,7 +202,7 @@ local noteStructures = {
         },
     },
     {
-        noteName = "Royal Venomshell",
+        docName = "Royal Venomshell",
         ddid = createDDID(18),
         mobs = {
             {
@@ -212,7 +212,7 @@ local noteStructures = {
         },
     },
     {
-        noteName = "Skittering Assistant",
+        docName = "Skittering Assistant",
         ddid = createDDID(19),
         mobs = {
             {
@@ -222,7 +222,7 @@ local noteStructures = {
         },
     },
     {
-        noteName = "Unstable Test Subject",
+        docName = "Unstable Test Subject",
         ddid = createDDID(20),
         mobs = {
             {
@@ -232,7 +232,7 @@ local noteStructures = {
         },
     },
     {
-        noteName = "Sureki Unnaturaler",
+        docName = "Sureki Unnaturaler",
         ddid = createDDID(21),
         mobs = {
             {
@@ -242,7 +242,7 @@ local noteStructures = {
         },
     },
     {
-        noteName = "Elder Shadeweaver",
+        docName = "Elder Shadeweaver",
         ddid = createDDID(22),
         mobs = {
             {
@@ -252,7 +252,7 @@ local noteStructures = {
         },
     },
     {
-        noteName = "Hulking Warshell",
+        docName = "Hulking Warshell",
         ddid = createDDID(23),
         mobs = {
             {
@@ -262,7 +262,7 @@ local noteStructures = {
         },
     },
     {
-        noteName = "Ravenous Scarab",
+        docName = "Ravenous Scarab",
         ddid = createDDID(24),
         mobs = {
             {
@@ -272,7 +272,7 @@ local noteStructures = {
         },
     },
     {
-        noteName = "Web Marauder",
+        docName = "Web Marauder",
         ddid = createDDID(25),
         mobs = {
             {
@@ -282,7 +282,7 @@ local noteStructures = {
         },
     },
     {
-        noteName = "Covert Webmancer",
+        docName = "Covert Webmancer",
         ddid = createDDID(26),
         mobs = {
             {
@@ -292,7 +292,7 @@ local noteStructures = {
         },
     },
     {
-        noteName = "Agile Pursuer",
+        docName = "Agile Pursuer",
         ddid = createDDID(27),
         mobs = {
             {
@@ -302,7 +302,7 @@ local noteStructures = {
         },
     },
     {
-        noteName = "Retired Lord Vul'azak",
+        docName = "Retired Lord Vul'azak",
         ddid = createDDID(28),
         mobs = {
             {
@@ -318,7 +318,7 @@ local dungeonData = {
     dungeonName = "City of Threads",
     icon = "Interface\\Icons\\achievement_zone_silithus_01",
     seasonId = "TWWS1",
-    noteStructures = noteStructures
+    docStructures = docStructures
 }
 
 function DD.dungeons.InitCityOfThreads()
