@@ -79,7 +79,8 @@ function DD:OpenUI(msg)
     end)
     dungeonDocsFrame = aceFrame
 
-    aceFrame:SetStatusText("DungeonDocs - " .. Version)
+    aceFrame:SetStatusText(Version)
+    aceFrame:SetTitle("DungeonDocs")
     aceFrame:SetLayout("Fill") -- Important for TabGroup to fill the frame
 
     -- -- Define max size based on 80% of screen dimensions
