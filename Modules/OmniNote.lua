@@ -85,6 +85,8 @@ local function storeEncounteredMob(mobId)
     if DD.utils.IsFollowerNPC(mobId) then return end
 
     local dungeonName = DD.dungeons.GetCurrentDungeon()
+    if not dungeonName then return end
+
     local ddid = DD.dungeons.MobIdToDDID(mobId, dungeonName)
 
     if not ddid then return end

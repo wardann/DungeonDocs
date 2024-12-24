@@ -178,6 +178,7 @@ function DD.HandleReport()
     end
 
     local dungeonName = DD.dungeons.GetCurrentDungeon()
+    if not dungeonName then return end
     local ddid = DD.dungeons.MobIDToDDID(targetId, dungeonName)
 
     if not ddid then

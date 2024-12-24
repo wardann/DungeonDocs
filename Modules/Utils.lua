@@ -18,7 +18,7 @@ end
 
 --- Gets the mob ID from the target's GUID
 ---@param unit string
----@return number|nil
+---@return string|nil
 function M.GetMobIDFromGUID(unit)
     local guid = UnitGUID(unit) -- Get the GUID of the unit (e.g., "target")
     if guid then
@@ -27,7 +27,7 @@ function M.GetMobIDFromGUID(unit)
         ---@type string, string, string, string, string, string, string
         local type, _, _, _, _, mob_id, _ = strsplit("-", guid)
         if type == "Creature" or type == "Vehicle" then -- Mobs are usually "Creature" or "Vehicle"
-            return tonumber(mob_id)
+            return mob_id
         end
     end
     return nil -- Return nil if no valid mob ID is found

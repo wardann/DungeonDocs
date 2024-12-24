@@ -170,7 +170,7 @@ describe("DD.dungeons.IsBossInDungeon", function()
     end)
 
     it("should be able to resolve boss if in dungeon", function()
-        local avanoxxID = 213179
+        local avanoxxID = "213179"
         local dungeonName = "Ara-Kara, City of Echoes"
         local isBossInDungeon = DD.dungeons.IsBossInDungeon(avanoxxID, dungeonName)
 
@@ -178,7 +178,7 @@ describe("DD.dungeons.IsBossInDungeon", function()
     end)
 
     it("should NOT be able to resolve boss if NOT in dungeon", function()
-        local badID = 101010
+        local badID = "101010"
         local dungeonName = "Ara-Kara, City of Echoes"
         local isBossInDungeon = DD.dungeons.IsBossInDungeon(badID, dungeonName)
 
@@ -194,7 +194,7 @@ describe("DD.dungeons.MobIdToNoteName", function()
     end)
 
     it("should be able to resolve boss if in dungeon", function()
-        local avanoxxID = 213179
+        local avanoxxID = "213179"
         local dungeonName = "Ara-Kara, City of Echoes"
         local noteName = DD.dungeons.MobIdToNoteName(avanoxxID, dungeonName)
 
@@ -202,7 +202,7 @@ describe("DD.dungeons.MobIdToNoteName", function()
     end)
 
     it("should NOT be able to resolve boss if NOT in dungeon", function()
-        local badID = 101010
+        local badID = "101010"
         local dungeonName = "Ara-Kara, City of Echoes"
         local noteName = DD.dungeons.MobIdToNoteName(badID, dungeonName)
 
@@ -218,14 +218,14 @@ describe("DD.dungeons.MobIdToDungeonName", function()
     end)
 
     it("should be able to resolve dungeon name if good mob id", function()
-        local avanoxxID = 213179
+        local avanoxxID = "213179"
         local dungeonName = DD.dungeons.MobIdToDungeonName(avanoxxID)
 
         assert.is_equal("Ara-Kara, City of Echoes", dungeonName)
     end)
 
     it("should NOT be able to resolve dungeon name if bad mob id", function()
-        local badID = 101010
+        local badID = "101010"
         local dungeonName = DD.dungeons.MobIdToDungeonName(badID)
 
         assert.is_nil(dungeonName)
@@ -240,7 +240,7 @@ describe("DD.dungeons.MobIDToDDID", function()
     end)
 
     it("should be able to resolve DDID if good mob id", function()
-        local avanoxxID = 213179
+        local avanoxxID = "213179"
         local dungeonName = "Ara-Kara, City of Echoes"
         local ddid = DD.dungeons.MobIDToDDID(avanoxxID, dungeonName)
 
@@ -248,7 +248,7 @@ describe("DD.dungeons.MobIDToDDID", function()
     end)
 
     it("should NOT be able to resolve DDID if bad mob id", function()
-        local badID = 101010
+        local badID = "101010"
         local dungeonName = "Ara-Kara, City of Echoes"
         local ddid = DD.dungeons.MobIDToDDID(badID, dungeonName)
 
