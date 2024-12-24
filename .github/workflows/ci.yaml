@@ -36,7 +36,7 @@ jobs:
         run: luarocks install busted
 
       - name: Run Lua tests
-        run: busted --pattern ".*.test.lua" --helper Mocks/Globals.lua .
+        run: make tests
 
   typecheck:
     runs-on: ubuntu-latest
