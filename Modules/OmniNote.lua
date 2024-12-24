@@ -101,24 +101,27 @@ local function storeEncounteredMob(mobId)
     return true
 end
 
+---@param ddid DDID
+---@param dungeonName DungeonName
+---@return { docStruct: DocStructure, playerNote: PlayerNote}|nil
 local function renderEncounteredMob(ddid, dungeonName)
-    local noteStruct = DD.dungeons.DDIDToNoteStruct(ddid, dungeonName)
-    if not noteStruct then
+    local docStruct = DD.dungeons.DDIDToDocStruct(ddid, dungeonName)
+    if not docStruct then
         return
     end
 
-    local note = DD.db.DeriveFullNote(dungeonName, ddid)
-    if not note then
+    local playerNote = DD.db.DeriveFullNote(dungeonName, ddid)
+    if not playerNote then
         return
     end
 
-    if note.primaryNote == "" and note.tankNote == "" and note.healerNote == "" and note.damageNote == "" then
+    if playerNote.primaryNote == "" and playerNote.tankNote == "" and playerNote.healerNote == "" and playerNote.damageNote == "" then
         return
     end
 
     return {
-        noteStruct = noteStruct,
-        note = note,
+        docStruct = docStruct,
+        playerNote = playerNote,
     }
 end
 
@@ -138,17 +141,17 @@ function M.RenderNote(index, anchor)
     end
 
     local dungeonName = ddidToDungeon[ddid]
-    local noteInfo = renderEncounteredMob(ddid, dungeonName)
+    local docInfo = renderEncounteredMob(ddid, dungeonName)
 
 
-    if not noteInfo then
+    if not docInfo then
         u.FrameCollapse(noteCardFrame)
         u.FrameCollapse(spacerFrame)
         return spacerFrame
     end
 
-    local note          = noteInfo.note
-    local noteStruct    = noteInfo.noteStruct
+    local playerNote    = docInfo.playerNote
+    local docStruct     = docInfo.docStruct
 
     local state         = DD.db.database.profile.settings.omniNote
 
@@ -167,14 +170,14 @@ function M.RenderNote(index, anchor)
     --- @return string
     local function resolveText(lineName)
         if lineName == "mobName" then
-            return noteStruct.docName
+            return docStruct.docName
         end
 
         if string.find(lineName, "Header") then
             return state[lineName] --- @type string
         end
 
-        return note[lineName]
+        return playerNote[lineName]
     end
 
     local function resolveTextStyle(lineName)
@@ -225,7 +228,7 @@ function M.RenderNote(index, anchor)
 
         local alpha = 1.0
         local isTargeted = false
-        for _, mob in ipairs(noteStruct.mobs) do
+        for _, mob in ipairs(docStruct.mobs) do
             if playerTargetMobId == mob.id then
                 isTargeted = true
             end
@@ -239,7 +242,7 @@ function M.RenderNote(index, anchor)
             alpha = 1.0
         end
 
-        if note.isBoss then
+        if docStruct.isBoss then
             alpha = 1.0
         end
 
@@ -289,11 +292,11 @@ function M.RenderNote(index, anchor)
         name = "primaryNote",
         index = 2,
         indent = defaultIndent,
-        displayed = note.primaryNote ~= "",
+        displayed = playerNote.primaryNote ~= "",
     })
 
     -- Tank header line
-    local tankDisplayed = M.ShouldDisplayRole(note.tankNote, "Tank")
+    local tankDisplayed = M.ShouldDisplayRole(playerNote.tankNote, "Tank")
     updateLine({
         name = "tankHeader",
         index = 3,
@@ -310,7 +313,7 @@ function M.RenderNote(index, anchor)
     })
 
     -- Healer header line
-    local healerDisplayed = M.ShouldDisplayRole(note.healerNote, "Healer")
+    local healerDisplayed = M.ShouldDisplayRole(playerNote.healerNote, "Healer")
     updateLine({
         name = "healerHeader",
         index = 5,
@@ -327,7 +330,7 @@ function M.RenderNote(index, anchor)
     })
 
     -- Damage header line
-    local damageDisplayed = M.ShouldDisplayRole(note.damageNote, "Damage")
+    local damageDisplayed = M.ShouldDisplayRole(playerNote.damageNote, "Damage")
     updateLine({
         name = "damageHeader",
         index = 7,

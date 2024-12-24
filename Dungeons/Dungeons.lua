@@ -130,7 +130,7 @@ function M.DDIDToNoteName(ddid, dungeonName)
     end
 end
 
-function M.DDIDToNoteStruct(ddid, dungeonName)
+function M.DDIDToDocStruct(ddid, dungeonName)
     local dungeon = M.List[dungeonName]
 
     if not dungeon then
