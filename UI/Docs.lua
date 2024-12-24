@@ -115,15 +115,15 @@ function M.TabRoot(container)
     end)
 end
 
---- TODO!
-local function resetNote(dungeonName, note)
-    DD.db.SetNote(dungeonName, note.ddid, "primaryNote", nil)
-    DD.db.SetNote(dungeonName, note.ddid, "tankNote", nil)
-    DD.db.SetNote(dungeonName, note.ddid, "healerNote", nil)
-    DD.db.SetNote(dungeonName, note.ddid, "damageNote", nil)
+---@param dungeonName DungeonName
+---@param docStruct DocStructure
+local function resetNote(dungeonName, docStruct)
+    DD.db.SetNote(dungeonName, docStruct.ddid, "primaryNote", nil)
+    DD.db.SetNote(dungeonName, docStruct.ddid, "tankNote", nil)
+    DD.db.SetNote(dungeonName, docStruct.ddid, "healerNote", nil)
+    DD.db.SetNote(dungeonName, docStruct.ddid, "damageNote", nil)
 end
 
---- TODO!
 function M.ClearModels()
     for _, model in pairs(models) do
         if model then
@@ -248,8 +248,13 @@ function M.HandleSelected(dungeonName, enemyType, noteName)
     lastSelected = { dungeonName, enemyType, noteName }
 end
 
---- TODO type this
-function M.RenderNote(dungeonName, note, noteKey, noteLabel, container)
+--- TODO
+---@param dungeonName DungeonName
+---@param docStruct DocStructure
+---@param noteKey PlayerNoteKeys
+---@param noteLabel string
+---@param container AceGUIContainer
+function M.RenderNote(dungeonName, docStruct, noteKey, noteLabel, container)
     -- Add notes
     -- Create a SimpleGroup for the edit box to ensure proper layout
     local noteContainer = AceGUI:Create("SimpleGroup") ---@type SimpleGroup
@@ -263,10 +268,10 @@ function M.RenderNote(dungeonName, note, noteKey, noteLabel, container)
     noteTextBox:SetLabel(noteLabel)
     noteTextBox:SetFullWidth(true)                                             -- Make the edit box take up the full width of the container
 
-    noteTextBox:SetText(DD.db.GetNotePrimary(dungeonName, note.ddid, noteKey)) -- You can prefill the edit box with text if needed
+    noteTextBox:SetText(DD.db.GetNotePrimary(dungeonName, docStruct.ddid, noteKey)) -- You can prefill the edit box with text if needed
     noteTextBox:DisableButton(true)                                            -- Disable the "Okay" button
     noteTextBox:SetCallback("OnTextChanged", function(_, _, text)
-        DD.db.SetNote(dungeonName, note.ddid, noteKey, text)
+        DD.db.SetNote(dungeonName, docStruct.ddid, noteKey, text)
     end)
     noteContainer:AddChild(noteTextBox)
 end

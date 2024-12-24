@@ -18,7 +18,7 @@ end
 
 --- Gets the mob ID from the target's GUID
 ---@param unit string
----@return number|nil
+---@return string|nil
 function M.GetMobIDFromGUID(unit)
     local guid = UnitGUID(unit) -- Get the GUID of the unit (e.g., "target")
     if guid then
@@ -27,12 +27,13 @@ function M.GetMobIDFromGUID(unit)
         ---@type string, string, string, string, string, string, string
         local type, _, _, _, _, mob_id, _ = strsplit("-", guid)
         if type == "Creature" or type == "Vehicle" then -- Mobs are usually "Creature" or "Vehicle"
-            return tonumber(mob_id)
+            return mob_id
         end
     end
     return nil -- Return nil if no valid mob ID is found
 end
 
+---@param container AceGUIContainer
 function M.AddSpacer(container)
     -- Add a spacer (or line break)
     local spacer = AceGUI:Create("Label") --- @type Label
@@ -64,7 +65,7 @@ function M.DeepCopy(orig)
     if orig_type == "table" then
         copy = {} ---@type table<any, any>
 
-        --- TODO: figure out the proper way to type this, or refactor
+        --- NOTE: could not figure out the proper way to type this
         ---@diagnostic disable-next-line
         for orig_key, orig_value in next, orig, nil do
             copy[DD.utils.DeepCopy(orig_key)] = M.DeepCopy(orig_value)
@@ -271,6 +272,8 @@ function M.MergePlayerNotes(primary, fallback)
                     return
                 end
 
+                ---@param primaryValue string
+                ---@param fallbackValue string
                 local function shouldUseFallback(primaryValue, fallbackValue)
                     return not primaryValue and fallbackValue and #fallbackValue > 0
                 end

@@ -13,6 +13,7 @@ local rightGroup ---@type SimpleGroup
 
 --- @alias TreeMenu {text: string, value: string, children?: TreeMenu[]}
 
+---@param container AceGUIContainer
 function DD.ui.settings.TabRoot(container)
     local treeGroup = AceGUI:Create("TreeGroup") ---@type TreeGroup
     treeGroup:SetLayout("Fill")

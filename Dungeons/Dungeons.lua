@@ -63,6 +63,8 @@ function M.GetCurrentDungeon()
     return instanceName
 end
 
+---@param mobId string
+---@param dungeonName DungeonName
 function M.IsBossInDungeon(mobId, dungeonName)
     local dungeon = M.List[dungeonName]
 
@@ -77,6 +79,7 @@ function M.IsBossInDungeon(mobId, dungeonName)
     return false
 end
 
+---@param mobId string
 function M.IsBossInCurrentDungeon(mobId)
     local dungeonName = M.GetCurrentDungeon()
     if not dungeonName then return false end
@@ -84,6 +87,8 @@ function M.IsBossInCurrentDungeon(mobId)
 end
 
 -- Returns the name of the note from a mob id
+---@param mobId string
+---@param dungeonName DungeonName
 function M.MobIdToNoteName(mobId, dungeonName)
     local dungeon = M.List[dungeonName]
 
@@ -100,6 +105,8 @@ function M.MobIdToNoteName(mobId, dungeonName)
     end
 end
 
+---@param mobId string
+---@param dungeonName DungeonName
 function M.MobIdToDDID(mobId, dungeonName)
     local dungeon = M.List[dungeonName]
 
@@ -116,6 +123,8 @@ function M.MobIdToDDID(mobId, dungeonName)
     end
 end
 
+---@param ddid DDID
+---@param dungeonName DungeonName
 function M.DDIDToNoteName(ddid, dungeonName)
     local dungeon = M.List[dungeonName]
 
@@ -130,6 +139,8 @@ function M.DDIDToNoteName(ddid, dungeonName)
     end
 end
 
+---@param ddid DDID
+---@param dungeonName DungeonName
 function M.DDIDToDocStruct(ddid, dungeonName)
     local dungeon = M.List[dungeonName]
 
@@ -144,6 +155,7 @@ function M.DDIDToDocStruct(ddid, dungeonName)
     end
 end
 
+---@param mobId string
 function M.MobIdToDungeonName(mobId)
     for dungeonName, dungeon in pairs(M.List) do
         for _, docStruct in ipairs(dungeon.docStructures) do
@@ -156,6 +168,8 @@ function M.MobIdToDungeonName(mobId)
     end
 end
 
+---@param mobId string
+---@param dungeonName DungeonName
 function M.MobIDToDDID(mobId, dungeonName)
     local dungeon = M.List[dungeonName]
 
