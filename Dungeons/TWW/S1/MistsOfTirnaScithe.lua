@@ -21,12 +21,12 @@ local docStructures = {
     mobs = {
       {
         -- name = "Ingra Maloch",
-        id = 164567,
+        id = "164567",
         displayId = 95497,
       },
       {
         -- name = "Droman Oulfarran",
-        id = 164804,
+        id = "164804",
         displayId = 95564,
       },
     }
@@ -38,7 +38,7 @@ local docStructures = {
     mobs = {
       {
         -- name = "Mistcaller",
-        id = 164501,
+        id = "164501",
         displayId = 96451,
       },
     }
@@ -50,7 +50,7 @@ local docStructures = {
     mobs = {
       {
         -- name = "Tred'ova",
-        id = 164517,
+        id = "164517",
         displayId = 95809,
       },
     }
@@ -63,7 +63,7 @@ local docStructures = {
     ddid = createDDID(4),
     mobs = {
       {
-        id = 216336,
+        id = "216336",
         displayId = 120876,
       }
     },
@@ -73,7 +73,7 @@ local docStructures = {
     ddid = createDDID(5),
     mobs = {
       {
-        id = 165111,
+        id = "165111",
         displayId = 86207,
       }
     },
@@ -83,7 +83,7 @@ local docStructures = {
     ddid = createDDID(6),
     mobs = {
       {
-        id = 164929,
+        id = "164929",
         displayId = 95618,
       }
     },
@@ -93,7 +93,7 @@ local docStructures = {
     ddid = createDDID(7),
     mobs = {
       {
-        id = 164920,
+        id = "164920",
         displayId = 95612,
       }
     },
@@ -103,7 +103,7 @@ local docStructures = {
     ddid = createDDID(8),
     mobs = {
       {
-        id = 164921,
+        id = "164921",
         displayId = 95613,
       }
     },
@@ -113,7 +113,7 @@ local docStructures = {
     ddid = createDDID(9),
     mobs = {
       {
-        id = 164926,
+        id = "164926",
         displayId = 95615,
       }
     },
@@ -123,7 +123,7 @@ local docStructures = {
     ddid = createDDID(10),
     mobs = {
       {
-        id = 163058,
+        id = "163058",
         displayId = 95256,
       }
     },
@@ -133,7 +133,7 @@ local docStructures = {
     ddid = createDDID(11),
     mobs = {
       {
-        id = 166301,
+        id = "166301",
         displayId = 93762,
       }
     },
@@ -143,7 +143,7 @@ local docStructures = {
     ddid = createDDID(12),
     mobs = {
       {
-        id = 166304,
+        id = "166304",
         displayId = 95198,
       }
     },
@@ -153,7 +153,7 @@ local docStructures = {
     ddid = createDDID(13),
     mobs = {
       {
-        id = 166276,
+        id = "166276",
         displayId = 95261,
       }
     },
@@ -163,7 +163,7 @@ local docStructures = {
     ddid = createDDID(14),
     mobs = {
       {
-        id = 166299,
+        id = "166299",
         displayId = 95908,
       }
     },
@@ -173,7 +173,7 @@ local docStructures = {
     ddid = createDDID(15),
     mobs = {
       {
-        id = 166275,
+        id = "166275",
         displayId = 95051,
       }
     },
@@ -183,7 +183,7 @@ local docStructures = {
     ddid = createDDID(16),
     mobs = {
       {
-        id = 173714,
+        id = "173714",
         displayId = 55772,
       }
     },
@@ -193,7 +193,7 @@ local docStructures = {
     ddid = createDDID(17),
     mobs = {
       {
-        id = 167111,
+        id = "167111",
         displayId = 94190,
       }
     },
@@ -203,7 +203,7 @@ local docStructures = {
     ddid = createDDID(18),
     mobs = {
       {
-        id = 167113,
+        id = "167113",
         displayId = 94205,
       }
     },
@@ -213,7 +213,7 @@ local docStructures = {
     ddid = createDDID(19),
     mobs = {
       {
-        id = 172312,
+        id = "172312",
         displayId = 94197,
       }
     },
@@ -223,7 +223,7 @@ local docStructures = {
     ddid = createDDID(20),
     mobs = {
       {
-        id = 167117,
+        id = "167117",
         displayId = 94208,
       }
     },
@@ -233,7 +233,7 @@ local docStructures = {
     ddid = createDDID(21),
     mobs = {
       {
-        id = 167116,
+        id = "167116",
         displayId = 95692,
       }
     },
@@ -243,7 +243,7 @@ local docStructures = {
     ddid = createDDID(22),
     mobs = {
       {
-        id = 173720,
+        id = "173720",
         displayId = 98502,
       }
     },
@@ -253,7 +253,7 @@ local docStructures = {
     ddid = createDDID(23),
     mobs = {
       {
-        id = 166304,
+        id = "166304",
         displayId = 95198,
       }
     },
@@ -263,7 +263,7 @@ local docStructures = {
     ddid = createDDID(24),
     mobs = {
       {
-        id = 173655,
+        id = "173655",
         displayId = 98569,
       }
     },

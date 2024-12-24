@@ -2,7 +2,7 @@
 local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
 
 --- @alias DocMob {
----     id: number,
+---     id: string,
 ---     displayId: number,
 ---     hideModel?: boolean,
 --- }

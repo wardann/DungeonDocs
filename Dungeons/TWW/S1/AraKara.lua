@@ -22,7 +22,7 @@ local docStructures = {
     mobs = {
       {
         -- name = "Avanoxx",
-        id = 213179,
+        id = "213179",
         displayId = 119793,
       },
     }
@@ -34,7 +34,7 @@ local docStructures = {
     mobs = {
       {
         -- name = "Anubzekt",
-        id = 21540,
+        id = "21540",
         displayId = 115723,
       }
     }
@@ -46,7 +46,7 @@ local docStructures = {
     mobs = {
       {
         -- name = "Kikatal The Harvester",
-        id = 215407,
+        id = "215407",
         displayId = 117473,
       }
     }
@@ -58,7 +58,7 @@ local docStructures = {
     ddid = createDDID(4),
     mobs = {
       {
-        id = 216336,
+        id = "216336",
         displayId = 120876,
       }
     }
@@ -68,7 +68,7 @@ local docStructures = {
     ddid = createDDID(5),
     mobs = {
       {
-        id = 216341,
+        id = "216341",
         displayId = 120841,
       }
     }
@@ -78,7 +78,7 @@ local docStructures = {
     ddid = createDDID(6),
     mobs = {
       {
-        id = 216293,
+        id = "216293",
         displayId = 116588,
       }
     }
@@ -88,7 +88,7 @@ local docStructures = {
     ddid = createDDID(7),
     mobs = {
       {
-        id = 214840,
+        id = "214840",
         displayId = 117840,
       }
     }
@@ -98,7 +98,7 @@ local docStructures = {
     ddid = createDDID(8),
     mobs = {
       {
-        id = 217533,
+        id = "217533",
         displayId = 117119,
       }
     }
@@ -108,7 +108,7 @@ local docStructures = {
     ddid = createDDID(9),
     mobs = {
       {
-        id = 218324,
+        id = "218324",
         displayId = 117119,
       }
     }
@@ -118,7 +118,7 @@ local docStructures = {
     ddid = createDDID(10),
     mobs = {
       {
-        id = 217531,
+        id = "217531",
         displayId = 117119,
       }
     }
@@ -128,7 +128,7 @@ local docStructures = {
     ddid = createDDID(11),
     mobs = {
       {
-        id = 216337,
+        id = "216337",
         displayId = 120862,
       }
     }
@@ -138,7 +138,7 @@ local docStructures = {
     ddid = createDDID(12),
     mobs = {
       {
-        id = 216333,
+        id = "216333",
         displayId = 119391,
       }
     }
@@ -148,7 +148,7 @@ local docStructures = {
     ddid = createDDID(13),
     mobs = {
       {
-        id = 223253,
+        id = "223253",
         displayId = 117870,
       }
     }
@@ -158,7 +158,7 @@ local docStructures = {
     ddid = createDDID(14),
     mobs = {
       {
-        id = 216338,
+        id = "216338",
         displayId = 120855,
       }
     }
@@ -168,7 +168,7 @@ local docStructures = {
     ddid = createDDID(15),
     mobs = {
       {
-        id = 216340,
+        id = "216340",
         displayId = 116485,
       }
     }
@@ -178,7 +178,7 @@ local docStructures = {
     ddid = createDDID(16),
     mobs = {
       {
-        id = 216364,
+        id = "216364",
         displayId = 115772,
       }
     }
@@ -188,7 +188,7 @@ local docStructures = {
     ddid = createDDID(17),
     mobs = {
       {
-        id = 216365,
+        id = "216365",
         displayId = 116349,
       }
     }
@@ -198,7 +198,7 @@ local docStructures = {
     ddid = createDDID(18),
     mobs = {
       {
-        id = 217039,
+        id = "217039",
         displayId = 120861,
       }
     }
@@ -208,7 +208,7 @@ local docStructures = {
     ddid = createDDID(19),
     mobs = {
       {
-        id = 216363,
+        id = "216363",
         displayId = 120860,
       }
     }

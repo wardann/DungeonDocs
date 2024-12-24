@@ -21,7 +21,7 @@ local docStructures = {
     mobs = {
       {
         -- name = "Speaker Shadowcrown",
-        id = 211087,
+        id = "211087",
         displayId = 114311,
       },
     }
@@ -33,7 +33,7 @@ local docStructures = {
     mobs = {
       {
         -- name = "Anubikkaj",
-        id = 211089,
+        id = "211089",
         displayId = 114315,
       },
     }
@@ -45,7 +45,7 @@ local docStructures = {
     mobs = {
       {
         -- name = "Rashanan",
-        id = 213937,
+        id = "213937",
         displayId = 118404,
       },
     }
@@ -58,7 +58,7 @@ local docStructures = {
     ddid = createDDID(4),
     mobs = {
       {
-        id = 216336,
+        id = "216336",
         displayId = 120876,
       }
     },
@@ -68,7 +68,7 @@ local docStructures = {
     ddid = createDDID(5),
     mobs = {
       {
-        id = 213894,
+        id = "213894",
         displayId = 115528,
       }
     },
@@ -78,7 +78,7 @@ local docStructures = {
     ddid = createDDID(6),
     mobs = {
       {
-        id = 213892,
+        id = "213892",
         displayId = 115523,
       }
     },
@@ -88,7 +88,7 @@ local docStructures = {
     ddid = createDDID(7),
     mobs = {
       {
-        id = 214761,
+        id = "214761",
         displayId = 115526,
       }
     },
@@ -98,7 +98,7 @@ local docStructures = {
     ddid = createDDID(8),
     mobs = {
       {
-        id = 214762,
+        id = "214762",
         displayId = 115535,
       }
     },
@@ -108,7 +108,7 @@ local docStructures = {
     ddid = createDDID(9),
     mobs = {
       {
-        id = 210966,
+        id = "210966",
         displayId = 117315,
       }
     },
@@ -118,7 +118,7 @@ local docStructures = {
     ddid = createDDID(10),
     mobs = {
       {
-        id = 213893,
+        id = "213893",
         displayId = 115520,
       }
     },
@@ -128,7 +128,7 @@ local docStructures = {
     ddid = createDDID(11),
     mobs = {
       {
-        id = 213895,
+        id = "213895",
         displayId = 115530,
       }
     },
@@ -138,7 +138,7 @@ local docStructures = {
     ddid = createDDID(12),
     mobs = {
       {
-        id = 211341,
+        id = "211341",
         displayId = 117518,
       }
     },
@@ -148,7 +148,7 @@ local docStructures = {
     ddid = createDDID(13),
     mobs = {
       {
-        id = 213932,
+        id = "213932",
         displayId = 116834,
       }
     },
@@ -158,7 +158,7 @@ local docStructures = {
     ddid = createDDID(14),
     mobs = {
       {
-        id = 213934,
+        id = "213934",
         displayId = 115534,
       }
     },
@@ -168,7 +168,7 @@ local docStructures = {
     ddid = createDDID(15),
     mobs = {
       {
-        id = 211261,
+        id = "211261",
         displayId = 115760,
       }
     },
@@ -178,7 +178,7 @@ local docStructures = {
     ddid = createDDID(16),
     mobs = {
       {
-        id = 211263,
+        id = "211263",
         displayId = 115759,
       }
     },
@@ -188,7 +188,7 @@ local docStructures = {
     ddid = createDDID(17),
     mobs = {
       {
-        id = 211262,
+        id = "211262",
         displayId = 119262,
       }
     },
@@ -198,7 +198,7 @@ local docStructures = {
     ddid = createDDID(18),
     mobs = {
       {
-        id = 213885,
+        id = "213885",
         displayId = 120116,
       }
     },
