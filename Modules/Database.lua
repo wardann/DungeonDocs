@@ -2,7 +2,7 @@
 local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
 
 local LibSerialize = LibStub("LibSerialize") --- @type LibSerialize
-local LibDeflate = LibStub("LibDeflate") --- @type LibDeflate
+local LibDeflate = LibStub("LibDeflate")     --- @type LibDeflate
 
 
 --- @class DB
@@ -18,14 +18,13 @@ local M = {}
 ---
 --- @alias PlayerNoteKeys "primaryNote" | "tankNote" | "healerNote" | "damageNote"
 ---
---- @alias PlayerNotesByDungeon table<DungeonName, PlayerNote[]>
+--- @alias PlayerNotes table<DungeonName, PlayerNote[]>
 
 -- Define default db values
 --- @class DatabaseSchema
 local dbDefaults = {
     dbVersion = 1,
-    -- TODO: rename to "playerNotesByDungeon" or something similar
-    docs = {},
+    playerNotesByDungeon = {}, ---@type PlayerNotes
     settings = {
         omniNote = {
 
@@ -223,13 +222,13 @@ local dbDefaults = {
     },
 }
 
---- @return DocStructure
+--- @return DatabaseSchema
 function M.GetEmptyDatabaseStructure()
     return {
-        dbVersion = 1,        -- Default version
-        docs = {},            -- Empty table for docs
-        settings = {},        -- Empty table for settings
-        internal = {},        -- Empty table for internal data
+        dbVersion = 1, -- Default version
+        docs = {},     -- Empty table for docs
+        settings = {}, -- Empty table for settings
+        internal = {}, -- Empty table for internal data
     }
 end
 
@@ -238,6 +237,7 @@ function M.GetDBDefaults()
     return dbDefaults
 end
 
+--- @param profileName string
 function M.EnsureDefaults(profileName)
     local p = M.database.profiles[profileName]
     if not p then
@@ -245,9 +245,16 @@ function M.EnsureDefaults(profileName)
         return
     end
 
+
+    ---@param profile DatabaseSchema
+    ---@param defaults DatabaseSchema
     local function applyDefaults(profile, defaults)
+        --- NOTE: the types aren't getting inferred correctly here.
+        --- Unsure how to solve, disabling for now
+        ---@diagnostic disable-next-line
         for key, value in pairs(defaults) do
             if profile[key] == nil then
+                ---@diagnostic disable-next-line
                 profile[key] = DD.utils.DeepCopy(value)
             elseif type(value) == "table" and type(profile[key]) == "table" then
                 applyDefaults(profile[key], value) -- Recursively apply for nested tables
@@ -278,14 +285,17 @@ function M.Init()
 end
 
 -- A table to hold subscriber functions
+---@type fun()[]
 local dbChangeSubscribers = {}
 
+---@param callback fun()
 function M.SubscribeToDBChange(callback)
     table.insert(dbChangeSubscribers, callback)
 end
 
 function M.NotifyDBChange()
     for _, callback in ipairs(dbChangeSubscribers) do
+        ---@type boolean, any
         local status, err = pcall(callback)
         if not status then
             error(err)
@@ -332,17 +342,17 @@ function M.ExportProfile(profileName, includeFallbackProfile)
         return
     end
 
-    local docs
+    local playerNotes ---@type PlayerNotes
     if not includeFallbackProfile then
-        docs = profile.docs
+        playerNotes = profile.playerNotesByDungeon
     else
-        docs = DD.utils.MergePlayerNotes(profile.docs, fallbackProfile.docs)
+        playerNotes = DD.utils.MergePlayerNotes(profile.playerNotesByDungeon, fallbackProfile.playerNotesByDungeon)
     end
 
 
     local profileCopy = DD.utils.DeepCopy(profile)
     profileCopy.internal = {}
-    profileCopy.docs = docs
+    profileCopy.playerNotesByDungeon = playerNotes
 
     local serialized = LibSerialize:Serialize(profileCopy)    -- Serialize profile copy
     local compressed = LibDeflate:CompressDeflate(serialized) -- Compress serialized data
@@ -352,6 +362,8 @@ function M.ExportProfile(profileName, includeFallbackProfile)
     return wrapped
 end
 
+---@param wrapped string
+---@return {dbVersion: number, encoded: string}|nil, string|nil
 local function validateAndParseWrappedString(wrapped)
     -- Validate the format using a pattern
     local pattern = "^dd:(%d+):(.+):dd$"
@@ -395,12 +407,12 @@ function M.ImportProfile(destProfileName, wrapped)
     local encoded = result.encoded
 
     -- Decode, decompress, and deserialize the profile string
-    local decoded = LibDeflate:DecodeForPrint(encoded)                  -- Decode Base64
+    local decoded = LibDeflate:DecodeForPrint(encoded) -- Decode Base64
     if not decoded then
         DD.utils.Log("Error decoding, got nil")
         return false
     end
-    local decompressed = LibDeflate:DecompressDeflate(decoded)          -- Decompress
+    local decompressed = LibDeflate:DecompressDeflate(decoded) -- Decompress
     if not decompressed then
         DD.utils.Log("Error deflating, got nil")
         return false
@@ -525,34 +537,39 @@ end
 
 -- GetNotePrimary gets the note from the DB for the specified note key, falling
 -- back to the secondary profile if the note is not found
+---@param dungeonName DungeonName
+---@param ddid DDID
+---@param noteKey PlayerNoteKeys
 function M.GetNotePrimary(dungeonName, ddid, noteKey)
     local db = M.database
 
-    local dungeon = db.profile.docs[dungeonName]
-    if not dungeon then
+    local playerNotes = db.profile.playerNotesByDungeon[dungeonName]
+    if not playerNotes then
         return M.GetNoteFallback(dungeonName, ddid, noteKey)
     end
 
-    local doc
-    for _, d in ipairs(dungeon) do
-        if d.ddid == ddid then
-            doc = d
+    local playerNote ---@type PlayerNote
+    for _, pn in ipairs(playerNotes) do
+        if pn.ddid == ddid then
+            playerNote = pn
             break
         end
     end
 
 
-    if not doc then
+    if not playerNote then
         return M.GetNoteFallback(dungeonName, ddid, noteKey)
     end
 
-    if not doc[noteKey] then
+    if not playerNote[noteKey] then
         return M.GetNoteFallback(dungeonName, ddid, noteKey)
     end
 
-    return doc[noteKey]
+    return playerNote[noteKey]
 end
 
+---@param dungeonName DungeonName
+---@param ddid DDID
 function M.DeriveFullNote(dungeonName, ddid)
     return {
         primaryNote = M.GetNotePrimary(dungeonName, ddid, "primaryNote"),
@@ -562,6 +579,9 @@ function M.DeriveFullNote(dungeonName, ddid)
     }
 end
 
+---@param dungeonName DungeonName
+---@param ddid DDID
+---@param noteKey PlayerNoteKeys
 function M.GetNoteFallback(dungeonName, ddid, noteKey)
     local db = M.database
     local fallbackProfileName = db.profile.internal.fallbackProfile
@@ -580,41 +600,45 @@ function M.GetNoteFallback(dungeonName, ddid, noteKey)
     end
 
 
-    local dungeon = fallbackProfile.docs[dungeonName]
-    if not dungeon then
+    local playerNotes = fallbackProfile.playerNotesByDungeon[dungeonName]
+    if not playerNotes then
         return ""
     end
 
-    local doc
+    local playerNote ---@type PlayerNote
 
-    for _, d in ipairs(dungeon) do
-        if d.ddid == ddid then
-            doc = d
+    for _, pn in ipairs(playerNotes) do
+        if pn.ddid == ddid then
+            playerNote = pn
             break
         end
     end
 
-    if not doc then
+    if not playerNote then
         return ""
     end
 
-    if not doc[noteKey] then
+    if not playerNote[noteKey] then
         return ""
     end
 
-    return doc[noteKey]
+    return playerNote[noteKey]
 end
 
 -- SetNote sets the note from the DB for the specified note key, creating the
 -- note if it's not found
+---@param dungeonName DungeonName
+---@param ddid DDID
+---@param noteKey PlayerNoteKeys
+---@param newNote string|nil
 function M.SetNote(dungeonName, ddid, noteKey, newNote)
     local db = M.database
 
-    local notes = db.profile.docs[dungeonName]
-    if not notes then
+    local playerNotes = db.profile.playerNotesByDungeon[dungeonName]
+    if not playerNotes then
         M.UpdateDB(function()
-            db.profile.docs[dungeonName] = {}
-            table.insert(db.profile.docs[dungeonName], {
+            db.profile.playerNotesByDungeon[dungeonName] = {}
+            table.insert(db.profile.playerNotesByDungeon[dungeonName], {
                 ddid = ddid,
                 [noteKey] = newNote,
             })
@@ -622,29 +646,30 @@ function M.SetNote(dungeonName, ddid, noteKey, newNote)
         return
     end
 
-    local doc
-    for _, d in ipairs(notes) do
-        if d.ddid == ddid then
-            doc = d
+    local playerNote ---@type PlayerNote
+    for _, pn in ipairs(playerNotes) do
+        if pn.ddid == ddid then
+            playerNote = pn
             break
         end
     end
 
-    if not doc then
+    if not playerNote then
         M.UpdateDB(function()
             local newDoc = {
                 ddid = ddid,
                 [noteKey] = newNote,
             }
-            table.insert(db.profile.docs[dungeonName], newDoc)
+            table.insert(db.profile.playerNotesByDungeon[dungeonName], newDoc)
         end)
         return
     end
 
     M.UpdateDB(function()
-        doc[noteKey] = newNote
+        --- NOTE: the typing here appears to be confused, ignoring for now
+        --- @diagnostic disable-next-line
+        playerNote[noteKey] = newNote
     end)
 end
-
 
 DD.db = M

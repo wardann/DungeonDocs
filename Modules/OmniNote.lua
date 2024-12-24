@@ -7,14 +7,14 @@ local M = {}
 
 local omniAnchorFrame ---@type Frame
 local omniNoteFrame ---@type Frame
-local noteFrames = {}
+local noteFrames = {} ---@type table<string, Frame>
 local targetNoteCount = 10
 
 local testNoteEnabled = false
-local ddidsToRender = {}
-local ddidToDungeon = {}
+local ddidsToRender = {} ---@type DDID[]
+local ddidToDungeon = {} ---@type table<DDID, DungeonName>
 
-local playerTargetMobId
+local playerTargetMobId ---@type string|nil
 
 local testNoteOpacityEnabled = false
 
@@ -80,6 +80,7 @@ local function initNoteFrames()
     end
 end
 
+---@param mobId string
 local function storeEncounteredMob(mobId)
     if DD.utils.IsFollowerNPC(mobId) then return end
 
@@ -122,6 +123,8 @@ local function renderEncounteredMob(ddid, dungeonName)
 end
 
 
+---@param index number
+---@param anchor Frame
 function M.RenderNote(index, anchor)
     local u = DD.utils
     local noteCardFrame = noteFrames[buildNoteCardName(index)]
@@ -152,11 +155,11 @@ function M.RenderNote(index, anchor)
     local noteCardLines = { noteCardFrame:GetChildren() }
     local width         = omniAnchorFrame:GetWidth()
     local previousFrame = noteCardFrame
-    local totalHeight   = 0
+    local totalHeight   = 0 ---@type number
     local linePadding   = state.linePadding * -1
 
     local withPadding   = function(padding)
-        totalHeight = totalHeight + math.abs(padding)
+        totalHeight = totalHeight + math.abs(padding) ---@type number
         return padding
     end
 
@@ -191,6 +194,13 @@ function M.RenderNote(index, anchor)
     end
 
 
+    ---@alias UpdateLineConfig {
+    ---    name: string,
+    ---    index: number,
+    ---    indent: number,
+    ---    displayed: boolean,
+    ---}
+    ---@param line UpdateLineConfig
     local function updateLine(line)
         local frame = noteCardLines[line.index]
 
@@ -208,7 +218,7 @@ function M.RenderNote(index, anchor)
 
         local textStyle = resolveTextStyle(line.name)
 
-        local fontFlags
+        local fontFlags = ""
         if state.textOutline then
             fontFlags = "OUTLINE"
         end
@@ -438,11 +448,12 @@ eventFrame:RegisterEvent("PLAYER_TARGET_CHANGED")
 local ensureTarget = function()
     local inCombat = UnitAffectingCombat("player")
     local guid = UnitGUID("target")
-    local unitType, unitId, mobId
+    local unitType, unitId, mobId ---@type string, string, string
 
     if guid then
+        ---@type string, string, string, string, string, string
         unitType, _, _, _, _, unitId = strsplit("-", guid)
-        mobId = tonumber(unitId)
+        mobId = unitId
     end
 
     if inCombat and not guid then
@@ -464,7 +475,7 @@ local ensureTarget = function()
         playerTargetMobId = mobId
         storeEncounteredMob(mobId)
     elseif inCombat and guid and unitType ~= "Player" then
-        playerTargetMobId = tonumber(unitId)
+        playerTargetMobId = unitId
     end
 
     M.RenderOmniNote()
@@ -494,10 +505,10 @@ eventFrame:SetScript("OnEvent", function(_, event)
             return
         end
 
-        local sourceMobId = tonumber((sourceGUID):match("-(%d+)-%x+$"))
+        local sourceMobId = sourceGUID:match("-(%d+)-%x+$")
         local sourceGuidType = sourceGUID:match("^(.-)-")
 
-        local destMobId = tonumber((destGUID):match("-(%d+)-%x+$"))
+        local destMobId = destGUID:match("-(%d+)-%x+$")
         local destGuidType = destGUID:match("^(.-)-")
 
         local isValidEvent = function()

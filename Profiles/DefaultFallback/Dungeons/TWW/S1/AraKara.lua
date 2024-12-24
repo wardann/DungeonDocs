@@ -2,7 +2,7 @@
 local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
 
 
---- @type ProfileNote[]
+--- @type PlayerNote[]
 local notes = {
   {
     -- bossName = "Avanoxx",

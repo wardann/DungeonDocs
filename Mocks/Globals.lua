@@ -3,6 +3,7 @@ _G.LibStub = setmetatable({
     addons = {},
     NewAddon = function(self, name)
         local addon = { name = name }
+        ---@diagnostic disable-next-line
         self.addons[name] = addon
         return addon
     end,

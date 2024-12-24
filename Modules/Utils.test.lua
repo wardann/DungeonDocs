@@ -6,7 +6,7 @@ describe("MergeDocs", function()
 
     -- Setup: Retrieve the addon object
     before_each(function()
-        DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
+        DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs") ---@type DungeonDocs
     end)
 
     it("should merge two docs as expected", function()

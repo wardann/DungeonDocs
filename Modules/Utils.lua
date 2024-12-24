@@ -119,41 +119,41 @@ end
 -- |  _| | | (_| | | | | | |  __/
 -- |_| |_|  \__,_|_| |_| |_|\___|
 
---- @param frame Frame
+--- @param frame Frame|FontString
 function M.FrameHide(frame)
     if frame:IsShown() then
         frame:Hide()
     end
 end
 
---- @param frame Frame
+--- @param frame Frame|FontString
 function M.FrameShow(frame)
     if not frame:IsShown() then
         frame:Show()
     end
 end
 
---- @param frame Frame
+--- @param frame Frame|FontString
 function M.FrameWidth(frame, width)
     if frame:GetWidth() ~= width then
         frame:SetWidth(width)
     end
 end
 
---- @param frame Frame
+--- @param frame Frame|FontString
 function M.FrameHeight(frame, height)
     if frame:GetHeight() ~= height then
         frame:SetHeight(height)
     end
 end
 
---- @param frame Frame
+--- @param frame Frame|FontString
 function M.FrameCollapse(frame)
     M.FrameHide(frame)
     M.FrameHeight(frame, 0)
 end
 
---- @param frame Frame The frame to set the position for.
+--- @param frame Frame|FontString The frame to set the position for.
 --- @param point string The anchor point of the frame (e.g., "TOPLEFT", "CENTER").
 --- @param relativeTo Frame The frame or name of the frame to anchor to, or nil for the screen.
 --- @param relativePoint string The anchor point on the relative frame (e.g., "TOPLEFT", "CENTER").
@@ -203,7 +203,7 @@ function M.SafeSetTextColor(fontString, r, g, b, a)
     end
 end
 
---- @param frame Frame
+--- @param frame Frame|FontString
 --- @param newAlpha number
 function M.SafeSetAlpha(frame, newAlpha)
     if frame:GetAlpha() ~= newAlpha then
@@ -240,9 +240,9 @@ function M.SafeSetColorTexture(texture, r, g, b, a)
     end
 end
 
---- @param primary PlayerNotesByDungeon
---- @param fallback PlayerNotesByDungeon
---- @return PlayerNotesByDungeon
+--- @param primary PlayerNotes
+--- @param fallback PlayerNotes
+--- @return PlayerNotes
 function M.MergePlayerNotes(primary, fallback)
     --- @alias PlayerNotesMapped table<DungeonName, table<DDID, PlayerNote>>
     local playerNotesMapped = {} --- @type PlayerNotesMapped
@@ -294,7 +294,7 @@ function M.MergePlayerNotes(primary, fallback)
         end
     end
 
-    local playerNotesFinal = {} --- @type PlayerNotesByDungeon
+    local playerNotesFinal = {} --- @type PlayerNotes
 
     for dungeonName, notes in pairs(playerNotesMapped) do
         for _, note in pairs(notes) do

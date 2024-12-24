@@ -5,7 +5,7 @@ local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
 DD.profiles = DD.profiles or {}
 
 local profileName = "Default Fallback*"
-local profileNotesByDungeon = {} ---@type table<DungeonName, ProfileNote[]>
+local profileNotesByDungeon = {} ---@type table<DungeonName, PlayerNote[]>
 
 --- @param profileDungeonNotes ProfileDungeonNotes
 function DD.profiles.DefaultFallback_InitDocs(profileDungeonNotes)
@@ -17,9 +17,10 @@ end
 
 function DD.profiles.DefaultFallback_Init()
     -- Register profile in the DB
-    DD.db.database.profiles[profileName] = {
-        docs = profileNotesByDungeon
-    }
+    local database = DD.db.GetEmptyDatabaseStructure()
+    database.playerNotesByDungeon = profileNotesByDungeon
+
+    DD.db.database.profiles[profileName] = database
 
     -- Reserve the profile name
     DD.profiles.ReserveProfileName(profileName)

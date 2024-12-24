@@ -25,21 +25,25 @@
 --- @field RegisterEvent fun(self: Frame, event: string): nil # Registers the frame for a specific event
 --- @field UnregisterEvent fun(self: Frame, event: string): nil # Unregisters the frame from a specific event
 --- @field SetScript fun(self: Frame, scriptType: string, handler: function): nil # Sets a script handler for the frame
+--- @field GetChildren fun(self: Frame): Frame, ... # Returns the child frames as multiple return values.
 
 
 
 
---- @class FontString
+
+--- @class FontString : Region
 --- @field SetText fun(self: FontString, text: string): nil Sets the text of the font string.
 --- @field GetText fun(self: FontString): string Gets the current text of the font string.
 --- @field SetWordWrap fun(self: FontString, enable: boolean): nil Enables or disables word wrapping for the text.
---- @field SetPoint fun(self: FontString, point: string, relativeTo: Frame|nil, relativePoint: string|nil, offsetX: number|nil, offsetY: number|nil): nil
+--- @field GetPoint fun(self: FontString, index: number?): string, Region|nil, string|nil, number|nil, number|nil # Gets the anchor point at the specified index.
+--- @field SetPoint fun(self: FontString, point: string, relativeTo?: Region, relativePoint?: string, offsetX?: number, offsetY?: number): nil # Sets the anchor point of the FontString.
 --- @field SetJustifyH fun(self: FontString, align: string): nil Sets the horizontal alignment of the text (e.g., "LEFT", "CENTER", "RIGHT").
 --- @field SetFont fun(self: FontString, fontPath: string, fontSize: number, flags?: string): nil # Sets the font, size, and style of the text.
 --- @field GetFont fun(self: FontString): string, number, string # Gets the font path, font size, and style currently in use.
 --- @field GetTextColor fun(self: FontString): number, number, number, number # Returns the red, green, blue, and alpha components of the text color.
 --- @field SetTextColor fun(self: FontString, r: number, g: number, b: number, a?: number): nil # Sets the red, green, blue, and alpha components of the text color.
 --- @field GetJustifyH fun(self: FontString): string # Gets the horizontal alignment of the text (e.g., "LEFT", "CENTER", "RIGHT").
+--- @field GetStringHeight fun(self: FontString): number # Returns the height of the currently displayed text in the font string.
 
 
 
