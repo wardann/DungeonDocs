@@ -21,6 +21,7 @@ Need more help? Want to request a feature? Found a bug? Please open an issue:
 |cff71d5ffgithub.com/wardann/DungeonDocs/issues/new|r
     ]])
     label:SetFullWidth(true)
+    label.label:SetFont("Fonts\\FRIZQT__.TTF", 16, "OUTLINE") -- Set custom font size and style
 
     container:AddChild(label)
 end
