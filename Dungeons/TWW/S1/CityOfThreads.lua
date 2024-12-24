@@ -9,60 +9,60 @@ end
 --- @class Dungeons
 DD.dungeons = DD.dungeons or {}
 
---- @type NoteStructures
-local noteStructures = {
+--- @type DocStructure[]
+local docStructures = {
     --
     -- BOSSES
     --
     {
-        noteName = "Orator Krixvizk",
+        docName = "Orator Krixvizk",
         ddid = createDDID(1),
         isBoss = true,
         mobs = {
             {
                 -- name = "Orator Krixvizk",
-                id = 216619,
+                id = "216619",
                 displayId = 116692,
             }
         },
     },
     {
-        noteName = "Fangs of the Queen",
+        docName = "Fangs of the Queen",
         ddid = createDDID(2),
         isBoss = true,
         mobs = {
             {
                 -- name = "Nx",
-                id = 216648,
+                id = "216648",
                 displayId = 116699,
             },
             {
                 -- name = "Vx",
-                id = 216649,
+                id = "216649",
                 displayId = 116700,
             },
         },
     },
     {
-        noteName = "The Coaglamation",
+        docName = "The Coaglamation",
         ddid = createDDID(3),
         isBoss = true,
         mobs = {
             {
                 -- name = "The Coaglamation",
-                id = 216320,
+                id = "216320",
                 displayId = 11725,
             }
         },
     },
     {
-        noteName = "Izo, The Grand Splicer",
+        docName = "Izo, The Grand Splicer",
         ddid = createDDID(4),
         isBoss = true,
         mobs = {
             {
                 -- name = "Izo The Grand Splicer",
-                id = 216658,
+                id = "216658",
                 displayId = 116701,
             }
         },
@@ -72,241 +72,241 @@ local noteStructures = {
     -- TRASH
     --
     {
-        noteName = "Starved Crawler",
+        docName = "Starved Crawler",
         ddid = createDDID(5),
         mobs = {
             {
-                id = 216336,
+                id = "216336",
                 displayId = 120876,
             }
         }
     },
     {
-        noteName = "Sureki Silkbinder",
+        docName = "Sureki Silkbinder",
         ddid = createDDID(6),
         mobs = {
             {
-                id = 220195,
+                id = "220195",
                 displayId = 120872,
             }
         }
     },
     {
-        noteName = "Sureki Venomblade",
+        docName = "Sureki Venomblade",
         ddid = createDDID(7),
         mobs = {
             {
-                id = 220193,
+                id = "220193",
                 displayId = 120868,
             }
         },
     },
     {
-        noteName = "Royal Swarmguard",
+        docName = "Royal Swarmguard",
         ddid = createDDID(8),
         mobs = {
             {
-                id = 220197,
+                id = "220197",
                 displayId = 120882,
             }
         },
     },
     {
-        noteName = "Herald Of Ansurek",
+        docName = "Herald Of Ansurek",
         ddid = createDDID(9),
         mobs = {
             {
-                id = 220196,
+                id = "220196",
                 displayId = 120905,
             }
         },
     },
     {
-        noteName = "Xephitik",
+        docName = "Xephitik",
         ddid = createDDID(10),
         mobs = {
             {
-                id = 219984,
+                id = "219984",
                 displayId = 119732,
             }
         },
     },
     {
-        noteName = "Eye Of The Queen",
+        docName = "Eye Of The Queen",
         ddid = createDDID(11),
         mobs = {
             {
-                id = 219983,
+                id = "219983",
                 displayId = 119371,
             }
         },
     },
     {
-        noteName = "Web Marauder",
+        docName = "Web Marauder",
         ddid = createDDID(12),
         mobs = {
             {
-                id = 223182,
+                id = "223182",
                 displayId = 119369,
             }
         },
     },
     {
-        noteName = "Agile Pursuer",
+        docName = "Agile Pursuer",
         ddid = createDDID(13),
         mobs = {
             {
-                id = 223181,
+                id = "223181",
                 displayId = 119370,
             }
         },
     },
     {
-        noteName = "Congealed Droplet",
+        docName = "Congealed Droplet",
         ddid = createDDID(14),
         mobs = {
             {
-                id = 216329,
+                id = "216329",
                 displayId = 114555,
             }
         },
     },
     {
-        noteName = "Battle Scarab",
+        docName = "Battle Scarab",
         ddid = createDDID(15),
         mobs = {
             {
-                id = 220199,
+                id = "220199",
                 displayId = 120589,
             }
         },
     },
     {
-        noteName = "Covert Webmancer",
+        docName = "Covert Webmancer",
         ddid = createDDID(16),
         mobs = {
             {
-                id = 223844,
+                id = "223844",
                 displayId = 118106,
             }
         },
     },
     {
-        noteName = "Sureki Conscript",
+        docName = "Sureki Conscript",
         ddid = createDDID(17),
         mobs = {
             {
-                id = 223357,
+                id = "223357",
                 displayId = 120886,
             }
         },
     },
     {
-        noteName = "Royal Venomshell",
+        docName = "Royal Venomshell",
         ddid = createDDID(18),
         mobs = {
             {
-                id = 220730,
+                id = "220730",
                 displayId = 120890,
             }
         },
     },
     {
-        noteName = "Skittering Assistant",
+        docName = "Skittering Assistant",
         ddid = createDDID(19),
         mobs = {
             {
-                id = 216342,
+                id = "216342",
                 displayId = 120891,
             }
         },
     },
     {
-        noteName = "Unstable Test Subject",
+        docName = "Unstable Test Subject",
         ddid = createDDID(20),
         mobs = {
             {
-                id = 216328,
+                id = "216328",
                 displayId = 116499,
             }
         },
     },
     {
-        noteName = "Sureki Unnaturaler",
+        docName = "Sureki Unnaturaler",
         ddid = createDDID(21),
         mobs = {
             {
-                id = 216339,
+                id = "216339",
                 displayId = 120894,
             }
         },
     },
     {
-        noteName = "Elder Shadeweaver",
+        docName = "Elder Shadeweaver",
         ddid = createDDID(22),
         mobs = {
             {
-                id = 221102,
+                id = "221102",
                 displayId = 118827,
             }
         },
     },
     {
-        noteName = "Hulking Warshell",
+        docName = "Hulking Warshell",
         ddid = createDDID(23),
         mobs = {
             {
-                id = 221103,
+                id = "221103",
                 displayId = 118826,
             }
         },
     },
     {
-        noteName = "Ravenous Scarab",
+        docName = "Ravenous Scarab",
         ddid = createDDID(24),
         mobs = {
             {
-                id = 219198,
+                id = "219198",
                 displayId = 116480,
             }
         },
     },
     {
-        noteName = "Web Marauder",
+        docName = "Web Marauder",
         ddid = createDDID(25),
         mobs = {
             {
-                id = 224731,
+                id = "224731",
                 displayId = 119369,
             }
         },
     },
     {
-        noteName = "Covert Webmancer",
+        docName = "Covert Webmancer",
         ddid = createDDID(26),
         mobs = {
             {
-                id = 224732,
+                id = "224732",
                 displayId = 118106,
             }
         },
     },
     {
-        noteName = "Agile Pursuer",
+        docName = "Agile Pursuer",
         ddid = createDDID(27),
         mobs = {
             {
-                id = 228361,
+                id = "228361",
                 displayId = 119370,
             }
         },
     },
     {
-        noteName = "Retired Lord Vul'azak",
+        docName = "Retired Lord Vul'azak",
         ddid = createDDID(28),
         mobs = {
             {
-                id = 220423,
+                id = "220423",
                 displayId = 120885,
             }
         },
@@ -318,7 +318,7 @@ local dungeonData = {
     dungeonName = "City of Threads",
     icon = "Interface\\Icons\\achievement_zone_silithus_01",
     seasonId = "TWWS1",
-    noteStructures = noteStructures
+    docStructures = docStructures
 }
 
 function DD.dungeons.InitCityOfThreads()

@@ -8,8 +8,10 @@ require("Dungeons.TWW.S1.TheDawnbreaker")
 require("Dungeons.TWW.S1.TheNecroticWake")
 require("Dungeons.TWW.S1.TheStonevault")
 
-local dungeonChecker = function(dungeons)
-    local foundPrefixes = {}
+---@param dungeonList DungeonList
+---@return number
+local dungeonChecker = function(dungeonList)
+    local foundPrefixes = {} ---@type string[]
 
     local isFoundPrefix = function(prefix)
         for _, foundPrefix in ipairs(foundPrefixes) do
@@ -21,42 +23,42 @@ local dungeonChecker = function(dungeons)
     end
 
 
-    local totalNoteStructureCount = 0
+    local totalDocStructureCount = 0
 
-    for _, data in pairs(dungeons) do
-        local dungeonPrefix
+    for _, dungeonData in pairs(dungeonList) do
+        local dungeonPrefix = ""
 
-        for i, note in ipairs(data.noteStructures) do
-            local prefix, number = note.ddid:match("(%a+)(%d+)")
+        for i, docStruct in ipairs(dungeonData.docStructures) do
+            local prefix, number = docStruct.ddid:match("(%a+)(%d+)")
             if i == 1 then
                 dungeonPrefix = prefix
                 if isFoundPrefix(dungeonPrefix) then
-                    error("dungeon prefix is not unique across dungeons: " .. note.ddid)
+                    error("dungeon prefix is not unique across dungeons: " .. docStruct.ddid)
                 else
                     table.insert(foundPrefixes, prefix)
                 end
             else
                 if dungeonPrefix ~= prefix then
-                    error("dungeon prefix is not the same throughout dungeon: " .. note.ddid)
+                    error("dungeon prefix is not the same throughout dungeon: " .. docStruct.ddid)
                 end
             end
 
             if tostring(i) ~= number then
-                error("dungeon prefix not incrementing as expected for DDID: " .. note.ddid)
+                error("dungeon prefix not incrementing as expected for DDID: " .. docStruct.ddid)
             end
 
-            totalNoteStructureCount = totalNoteStructureCount + 1
+            totalDocStructureCount = totalDocStructureCount + 1
         end
     end
 
-    return totalNoteStructureCount
+    return totalDocStructureCount
 end
 
 describe("dungeonChecker", function()
     it("valid DDIDs should pass", function()
         local dungeons = {
             dungeon = {
-                noteStructures = {
+                docStructures = {
                     {
                         ddid = "dh1",
                     },
@@ -75,7 +77,7 @@ describe("dungeonChecker", function()
     it("repeated DDIDs should error", function()
         local dungeons = {
             dungeon = {
-                noteStructures = {
+                docStructures = {
                     {
                         ddid = "dh1",
                     },
@@ -93,7 +95,7 @@ describe("dungeonChecker", function()
     it("different DDID prefixes in the same dungeon should error", function()
         local dungeons = {
             dungeon = {
-                noteStructures = {
+                docStructures = {
                     {
                         ddid = "dh1",
                     },
@@ -111,14 +113,14 @@ describe("dungeonChecker", function()
     it("repeated DDIDs across dungeons should error", function()
         local dungeons = {
             dungeon1 = {
-                noteStructures = {
+                docStructures = {
                     {
                         ddid = "dh1",
                     },
                 }
             },
             dungeon2 = {
-                noteStructures = {
+                docStructures = {
                     {
                         ddid = "dh1",
                     },
@@ -133,12 +135,12 @@ end)
 
 
 describe("Dungeons Module", function()
-    local DD
-    local totalNoteStructureCount
+    local DD ---@type DungeonDocs
+    local totalDocStructureCount = 0
 
     -- Setup: Retrieve the addon object
     before_each(function()
-        DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
+        DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs") ---@type DungeonDocs
     end)
 
     it("should initialize all dungeons without errors", function()
@@ -148,22 +150,22 @@ describe("Dungeons Module", function()
         end)
     end)
 
-    it("should have expected DDID properties in note structures", function()
+    it("should have expected DDID properties in doc structures", function()
         --- @diagnostic disable-next-line
         assert.has_no.errors(function()
-            totalNoteStructureCount = dungeonChecker(DD.dungeons.List)
+            totalDocStructureCount = dungeonChecker(DD.dungeons.List)
         end)
     end)
 
-    it("should have expected note structure count", function()
-        assert.are.equal(totalNoteStructureCount, 189)
+    it("should have expected doc structure count", function()
+        assert.are.equal(189, totalDocStructureCount)
     end)
 end)
 
 describe("DD.dungeons.IsBossInDungeon", function()
-    local DD
+    local DD  ---@type DungeonDocs
     before_each(function()
-        DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
+        DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs") ---@type DungeonDocs
         DD.dungeons.Init()
     end)
 
@@ -185,9 +187,9 @@ describe("DD.dungeons.IsBossInDungeon", function()
 end)
 
 describe("DD.dungeons.MobIdToNoteName", function()
-    local DD
+    local DD ---@type DungeonDocs
     before_each(function()
-        DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
+        DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs") ---@type DungeonDocs
         DD.dungeons.Init()
     end)
 
@@ -209,9 +211,9 @@ describe("DD.dungeons.MobIdToNoteName", function()
 end)
 
 describe("DD.dungeons.MobIdToDungeonName", function()
-    local DD
+    local DD ---@type DungeonDocs
     before_each(function()
-        DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
+        DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs") ---@type DungeonDocs
         DD.dungeons.Init()
     end)
 
@@ -231,9 +233,9 @@ describe("DD.dungeons.MobIdToDungeonName", function()
 end)
 
 describe("DD.dungeons.MobIDToDDID", function()
-    local DD
+    local DD --- @type DungeonDocs
     before_each(function()
-        DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
+        DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs") --- @type DungeonDocs
         DD.dungeons.Init()
     end)
 

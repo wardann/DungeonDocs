@@ -28,8 +28,8 @@ after_each = nil
 --- @field is_equal fun(actual: any, expected: any): nil Alias for equality assertion.
 --- @field is_nil fun(value: any): nil Alias for nil assertion.
 --- @field has_error fun(func: fun(), message: string|nil): nil Alias for error assertion.
---- @field is_true fun(condition: boolean): nil Alias for true assertion.
---- @field is_false fun(condition: boolean): nil Alias for false assertion.
+--- @field is_true fun(condition: boolean|nil): nil Alias for true assertion.
+--- @field is_false fun(condition: boolean|nil): nil Alias for false assertion.
 
 --- @class BustedAre
 --- @field same fun(actual: any, expected: any): nil Asserts that two values are the same.

@@ -63,3 +63,9 @@ CombatLogGetCurrentEventInfo = CombatLogGetCurrentEventInfo
 
 --- @type any
 _ = _
+
+--- @type fun(delimiter: string, str: string): string, ... # Splits a string into components based on a delimiter.
+strsplit = strsplit
+
+--- @type fun(unit: string): string|nil # Retrieves the globally unique identifier (GUID) for the specified unit.
+UnitGUID = UnitGUID

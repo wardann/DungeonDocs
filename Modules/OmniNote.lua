@@ -5,16 +5,16 @@ local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
 local M = {}
 
 
-local omniAnchorFrame
-local omniNoteFrame
-local noteFrames = {}
+local omniAnchorFrame ---@type Frame
+local omniNoteFrame ---@type Frame
+local noteFrames = {} ---@type table<string, Frame>
 local targetNoteCount = 10
 
 local testNoteEnabled = false
-local ddidsToRender = {}
-local ddidToDungeon = {}
+local ddidsToRender = {} ---@type DDID[]
+local ddidToDungeon = {} ---@type table<DDID, DungeonName>
 
-local playerTargetMobId
+local playerTargetMobId ---@type string|nil
 
 local testNoteOpacityEnabled = false
 
@@ -80,6 +80,7 @@ local function initNoteFrames()
     end
 end
 
+---@param mobId string
 local function storeEncounteredMob(mobId)
     if DD.utils.IsFollowerNPC(mobId) then return end
 
@@ -100,28 +101,33 @@ local function storeEncounteredMob(mobId)
     return true
 end
 
+---@param ddid DDID
+---@param dungeonName DungeonName
+---@return { docStruct: DocStructure, playerNote: PlayerNote}|nil
 local function renderEncounteredMob(ddid, dungeonName)
-    local noteStruct = DD.dungeons.DDIDToNoteStruct(ddid, dungeonName)
-    if not noteStruct then
+    local docStruct = DD.dungeons.DDIDToDocStruct(ddid, dungeonName)
+    if not docStruct then
         return
     end
 
-    local note = DD.db.DeriveFullNote(dungeonName, ddid)
-    if not note then
+    local playerNote = DD.db.DeriveFullNote(dungeonName, ddid)
+    if not playerNote then
         return
     end
 
-    if note.primaryNote == "" and note.tankNote == "" and note.healerNote == "" and note.damageNote == "" then
+    if playerNote.primaryNote == "" and playerNote.tankNote == "" and playerNote.healerNote == "" and playerNote.damageNote == "" then
         return
     end
 
     return {
-        noteStruct = noteStruct,
-        note = note,
+        docStruct = docStruct,
+        playerNote = playerNote,
     }
 end
 
 
+---@param index number
+---@param anchor Frame
 function M.RenderNote(index, anchor)
     local u = DD.utils
     local noteCardFrame = noteFrames[buildNoteCardName(index)]
@@ -135,43 +141,43 @@ function M.RenderNote(index, anchor)
     end
 
     local dungeonName = ddidToDungeon[ddid]
-    local noteInfo = renderEncounteredMob(ddid, dungeonName)
+    local docInfo = renderEncounteredMob(ddid, dungeonName)
 
 
-    if not noteInfo then
+    if not docInfo then
         u.FrameCollapse(noteCardFrame)
         u.FrameCollapse(spacerFrame)
         return spacerFrame
     end
 
-    local note          = noteInfo.note
-    local noteStruct    = noteInfo.noteStruct
+    local playerNote    = docInfo.playerNote
+    local docStruct     = docInfo.docStruct
 
     local state         = DD.db.database.profile.settings.omniNote
 
     local noteCardLines = { noteCardFrame:GetChildren() }
     local width         = omniAnchorFrame:GetWidth()
     local previousFrame = noteCardFrame
-    local totalHeight   = 0
+    local totalHeight   = 0 ---@type number
     local linePadding   = state.linePadding * -1
 
     local withPadding   = function(padding)
-        totalHeight = totalHeight + math.abs(padding)
+        totalHeight = totalHeight + math.abs(padding) ---@type number
         return padding
     end
 
     --- @param lineName string
-    --- @returns string
+    --- @return string
     local function resolveText(lineName)
         if lineName == "mobName" then
-            return noteStruct.noteName
+            return docStruct.docName
         end
 
         if string.find(lineName, "Header") then
             return state[lineName] --- @type string
         end
 
-        return note[lineName]
+        return playerNote[lineName]
     end
 
     local function resolveTextStyle(lineName)
@@ -191,6 +197,13 @@ function M.RenderNote(index, anchor)
     end
 
 
+    ---@alias UpdateLineConfig {
+    ---    name: string,
+    ---    index: number,
+    ---    indent: number,
+    ---    displayed: boolean,
+    ---}
+    ---@param line UpdateLineConfig
     local function updateLine(line)
         local frame = noteCardLines[line.index]
 
@@ -208,14 +221,14 @@ function M.RenderNote(index, anchor)
 
         local textStyle = resolveTextStyle(line.name)
 
-        local fontFlags
+        local fontFlags = ""
         if state.textOutline then
             fontFlags = "OUTLINE"
         end
 
         local alpha = 1.0
         local isTargeted = false
-        for _, mob in ipairs(noteStruct.mobs) do
+        for _, mob in ipairs(docStruct.mobs) do
             if playerTargetMobId == mob.id then
                 isTargeted = true
             end
@@ -229,7 +242,7 @@ function M.RenderNote(index, anchor)
             alpha = 1.0
         end
 
-        if note.isBoss then
+        if docStruct.isBoss then
             alpha = 1.0
         end
 
@@ -279,11 +292,11 @@ function M.RenderNote(index, anchor)
         name = "primaryNote",
         index = 2,
         indent = defaultIndent,
-        displayed = note.primaryNote ~= "",
+        displayed = playerNote.primaryNote ~= "",
     })
 
     -- Tank header line
-    local tankDisplayed = M.ShouldDisplayRole(note.tankNote, "Tank")
+    local tankDisplayed = M.ShouldDisplayRole(playerNote.tankNote, "Tank")
     updateLine({
         name = "tankHeader",
         index = 3,
@@ -300,7 +313,7 @@ function M.RenderNote(index, anchor)
     })
 
     -- Healer header line
-    local healerDisplayed = M.ShouldDisplayRole(note.healerNote, "Healer")
+    local healerDisplayed = M.ShouldDisplayRole(playerNote.healerNote, "Healer")
     updateLine({
         name = "healerHeader",
         index = 5,
@@ -317,7 +330,7 @@ function M.RenderNote(index, anchor)
     })
 
     -- Damage header line
-    local damageDisplayed = M.ShouldDisplayRole(note.damageNote, "Damage")
+    local damageDisplayed = M.ShouldDisplayRole(playerNote.damageNote, "Damage")
     updateLine({
         name = "damageHeader",
         index = 7,
@@ -438,11 +451,12 @@ eventFrame:RegisterEvent("PLAYER_TARGET_CHANGED")
 local ensureTarget = function()
     local inCombat = UnitAffectingCombat("player")
     local guid = UnitGUID("target")
-    local unitType, unitId, mobId
+    local unitType, unitId, mobId ---@type string, string, string
 
     if guid then
+        ---@type string, string, string, string, string, string
         unitType, _, _, _, _, unitId = strsplit("-", guid)
-        mobId = tonumber(unitId)
+        mobId = unitId
     end
 
     if inCombat and not guid then
@@ -464,7 +478,7 @@ local ensureTarget = function()
         playerTargetMobId = mobId
         storeEncounteredMob(mobId)
     elseif inCombat and guid and unitType ~= "Player" then
-        playerTargetMobId = tonumber(unitId)
+        playerTargetMobId = unitId
     end
 
     M.RenderOmniNote()
@@ -494,10 +508,10 @@ eventFrame:SetScript("OnEvent", function(_, event)
             return
         end
 
-        local sourceMobId = tonumber((sourceGUID):match("-(%d+)-%x+$"))
+        local sourceMobId = sourceGUID:match("-(%d+)-%x+$")
         local sourceGuidType = sourceGUID:match("^(.-)-")
 
-        local destMobId = tonumber((destGUID):match("-(%d+)-%x+$"))
+        local destMobId = destGUID:match("-(%d+)-%x+$")
         local destGuidType = destGUID:match("^(.-)-")
 
         local isValidEvent = function()

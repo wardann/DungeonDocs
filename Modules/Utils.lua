@@ -1,11 +1,11 @@
---- @class DungeonDocs
+---@class DungeonDocs
 local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
-local AceGUI = LibStub("AceGUI-3.0")
+local AceGUI = LibStub("AceGUI-3.0") ---@type AceGUI
 local M = {}
 
 
---- @param t table
---- @param indent number
+---@param t table
+---@param indent number
 function M.InspectTable(t, indent)
     indent = indent or 0
     local prefix = string.rep("  ", indent)
@@ -17,12 +17,14 @@ function M.InspectTable(t, indent)
 end
 
 --- Gets the mob ID from the target's GUID
---- @param unit string
+---@param unit string
+---@return number|nil
 function M.GetMobIDFromGUID(unit)
     local guid = UnitGUID(unit) -- Get the GUID of the unit (e.g., "target")
     if guid then
         -- Split the GUID into its components and extract the mob ID
         -- vars are: type, zero, server_id, instance_id, zone_uid, mob_id, spawn_uid
+        ---@type string, string, string, string, string, string, string
         local type, _, _, _, _, mob_id, _ = strsplit("-", guid)
         if type == "Creature" or type == "Vehicle" then -- Mobs are usually "Creature" or "Vehicle"
             return tonumber(mob_id)
@@ -33,7 +35,7 @@ end
 
 function M.AddSpacer(container)
     -- Add a spacer (or line break)
-    local spacer = AceGUI:Create("Label")
+    local spacer = AceGUI:Create("Label") --- @type Label
     spacer:SetFullWidth(true)
     container:AddChild(spacer)
 end
@@ -52,17 +54,20 @@ function M.Log(...)
     print("|cffffd700DungeonDocs|r " .. message) -- Add prefix and print
 end
 
---- @generic T
---- @param orig T # The original table or value to copy
---- @return T # A deep copy of the original value
+---@generic T
+---@param orig T # The original table or value to copy
+---@return T # A deep copy of the original value
 function M.DeepCopy(orig)
     local orig_type = type(orig)
-    local copy
+    local copy ---@type any
 
     if orig_type == "table" then
-        copy = {}
+        copy = {} ---@type table<any, any>
+
+        --- TODO: figure out the proper way to type this, or refactor
+        ---@diagnostic disable-next-line
         for orig_key, orig_value in next, orig, nil do
-            copy[DD.utils.DeepCopy(orig_key)] = DD.utils.DeepCopy(orig_value)
+            copy[DD.utils.DeepCopy(orig_key)] = M.DeepCopy(orig_value)
         end
         setmetatable(copy, getmetatable(orig))
     else -- for non-table types, return the original value
@@ -72,13 +77,12 @@ function M.DeepCopy(orig)
     return copy
 end
 
---- TODO: need to fix the typing here, I think this takes a an acegui thing, NOT a frame
 --- @param container AceGUIContainer
 --- @param title string
---- @returns AceGUIInlineGroup
+--- @return InlineGroup
 function M.AddSection(container, title)
     -- Create an InlineGroup as a section container
-    local section = AceGUI:Create("InlineGroup")
+    local section = AceGUI:Create("InlineGroup") ---@type InlineGroup
     section:SetTitle(title)
     section:SetFullWidth(true)
     section:SetLayout("Flow")
@@ -115,40 +119,46 @@ end
 -- |  _| | | (_| | | | | | |  __/
 -- |_| |_|  \__,_|_| |_| |_|\___|
 
---- @param frame Frame
+--- @param frame Frame|FontString
 function M.FrameHide(frame)
     if frame:IsShown() then
         frame:Hide()
     end
 end
 
---- @param frame Frame
+--- @param frame Frame|FontString
 function M.FrameShow(frame)
     if not frame:IsShown() then
         frame:Show()
     end
 end
 
---- @param frame Frame
+--- @param frame Frame|FontString
 function M.FrameWidth(frame, width)
     if frame:GetWidth() ~= width then
         frame:SetWidth(width)
     end
 end
 
---- @param frame Frame
+--- @param frame Frame|FontString
 function M.FrameHeight(frame, height)
     if frame:GetHeight() ~= height then
         frame:SetHeight(height)
     end
 end
 
---- @param frame Frame
+--- @param frame Frame|FontString
 function M.FrameCollapse(frame)
     M.FrameHide(frame)
     M.FrameHeight(frame, 0)
 end
 
+--- @param frame Frame|FontString The frame to set the position for.
+--- @param point string The anchor point of the frame (e.g., "TOPLEFT", "CENTER").
+--- @param relativeTo Frame The frame or name of the frame to anchor to, or nil for the screen.
+--- @param relativePoint string The anchor point on the relative frame (e.g., "TOPLEFT", "CENTER").
+--- @param offsetX number The x-axis offset in pixels.
+--- @param offsetY number The y-axis offset in pixels.
 function M.FrameSetPoint(frame, point, relativeTo, relativePoint, offsetX, offsetY)
     local existingPoint = { frame:GetPoint() } -- Get the current point
 
@@ -170,6 +180,10 @@ function M.FontText(frame, text)
     end
 end
 
+--- @param fontString FontString
+--- @param fontPath string
+--- @param fontSize number
+--- @param fontFlags string
 function M.SafeSetFont(fontString, fontPath, fontSize, fontFlags)
     local currentFont, currentSize, currentFlags = fontString:GetFont()
     if currentFont ~= fontPath or currentSize ~= fontSize or currentFlags ~= fontFlags then
@@ -177,6 +191,11 @@ function M.SafeSetFont(fontString, fontPath, fontSize, fontFlags)
     end
 end
 
+--- @param fontString FontString
+--- @param r number
+--- @param g number
+--- @param b number
+--- @param a number
 function M.SafeSetTextColor(fontString, r, g, b, a)
     local cr, cg, cb, ca = fontString:GetTextColor()
     if cr ~= r or cg ~= g or cb ~= b or ca ~= a then
@@ -184,18 +203,24 @@ function M.SafeSetTextColor(fontString, r, g, b, a)
     end
 end
 
+--- @param frame Frame|FontString
+--- @param newAlpha number
 function M.SafeSetAlpha(frame, newAlpha)
     if frame:GetAlpha() ~= newAlpha then
         frame:SetAlpha(newAlpha)
     end
 end
 
+--- @param fontString FontString
+--- @param align string
 function M.SafeSetJustifyH(fontString, align)
     if fontString:GetJustifyH() ~= align then
         fontString:SetJustifyH(align)
     end
 end
 
+--- @param texture Texture
+--- @param parentFrame Frame
 function M.SafeSetAllPoints(texture, parentFrame)
     local point1, relativeTo1 = texture:GetPoint(1)
     if not point1 or relativeTo1 ~= parentFrame then
@@ -203,6 +228,11 @@ function M.SafeSetAllPoints(texture, parentFrame)
     end
 end
 
+--- @param texture Texture
+--- @param r number
+--- @param g number
+--- @param b number
+--- @param a number
 function M.SafeSetColorTexture(texture, r, g, b, a)
     local cr, cg, cb, ca = texture:GetVertexColor()
     if cr ~= r or cg ~= g or cb ~= b or ca ~= a then
@@ -210,75 +240,81 @@ function M.SafeSetColorTexture(texture, r, g, b, a)
     end
 end
 
-function M.MergeDocs(profileDocs, fallbackProfileDocs)
-    local docs = {}
-    for instance, mobs in pairs(profileDocs) do
-        if not docs[instance] then
-            docs[instance] = {}
+--- @param primary PlayerNotes
+--- @param fallback PlayerNotes
+--- @return PlayerNotes
+function M.MergePlayerNotes(primary, fallback)
+    --- @alias PlayerNotesMapped table<DungeonName, table<DDID, PlayerNote>>
+    local playerNotesMapped = {} --- @type PlayerNotesMapped
+
+    for dungeonName, notes in pairs(primary) do
+        if not playerNotesMapped[dungeonName] then
+            playerNotesMapped[dungeonName] = {}
         end
 
-        for _, mob in ipairs(mobs) do
-            docs[instance][mob.ddid] = mob
+        for _, note in ipairs(notes) do
+            playerNotesMapped[dungeonName][note.ddid] = note
         end
     end
 
-    -- LogTableToBugSack(fallbackProfileDocs)
-
-    -- now add the fallback docs where applicable
-    for instance, mobs in pairs(fallbackProfileDocs) do
-        if not docs[instance] then
-            docs[instance] = {}
+    -- Add the notes from the fallback profile where applicable
+    for instance, fallbackNotes in pairs(fallback) do
+        if not playerNotesMapped[instance] then
+            playerNotesMapped[instance] = {}
         end
 
-        for _, mob in ipairs(mobs) do
+        for _, fallbackNote in ipairs(fallbackNotes) do
             (function()
-                local found = docs[instance][mob.ddid]
+                local found = playerNotesMapped[instance][fallbackNote.ddid]
                 if not found then
-                    docs[instance][mob.ddid] = mob
+                    playerNotesMapped[instance][fallbackNote.ddid] = fallbackNote
                     return
                 end
 
-                local function shouldUseFallback(note, fallbackNote)
-                    return not note and fallbackNote and #fallbackNote > 0
+                local function shouldUseFallback(primaryValue, fallbackValue)
+                    return not primaryValue and fallbackValue and #fallbackValue > 0
                 end
 
-                if shouldUseFallback(found.primaryNote, mob.primaryNote) then
-                    found.primaryNote = mob.primaryNote
+                if shouldUseFallback(found.primaryNote, fallbackNote.primaryNote) then
+                    found.primaryNote = fallbackNote.primaryNote
                 end
 
-                if shouldUseFallback(found.tankNote, mob.tankNote) then
-                    found.tankNote = mob.tankNote
+                if shouldUseFallback(found.tankNote, fallbackNote.tankNote) then
+                    found.tankNote = fallbackNote.tankNote
                 end
 
-                if shouldUseFallback(found.healerNote, mob.healerNote) then
-                    found.healerNote = mob.healerNote
+                if shouldUseFallback(found.healerNote, fallbackNote.healerNote) then
+                    found.healerNote = fallbackNote.healerNote
                 end
 
-                if shouldUseFallback(found.damageNote, mob.damageNote) then
-                    found.damageNote = mob.damageNote
+                if shouldUseFallback(found.damageNote, fallbackNote.damageNote) then
+                    found.damageNote = fallbackNote.damageNote
                 end
             end)()
         end
     end
 
-    local docsFinal = {}
+    local playerNotesFinal = {} --- @type PlayerNotes
 
-    for instance, mobs in pairs(docs) do
-        for _, mob in pairs(mobs) do
-            if not docsFinal[instance] then
-                docsFinal[instance] = {}
+    for dungeonName, notes in pairs(playerNotesMapped) do
+        for _, note in pairs(notes) do
+            if not playerNotesFinal[dungeonName] then
+                playerNotesFinal[dungeonName] = {}
             end
-            table.insert(docsFinal[instance], mob)
+            table.insert(playerNotesFinal[dungeonName], note)
         end
     end
 
-    return docsFinal
+    return playerNotesFinal
 end
 
+--- @param tbl table
 function M.IsTableEmpty(tbl)
     return next(tbl) == nil
 end
 
+--- @param array any[]
+--- @param element any
 function M.IsInArray(array, element)
     for _, e in ipairs(array) do
         if e == element then
@@ -288,6 +324,9 @@ function M.IsInArray(array, element)
     return false
 end
 
+--- @param tbl table<any, any>
+--- @param indent string?
+--- @return string
 function M.TableToString(tbl, indent)
     indent = indent or ""
     local result = "{\n"
@@ -307,6 +346,8 @@ function M.TableToString(tbl, indent)
 end
 
 -- Function to log the human-readable table string to BugSack
+--- @param msg string
+--- @param tbl table<any, any>
 function M.LogTableToBugSack(msg, tbl)
     local readableTable = M.TableToString(tbl)
     error(msg .. "\n\n" .. readableTable) -- Triggers BugSack to capture the output
@@ -339,31 +380,37 @@ end
 -- |  _| (_) | | | | |_\__ \
 -- |_|  \___/|_| |_|\__|___/
 
-local LSM = LibStub("LibSharedMedia-3.0")
-local fontList = LSM:HashTable("font")
+local LSM = LibStub("LibSharedMedia-3.0") --- @type any
+local fontList = LSM:HashTable("font") --- @type table<string, string>
 
 local fontNameToPath = fontList
-local fontPathToName = {}
+local fontPathToName = {} --- @type table<string, string>
 for fontName, fontPath in pairs(fontList) do
     fontPathToName[fontPath] = fontName -- Use font names as display text
 end
 
-local fontNames = {}
+local fontNames = {} --- @type table<string, string>
 for fontName, _ in pairs(fontList) do
     fontNames[fontName] = fontName -- Use font names as display text
 end
 
+--- @param fontName string
 function M.FontNameToPath(fontName)
     return fontNameToPath[fontName]
 end
 
+--- @param fontPath string
 function M.FontPathToName(fontPath)
     return fontPathToName[fontPath]
 end
 
+--- @param container AceGUIContainer
+--- @param label string
+--- @param startingFont string
+--- @param callback fun(string)
 function M.AddFontSelect(container, label, startingFont, callback)
     -- Dropdown menu for font selection
-    local fontDropdown = AceGUI:Create("Dropdown")
+    local fontDropdown = AceGUI:Create("Dropdown") --- @type Dropdown
     fontDropdown:SetLabel(label)
 
     -- Create a list with font-specific labels

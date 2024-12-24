@@ -1,5 +1,8 @@
 {
   "Lua.runtime.version": "Lua 5.1",
+  "Lua.diagnostics.neededFileStatus": {
+    "no-unknown": "Any",
+  },
   "Lua.workspace.library": [
     "./Types"
   ],

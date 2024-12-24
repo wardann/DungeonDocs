@@ -1,20 +1,42 @@
 --- @class DungeonDocs
 local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
-local AceGUI = LibStub("AceGUI-3.0")
+local AceGUI = LibStub("AceGUI-3.0") ---@type AceGUI
 
 --- @class DocsUI
 local M = {}
 
---- @type TreeGroup
-local treeGroup
+---@alias TreeNote {
+---    value: string,
+---    text: string,
+---    noteName: string,
+---    mobs: DocMob[],
+---    isBoss: boolean,
+---    ddid: DDID,
+---}
+---@alias TreeMobOrBoss {
+---    value: string,
+---    text: string,
+---    children: TreeNote[],
+---}
+--- @alias TreeDungeon {
+---     value: string,
+---     text: string,
+---     name: string,
+---     icon: string,
+---     children: TreeMobOrBoss[],
+--- }
+---
+--- @alias TreeData TreeDungeon[]
 
-local rightGroup
+local treeGroup ---@type TreeGroup
 
-local models = {}
+local rightGroup ---@type SimpleGroup
+
+local models = {} ---@type PlayerModel[]
 
 
 --- @param localTreeGroup TreeGroup
---- @param treeData table
+--- @param treeData TreeData
 local function setTreeGroupFocus(localTreeGroup, treeData)
     local targetId = DD.utils.GetMobIDFromGUID("target")
     if not targetId then
@@ -47,9 +69,10 @@ end
 local lastSelected = {}
 
 -- Function to show the Default tab content
+--- @param container AceGUIContainer
 function M.TabRoot(container)
     -- Create a TreeGroup for the hierarchical mob list
-    treeGroup = AceGUI:Create("TreeGroup")
+    treeGroup = AceGUI:Create("TreeGroup") ---@type TreeGroup
     treeGroup:SetLayout("Fill")
     treeGroup:SetFullWidth(true)
     treeGroup:SetFullHeight(true)
@@ -69,11 +92,13 @@ function M.TabRoot(container)
             return
         end
 
-        local dungeonName, enemyType, noteName = pathComponents[1], pathComponents[2], pathComponents[3]
+        local dungeonName = pathComponents[1] ---@type string
+        local enemyType = pathComponents[2] ---@type string
+        local noteName = pathComponents[3] ---@type string
         M.HandleSelected(dungeonName, enemyType, noteName)
     end)
 
-    rightGroup = AceGUI:Create("SimpleGroup")
+    rightGroup = AceGUI:Create("SimpleGroup") ---@type SimpleGroup
     rightGroup:SetFullWidth(true)
     rightGroup:SetFullHeight(true)
     rightGroup:SetLayout("Flow")
@@ -90,6 +115,7 @@ function M.TabRoot(container)
     end)
 end
 
+--- TODO!
 local function resetNote(dungeonName, note)
     DD.db.SetNote(dungeonName, note.ddid, "primaryNote", nil)
     DD.db.SetNote(dungeonName, note.ddid, "tankNote", nil)
@@ -97,6 +123,7 @@ local function resetNote(dungeonName, note)
     DD.db.SetNote(dungeonName, note.ddid, "damageNote", nil)
 end
 
+--- TODO!
 function M.ClearModels()
     for _, model in pairs(models) do
         if model then
@@ -111,12 +138,12 @@ end
 --- @param enemyType "boss"|"trash"
 --- @param noteName string
 function M.HandleSelected(dungeonName, enemyType, noteName)
-    local notes = DD.dungeons.List[dungeonName].noteStructures
-    local note
+    local notes = DD.dungeons.List[dungeonName].docStructures
+    local note ---@type DocStructure
 
     -- Find the boss in the database
     for _, n in ipairs(notes) do
-        if n.noteName == noteName then
+        if n.docName == noteName then
             note = n
         end
     end
@@ -126,9 +153,10 @@ function M.HandleSelected(dungeonName, enemyType, noteName)
     M.ClearModels()
 
     -- Add a title for the page
-    local titleLabel = AceGUI:Create("Label")
-    titleLabel:SetText(note.noteName)
+    local titleLabel = AceGUI:Create("Label") ---@type Label
+    titleLabel:SetText(note.docName)
     titleLabel:SetFontObject(GameFontNormalLarge) -- Sets the font to a larger style
+    titleLabel.label:SetJustifyH("CENTER")
     titleLabel:SetFullWidth(true)
     titleLabel.label:SetJustifyH("CENTER")
     rightGroup:AddChild(titleLabel)
@@ -149,7 +177,7 @@ function M.HandleSelected(dungeonName, enemyType, noteName)
         local numMobs = #mobsToRender
         local widthPerModel = (1 / numMobs) * rightGroup.frame:GetWidth() -- Each model gets a fraction of the width
 
-        local modelContainer = AceGUI:Create("SimpleGroup")
+        local modelContainer = AceGUI:Create("SimpleGroup") ---@type SimpleGroup
 
 
         -- Render enemy model
@@ -171,7 +199,7 @@ function M.HandleSelected(dungeonName, enemyType, noteName)
     end
 
 
-    local scrollFrame = AceGUI:Create("ScrollFrame")
+    local scrollFrame = AceGUI:Create("ScrollFrame") ---@type ScrollFrame
     scrollFrame:SetLayout("Flow")
     scrollFrame:SetFullWidth(true)
     scrollFrame:SetFullHeight(true)
@@ -182,7 +210,7 @@ function M.HandleSelected(dungeonName, enemyType, noteName)
     M.RenderNote(dungeonName, note, "healerNote", "Healer notes", scrollFrame)
     M.RenderNote(dungeonName, note, "damageNote", "DPS notes", scrollFrame)
 
-    local testNoteButton = AceGUI:Create("Button")
+    local testNoteButton = AceGUI:Create("Button") ---@type Button
     testNoteButton:SetText("Render Notes")
     testNoteButton:SetFullWidth(true)
     testNoteButton:SetCallback("OnClick", function()
@@ -190,7 +218,7 @@ function M.HandleSelected(dungeonName, enemyType, noteName)
     end)
     scrollFrame:AddChild(testNoteButton)
 
-    local button = AceGUI:Create("Button")
+    local button = AceGUI:Create("Button") ---@type Button
     local resetButtonText = "Reset Notes to Fallback Profile"
     button:SetText(resetButtonText)
     button:SetFullWidth(true)
@@ -220,17 +248,18 @@ function M.HandleSelected(dungeonName, enemyType, noteName)
     lastSelected = { dungeonName, enemyType, noteName }
 end
 
+--- TODO type this
 function M.RenderNote(dungeonName, note, noteKey, noteLabel, container)
     -- Add notes
     -- Create a SimpleGroup for the edit box to ensure proper layout
-    local noteContainer = AceGUI:Create("SimpleGroup")
+    local noteContainer = AceGUI:Create("SimpleGroup") ---@type SimpleGroup
     noteContainer:SetFullWidth(true) -- Make it take the full width
     noteContainer:SetHeight(100)     -- Set a height for the edit box container
     noteContainer:SetLayout("Fill")
     container:AddChild(noteContainer)
 
     -- Add a Multi-Line Edit Box using a standard EditBox
-    local noteTextBox = AceGUI:Create("MultiLineEditBox")
+    local noteTextBox = AceGUI:Create("MultiLineEditBox") ---@type MultiLineEditBox
     noteTextBox:SetLabel(noteLabel)
     noteTextBox:SetFullWidth(true)                                             -- Make the edit box take up the full width of the container
 
@@ -242,25 +271,26 @@ function M.RenderNote(dungeonName, note, noteKey, noteLabel, container)
     noteContainer:AddChild(noteTextBox)
 end
 
---- @returns table
+
+--- @return TreeData
 function M.DungeonDataToTreeData()
     -- Get instances only from the selected season
     local instances = DD.dungeons.GetCurrentSeason()
 
-    local treeData = {}
+    local treeData = {} ---@type TreeData
 
     for _, d in pairs(instances) do
-        local treeBosses = {}
-        local treeTrash = {}
+        local treeBossNotes = {} ---@type TreeNote[]
+        local treeTrashNotes = {} ---@type TreeNote[]
 
-        for _, noteStruct in ipairs(d.noteStructures) do
-            local target = treeTrash
-            if noteStruct.isBoss then target = treeBosses end
+        for _, noteStruct in ipairs(d.docStructures) do
+            local target = treeTrashNotes
+            if noteStruct.isBoss then target = treeBossNotes end
 
             local note = {
-                value = noteStruct.noteName,
-                text = noteStruct.noteName,
-                noteName = noteStruct.noteName,
+                value = noteStruct.docName,
+                text = noteStruct.docName,
+                noteName = noteStruct.docName,
                 mobs = noteStruct.mobs,
                 isBoss = noteStruct.isBoss,
                 ddid = noteStruct.ddid,
@@ -269,7 +299,7 @@ function M.DungeonDataToTreeData()
         end
 
         -- Sort trash alphabetically
-        table.sort(treeTrash, function(a, b)
+        table.sort(treeTrashNotes, function(a, b)
             return a.value < b.value
         end)
 
@@ -282,12 +312,12 @@ function M.DungeonDataToTreeData()
                 {
                     value = "bosses",
                     text = "Bosses",
-                    children = treeBosses,
+                    children = treeBossNotes,
                 },
                 {
                     value = "trash",
                     text = "Trash",
-                    children = treeTrash,
+                    children = treeTrashNotes,
                 }
             },
         }

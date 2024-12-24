@@ -1,6 +1,6 @@
 --- @class DungeonDocs
 local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
-local AceGUI = LibStub("AceGUI-3.0")
+local AceGUI = LibStub("AceGUI-3.0") ---@type AceGUI
 
 --- @class UI
 DD.ui = DD.ui or {}
@@ -8,27 +8,28 @@ DD.ui = DD.ui or {}
 --- @class SettingsUI
 DD.ui.settings = DD.ui.settings or {}
 
-function DD.ui.settings.StylePrimary_View(wrapperContainer)
+---@param container AceGUIContainer
+function DD.ui.settings.StylePrimary_View(container)
     local refresh = function()
-        wrapperContainer:ReleaseChildren()
-        DD.ui.settings.StylePrimary_View(wrapperContainer)
+        container:ReleaseChildren()
+        DD.ui.settings.StylePrimary_View(container)
     end
 
-    wrapperContainer:SetLayout("Flow")
+    container:SetLayout("Flow")
 
     local state = DD.db.database.profile.settings.omniNote
 
-    local container = AceGUI:Create("ScrollFrame")
-    container:SetLayout("Flow")
-    container:SetFullWidth(true)
-    container:SetFullHeight(true)
-    wrapperContainer:AddChild(container)
+    local scrollFrame = AceGUI:Create("ScrollFrame") ---@type ScrollFrame
+    scrollFrame:SetLayout("Flow")
+    scrollFrame:SetFullWidth(true)
+    scrollFrame:SetFullHeight(true)
+    container:AddChild(scrollFrame)
 
 
-    DD.ui.settings.StylePrimary_AddDescription(container)
+    DD.ui.settings.StylePrimary_AddDescription(scrollFrame)
 
     -- Add primary note settings
-    local primaryNoteSection = DD.utils.AddSection(container, "")
+    local primaryNoteSection = DD.utils.AddSection(scrollFrame, "")
     if not state.style.primaryNote.useDefaultTextStyle then
         DD.ui.shared.AddFontSettings(primaryNoteSection, state.style.primaryNote.text)
     end
@@ -41,13 +42,15 @@ function DD.ui.settings.StylePrimary_View(wrapperContainer)
     )
 end
 
-function DD.ui.settings.StylePrimary_AddDescription(frame)
+
+---@param container AceGUIContainer
+function DD.ui.settings.StylePrimary_AddDescription(container)
     -- Create a title label
-    local title = AceGUI:Create("Label")
+    local title = AceGUI:Create("Label") --- @type Label
     title:SetText("|cffffd700Primary Note|r")    -- Gold-colored text for the title
     title:SetFont(GameFontNormalLarge:GetFont()) -- Use a larger font for the title
     title:SetFullWidth(true)                     -- Stretch across the frame
-    frame:AddChild(title)
+    container:AddChild(title)
 
     -- Create an explanation label
     -- local explanation = AceGUI:Create("Label")

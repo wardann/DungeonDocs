@@ -4,11 +4,9 @@ local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
 --- @class Profiles
 local M = {}
 
---- @alias ProfileNote {ddid: string, primaryNote: string, healerNote: string, damageNote: string, tankNote: string}
---- @alias ProfileNotes table<ProfileNote>
---- @alias ProfileDungeonNotes {dungeonName: string, notes: ProfileNotes}
+--- @alias ProfileDungeonNotes {dungeonName: string, notes: PlayerNote[]}
 
---- @type table<string>
+--- @type string[]
 local reservedProfileNames = {}
 
 --- @param profileName string
@@ -17,7 +15,7 @@ function M.ReserveProfileName(profileName)
 end
 
 --- @param profileName string
---- @returns boolean
+--- @return boolean
 function M.IsReservedProfile(profileName)
     for _, value in ipairs(reservedProfileNames) do
         if value == profileName then
@@ -28,12 +26,11 @@ function M.IsReservedProfile(profileName)
 end
 
 --- @param profileDungeonNotes ProfileDungeonNotes
---- @returns ProfileNotes
+--- @return PlayerNote[]
 function M.BuildProfileNotes(profileDungeonNotes)
-    --- @type ProfileNotes
-    local profileNotes = {}
+    local profileNotes = {} ---@type PlayerNote[]
 
-    --- @param note ProfileNote
+    --- @param note PlayerNote
     local function shouldInsert(note)
         return note.primaryNote ~= "" or note.healerNote ~= "" or note.damageNote ~= "" or note.tankNote ~= ""
     end

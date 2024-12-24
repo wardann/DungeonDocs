@@ -9,80 +9,80 @@ end
 --- @class Dungeons
 DD.dungeons = DD.dungeons or {}
 
---- @type NoteStructures
-local noteStructures = {
+--- @type DocStructure[]
+local docStructures = {
   --
   -- BOSSES
   --
   {
-    noteName = "Chopper Redhook",
+    docName = "Chopper Redhook",
     ddid = createDDID(1),
     isBoss = true,
     mobs = {
       {
         -- name = "Chopper Redhook",
-        id = 128650,
+        id = "128650",
         displayId = 84821,
       },
       {
         -- name = "Irontide Cleaver",
-        id = 129879,
+        id = "129879",
         displayId = 81286,
       },
     }
   },
   {
-    noteName = "Dread Captain Lockwood",
+    docName = "Dread Captain Lockwood",
     ddid = createDDID(2),
     isBoss = true,
     mobs = {
       {
         -- name = "Dread Captain Lockwood",
-        id = 129208,
+        id = "129208",
         displayId = 88579,
       },
       {
         -- name = "Ashvane Deckhand",
-        id = 136483,
+        id = "136483",
         displayId = 84385,
       },
       {
         -- name = "Ashvane Cannoneer",
-        id = 136549,
+        id = "136549",
         displayId = 82852,
       },
     }
   },
   {
-    noteName = "Hadal Darkfathom",
+    docName = "Hadal Darkfathom",
     ddid = createDDID(3),
     isBoss = true,
     mobs = {
       {
         -- name = "Hadal Darkfathom",
-        id = 128651,
+        id = "128651",
         displayId = 67541,
       },
     }
   },
   {
-    noteName = "Viqgoth",
+    docName = "Viqgoth",
     ddid = createDDID(4),
     isBoss = true,
     mobs = {
       {
         name = "Viqgoth",
-        id = 128652,
+        id = "128652",
         displayId = 87990,
       },
       {
         name = "Gripping Terror",
-        id = 137405,
+        id = "137405",
         displayId = 88448,
       },
       {
         name = "Demolishing Terror",
-        id = 137614,
+        id = "137614",
         displayId = 86691,
       },
     }
@@ -91,265 +91,265 @@ local noteStructures = {
   --- TRASH
   ---
   {
-    noteName = "Scrimshaw Gutter",
+    docName = "Scrimshaw Gutter",
     ddid = createDDID(5),
     mobs = {
       {
-        id = 133990,
+        id = "133990",
         displayId = 83892,
       }
     },
   },
   {
-    noteName = "Blacktar Bomber",
+    docName = "Blacktar Bomber",
     ddid = createDDID(6),
     mobs = {
       {
-        id = 129372,
+        id = "129372",
         displayId = 84136,
       }
     },
   },
   {
-    noteName = "Scrimshaw Enforcer",
+    docName = "Scrimshaw Enforcer",
     ddid = createDDID(7),
     mobs = {
       {
-        id = 129374,
+        id = "129374",
         displayId = 86006,
       }
     },
   },
   {
-    noteName = "Irontide Waveshaper",
+    docName = "Irontide Waveshaper",
     ddid = createDDID(8),
     mobs = {
       {
-        id = 129370,
+        id = "129370",
         displayId = 84327,
       }
     },
   },
   {
-    noteName = "Irontide Raider",
+    docName = "Irontide Raider",
     ddid = createDDID(9),
     mobs = {
       {
-        id = 129369,
+        id = "129369",
         displayId = 84134,
       }
     },
   },
   {
-    noteName = "Riptide Shredder",
+    docName = "Riptide Shredder",
     ddid = createDDID(10),
     mobs = {
       {
-        id = 129371,
+        id = "129371",
         displayId = 86085,
       }
     },
   },
   {
-    noteName = "Snarling Dockhound",
+    docName = "Snarling Dockhound",
     ddid = createDDID(11),
     mobs = {
       {
-        id = 129640,
+        id = "129640",
         displayId = 30222,
       }
     },
   },
   {
-    noteName = "Irontide Curseblade",
+    docName = "Irontide Curseblade",
     ddid = createDDID(12),
     mobs = {
       {
-        id = 135258,
+        id = "135258",
         displayId = 79068,
       }
     },
   },
   {
-    noteName = "Irontide Powdershot",
+    docName = "Irontide Powdershot",
     ddid = createDDID(13),
     mobs = {
       {
-        id = 137521,
+        id = "137521",
         displayId = 85144,
       }
     },
   },
   {
-    noteName = "Ashvane Commander",
+    docName = "Ashvane Commander",
     ddid = createDDID(14),
     mobs = {
       {
-        id = 128969,
+        id = "128969",
         displayId = 84067,
       }
     },
   },
   {
-    noteName = "Ashvane Spotter",
+    docName = "Ashvane Spotter",
     ddid = createDDID(15),
     mobs = {
       {
-        id = 138255,
+        id = "138255",
         displayId = 86436,
       },
       {
-        id = 135263,
+        id = "135263",
         displayId = 86436,
       }
     },
   },
   {
-    noteName = "Ashvane Deckhand",
+    docName = "Ashvane Deckhand",
     ddid = createDDID(16),
     mobs = {
       {
-        id = 138464,
+        id = "138464",
         displayId = 84385,
       }
     },
   },
   {
-    noteName = "Ashvane Cannoneer",
+    docName = "Ashvane Cannoneer",
     ddid = createDDID(17),
     mobs = {
       {
-        id = 138465,
+        id = "138465",
         displayId = 88542,
       }
     },
   },
   {
-    noteName = "Bilge Rat Pillager",
+    docName = "Bilge Rat Pillager",
     ddid = createDDID(18),
     mobs = {
       {
-        id = 135241,
+        id = "135241",
         displayId = 52277,
       }
     },
   },
   {
-    noteName = "Bilge Rat Buccaneer",
+    docName = "Bilge Rat Buccaneer",
     ddid = createDDID(19),
     mobs = {
       {
-        id = 129366,
+        id = "129366",
         displayId = 81424,
       }
     },
   },
   {
-    noteName = "Bilge Rat Demolisher",
+    docName = "Bilge Rat Demolisher",
     ddid = createDDID(20),
     mobs = {
       {
-        id = 135245,
+        id = "135245",
         displayId = 68059,
       }
     },
   },
   {
-    noteName = "Bilge Rat Tempest",
+    docName = "Bilge Rat Tempest",
     ddid = createDDID(21),
     mobs = {
       {
-        id = 129367,
+        id = "129367",
         displayId = 80475,
       }
     },
   },
   {
-    noteName = "Bilge Rat Cutthroat",
+    docName = "Bilge Rat Cutthroat",
     ddid = createDDID(22),
     mobs = {
       {
-        id = 137511,
+        id = "137511",
         displayId = 80319,
       }
     },
   },
   {
-    noteName = "Ashvane Invader",
+    docName = "Ashvane Invader",
     ddid = createDDID(23),
     mobs = {
       {
-        id = 137516,
+        id = "137516",
         displayId = 79889,
       }
     },
   },
   {
-    noteName = "Ashvane Destroyer",
+    docName = "Ashvane Destroyer",
     ddid = createDDID(24),
     mobs = {
       {
-        id = 137517,
+        id = "137517",
         displayId = 82852,
       }
     },
   },
   {
-    noteName = "Irontide Waveshaper",
+    docName = "Irontide Waveshaper",
     ddid = createDDID(25),
     mobs = {
       {
-        id = 144071,
+        id = "144071",
         displayId = 84327,
       }
     },
   },
   {
-    noteName = "Irontide Powdershot",
+    docName = "Irontide Powdershot",
     ddid = createDDID(26),
     mobs = {
       {
-        id = 138254,
+        id = "138254",
         displayId = 85144,
       }
     },
   },
   {
-    noteName = "Ashvane Sniper",
+    docName = "Ashvane Sniper",
     ddid = createDDID(27),
     mobs = {
       {
-        id = 128967,
+        id = "128967",
         displayId = 82843,
       }
     },
   },
   {
-    noteName = "Irontide Curseblade",
+    docName = "Irontide Curseblade",
     ddid = createDDID(28),
     mobs = {
       {
-        id = 138247,
+        id = "138247",
         displayId = 79068,
       }
     },
   },
   {
-    noteName = "Irontide Powdershot",
+    docName = "Irontide Powdershot",
     ddid = createDDID(29),
     mobs = {
       {
-        id = 129928,
+        id = "129928",
         displayId = 85144,
       }
     },
   },
   {
-    noteName = "Scrimshaw Gutter",
+    docName = "Scrimshaw Gutter",
     ddid = createDDID(30),
     mobs = {
       {
-        id = 138002,
+        id = "138002",
         displayId = 83892,
       }
     },
@@ -361,7 +361,7 @@ local dungeonData = {
   dungeonName = "Siege of Boralus",
   icon = "Interface\\ICONS\\inv_misc_monsterhorn_03",
   seasonId = "TWWS1",
-  noteStructures = noteStructures
+  docStructures = docStructures
 }
 
 

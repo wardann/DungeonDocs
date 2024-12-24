@@ -1,6 +1,6 @@
 --- @class DungeonDocs
 local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
-local AceGUI = LibStub("AceGUI-3.0")
+local AceGUI = LibStub("AceGUI-3.0") ---@type AceGUI
 
 --- @class UI
 DD.ui = DD.ui or {}
@@ -8,30 +8,31 @@ DD.ui = DD.ui or {}
 --- @class SettingsUI
 DD.ui.settings = DD.ui.settings or {}
 
-function DD.ui.settings.StyleRoleDamage_View(wrapperContainer)
+---@param container AceGUIContainer
+function DD.ui.settings.StyleRoleDamage_View(container)
     local refresh = function()
-        wrapperContainer:ReleaseChildren()
-        DD.ui.settings.StyleRoleDamage_View(wrapperContainer)
+        container:ReleaseChildren()
+        DD.ui.settings.StyleRoleDamage_View(container)
     end
-    wrapperContainer:SetLayout("Flow")
+    container:SetLayout("Flow")
 
     local state = DD.db.database.profile.settings.omniNote
 
-    local container = AceGUI:Create("ScrollFrame")
-    container:SetLayout("Flow")
-    container:SetFullWidth(true)
-    container:SetFullHeight(true)
-    wrapperContainer:AddChild(container)
+    local scrollFrame = AceGUI:Create("ScrollFrame") ---@type ScrollFrame
+    scrollFrame:SetLayout("Flow")
+    scrollFrame:SetFullWidth(true)
+    scrollFrame:SetFullHeight(true)
+    container:AddChild(scrollFrame)
 
-    DD.ui.settings.StyleRoleDamage_AddDescription(container)
+    DD.ui.settings.StyleRoleDamage_AddDescription(scrollFrame)
 
     --
     --
     -- Damage role note section
     --
     --
-    local damageRoleNoteSection = DD.utils.AddSection(container, "")
-    local damageHeaderInput = AceGUI:Create("EditBox")
+    local damageRoleNoteSection = DD.utils.AddSection(scrollFrame, "")
+    local damageHeaderInput = AceGUI:Create("EditBox") ---@type EditBox
     damageHeaderInput:SetLabel("Header")
     damageHeaderInput:SetText(state.damageHeader)
     damageHeaderInput:DisableButton(true)
@@ -63,25 +64,26 @@ function DD.ui.settings.StyleRoleDamage_View(wrapperContainer)
     )
 
     if not state.style.damageHeader.useDefaultRoleHeaderStyle then
-        local damageHeaderStyleSection = DD.utils.AddSection(container, "Damage Header Style")
+        local damageHeaderStyleSection = DD.utils.AddSection(scrollFrame, "Damage Header Style")
         DD.ui.shared.AddFontSettings(damageHeaderStyleSection, state.style.damageHeader.text)
     end
 
     if not state.style.damageNote.useDefaultTextStyle then
-        local damageNoteStyleSection = DD.utils.AddSection(container, "Damage Note Style")
+        local damageNoteStyleSection = DD.utils.AddSection(scrollFrame, "Damage Note Style")
         DD.ui.shared.AddFontSettings(damageNoteStyleSection, state.style.damageNote.text)
     end
 
 
 end
 
-function DD.ui.settings.StyleRoleDamage_AddDescription(frame)
+---@param container AceGUIContainer
+function DD.ui.settings.StyleRoleDamage_AddDescription(container)
     -- Create a title label
-    local title = AceGUI:Create("Label")
+    local title = AceGUI:Create("Label") ---@type Label
     title:SetText("|cffffd700Damage Notes Style|r")    -- Gold-colored text for the title
     title:SetFont(GameFontNormalLarge:GetFont()) -- Use a larger font for the title
     title:SetFullWidth(true)                     -- Stretch across the frame
-    frame:AddChild(title)
+    container:AddChild(title)
 
     -- Create an explanation label
     -- local explanation = AceGUI:Create("Label")

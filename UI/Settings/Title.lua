@@ -1,6 +1,6 @@
 --- @class DungeonDocs
 local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
-local AceGUI = LibStub("AceGUI-3.0")
+local AceGUI = LibStub("AceGUI-3.0") ---@type AceGUI
 
 --- @class UI
 DD.ui = DD.ui or {}
@@ -8,6 +8,7 @@ DD.ui = DD.ui or {}
 --- @class SettingsUI
 DD.ui.settings = DD.ui.settings or {}
 
+---@param wrapperContainer AceGUIContainer
 function DD.ui.settings.Title_View(wrapperContainer)
     local refresh = function()
         wrapperContainer:ReleaseChildren()
@@ -19,7 +20,7 @@ function DD.ui.settings.Title_View(wrapperContainer)
 
     local state = DD.db.database.profile.settings.omniNote
 
-    local container = AceGUI:Create("ScrollFrame")
+    local container = AceGUI:Create("ScrollFrame") ---@type ScrollFrame
     container:SetLayout("Flow")
     container:SetFullWidth(true)
     container:SetFullHeight(true)
@@ -41,11 +42,12 @@ function DD.ui.settings.Title_View(wrapperContainer)
     end
 end
 
-function DD.ui.settings.Title_AddDescription(frame)
+--- @param container AceGUIContainer
+function DD.ui.settings.Title_AddDescription(container)
     -- Create a title label
-    local title = AceGUI:Create("Label")
+    local title = AceGUI:Create("Label") ---@type Label
     title:SetText("|cffffd700Note Title|r")
     title:SetFont(GameFontNormalLarge:GetFont())
     title:SetFullWidth(true)
-    frame:AddChild(title)
+    container:AddChild(title)
 end

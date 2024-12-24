@@ -9,335 +9,335 @@ end
 --- @class Dungeons
 DD.dungeons = DD.dungeons or {}
 
---- @type NoteStructures
-local noteStructures = {
+--- @type DocStructure[]
+local docStructures = {
   --
   -- BOSSES
   --
   {
-    noteName = "Blightbone",
+    docName = "Blightbone",
     ddid = createDDID(1),
     isBoss = true,
     mobs = {
       {
         -- name = "Blightbone",
-        id = 162691,
+        id = "162691",
         displayId = 95467,
       },
     }
   },
   {
-    noteName = "Amarth, The Harvester",
+    docName = "Amarth, The Harvester",
     ddid = createDDID(2),
     isBoss = true,
     mobs = {
       {
         -- name = "Amarth",
-        id = 163157,
+        id = "163157",
         displayId = 94926,
       },
     }
   },
   {
-    noteName = "Surgeon Stitchflesh",
+    docName = "Surgeon Stitchflesh",
     ddid = createDDID(3),
     isBoss = true,
     mobs = {
       {
         -- name = "Surgeon Stitchflesh",
-        id = 162689,
+        id = "162689",
         displayId = 96477,
       },
     }
   },
   {
-    noteName = "Nalthor the Rimebinder",
+    docName = "Nalthor the Rimebinder",
     ddid = createDDID(4),
     isBoss = true,
     mobs = {
       {
         -- name = "Nalthor the Rimebinder",
-        id = 162693,
+        id = "162693",
         displayId = 96085,
       },
     }
   },
   {
-    noteName = "Patchwerk Soldier",
+    docName = "Patchwerk Soldier",
     ddid = createDDID(5),
     mobs = {
       {
-        id = 162729,
+        id = "162729",
         displayId = 95222,
       }
     },
   },
   {
-    noteName = "Blight Bag",
+    docName = "Blight Bag",
     ddid = createDDID(6),
     mobs = {
       {
-        id = 165138,
+        id = "165138",
         displayId = 94761,
       }
     },
   },
   {
-    noteName = "Corpse Harvester",
+    docName = "Corpse Harvester",
     ddid = createDDID(7),
     mobs = {
       {
-        id = 166302,
+        id = "166302",
         displayId = 98170,
       }
     },
   },
   {
-    noteName = "Stitched Vanguard",
+    docName = "Stitched Vanguard",
     ddid = createDDID(8),
     mobs = {
       {
-        id = 163121,
+        id = "163121",
         displayId = 95227,
       }
     },
   },
   {
-    noteName = "Zolramus Gatekeeper",
+    docName = "Zolramus Gatekeeper",
     ddid = createDDID(9),
     mobs = {
       {
-        id = 165137,
+        id = "165137",
         displayId = 95231,
       }
     },
   },
   {
-    noteName = "Flesh Crafter",
+    docName = "Flesh Crafter",
     ddid = createDDID(10),
     mobs = {
       {
-        id = 165872,
+        id = "165872",
         displayId = 96480,
       }
     },
   },
   {
-    noteName = "Zolramus Sorcerer",
+    docName = "Zolramus Sorcerer",
     ddid = createDDID(11),
     mobs = {
       {
-        id = 163128,
+        id = "163128",
         displayId = 94992,
       }
     },
   },
   {
-    noteName = "Zolramus Bonecarver",
+    docName = "Zolramus Bonecarver",
     ddid = createDDID(12),
     mobs = {
       {
-        id = 163619,
+        id = "163619",
         displayId = 93933,
       }
     },
   },
   {
-    noteName = "Zolramus Necromancer",
+    docName = "Zolramus Necromancer",
     ddid = createDDID(13),
     mobs = {
       {
-        id = 163618,
+        id = "163618",
         displayId = 95233,
       }
     },
   },
   {
-    noteName = "Brittlebone Mage",
+    docName = "Brittlebone Mage",
     ddid = createDDID(14),
     mobs = {
       {
-        id = 163126,
+        id = "163126",
         displayId = 96112,
       }
     },
   },
   {
-    noteName = "Brittlebone Warrior",
+    docName = "Brittlebone Warrior",
     ddid = createDDID(15),
     mobs = {
       {
-        id = 163122,
+        id = "163122",
         displayId = 96107,
       }
     },
   },
   {
-    noteName = "Skeletal Marauder",
+    docName = "Skeletal Marauder",
     ddid = createDDID(16),
     mobs = {
       {
-        id = 165919,
+        id = "165919",
         displayId = 96115,
       }
     },
   },
   {
-    noteName = "Zolramus Bonemender",
+    docName = "Zolramus Bonemender",
     ddid = createDDID(17),
     mobs = {
       {
-        id = 165222,
+        id = "165222",
         displayId = 97668,
       }
     },
   },
   {
-    noteName = "Nar'zudah",
+    docName = "Nar'zudah",
     ddid = createDDID(18),
     mobs = {
       {
-        id = 165824,
+        id = "165824",
         displayId = 94780,
       }
     },
   },
   {
-    noteName = "Skeletal Monstrosity",
+    docName = "Skeletal Monstrosity",
     ddid = createDDID(19),
     mobs = {
       {
-        id = 165197,
+        id = "165197",
         displayId = 94814,
       }
     },
   },
   {
-    noteName = "Brittlebone Crossbowman",
+    docName = "Brittlebone Crossbowman",
     ddid = createDDID(20),
     mobs = {
       {
-        id = 166079,
+        id = "166079",
         displayId = 96114,
       }
     },
   },
   {
-    noteName = "Shuffling Corpse",
+    docName = "Shuffling Corpse",
     ddid = createDDID(21),
     mobs = {
       {
-        id = 171500,
+        id = "171500",
         displayId = 96132,
       }
     },
   },
   {
-    noteName = "Corpse Collector",
+    docName = "Corpse Collector",
     ddid = createDDID(22),
     mobs = {
       {
-        id = 173016,
+        id = "173016",
         displayId = 98170,
       }
     },
   },
   {
-    noteName = "Kyrian Stitchwerk",
+    docName = "Kyrian Stitchwerk",
     ddid = createDDID(23),
     mobs = {
       {
-        id = 172981,
+        id = "172981",
         displayId = 98190,
       }
     },
   },
   {
-    noteName = "Spare Parts",
+    docName = "Spare Parts",
     ddid = createDDID(24),
     mobs = {
       {
-        id = 166264,
+        id = "166264",
         displayId = 95577,
       }
     },
   },
   {
-    noteName = "Loyal Creation",
+    docName = "Loyal Creation",
     ddid = createDDID(25),
     mobs = {
       {
-        id = 165911,
+        id = "165911",
         displayId = 95226,
       }
     },
   },
   {
-    noteName = "Separation Assistant",
+    docName = "Separation Assistant",
     ddid = createDDID(26),
     mobs = {
       {
-        id = 167731,
+        id = "167731",
         displayId = 98227,
       }
     },
   },
   {
-    noteName = "Stitching Assistant",
+    docName = "Stitching Assistant",
     ddid = createDDID(27),
     mobs = {
       {
-        id = 173044,
+        id = "173044",
         displayId = 98226,
       }
     },
   },
   {
-    noteName = "Goregrind",
+    docName = "Goregrind",
     ddid = createDDID(28),
     mobs = {
       {
-        id = 163621,
+        id = "163621",
         displayId = 99122,
       }
     },
   },
   {
-    noteName = "Goregrind Bits",
+    docName = "Goregrind Bits",
     ddid = createDDID(29),
     mobs = {
       {
-        id = 163622,
+        id = "163622",
         displayId = 97800,
       }
     },
   },
   {
-    noteName = "Rotspew Leftovers",
+    docName = "Rotspew Leftovers",
     ddid = createDDID(30),
     mobs = {
       {
-        id = 163623,
+        id = "163623",
         displayId = 97801,
       }
     },
   },
   {
-    noteName = "Rotspew",
+    docName = "Rotspew",
     ddid = createDDID(31),
     mobs = {
       {
-        id = 163620,
+        id = "163620",
         displayId = 99121,
       }
     },
   },
   {
-    noteName = "Stitchflesh's Creation",
+    docName = "Stitchflesh's Creation",
     ddid = createDDID(32),
     mobs = {
       {
-        id = 164578,
+        id = "164578",
         displayId = 96218,
       }
     },
@@ -349,7 +349,7 @@ local dungeonData = {
   dungeonName = "The Necrotic Wake",
   icon = "Interface\\Icons\\inv_misc_bone_skull_02",
   seasonId = "TWWS1",
-  noteStructures = noteStructures,
+  docStructures = docStructures,
 }
 
 

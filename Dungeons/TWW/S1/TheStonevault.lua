@@ -9,78 +9,78 @@ end
 --- @class Dungeons
 DD.dungeons = DD.dungeons or {}
 
---- @type NoteStructures
-local noteStructures = {
+--- @type DocStructure[]
+local docStructures = {
   --
   -- BOSSES
   --
   {
-    noteName = "E.D.N.A",
+    docName = "E.D.N.A",
     ddid = createDDID(1),
     isBoss = true,
     mobs = {
       {
         -- name = "E.D.N.A",
-        id = 210108,
+        id = "210108",
         displayId = 120054,
       },
     }
   },
   {
-    noteName = "Skarmorak",
+    docName = "Skarmorak",
     ddid = createDDID(2),
     isBoss = true,
     mobs = {
       {
         -- name = "Skarmorak",
-        id = 210156,
+        id = "210156",
         displayId = 118714,
       },
       {
         -- name = "Crystal Shard",
-        id = 214443,
+        id = "214443",
         displayId = 37518,
         hideModel = true,
       },
     }
   },
   {
-    noteName = "Master Machinists",
+    docName = "Master Machinists",
     ddid = createDDID(3),
     isBoss = true,
     mobs = {
       {
         -- name = "Speaker Brokk",
-        id = 213217,
+        id = "213217",
         displayId = 115818,
       },
       {
         -- name = "Speaker Dorlita",
-        id = 213216,
+        id = "213216",
         displayId = 116916,
       },
       {
         -- name = "Vent Stalker",
-        id = 214049,
+        id = "214049",
         displayId = 100728,
         hideModel = true,
       },
       {
         -- name = "Scrap Block",
-        id = 213694,
+        id = "213694",
         displayId = 91401,
         hideModel = true,
       },
     }
   },
   {
-    noteName = "Void Speaker Eirich",
+    docName = "Void Speaker Eirich",
     ddid = createDDID(4),
     isBoss = true,
     mobs = {
       {
         -- name = "Void Speaker Eirich",
-        id = 213119,
+        id = "213119",
         displayId = 119856,
       },
     }
@@ -89,165 +89,165 @@ local noteStructures = {
   -- TRASH
   --
   {
-    noteName = "Cursedheart Invader",
+    docName = "Cursedheart Invader",
     ddid = createDDID(5),
     mobs = {
       {
-        id = 212389,
+        id = "212389",
         displayId = 118702,
       },
       {
-        id = 212403,
+        id = "212403",
         displayId = 118702,
       }
     },
   },
   {
-    noteName = "Earth Infused Golem",
+    docName = "Earth Infused Golem",
     ddid = createDDID(6),
     mobs = {
       {
-        id = 210109,
+        id = "210109",
         displayId = 117402,
       }
     },
   },
   {
-    noteName = "Ghastly Voidsoul",
+    docName = "Ghastly Voidsoul",
     ddid = createDDID(7),
     mobs = {
       {
-        id = 212453,
+        id = "212453",
         displayId = 118731,
       }
     },
   },
   {
-    noteName = "Repurposed Loaderbot",
+    docName = "Repurposed Loaderbot",
     ddid = createDDID(8),
     mobs = {
       {
-        id = 222923,
+        id = "222923",
         displayId = 118231,
       }
     },
   },
   {
-    noteName = "Void Bound Despoiler",
+    docName = "Void Bound Despoiler",
     ddid = createDDID(9),
     mobs = {
       {
-        id = 212765,
+        id = "212765",
         displayId = 117973,
       }
     },
   },
   {
-    noteName = "Engine Speaker",
+    docName = "Engine Speaker",
     ddid = createDDID(10),
     mobs = {
       {
-        id = 212764,
+        id = "212764",
         displayId = 117641,
       }
     },
   },
   {
-    noteName = "Void Bound Howler",
+    docName = "Void Bound Howler",
     ddid = createDDID(11),
     mobs = {
       {
-        id = 221979,
+        id = "221979",
         displayId = 118365,
       }
     },
   },
   {
-    noteName = "Turned Speaker",
+    docName = "Turned Speaker",
     ddid = createDDID(12),
     mobs = {
       {
-        id = 214350,
+        id = "214350",
         displayId = 118692,
       }
     },
   },
   {
-    noteName = "Void Touched Elemental",
+    docName = "Void Touched Elemental",
     ddid = createDDID(13),
     mobs = {
       {
-        id = 212400,
+        id = "212400",
         displayId = 109870,
       }
     },
   },
   {
-    noteName = "Aspiring Forgehand",
+    docName = "Aspiring Forgehand",
     ddid = createDDID(14),
     mobs = {
       {
-        id = 212405,
+        id = "212405",
         displayId = 114686,
       }
     },
   },
   {
-    noteName = "Forgebound Mender",
+    docName = "Forgebound Mender",
     ddid = createDDID(15),
     mobs = {
       {
-        id = 213338,
+        id = "213338",
         displayId = 115974,
       }
     },
   },
   {
-    noteName = "Forge Loader",
+    docName = "Forge Loader",
     ddid = createDDID(16),
     mobs = {
       {
-        id = 213343,
+        id = "213343",
         displayId = 116911,
       }
     },
   },
   {
-    noteName = "Cursedforge Honor Guard",
+    docName = "Cursedforge Honor Guard",
     ddid = createDDID(17),
     mobs = {
       {
-        id = 214264,
+        id = "214264",
         displayId = 115944,
       }
     },
   },
   {
-    noteName = "Cursedforge Stoneshaper",
+    docName = "Cursedforge Stoneshaper",
     ddid = createDDID(18),
     mobs = {
       {
-        id = 214066,
+        id = "214066",
         displayId = 115945,
       }
     },
   },
   {
-    noteName = "Rock Smasher",
+    docName = "Rock Smasher",
     ddid = createDDID(19),
     mobs = {
       {
-        id = 213954,
+        id = "213954",
         displayId = 117855,
       }
     },
   },
   {
-    noteName = "Cursedforge Mender",
+    docName = "Cursedforge Mender",
     ddid = createDDID(20),
     mobs = {
       {
-        id = 224962,
+        id = "224962",
         displayId = 120170,
       }
     },
@@ -259,7 +259,7 @@ local dungeonData = {
   dungeonName = "The Stonevault",
   icon = "Interface\\ICONS\\inv_misc_stonetablet_05",
   seasonId = "TWWS1",
-  noteStructures = noteStructures,
+  docStructures = docStructures,
 }
 
 

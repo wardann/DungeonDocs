@@ -10,43 +10,43 @@ end
 --- @class Dungeons
 DD.dungeons = DD.dungeons or {}
 
---- @type NoteStructures
-local noteStructures = {
+--- @type DocStructure[]
+local docStructures = {
   --
   -- BOSSES
   --
   {
-    noteName = "Avanoxx",
+    docName = "Avanoxx",
     ddid = createDDID(1),
     isBoss = true,
     mobs = {
       {
         -- name = "Avanoxx",
-        id = 213179,
+        id = "213179",
         displayId = 119793,
       },
     }
   },
   {
-    noteName = "Anubzekt",
+    docName = "Anubzekt",
     ddid = createDDID(2),
     isBoss = true,
     mobs = {
       {
         -- name = "Anubzekt",
-        id = 21540,
+        id = "21540",
         displayId = 115723,
       }
     }
   },
   {
-    noteName = "Kikatal The Harvester",
+    docName = "Kikatal The Harvester",
     ddid = createDDID(3),
     isBoss = true,
     mobs = {
       {
         -- name = "Kikatal The Harvester",
-        id = 215407,
+        id = "215407",
         displayId = 117473,
       }
     }
@@ -54,161 +54,161 @@ local noteStructures = {
 
   -- TRASH
   {
-    noteName = "Starved Crawler",
+    docName = "Starved Crawler",
     ddid = createDDID(4),
     mobs = {
       {
-        id = 216336,
+        id = "216336",
         displayId = 120876,
       }
     }
   },
   {
-    noteName = "Jabbing Flyer",
+    docName = "Jabbing Flyer",
     ddid = createDDID(5),
     mobs = {
       {
-        id = 216341,
+        id = "216341",
         displayId = 120841,
       }
     }
   },
   {
-    noteName = "Trilling Attendant",
+    docName = "Trilling Attendant",
     ddid = createDDID(6),
     mobs = {
       {
-        id = 216293,
+        id = "216293",
         displayId = 116588,
       }
     }
   },
   {
-    noteName = "Engorged Crawler",
+    docName = "Engorged Crawler",
     ddid = createDDID(7),
     mobs = {
       {
-        id = 214840,
+        id = "214840",
         displayId = 117840,
       }
     }
   },
   {
-    noteName = "Atik",
+    docName = "Atik",
     ddid = createDDID(8),
     mobs = {
       {
-        id = 217533,
+        id = "217533",
         displayId = 117119,
       }
     }
   },
   {
-    noteName = "Nakt",
+    docName = "Nakt",
     ddid = createDDID(9),
     mobs = {
       {
-        id = 218324,
+        id = "218324",
         displayId = 117119,
       }
     }
   },
   {
-    noteName = "Ixin",
+    docName = "Ixin",
     ddid = createDDID(10),
     mobs = {
       {
-        id = 217531,
+        id = "217531",
         displayId = 117119,
       }
     }
   },
   {
-    noteName = "Bloodworker",
+    docName = "Bloodworker",
     ddid = createDDID(11),
     mobs = {
       {
-        id = 216337,
+        id = "216337",
         displayId = 120862,
       }
     }
   },
   {
-    noteName = "Bloodstained Assistant",
+    docName = "Bloodstained Assistant",
     ddid = createDDID(12),
     mobs = {
       {
-        id = 216333,
+        id = "216333",
         displayId = 119391,
       }
     }
   },
   {
-    noteName = "Bloodstained Webmage",
+    docName = "Bloodstained Webmage",
     ddid = createDDID(13),
     mobs = {
       {
-        id = 223253,
+        id = "223253",
         displayId = 117870,
       }
     }
   },
   {
-    noteName = "Hulking Bloodguard",
+    docName = "Hulking Bloodguard",
     ddid = createDDID(14),
     mobs = {
       {
-        id = 216338,
+        id = "216338",
         displayId = 120855,
       }
     }
   },
   {
-    noteName = "Sentry Stagshell",
+    docName = "Sentry Stagshell",
     ddid = createDDID(15),
     mobs = {
       {
-        id = 216340,
+        id = "216340",
         displayId = 116485,
       }
     }
   },
   {
-    noteName = "Blood Overseer",
+    docName = "Blood Overseer",
     ddid = createDDID(16),
     mobs = {
       {
-        id = 216364,
+        id = "216364",
         displayId = 115772,
       }
     }
   },
   {
-    noteName = "Winged Carrier",
+    docName = "Winged Carrier",
     ddid = createDDID(17),
     mobs = {
       {
-        id = 216365,
+        id = "216365",
         displayId = 116349,
       }
     }
   },
   {
-    noteName = "Nerubian Hauler",
+    docName = "Nerubian Hauler",
     ddid = createDDID(18),
     mobs = {
       {
-        id = 217039,
+        id = "217039",
         displayId = 120861,
       }
     }
   },
   {
-    noteName = "Reinforced Drone",
+    docName = "Reinforced Drone",
     ddid = createDDID(19),
     mobs = {
       {
-        id = 216363,
+        id = "216363",
         displayId = 120860,
       }
     }
@@ -220,7 +220,7 @@ local dungeonData = {
   dungeonName = "Ara-Kara, City of Echoes",
   icon = "Interface\\Icons\\inv_misc_web_01",
   seasonId = "TWWS1",
-  noteStructures = noteStructures,
+  docStructures = docStructures,
 }
 
 

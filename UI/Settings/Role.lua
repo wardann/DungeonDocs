@@ -1,6 +1,6 @@
 --- @class DungeonDocs
 local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
-local AceGUI = LibStub("AceGUI-3.0")
+local AceGUI = LibStub("AceGUI-3.0") ---@type AceGUI
 
 --- @class UI
 DD.ui = DD.ui or {}
@@ -8,25 +8,26 @@ DD.ui = DD.ui or {}
 --- @class SettingsUI
 DD.ui.settings = DD.ui.settings or {}
 
-function DD.ui.settings.StyleRole_View(wrapperContainer)
+---@param container AceGUIContainer
+function DD.ui.settings.StyleRole_View(container)
     local refresh = function()
-        wrapperContainer:ReleaseChildren()
-        DD.ui.settings.StyleRole_View(wrapperContainer)
+        container:ReleaseChildren()
+        DD.ui.settings.StyleRole_View(container)
     end
-    wrapperContainer:SetLayout("Flow")
+    container:SetLayout("Flow")
 
     local state = DD.db.database.profile.settings.omniNote
 
-    local container = AceGUI:Create("ScrollFrame")
-    container:SetLayout("Flow")
-    container:SetFullWidth(true)
-    container:SetFullHeight(true)
-    wrapperContainer:AddChild(container)
+    local scrollFrame = AceGUI:Create("ScrollFrame") ---@type ScrollFrame
+    scrollFrame:SetLayout("Flow")
+    scrollFrame:SetFullWidth(true)
+    scrollFrame:SetFullHeight(true)
+    container:AddChild(scrollFrame)
 
-    DD.ui.settings.StyleRole_AddDescription(container)
+    DD.ui.settings.StyleRole_AddDescription(scrollFrame)
 
     -- Add role notes settings
-    local roleNotesSection = DD.utils.AddSection(container, "")
+    local roleNotesSection = DD.utils.AddSection(scrollFrame, "")
     -- Add role display dropdown
     local roleDisplays = {
         None = "None",
@@ -68,7 +69,7 @@ function DD.ui.settings.StyleRole_View(wrapperContainer)
         1
     )
 
-    local defaultRoleHeaderStyle = DD.utils.AddSection(container, "Default Role Header Style")
+    local defaultRoleHeaderStyle = DD.utils.AddSection(scrollFrame, "Default Role Header Style")
     DD.ui.shared.AddFontSettings(defaultRoleHeaderStyle, state.style.defaultRoleHeader)
 end
 

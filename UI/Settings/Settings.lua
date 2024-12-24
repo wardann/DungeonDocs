@@ -1,6 +1,6 @@
 --- @class DungeonDocs
 local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
-local AceGUI = LibStub("AceGUI-3.0")
+local AceGUI = LibStub("AceGUI-3.0") ---@type AceGUI
 
 --- @class UI
 DD.ui = DD.ui or {}
@@ -9,20 +9,20 @@ DD.ui = DD.ui or {}
 DD.ui.settings = DD.ui.settings or {}
 
 -- Get available fonts from LSM
-local rightGroup
+local rightGroup ---@type SimpleGroup
 
+--- @alias TreeMenu {text: string, value: string, children?: TreeMenu[]}
 
 function DD.ui.settings.TabRoot(container)
-    local treeGroup = AceGUI:Create("TreeGroup")
+    local treeGroup = AceGUI:Create("TreeGroup") ---@type TreeGroup
     treeGroup:SetLayout("Fill")
     treeGroup:SetFullWidth(true)
     treeGroup:SetFullHeight(true)
-    treeGroup:SetTreeWidth(200, false) -- Set the width of the tree part
+    treeGroup:SetTreeWidth(200, false)
     container:AddChild(treeGroup)
 
-    -- Define the tree data structure
-
     -- Set the tree data
+    ---@type TreeMenu[]
     local menu = {
         {
             text = "General",
@@ -56,7 +56,7 @@ function DD.ui.settings.TabRoot(container)
     treeGroup:SetTree(menu)
 
     -- Init right group
-    rightGroup = AceGUI:Create("SimpleGroup")
+    rightGroup = AceGUI:Create("SimpleGroup") ---@type SimpleGroup
     rightGroup:SetFullWidth(true)
     rightGroup:SetFullHeight(true)
     rightGroup:SetLayout("Flow")
@@ -91,6 +91,9 @@ function DD.ui.settings.TabRoot(container)
     treeGroup:SetSelected("general")
 end
 
+---@param treeGroup TreeGroup
+---@param menu TreeMenu[]
+---@param path string|nil
 function DD.ui.settings.ExpandAllTreeNodes(treeGroup, menu, path)
     for _, node in ipairs(menu) do
         -- Build the current path

@@ -1,8 +1,8 @@
 --- @class DungeonDocs
 local DD = LibStub("AceAddon-3.0"):NewAddon("DungeonDocs", "AceConsole-3.0", "AceEvent-3.0")
-local AceGUI = LibStub("AceGUI-3.0")
+local AceGUI = LibStub("AceGUI-3.0") --- @type AceGUI
 
-local addonName = ...
+local addonName = ... ---@type string
 local Version = ""
 
 -- luacheck: ignore
@@ -37,6 +37,7 @@ local dungeonDocsWindowSize = {
     height = nil,
 }
 
+--- @param msg string
 function DD:OpenUI(msg)
     -- Split the input into the first argument and the rest
     local arg1 = msg:match("^(%S*)%s*(.-)$")
@@ -65,8 +66,7 @@ function DD:OpenUI(msg)
     end
 
     -- Create the main frame
-    --- @type AceGUIFrame
-    local aceFrame = AceGUI:Create("Frame")
+    local aceFrame = AceGUI:Create("Frame") ---@type AceGUIFrame
     aceFrame:SetCallback("OnClose", function(widget)
         -- Store size and position for future runs
         dungeonDocsWindowSize.height = aceFrame.frame:GetHeight()

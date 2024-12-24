@@ -6,7 +6,7 @@ describe("MergeDocs", function()
 
     -- Setup: Retrieve the addon object
     before_each(function()
-        DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
+        DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs") ---@type DungeonDocs
     end)
 
     it("should merge two docs as expected", function()
@@ -80,7 +80,7 @@ describe("MergeDocs", function()
                 }
             }
         }
-        local actual = DD.utils.MergeDocs(profileDocs, fallbackProfileDocs)
+        local actual = DD.utils.MergePlayerNotes(profileDocs, fallbackProfileDocs)
         assert.are.same(expected, actual)
     end)
 end)

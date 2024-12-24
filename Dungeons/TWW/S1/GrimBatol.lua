@@ -10,60 +10,60 @@ end
 --- @class Dungeons
 DD.dungeons = DD.dungeons or {}
 
---- @type NoteStructures
-local noteStructures = {
+--- @type DocStructure[]
+local docStructures = {
   --
   -- BOSSES
   --
   {
-    noteName = "General Umbriss",
+    docName = "General Umbriss",
     ddid = createDDID(1),
     isBoss = true,
     mobs = {
       {
         -- name = "General Umbriss",
-        id = 39625,
+        id = "39625",
         displayId = 118920,
       },
     }
   },
   {
-    noteName = "Forgemaster Throngus",
+    docName = "Forgemaster Throngus",
     ddid = createDDID(2),
     isBoss = true,
     mobs = {
       {
-        -- name = "Forgemaster Throngus",
-        id = 40177,
+        -- name = "Forgemaster Throngus""",
+        id = "40177",
         displayId = 33429,
       },
     }
   },
   {
-    noteName = "Drahga Shadowburner",
+    docName = "Drahga Shadowburner",
     ddid = createDDID(3),
     isBoss = true,
     mobs = {
       {
         -- name = "Drahga Shadowburner",
-        id = 40319,
+        id = "40319",
         displayId = 31792,
       },
       {
         -- name = "Valiona",
-        id = 40320,
+        id = "40320",
         displayId = 31795,
       },
     }
   },
   {
-    noteName = "Erudax",
+    docName = "Erudax",
     ddid = createDDID(4),
     isBoss = true,
     mobs = {
       {
         -- name = "Erudax",
-        id = 40484,
+        id = "40484",
         displayId = 119801,
       },
     }
@@ -72,141 +72,141 @@ local noteStructures = {
   -- TRASH
   --
   {
-    noteName = "Twilight Brute",
+    docName = "Twilight Brute",
     ddid = createDDID(5),
     mobs = {
       {
-        id = 224152,
+        id = "224152",
         displayId = 119878,
       }
     },
   },
   {
-    noteName = "Twilight Earthcaller",
+    docName = "Twilight Earthcaller",
     ddid = createDDID(6),
     mobs = {
       {
-        id = 224219,
+        id = "224219",
         displayId = 119892,
       }
     },
   },
   {
-    noteName = "Twilight Destroyer",
+    docName = "Twilight Destroyer",
     ddid = createDDID(7),
     mobs = {
       {
-        id = 224609,
+        id = "224609",
         displayId = 119995,
       }
     },
   },
   {
-    noteName = "Twilight Overseer",
+    docName = "Twilight Overseer",
     ddid = createDDID(8),
     mobs = {
       {
-        id = 224221,
+        id = "224221",
         displayId = 119893,
       }
     },
   },
   {
-    noteName = "Twilight Beguiler",
+    docName = "Twilight Beguiler",
     ddid = createDDID(9),
     mobs = {
       {
-        id = 40167,
+        id = "40167",
         displayId = 31584,
       }
     },
   },
   {
-    noteName = "Molten Giant",
+    docName = "Molten Giant",
     ddid = createDDID(10),
     mobs = {
       {
-        id = 40166,
+        id = "40166",
         displayId = 38667,
       }
     },
   },
   {
-    noteName = "Twilight Enforcer",
+    docName = "Twilight Enforcer",
     ddid = createDDID(11),
     mobs = {
       {
-        id = 224276,
+        id = "224276",
         displayId = 119898,
       }
     },
   },
   {
-    noteName = "Twilight Warlock",
+    docName = "Twilight Warlock",
     ddid = createDDID(12),
     mobs = {
       {
-        id = 224271,
+        id = "224271",
         displayId = 119897,
       }
     },
   },
   {
-    noteName = "Twilight Flamerender",
+    docName = "Twilight Flamerender",
     ddid = createDDID(13),
     mobs = {
       {
-        id = 224240,
+        id = "224240",
         displayId = 34353,
       }
     },
   },
   {
-    noteName = "Twilight Lavabender",
+    docName = "Twilight Lavabender",
     ddid = createDDID(14),
     mobs = {
       {
-        id = 224249,
+        id = "224249",
         displayId = 91122,
       }
     },
   },
   {
-    noteName = "Mutated Hatchling",
+    docName = "Mutated Hatchling",
     ddid = createDDID(15),
     mobs = {
       {
-        id = 224853,
+        id = "224853",
         displayId = 119810,
       }
     },
   },
   {
-    noteName = "Faceless Corruptor",
+    docName = "Faceless Corruptor",
     ddid = createDDID(16),
     mobs = {
       {
-        id = 39392,
+        id = "39392",
         displayId = 119899,
       }
     },
   },
   {
-    noteName = "Invoked Shadowflame Spirit",
+    docName = "Invoked Shadowflame Spirit",
     ddid = createDDID(17),
     mobs = {
       {
-        id = 40357,
+        id = "40357",
         displayId = 116017,
       }
     },
   },
   {
-    noteName = "Battered",
+    docName = "Battered",
     ddid = createDDID(18),
     mobs = {
       {
-        id = 39294,
+        id = "39294",
         displayId = 31463,
       }
     },
@@ -218,7 +218,7 @@ local dungeonData = {
   dungeonName = "Grim Batol",
   icon = "Interface\\Icons\\inv_misc_head_dragon_black",
   seasonId = "TWWS1",
-  noteStructures = noteStructures,
+  docStructures = docStructures,
 }
 
 
