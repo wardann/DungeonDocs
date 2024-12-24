@@ -73,13 +73,14 @@ function DD.ui.settings.StyleRole_View(container)
     DD.ui.shared.AddFontSettings(defaultRoleHeaderStyle, state.style.defaultRoleHeader)
 end
 
-function DD.ui.settings.StyleRole_AddDescription(frame)
+---@param container AceGUIContainer
+function DD.ui.settings.StyleRole_AddDescription(container)
     -- Create a title label
     local title = AceGUI:Create("Label")
     title:SetText("|cffffd700Role Notes|r")    -- Gold-colored text for the title
     title:SetFont(GameFontNormalLarge:GetFont()) -- Use a larger font for the title
     title:SetFullWidth(true)                     -- Stretch across the frame
-    frame:AddChild(title)
+    container:AddChild(title)
 
     -- Create an explanation label
     -- local explanation = AceGUI:Create("Label")

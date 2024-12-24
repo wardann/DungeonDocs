@@ -127,6 +127,8 @@ function M.Render()
     end
 end
 
+---@param noteName string
+---@param state? table
 function M.HideMover(noteName, state)
     local fontString = moverFontStrings[noteName]
     fontString:SetText("")
@@ -140,6 +142,8 @@ function M.HideMover(noteName, state)
     end
 end
 
+---@param noteName string
+---@param state table
 function M.RenderMover(noteName, state)
     local frame = moverFrames[noteName]
 

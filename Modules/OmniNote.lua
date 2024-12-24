@@ -161,6 +161,7 @@ function M.RenderNote(index, anchor)
     local totalHeight   = 0 ---@type number
     local linePadding   = state.linePadding * -1
 
+    ---@param padding number
     local withPadding   = function(padding)
         totalHeight = totalHeight + math.abs(padding) ---@type number
         return padding
@@ -180,6 +181,7 @@ function M.RenderNote(index, anchor)
         return playerNote[lineName]
     end
 
+    ---@param lineName string
     local function resolveTextStyle(lineName)
         local defaultTextStyle = state.style.defaultText
         if string.find(lineName, "Header") then
@@ -542,6 +544,8 @@ eventFrame:SetScript("OnEvent", function(_, event)
     end
 end)
 
+---@param ddid DDID
+---@param dungeonName DungeonName
 function M.RenderTestNote(ddid, dungeonName)
     testNoteEnabled = true
     table.insert(ddidsToRender, ddid)
@@ -549,6 +553,8 @@ function M.RenderTestNote(ddid, dungeonName)
     M.RenderOmniNote()
 end
 
+---@param note string
+---@param role string
 function M.ShouldDisplayRole(note, role)
     if note == "" then return false end
 
@@ -567,6 +573,7 @@ function M.ShouldDisplayRole(note, role)
     if not specIndex then return false end
     local specRole = GetSpecializationRole(specIndex)
 
+    ---@param r string
     local normalizeRole = function(r)
         r = string.sub(r, 1, 1)
         return string.lower(r)

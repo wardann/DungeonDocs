@@ -303,6 +303,7 @@ function M.NotifyDBChange()
     end
 end
 
+---@param updater fun()
 function M.UpdateDB(updater)
     updater()
     M.NotifyDBChange()
@@ -312,6 +313,7 @@ function M.ListProfiles()
     return M.database:GetProfiles()
 end
 
+---@param profileName string
 function M.SelectProfile(profileName)
     local db = M.database
     if db:GetCurrentProfile() ~= profileName then -- Only switch if different
@@ -320,6 +322,7 @@ function M.SelectProfile(profileName)
     end
 end
 
+---@param profileName string
 function M.SelectFallbackProfile(profileName)
     local db = M.database
     db.profile.internal.fallbackProfile = profileName
@@ -327,6 +330,8 @@ function M.SelectFallbackProfile(profileName)
 end
 
 -- Function to export the current profile, excluding the "internal" table
+---@param profileName string
+---@param includeFallbackProfile boolean
 function M.ExportProfile(profileName, includeFallbackProfile)
     local profile = M.database.profiles[profileName] -- Access the specified profile data
     local fallbackProfileName = profile.internal.fallbackProfile
