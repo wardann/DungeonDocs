@@ -38,7 +38,7 @@ Use the `Docs` tab to edit notes, the `Settings` tab to change the note appearan
 
 An `Active Profile` and `Fallback Profile` can be selected.
 
-Notes in the `Active Profile` will be used first and, if none are found, the `Fallback Profile` will then be used.
+Notes in the `Active Profile` will be used first and, if none are found, the `Fallback Profile` will be used.
 
 This allows for a player to import a profile as a base and overlay their own note changes on top (i.e. by setting the imported profile as the fallback).
 
