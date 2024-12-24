@@ -18,7 +18,7 @@ end
 function DD.profiles.DefaultFallback_Init()
     -- Register profile in the DB
     local database = DD.db.GetEmptyDatabaseStructure()
-    database.playerNotesByDungeon = profileNotesByDungeon
+    database.docs = profileNotesByDungeon
 
     DD.db.database.profiles[profileName] = database
 

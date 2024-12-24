@@ -24,7 +24,7 @@ local M = {}
 --- @class DatabaseSchema
 local dbDefaults = {
     dbVersion = 1,
-    playerNotesByDungeon = {}, ---@type PlayerNotes
+    docs = {}, ---@type PlayerNotes
     settings = {
         omniNote = {
 
@@ -344,15 +344,15 @@ function M.ExportProfile(profileName, includeFallbackProfile)
 
     local playerNotes ---@type PlayerNotes
     if not includeFallbackProfile then
-        playerNotes = profile.playerNotesByDungeon
+        playerNotes = profile.docs
     else
-        playerNotes = DD.utils.MergePlayerNotes(profile.playerNotesByDungeon, fallbackProfile.playerNotesByDungeon)
+        playerNotes = DD.utils.MergePlayerNotes(profile.docs, fallbackProfile.docs)
     end
 
 
     local profileCopy = DD.utils.DeepCopy(profile)
     profileCopy.internal = {}
-    profileCopy.playerNotesByDungeon = playerNotes
+    profileCopy.docs = playerNotes
 
     local serialized = LibSerialize:Serialize(profileCopy)    -- Serialize profile copy
     local compressed = LibDeflate:CompressDeflate(serialized) -- Compress serialized data
@@ -543,7 +543,7 @@ end
 function M.GetNotePrimary(dungeonName, ddid, noteKey)
     local db = M.database
 
-    local playerNotes = db.profile.playerNotesByDungeon[dungeonName]
+    local playerNotes = db.profile.docs[dungeonName]
     if not playerNotes then
         return M.GetNoteFallback(dungeonName, ddid, noteKey)
     end
@@ -600,7 +600,7 @@ function M.GetNoteFallback(dungeonName, ddid, noteKey)
     end
 
 
-    local playerNotes = fallbackProfile.playerNotesByDungeon[dungeonName]
+    local playerNotes = fallbackProfile.docs[dungeonName]
     if not playerNotes then
         return ""
     end
@@ -634,11 +634,11 @@ end
 function M.SetNote(dungeonName, ddid, noteKey, newNote)
     local db = M.database
 
-    local playerNotes = db.profile.playerNotesByDungeon[dungeonName]
+    local playerNotes = db.profile.docs[dungeonName]
     if not playerNotes then
         M.UpdateDB(function()
-            db.profile.playerNotesByDungeon[dungeonName] = {}
-            table.insert(db.profile.playerNotesByDungeon[dungeonName], {
+            db.profile.docs[dungeonName] = {}
+            table.insert(db.profile.docs[dungeonName], {
                 ddid = ddid,
                 [noteKey] = newNote,
             })
@@ -660,7 +660,7 @@ function M.SetNote(dungeonName, ddid, noteKey, newNote)
                 ddid = ddid,
                 [noteKey] = newNote,
             }
-            table.insert(db.profile.playerNotesByDungeon[dungeonName], newDoc)
+            table.insert(db.profile.docs[dungeonName], newDoc)
         end)
         return
     end
