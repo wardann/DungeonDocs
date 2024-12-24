@@ -18,7 +18,7 @@ end
 
 --- Gets the mob ID from the target's GUID
 ---@param unit string
----@returns number|nil
+---@return number|nil
 function M.GetMobIDFromGUID(unit)
     local guid = UnitGUID(unit) -- Get the GUID of the unit (e.g., "target")
     if guid then
@@ -79,7 +79,7 @@ end
 
 --- @param container AceGUIContainer
 --- @param title string
---- @returns AceGUIInlineGroup
+--- @return InlineGroup
 function M.AddSection(container, title)
     -- Create an InlineGroup as a section container
     local section = AceGUI:Create("InlineGroup") ---@type InlineGroup
@@ -240,69 +240,72 @@ function M.SafeSetColorTexture(texture, r, g, b, a)
     end
 end
 
-function M.MergeDocs(profileDocs, fallbackProfileDocs)
-    local docs = {}
-    for instance, mobs in pairs(profileDocs) do
-        if not docs[instance] then
-            docs[instance] = {}
+--- @param primary PlayerNotesByDungeon
+--- @param fallback PlayerNotesByDungeon
+--- @return PlayerNotesByDungeon
+function M.MergePlayerNotes(primary, fallback)
+    --- @alias PlayerNotesMapped table<DungeonName, table<DDID, PlayerNote>>
+    local playerNotesMapped = {} --- @type PlayerNotesMapped
+
+    for dungeonName, notes in pairs(primary) do
+        if not playerNotesMapped[dungeonName] then
+            playerNotesMapped[dungeonName] = {}
         end
 
-        for _, mob in ipairs(mobs) do
-            docs[instance][mob.ddid] = mob
+        for _, note in ipairs(notes) do
+            playerNotesMapped[dungeonName][note.ddid] = note
         end
     end
 
-    -- LogTableToBugSack(fallbackProfileDocs)
-
-    -- now add the fallback docs where applicable
-    for instance, mobs in pairs(fallbackProfileDocs) do
-        if not docs[instance] then
-            docs[instance] = {}
+    -- Add the notes from the fallback profile where applicable
+    for instance, fallbackNotes in pairs(fallback) do
+        if not playerNotesMapped[instance] then
+            playerNotesMapped[instance] = {}
         end
 
-        for _, mob in ipairs(mobs) do
+        for _, fallbackNote in ipairs(fallbackNotes) do
             (function()
-                local found = docs[instance][mob.ddid]
+                local found = playerNotesMapped[instance][fallbackNote.ddid]
                 if not found then
-                    docs[instance][mob.ddid] = mob
+                    playerNotesMapped[instance][fallbackNote.ddid] = fallbackNote
                     return
                 end
 
-                local function shouldUseFallback(note, fallbackNote)
-                    return not note and fallbackNote and #fallbackNote > 0
+                local function shouldUseFallback(primaryValue, fallbackValue)
+                    return not primaryValue and fallbackValue and #fallbackValue > 0
                 end
 
-                if shouldUseFallback(found.primaryNote, mob.primaryNote) then
-                    found.primaryNote = mob.primaryNote
+                if shouldUseFallback(found.primaryNote, fallbackNote.primaryNote) then
+                    found.primaryNote = fallbackNote.primaryNote
                 end
 
-                if shouldUseFallback(found.tankNote, mob.tankNote) then
-                    found.tankNote = mob.tankNote
+                if shouldUseFallback(found.tankNote, fallbackNote.tankNote) then
+                    found.tankNote = fallbackNote.tankNote
                 end
 
-                if shouldUseFallback(found.healerNote, mob.healerNote) then
-                    found.healerNote = mob.healerNote
+                if shouldUseFallback(found.healerNote, fallbackNote.healerNote) then
+                    found.healerNote = fallbackNote.healerNote
                 end
 
-                if shouldUseFallback(found.damageNote, mob.damageNote) then
-                    found.damageNote = mob.damageNote
+                if shouldUseFallback(found.damageNote, fallbackNote.damageNote) then
+                    found.damageNote = fallbackNote.damageNote
                 end
             end)()
         end
     end
 
-    local docsFinal = {}
+    local playerNotesFinal = {} --- @type PlayerNotesByDungeon
 
-    for instance, mobs in pairs(docs) do
-        for _, mob in pairs(mobs) do
-            if not docsFinal[instance] then
-                docsFinal[instance] = {}
+    for dungeonName, notes in pairs(playerNotesMapped) do
+        for _, note in pairs(notes) do
+            if not playerNotesFinal[dungeonName] then
+                playerNotesFinal[dungeonName] = {}
             end
-            table.insert(docsFinal[instance], mob)
+            table.insert(playerNotesFinal[dungeonName], note)
         end
     end
 
-    return docsFinal
+    return playerNotesFinal
 end
 
 --- @param tbl table
@@ -323,7 +326,7 @@ end
 
 --- @param tbl table<any, any>
 --- @param indent string?
---- @returns string
+--- @return string
 function M.TableToString(tbl, indent)
     indent = indent or ""
     local result = "{\n"

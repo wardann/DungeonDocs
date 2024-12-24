@@ -16,7 +16,7 @@ function M.ReserveProfileName(profileName)
 end
 
 --- @param profileName string
---- @returns boolean
+--- @return boolean
 function M.IsReservedProfile(profileName)
     for _, value in ipairs(reservedProfileNames) do
         if value == profileName then
@@ -27,7 +27,7 @@ function M.IsReservedProfile(profileName)
 end
 
 --- @param profileDungeonNotes ProfileDungeonNotes
---- @returns ProfileNote[]
+--- @return ProfileNote[]
 function M.BuildProfileNotes(profileDungeonNotes)
     local profileNotes = {} ---@type ProfileNote[]
 

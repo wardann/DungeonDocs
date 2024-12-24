@@ -1,9 +1,23 @@
 --- @class DungeonDocs
 local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
 
---- @alias DocMob {id: number, displayId: number, hideModel?: boolean}
---- @alias DocStructure {docName: string, ddid: DDID, isBoss: boolean|nil, mobs: DocMob[]}
---- @alias DungeonData {dungeonName: DungeonName, icon: string, seasonId: string, docStructures: DocStructure[]}
+--- @alias DocMob {
+---     id: number,
+---     displayId: number,
+---     hideModel?: boolean,
+--- }
+--- @alias DocStructure {
+---     docName: string,
+---     ddid: DDID,
+---     isBoss: boolean|nil,
+---     mobs: DocMob[],
+--- }
+--- @alias DungeonData {
+---     dungeonName: DungeonName,
+---     icon: string,
+---     seasonId: string,
+---     docStructures: DocStructure[],
+--- }
 
 --- @alias CreateDDID fun(index: number): DDID
 
@@ -26,7 +40,7 @@ function M.Init()
     M.InitTheStonevault()
 end
 
---- @returns DungeonList
+--- @return DungeonList
 function M.GetCurrentSeason()
     local db = DD.db.database
     local dungeons = {} --- @type DungeonList

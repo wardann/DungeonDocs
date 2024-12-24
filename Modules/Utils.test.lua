@@ -80,7 +80,7 @@ describe("MergeDocs", function()
                 }
             }
         }
-        local actual = DD.utils.MergeDocs(profileDocs, fallbackProfileDocs)
+        local actual = DD.utils.MergePlayerNotes(profileDocs, fallbackProfileDocs)
         assert.are.same(expected, actual)
     end)
 end)

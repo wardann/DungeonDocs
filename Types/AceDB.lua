@@ -1,6 +1,6 @@
 --- @class AceDB
---- @field profile DatabaseStructure # Active profile data
---- @field profiles table<string, DatabaseStructure> # All available profiles and their data
+--- @field profile DatabaseSchema # Active profile data
+--- @field profiles table<string, DatabaseSchema> # All available profiles and their data
 --- @field global table<string, any> # Global settings shared across profiles
 --- @field factionrealm table<string, any> # Settings specific to faction and realm
 --- @field realm table<string, any> # Settings specific to the realm

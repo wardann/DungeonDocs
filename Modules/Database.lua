@@ -8,10 +8,23 @@ local LibDeflate = LibStub("LibDeflate") --- @type LibDeflate
 --- @class DB
 local M = {}
 
+--- @alias PlayerNote {
+---     ddid: DDID,
+---     primaryNote?: string,
+---     tankNote?: string,
+---     healerNote?: string,
+---     damageNote?: string,
+--- }
+---
+--- @alias PlayerNoteKeys "primaryNote" | "tankNote" | "healerNote" | "damageNote"
+---
+--- @alias PlayerNotesByDungeon table<DungeonName, PlayerNote[]>
+
 -- Define default db values
 --- @class DatabaseSchema
 local dbDefaults = {
     dbVersion = 1,
+    -- TODO: rename to "playerNotesByDungeon" or something similar
     docs = {},
     settings = {
         omniNote = {
@@ -210,7 +223,7 @@ local dbDefaults = {
     },
 }
 
---- @returns DatabaseStructure
+--- @return DocStructure
 function M.GetEmptyDatabaseStructure()
     return {
         dbVersion = 1,        -- Default version
@@ -220,7 +233,7 @@ function M.GetEmptyDatabaseStructure()
     }
 end
 
---- @returns DatabaseStructure
+--- @return DatabaseSchema
 function M.GetDBDefaults()
     return dbDefaults
 end
@@ -323,7 +336,7 @@ function M.ExportProfile(profileName, includeFallbackProfile)
     if not includeFallbackProfile then
         docs = profile.docs
     else
-        docs = DD.utils.MergeDocs(profile.docs, fallbackProfile.docs)
+        docs = DD.utils.MergePlayerNotes(profile.docs, fallbackProfile.docs)
     end
 
 

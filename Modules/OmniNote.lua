@@ -161,7 +161,7 @@ function M.RenderNote(index, anchor)
     end
 
     --- @param lineName string
-    --- @returns string
+    --- @return string
     local function resolveText(lineName)
         if lineName == "mobName" then
             return noteStruct.docName

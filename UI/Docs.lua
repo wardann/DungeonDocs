@@ -272,7 +272,7 @@ function M.RenderNote(dungeonName, note, noteKey, noteLabel, container)
 end
 
 
---- @returns TreeData
+--- @return TreeData
 function M.DungeonDataToTreeData()
     -- Get instances only from the selected season
     local instances = DD.dungeons.GetCurrentSeason()
