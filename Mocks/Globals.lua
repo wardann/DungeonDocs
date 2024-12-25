@@ -37,7 +37,7 @@ _G.LibSharedMedia = {
 }
 
 -- Mock WoW globals
---- @type fun(frameType: string, name: string|nil, parent: Frame|nil, inherits: string|nil): Frame
+---@type fun(frameType: string, name: string|nil, parent: Frame|nil, inherits: string|nil): Frame
 _G.CreateFrame = function(_, _, _)
 	return {
 		SetSize = function() end,

@@ -1,15 +1,15 @@
---- @type DungeonDocs
+---@type DungeonDocs
 local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
 
---- @type CreateDDID
+---@type CreateDDID
 local function createDDID(index)
 	return "cot" .. index
 end
 
---- @class Dungeons
+---@class Dungeons
 DD.dungeons = DD.dungeons or {}
 
---- @type DocStructure[]
+---@type DocStructure[]
 local docStructures = {
 	--
 	-- BOSSES
@@ -313,7 +313,7 @@ local docStructures = {
 	},
 }
 
---- @type DungeonData
+---@type DungeonData
 local dungeonData = {
 	dungeonName = "City of Threads",
 	icon = "Interface\\Icons\\achievement_zone_silithus_01",

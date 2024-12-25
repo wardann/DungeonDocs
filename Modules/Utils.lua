@@ -35,12 +35,12 @@ end
 ---@param container AceGUIContainer
 function M.AddSpacer(container)
 	-- Add a spacer (or line break)
-	local spacer = AceGUI:Create("Label") --- @type Label
+	local spacer = AceGUI:Create("Label") ---@type Label
 	spacer:SetFullWidth(true)
 	container:AddChild(spacer)
 end
 
---- @param ... any
+---@param ... any
 function M.Log(...)
 	local args = { ... } -- Capture all arguments
 	local message = ""
@@ -77,9 +77,9 @@ function M.DeepCopy(orig)
 	return copy
 end
 
---- @param container AceGUIContainer
---- @param title string
---- @return InlineGroup
+---@param container AceGUIContainer
+---@param title string
+---@return InlineGroup
 function M.AddSection(container, title)
 	-- Create an InlineGroup as a section container
 	local section = AceGUI:Create("InlineGroup") ---@type InlineGroup
@@ -91,7 +91,7 @@ function M.AddSection(container, title)
 	return section
 end
 
---- @param mobID string|number|nil
+---@param mobID string|number|nil
 function M.IsFollowerNPC(mobID)
 	if not mobID then
 		return false
@@ -119,46 +119,46 @@ end
 -- |  _| | | (_| | | | | | |  __/
 -- |_| |_|  \__,_|_| |_| |_|\___|
 
---- @param frame Frame|FontString
+---@param frame Frame|FontString
 function M.FrameHide(frame)
 	if frame:IsShown() then
 		frame:Hide()
 	end
 end
 
---- @param frame Frame|FontString
+---@param frame Frame|FontString
 function M.FrameShow(frame)
 	if not frame:IsShown() then
 		frame:Show()
 	end
 end
 
---- @param frame Frame|FontString
+---@param frame Frame|FontString
 function M.FrameWidth(frame, width)
 	if frame:GetWidth() ~= width then
 		frame:SetWidth(width)
 	end
 end
 
---- @param frame Frame|FontString
+---@param frame Frame|FontString
 function M.FrameHeight(frame, height)
 	if frame:GetHeight() ~= height then
 		frame:SetHeight(height)
 	end
 end
 
---- @param frame Frame|FontString
+---@param frame Frame|FontString
 function M.FrameCollapse(frame)
 	M.FrameHide(frame)
 	M.FrameHeight(frame, 0)
 end
 
---- @param frame Frame|FontString The frame to set the position for.
---- @param point string The anchor point of the frame (e.g., "TOPLEFT", "CENTER").
---- @param relativeTo Frame The frame or name of the frame to anchor to, or nil for the screen.
---- @param relativePoint string The anchor point on the relative frame (e.g., "TOPLEFT", "CENTER").
---- @param offsetX number The x-axis offset in pixels.
---- @param offsetY number The y-axis offset in pixels.
+---@param frame Frame|FontString The frame to set the position for.
+---@param point string The anchor point of the frame (e.g., "TOPLEFT", "CENTER").
+---@param relativeTo Frame The frame or name of the frame to anchor to, or nil for the screen.
+---@param relativePoint string The anchor point on the relative frame (e.g., "TOPLEFT", "CENTER").
+---@param offsetX number The x-axis offset in pixels.
+---@param offsetY number The y-axis offset in pixels.
 function M.FrameSetPoint(frame, point, relativeTo, relativePoint, offsetX, offsetY)
 	local existingPoint = { frame:GetPoint() } -- Get the current point
 
@@ -174,18 +174,18 @@ function M.FrameSetPoint(frame, point, relativeTo, relativePoint, offsetX, offse
 	end
 end
 
---- @param frame Frame
---- @param text string
+---@param frame Frame
+---@param text string
 function M.FontText(frame, text)
 	if frame.fontString:GetText() ~= text then
 		frame.fontString:SetText(text)
 	end
 end
 
---- @param fontString FontString
---- @param fontPath string
---- @param fontSize number
---- @param fontFlags string
+---@param fontString FontString
+---@param fontPath string
+---@param fontSize number
+---@param fontFlags string
 function M.SafeSetFont(fontString, fontPath, fontSize, fontFlags)
 	local currentFont, currentSize, currentFlags = fontString:GetFont()
 	if currentFont ~= fontPath or currentSize ~= fontSize or currentFlags ~= fontFlags then
@@ -193,11 +193,11 @@ function M.SafeSetFont(fontString, fontPath, fontSize, fontFlags)
 	end
 end
 
---- @param fontString FontString
---- @param r number
---- @param g number
---- @param b number
---- @param a number
+---@param fontString FontString
+---@param r number
+---@param g number
+---@param b number
+---@param a number
 function M.SafeSetTextColor(fontString, r, g, b, a)
 	local cr, cg, cb, ca = fontString:GetTextColor()
 	if cr ~= r or cg ~= g or cb ~= b or ca ~= a then
@@ -205,24 +205,24 @@ function M.SafeSetTextColor(fontString, r, g, b, a)
 	end
 end
 
---- @param frame Frame|FontString
---- @param newAlpha number
+---@param frame Frame|FontString
+---@param newAlpha number
 function M.SafeSetAlpha(frame, newAlpha)
 	if frame:GetAlpha() ~= newAlpha then
 		frame:SetAlpha(newAlpha)
 	end
 end
 
---- @param fontString FontString
---- @param align string
+---@param fontString FontString
+---@param align string
 function M.SafeSetJustifyH(fontString, align)
 	if fontString:GetJustifyH() ~= align then
 		fontString:SetJustifyH(align)
 	end
 end
 
---- @param texture Texture
---- @param parentFrame Frame
+---@param texture Texture
+---@param parentFrame Frame
 function M.SafeSetAllPoints(texture, parentFrame)
 	local point1, relativeTo1 = texture:GetPoint(1)
 	if not point1 or relativeTo1 ~= parentFrame then
@@ -230,11 +230,11 @@ function M.SafeSetAllPoints(texture, parentFrame)
 	end
 end
 
---- @param texture Texture
---- @param r number
---- @param g number
---- @param b number
---- @param a number
+---@param texture Texture
+---@param r number
+---@param g number
+---@param b number
+---@param a number
 function M.SafeSetColorTexture(texture, r, g, b, a)
 	local cr, cg, cb, ca = texture:GetVertexColor()
 	if cr ~= r or cg ~= g or cb ~= b or ca ~= a then
@@ -242,12 +242,12 @@ function M.SafeSetColorTexture(texture, r, g, b, a)
 	end
 end
 
---- @param primary PlayerNotes
---- @param fallback PlayerNotes
---- @return PlayerNotes
+---@param primary PlayerNotes
+---@param fallback PlayerNotes
+---@return PlayerNotes
 function M.MergePlayerNotes(primary, fallback)
-	--- @alias PlayerNotesMapped table<DungeonName, table<DDID, PlayerNote>>
-	local playerNotesMapped = {} --- @type PlayerNotesMapped
+	---@alias PlayerNotesMapped table<DungeonName, table<DDID, PlayerNote>>
+	local playerNotesMapped = {} ---@type PlayerNotesMapped
 
 	for dungeonName, notes in pairs(primary) do
 		if not playerNotesMapped[dungeonName] then
@@ -298,7 +298,7 @@ function M.MergePlayerNotes(primary, fallback)
 		end
 	end
 
-	local playerNotesFinal = {} --- @type PlayerNotes
+	local playerNotesFinal = {} ---@type PlayerNotes
 
 	for dungeonName, notes in pairs(playerNotesMapped) do
 		for _, note in pairs(notes) do
@@ -312,13 +312,13 @@ function M.MergePlayerNotes(primary, fallback)
 	return playerNotesFinal
 end
 
---- @param tbl table
+---@param tbl table
 function M.IsTableEmpty(tbl)
 	return next(tbl) == nil
 end
 
---- @param array any[]
---- @param element any
+---@param array any[]
+---@param element any
 function M.IsInArray(array, element)
 	for _, e in ipairs(array) do
 		if e == element then
@@ -328,9 +328,9 @@ function M.IsInArray(array, element)
 	return false
 end
 
---- @param tbl table<any, any>
---- @param indent string?
---- @return string
+---@param tbl table<any, any>
+---@param indent string?
+---@return string
 function M.TableToString(tbl, indent)
 	indent = indent or ""
 	local result = "{\n"
@@ -349,17 +349,17 @@ function M.TableToString(tbl, indent)
 end
 
 -- Function to log the human-readable table string to BugSack
---- @param msg string
---- @param tbl table<any, any>
+---@param msg string
+---@param tbl table<any, any>
 function M.LogTableToBugSack(msg, tbl)
 	local readableTable = M.TableToString(tbl)
 	error(msg .. "\n\n" .. readableTable) -- Triggers BugSack to capture the output
 end
 
---- @param message string
+---@param message string
 function M.LogToGroup(message)
-	--- @param msg string
-	--- @param channel string
+	---@param msg string
+	---@param channel string
 	local function sendMultiLineMsg(msg, channel)
 		for line in msg:gmatch("[^\n]+") do
 			SendChatMessage(line, channel)
@@ -383,37 +383,37 @@ end
 -- |  _| (_) | | | | |_\__ \
 -- |_|  \___/|_| |_|\__|___/
 
-local LSM = LibStub("LibSharedMedia-3.0") --- @type any
-local fontList = LSM:HashTable("font") --- @type table<string, string>
+local LSM = LibStub("LibSharedMedia-3.0") ---@type any
+local fontList = LSM:HashTable("font") ---@type table<string, string>
 
 local fontNameToPath = fontList
-local fontPathToName = {} --- @type table<string, string>
+local fontPathToName = {} ---@type table<string, string>
 for fontName, fontPath in pairs(fontList) do
 	fontPathToName[fontPath] = fontName -- Use font names as display text
 end
 
-local fontNames = {} --- @type table<string, string>
+local fontNames = {} ---@type table<string, string>
 for fontName, _ in pairs(fontList) do
 	fontNames[fontName] = fontName -- Use font names as display text
 end
 
---- @param fontName string
+---@param fontName string
 function M.FontNameToPath(fontName)
 	return fontNameToPath[fontName]
 end
 
---- @param fontPath string
+---@param fontPath string
 function M.FontPathToName(fontPath)
 	return fontPathToName[fontPath]
 end
 
---- @param container AceGUIContainer
---- @param label string
---- @param startingFont string
---- @param callback fun(string)
+---@param container AceGUIContainer
+---@param label string
+---@param startingFont string
+---@param callback fun(string)
 function M.AddFontSelect(container, label, startingFont, callback)
 	-- Dropdown menu for font selection
-	local fontDropdown = AceGUI:Create("Dropdown") --- @type Dropdown
+	local fontDropdown = AceGUI:Create("Dropdown") ---@type Dropdown
 	fontDropdown:SetLabel(label)
 
 	-- Create a list with font-specific labels

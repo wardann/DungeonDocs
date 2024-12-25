@@ -1,21 +1,21 @@
---- @class DungeonDocs
+---@class DungeonDocs
 local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
 
---- @class Profiles
+---@class Profiles
 local M = {}
 
---- @alias ProfileDungeonNotes {dungeonName: string, notes: PlayerNote[]}
+---@alias ProfileDungeonNotes {dungeonName: string, notes: PlayerNote[]}
 
---- @type string[]
+---@type string[]
 local reservedProfileNames = {}
 
---- @param profileName string
+---@param profileName string
 function M.ReserveProfileName(profileName)
 	table.insert(reservedProfileNames, profileName)
 end
 
---- @param profileName string
---- @return boolean
+---@param profileName string
+---@return boolean
 function M.IsReservedProfile(profileName)
 	for _, value in ipairs(reservedProfileNames) do
 		if value == profileName then
@@ -25,12 +25,12 @@ function M.IsReservedProfile(profileName)
 	return false
 end
 
---- @param profileDungeonNotes ProfileDungeonNotes
---- @return PlayerNote[]
+---@param profileDungeonNotes ProfileDungeonNotes
+---@return PlayerNote[]
 function M.BuildProfileNotes(profileDungeonNotes)
 	local profileNotes = {} ---@type PlayerNote[]
 
-	--- @param note PlayerNote
+	---@param note PlayerNote
 	local function shouldInsert(note)
 		return note.primaryNote ~= "" or note.healerNote ~= "" or note.damageNote ~= "" or note.tankNote ~= ""
 	end

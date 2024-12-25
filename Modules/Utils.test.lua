@@ -1,7 +1,7 @@
 require("Modules.Utils")
 
 describe("MergeDocs", function()
-	--- @type DungeonDocs
+	---@type DungeonDocs
 	local DD
 
 	-- Setup: Retrieve the addon object

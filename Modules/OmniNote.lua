@@ -1,7 +1,7 @@
---- @class DungeonDocs
+---@class DungeonDocs
 local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
 
---- @class OmniNote
+---@class OmniNote
 local M = {}
 
 local omniAnchorFrame ---@type Frame
@@ -17,12 +17,12 @@ local playerTargetMobId ---@type string|nil
 
 local testNoteOpacityEnabled = false
 
---- @param index number
+---@param index number
 local function buildNoteCardName(index)
 	return "NoteCard" .. index
 end
 
---- @param index number
+---@param index number
 local function buildSpacerName(index)
 	return "Spacer" .. index
 end
@@ -30,10 +30,10 @@ end
 local function initNoteFrames()
 	local width = omniAnchorFrame:GetWidth()
 
-	--- @param parent Frame
-	--- @param addBackground boolean|nil
-	--- @param addFontString boolean|nil
-	--- @return Frame
+	---@param parent Frame
+	---@param addBackground boolean|nil
+	---@param addFontString boolean|nil
+	---@return Frame
 	local function initFrame(parent, addBackground, addFontString)
 		local frame = CreateFrame("Frame", nil, parent)
 		frame:SetWidth(width)
@@ -176,15 +176,15 @@ function M.RenderNote(index, anchor)
 		return padding
 	end
 
-	--- @param lineName string
-	--- @return string
+	---@param lineName string
+	---@return string
 	local function resolveText(lineName)
 		if lineName == "mobName" then
 			return docStruct.docName
 		end
 
 		if string.find(lineName, "Header") then
-			return state[lineName] --- @type string
+			return state[lineName] ---@type string
 		end
 
 		return playerNote[lineName]

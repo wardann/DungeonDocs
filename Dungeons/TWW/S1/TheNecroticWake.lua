@@ -1,15 +1,15 @@
---- @type DungeonDocs
+---@type DungeonDocs
 local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
 
---- @type CreateDDID
+---@type CreateDDID
 local function createDDID(index)
 	return "tnw" .. index
 end
 
---- @class Dungeons
+---@class Dungeons
 DD.dungeons = DD.dungeons or {}
 
---- @type DocStructure[]
+---@type DocStructure[]
 local docStructures = {
 	--
 	-- BOSSES
@@ -344,7 +344,7 @@ local docStructures = {
 	},
 }
 
---- @type DungeonData
+---@type DungeonData
 local dungeonData = {
 	dungeonName = "The Necrotic Wake",
 	icon = "Interface\\Icons\\inv_misc_bone_skull_02",

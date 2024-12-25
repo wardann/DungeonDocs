@@ -1,31 +1,31 @@
---- @class DungeonDocs
+---@class DungeonDocs
 local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
 
---- @alias DocMob {
+---@alias DocMob {
 ---     id: string,
 ---     displayId: number,
 ---     hideModel?: boolean,
---- }
---- @alias DocStructure {
+---}
+---@alias DocStructure {
 ---     docName: string,
 ---     ddid: DDID,
 ---     isBoss: boolean|nil,
 ---     mobs: DocMob[],
---- }
---- @alias DungeonData {
+---}
+---@alias DungeonData {
 ---     dungeonName: DungeonName,
 ---     icon: string,
 ---     seasonId: string,
 ---     docStructures: DocStructure[],
---- }
+---}
 
---- @alias CreateDDID fun(index: number): DDID
+---@alias CreateDDID fun(index: number): DDID
 
---- @class Dungeons
+---@class Dungeons
 local M = {}
 
---- @alias DungeonList table<DungeonName, DungeonData>
---- @type DungeonList
+---@alias DungeonList table<DungeonName, DungeonData>
+---@type DungeonList
 M.List = {}
 
 function M.Init()
@@ -39,10 +39,10 @@ function M.Init()
 	M.InitTheStonevault()
 end
 
---- @return DungeonList
+---@return DungeonList
 function M.GetCurrentSeason()
 	local db = DD.db.database
-	local dungeons = {} --- @type DungeonList
+	local dungeons = {} ---@type DungeonList
 
 	for dungeonName, d in pairs(M.List) do
 		if d.seasonId == db.profile.internal.selectedSeason then

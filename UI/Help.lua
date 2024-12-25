@@ -1,8 +1,8 @@
---- @class DungeonDocs
+---@class DungeonDocs
 local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
 local AceGUI = LibStub("AceGUI-3.0") ---@type AceGUI
 
---- @class HelpUI
+---@class HelpUI
 local M = {}
 
 ---@param container AceGUIContainer
@@ -25,6 +25,6 @@ Need more help? Want to request a feature? Found a bug? Please open an issue:
 	container:AddChild(label)
 end
 
---- @class UI
+---@class UI
 DD.ui = DD.ui or {}
 DD.ui.help = M

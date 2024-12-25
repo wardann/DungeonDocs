@@ -1,8 +1,8 @@
---- @class DungeonDocs
+---@class DungeonDocs
 local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
 local AceGUI = LibStub("AceGUI-3.0") ---@type AceGUI
 
---- @class ProfileUI
+---@class ProfileUI
 local M = {}
 
 local allProfilesDropdowns = {} ---@type Dropdown[]
@@ -346,6 +346,6 @@ function M.AddImport(container)
 	profileImport:AddChild(importTextBox)
 end
 
---- @class UI
+---@class UI
 DD.ui = DD.ui or {}
 DD.ui.profile = M

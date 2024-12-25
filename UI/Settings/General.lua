@@ -1,11 +1,11 @@
---- @class DungeonDocs
+---@class DungeonDocs
 local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
-local AceGUI = LibStub("AceGUI-3.0") --- @type AceGUI
+local AceGUI = LibStub("AceGUI-3.0") ---@type AceGUI
 
---- @class UI
+---@class UI
 DD.ui = DD.ui or {}
 
---- @class SettingsUI
+---@class SettingsUI
 DD.ui.settings = DD.ui.settings or {}
 
 ---@param container AceGUIContainer

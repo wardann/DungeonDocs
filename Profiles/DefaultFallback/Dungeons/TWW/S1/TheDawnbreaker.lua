@@ -149,7 +149,7 @@ local notes = {
 	},
 }
 
---- @type ProfileDungeonNotes
+---@type ProfileDungeonNotes
 local profileDungeonNotes = {
 	dungeonName = "The Dawnbreaker",
 	notes = notes,
