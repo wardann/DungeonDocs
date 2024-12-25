@@ -81,7 +81,7 @@ function DD.ui.settings.StyleRoleTank_AddDescription(container)
 	title:SetText("|cffffd700Tank Notes Style|r") -- Gold-colored text for the title
 	title:SetFont(GameFontNormalLarge:GetFont()) -- Use a larger font for the title
 	title:SetFullWidth(true) -- Stretch across the frame
- container:AddChild(title)
+	container:AddChild(title)
 
 	-- Create an explanation label
 	-- local explanation = AceGUI:Create("Label")
