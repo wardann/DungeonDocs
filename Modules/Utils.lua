@@ -121,7 +121,9 @@ end
 
 ---@param frame Frame|FontString
 function M.FrameHide(frame)
-	if not frame then return end
+	if not frame then
+		return
+	end
 	if frame:IsShown() then
 		frame:Hide()
 	end
@@ -129,7 +131,9 @@ end
 
 ---@param frame Frame|FontString
 function M.FrameShow(frame)
-	if not frame then return end
+	if not frame then
+		return
+	end
 	if not frame:IsShown() then
 		frame:Show()
 	end
@@ -137,7 +141,9 @@ end
 
 ---@param frame Frame|FontString
 function M.FrameWidth(frame, width)
-	if not frame then return end
+	if not frame then
+		return
+	end
 	if frame:GetWidth() ~= width then
 		frame:SetWidth(width)
 	end
@@ -145,7 +151,9 @@ end
 
 ---@param frame Frame|FontString
 function M.FrameHeight(frame, height)
-	if not frame then return end
+	if not frame then
+		return
+	end
 	if frame:GetHeight() ~= height then
 		frame:SetHeight(height)
 	end
@@ -153,7 +161,9 @@ end
 
 ---@param frame Frame|FontString
 function M.FrameCollapse(frame)
-	if not frame then return end
+	if not frame then
+		return
+	end
 	M.FrameHide(frame)
 	M.FrameHeight(frame, 0)
 end
@@ -165,7 +175,9 @@ end
 ---@param offsetX number The x-axis offset in pixels.
 ---@param offsetY number The y-axis offset in pixels.
 function M.FrameSetPoint(frame, point, relativeTo, relativePoint, offsetX, offsetY)
-	if not frame then return end
+	if not frame then
+		return
+	end
 
 	local existingPoint = { frame:GetPoint() } -- Get the current point
 
@@ -184,7 +196,9 @@ end
 ---@param frame Frame
 ---@param text string
 function M.FontText(frame, text)
-	if not frame then return end
+	if not frame then
+		return
+	end
 	if frame.fontString:GetText() ~= text then
 		frame.fontString:SetText(text)
 	end
@@ -195,7 +209,9 @@ end
 ---@param fontSize number
 ---@param fontFlags string
 function M.SafeSetFont(fontString, fontPath, fontSize, fontFlags)
-	if not fontString then return end
+	if not fontString then
+		return
+	end
 
 	local currentFont, currentSize, currentFlags = fontString:GetFont()
 	if currentFont ~= fontPath or currentSize ~= fontSize or currentFlags ~= fontFlags then
@@ -209,7 +225,9 @@ end
 ---@param b number
 ---@param a number
 function M.SafeSetTextColor(fontString, r, g, b, a)
-	if not fontString then return end
+	if not fontString then
+		return
+	end
 
 	local cr, cg, cb, ca = fontString:GetTextColor()
 	if cr ~= r or cg ~= g or cb ~= b or ca ~= a then
@@ -220,7 +238,9 @@ end
 ---@param frame Frame|FontString
 ---@param newAlpha number
 function M.SafeSetAlpha(frame, newAlpha)
-	if not frame then return end
+	if not frame then
+		return
+	end
 	if frame:GetAlpha() ~= newAlpha then
 		frame:SetAlpha(newAlpha)
 	end
@@ -229,7 +249,9 @@ end
 ---@param fontString FontString
 ---@param align string
 function M.SafeSetJustifyH(fontString, align)
-	if not fontString then return end
+	if not fontString then
+		return
+	end
 	if fontString:GetJustifyH() ~= align then
 		fontString:SetJustifyH(align)
 	end
@@ -238,7 +260,9 @@ end
 ---@param texture Texture
 ---@param parentFrame Frame
 function M.SafeSetAllPoints(texture, parentFrame)
-	if not texture then return end
+	if not texture then
+		return
+	end
 	local point1, relativeTo1 = texture:GetPoint(1)
 	if not point1 or relativeTo1 ~= parentFrame then
 		texture:SetAllPoints(parentFrame)
@@ -251,7 +275,9 @@ end
 ---@param b number
 ---@param a number
 function M.SafeSetColorTexture(texture, r, g, b, a)
-	if not texture then return end
+	if not texture then
+		return
+	end
 	local cr, cg, cb, ca = texture:GetVertexColor()
 	if cr ~= r or cg ~= g or cb ~= b or ca ~= a then
 		texture:SetColorTexture(r, g, b, a)
