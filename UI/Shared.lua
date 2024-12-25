@@ -45,8 +45,8 @@ end
 
 ---@param container AceGUIContainer
 ---@param state table<string, any>
-function M.AddDisplayMobName(container, state)
-	M.AddCheckBox(container, "Display Mob Name", state, "displayMobName")
+function M.AddDisplayNoteTitle(container, state)
+	M.AddCheckBox(container, "Display Note Title", state, "displayNoteTitle")
 end
 
 ---@param container AceGUIContainer

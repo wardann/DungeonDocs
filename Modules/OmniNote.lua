@@ -62,7 +62,7 @@ local function initNoteFrames()
 		noteFrames[noteCardName] = noteCardFrame
 
 		-- Init note card lines
-		initFrame(noteCardFrame, true, true) -- MobName
+		initFrame(noteCardFrame, true, true) -- NoteTitle
 		initFrame(noteCardFrame, true, true) -- PrimaryNote
 		initFrame(noteCardFrame, true, true) -- TankHeader
 		initFrame(noteCardFrame, true, true) -- TankNote
@@ -179,7 +179,7 @@ function M.RenderNote(index, anchor)
 	---@param lineName string
 	---@return string
 	local function resolveText(lineName)
-		if lineName == "mobName" then
+		if lineName == "noteTitle" then
 			return docStruct.docName
 		end
 
@@ -288,9 +288,9 @@ function M.RenderNote(index, anchor)
 	local roleNoteIndent = defaultIndent + state.roleNoteIndent
 	local roleHeaderIndent = defaultIndent + state.roleHeaderIndent
 
-	-- Mob Name line
+	-- Note title line
 	updateLine({
-		name = "mobName",
+		name = "noteTitle",
 		index = 1,
 		indent = defaultIndent,
 		displayed = state.showNoteTitle,
