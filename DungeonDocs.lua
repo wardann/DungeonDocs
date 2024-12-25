@@ -185,7 +185,7 @@ function DD.HandleReport()
 		return
 	end
 
-	local primaryNote = DD.db.GetNotePrimary(currentInstanceName, ddid, "primaryNote")
+	local primaryNote = DD.db.GetActiveNoteWithFallback(currentInstanceName, ddid, "primaryNote")
 
 	if not primaryNote or primaryNote == "" then
 		return

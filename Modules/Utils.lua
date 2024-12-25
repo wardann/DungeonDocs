@@ -242,14 +242,14 @@ function M.SafeSetColorTexture(texture, r, g, b, a)
 	end
 end
 
----@param primary PlayerNotes
+---@param active PlayerNotes
 ---@param fallback PlayerNotes
 ---@return PlayerNotes
-function M.MergePlayerNotes(primary, fallback)
+function M.MergePlayerNotes(active, fallback)
 	---@alias PlayerNotesMapped table<DungeonName, table<DDID, PlayerNote>>
 	local playerNotesMapped = {} ---@type PlayerNotesMapped
 
-	for dungeonName, notes in pairs(primary) do
+	for dungeonName, notes in pairs(active) do
 		if not playerNotesMapped[dungeonName] then
 			playerNotesMapped[dungeonName] = {}
 		end
@@ -273,10 +273,10 @@ function M.MergePlayerNotes(primary, fallback)
 					return
 				end
 
-				---@param primaryValue string
+				---@param activeValue string
 				---@param fallbackValue string
-				local function shouldUseFallback(primaryValue, fallbackValue)
-					return not primaryValue and fallbackValue and #fallbackValue > 0
+				local function shouldUseFallback(activeValue, fallbackValue)
+					return not activeValue and fallbackValue and #fallbackValue > 0
 				end
 
 				if shouldUseFallback(found.primaryNote, fallbackNote.primaryNote) then
