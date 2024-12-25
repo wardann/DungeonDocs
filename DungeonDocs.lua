@@ -52,10 +52,10 @@ function DD:OpenUI(msg)
 	end
 
 	-- if arg1 == "reset-database" then
-	--     for profileName in pairs(self.db.profiles) do
-	--         self.db.profiles[profileName] = nil
+	--     for profileName in pairs(DD.db.database.profiles) do
+	--         DD.db.database.profiles[profileName] = DD.utils.DeepCopy(DD.db.GetDBDefaults())
 	--     end
-	--     Log("Database has been reset")
+	--     DD.utils.Log("Database has been reset")
 	--     return
 	-- end
 
