@@ -167,39 +167,7 @@ local dbDefaults = {
 				},
 			},
 		},
-
-		-- noteStyle = {
-		--     primary = {
-		--         font = "Fonts\\FRIZQT__.TTF",
-		--         fontSize = 14,
-		--         color = {
-		--             r = 1,
-		--             g = 1,
-		--             b = 1,
-		--         },
-		--         outline = false,
-		--         align = "CENTER",
-		--     },
-		--     role = {
-		--         font = "Fonts\\FRIZQT__.TTF",
-		--         fontSize = 14,
-		--         color = {
-		--             r = 1,
-		--             g = 1,
-		--             b = 1,
-		--         },
-		--         outline = false,
-		--         align = "CENTER",
-		--     },
-		--     roleUsesPrimaryStyle = true,
-		-- }
 	},
-	-- notes = {
-	--     positions = {
-	--         primary = nil,
-	--         secondary = nil,
-	--     }
-	-- },
 	internal = {
 		fallbackProfile = "Default Fallback*",
 		movers = {
