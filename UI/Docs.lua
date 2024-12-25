@@ -135,15 +135,15 @@ end
 
 ---@param dungeonName string
 ---@param enemyType "boss"|"trash"
----@param noteName string
-function M.HandleSelected(dungeonName, enemyType, noteName)
-	local notes = DD.dungeons.List[dungeonName].docStructures
-	local note ---@type DocStructure
+---@param docName string
+function M.HandleSelected(dungeonName, enemyType, docName)
+	local docStructures = DD.dungeons.List[dungeonName].docStructures
+	local docStruct ---@type DocStructure
 
 	-- Find the boss in the database
-	for _, n in ipairs(notes) do
-		if n.docName == noteName then
-			note = n
+	for _, ds in ipairs(docStructures) do
+		if ds.docName == docName then
+			docStruct = ds
 		end
 	end
 
@@ -153,7 +153,7 @@ function M.HandleSelected(dungeonName, enemyType, noteName)
 
 	-- Add a title for the page
 	local titleLabel = AceGUI:Create("Label") ---@type Label
-	titleLabel:SetText(note.docName)
+	titleLabel:SetText(docStruct.docName)
 	titleLabel:SetFontObject(GameFontNormalLarge) -- Sets the font to a larger style
 	titleLabel.label:SetJustifyH("CENTER")
 	titleLabel:SetFullWidth(true)
@@ -161,14 +161,14 @@ function M.HandleSelected(dungeonName, enemyType, noteName)
 	rightGroup:AddChild(titleLabel)
 
 	local mobsToRender = {}
-	for _, mob in ipairs(note.mobs) do
+	for _, mob in ipairs(docStruct.mobs) do
 		if not mob.hideModel then
 			table.insert(mobsToRender, mob)
 		end
 	end
 
 	if enemyType == "trash" then
-		mobsToRender = { note.mobs[1] }
+		mobsToRender = { docStruct.mobs[1] }
 	end
 
 	-- Render character models
@@ -202,16 +202,16 @@ function M.HandleSelected(dungeonName, enemyType, noteName)
 	scrollFrame:SetFullHeight(true)
 	rightGroup:AddChild(scrollFrame)
 
-	M.RenderNote(dungeonName, note, "primaryNote", "Primary notes", scrollFrame)
-	M.RenderNote(dungeonName, note, "tankNote", "Tank notes", scrollFrame)
-	M.RenderNote(dungeonName, note, "healerNote", "Healer notes", scrollFrame)
-	M.RenderNote(dungeonName, note, "damageNote", "DPS notes", scrollFrame)
+	M.RenderNote(dungeonName, docStruct, "primaryNote", "Primary notes", scrollFrame)
+	M.RenderNote(dungeonName, docStruct, "tankNote", "Tank notes", scrollFrame)
+	M.RenderNote(dungeonName, docStruct, "healerNote", "Healer notes", scrollFrame)
+	M.RenderNote(dungeonName, docStruct, "damageNote", "DPS notes", scrollFrame)
 
 	local testNoteButton = AceGUI:Create("Button") ---@type Button
 	testNoteButton:SetText("Render Notes")
 	testNoteButton:SetFullWidth(true)
 	testNoteButton:SetCallback("OnClick", function()
-		DD.omniNote.RenderTestNote(note.ddid, dungeonName)
+		DD.omniNote.RenderTestNote(docStruct.ddid, dungeonName)
 	end)
 	scrollFrame:AddChild(testNoteButton)
 
@@ -235,14 +235,14 @@ function M.HandleSelected(dungeonName, enemyType, noteName)
 			return
 		end
 
-		resetNote(dungeonName, note)
+		resetNote(dungeonName, docStruct)
 		confirming = false
 		button:SetText(resetButtonText)
-		M.HandleSelected(dungeonName, enemyType, noteName)
+		M.HandleSelected(dungeonName, enemyType, docName)
 	end)
 
 	scrollFrame:AddChild(button)
-	lastSelected = { dungeonName, enemyType, noteName }
+	lastSelected = { dungeonName, enemyType, docName }
 end
 
 --- TODO
