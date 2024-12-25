@@ -34,6 +34,8 @@ local rightGroup ---@type SimpleGroup
 
 local models = {} ---@type PlayerModel[]
 
+local modelContainers = {} ---@type SimpleGroup[]
+
 ---@param localTreeGroup TreeGroup
 ---@param treeData TreeData
 local function setTreeGroupFocus(localTreeGroup, treeData)
@@ -103,6 +105,8 @@ function M.TabRoot(container)
 	rightGroup:SetLayout("Flow")
 	treeGroup:AddChild(rightGroup)
 
+	rightGroup.frame:SetScript("OnSizeChanged", M.UpdateWidthForRenderedModels)
+
 	-- Focus an element in the tree if the player is targeting it
 	-- Kicking this off with a very small delay else the model fails
 	-- to load for some reason
@@ -125,25 +129,55 @@ end
 
 function M.ClearModels()
 	for _, model in pairs(models) do
-		if model then
-			model:ClearModel()
-			model:Hide()
-		end
+		model:ClearModel()
+		model:SetParent(nil)
+		model:Hide()
 	end
 	models = {}
+
+	for _, modelContainer in pairs(modelContainers) do
+		if modelContainer and modelContainer.frame and modelContainer.frame:IsShown() then
+			modelContainer:Release()
+		end
+	end
+	modelContainers = {}
+end
+
+---@param numMobs number
+---@return number
+function M.CalculateWidthPerModel(numMobs)
+	local buffer = 1
+	local totalWidth = rightGroup.frame:GetWidth() or 0
+	if totalWidth <= 0 then
+		return 0 -- Prevent invalid widths
+	end
+	return ((1 / numMobs) * totalWidth) - buffer
+end
+
+function M.UpdateWidthForRenderedModels()
+	local numMobs = #models
+	local width = M.CalculateWidthPerModel(numMobs)
+
+	for _, model in pairs(models) do
+		model:SetSize(width, 200)
+	end
+
+	for _, modelContainer in pairs(modelContainers) do
+		modelContainer:SetWidth(width)
+	end
 end
 
 ---@param dungeonName string
 ---@param enemyType "boss"|"trash"
----@param noteName string
-function M.HandleSelected(dungeonName, enemyType, noteName)
-	local notes = DD.dungeons.List[dungeonName].docStructures
-	local note ---@type DocStructure
+---@param docName string
+function M.HandleSelected(dungeonName, enemyType, docName)
+	local docStructures = DD.dungeons.List[dungeonName].docStructures
+	local docStruct ---@type DocStructure
 
 	-- Find the boss in the database
-	for _, n in ipairs(notes) do
-		if n.docName == noteName then
-			note = n
+	for _, ds in ipairs(docStructures) do
+		if ds.docName == docName then
+			docStruct = ds
 		end
 	end
 
@@ -153,7 +187,7 @@ function M.HandleSelected(dungeonName, enemyType, noteName)
 
 	-- Add a title for the page
 	local titleLabel = AceGUI:Create("Label") ---@type Label
-	titleLabel:SetText(note.docName)
+	titleLabel:SetText(docStruct.docName)
 	titleLabel:SetFontObject(GameFontNormalLarge) -- Sets the font to a larger style
 	titleLabel.label:SetJustifyH("CENTER")
 	titleLabel:SetFullWidth(true)
@@ -161,28 +195,28 @@ function M.HandleSelected(dungeonName, enemyType, noteName)
 	rightGroup:AddChild(titleLabel)
 
 	local mobsToRender = {}
-	for _, mob in ipairs(note.mobs) do
+	for _, mob in ipairs(docStruct.mobs) do
 		if not mob.hideModel then
 			table.insert(mobsToRender, mob)
 		end
 	end
 
 	if enemyType == "trash" then
-		mobsToRender = { note.mobs[1] }
+		mobsToRender = { docStruct.mobs[1] }
 	end
 
 	-- Render character models
 	for _, mob in ipairs(mobsToRender) do
 		local numMobs = #mobsToRender
-		local widthPerModel = (1 / numMobs) * rightGroup.frame:GetWidth() -- Each model gets a fraction of the width
+		local widthPerModel = M.CalculateWidthPerModel(numMobs)
 
 		local modelContainer = AceGUI:Create("SimpleGroup") ---@type SimpleGroup
 
 		-- Render enemy model
 		modelContainer:SetWidth(widthPerModel)
-		-- modelContainer:SetFullHeight(true)
 		modelContainer:SetHeight(200)
 		modelContainer:SetLayout("Fill")
+		table.insert(modelContainers, modelContainer)
 		rightGroup:AddChild(modelContainer)
 
 		---@type PlayerModel
@@ -202,16 +236,16 @@ function M.HandleSelected(dungeonName, enemyType, noteName)
 	scrollFrame:SetFullHeight(true)
 	rightGroup:AddChild(scrollFrame)
 
-	M.RenderNote(dungeonName, note, "primaryNote", "Primary notes", scrollFrame)
-	M.RenderNote(dungeonName, note, "tankNote", "Tank notes", scrollFrame)
-	M.RenderNote(dungeonName, note, "healerNote", "Healer notes", scrollFrame)
-	M.RenderNote(dungeonName, note, "damageNote", "DPS notes", scrollFrame)
+	M.RenderNote(dungeonName, docStruct, "primaryNote", "Primary notes", scrollFrame)
+	M.RenderNote(dungeonName, docStruct, "tankNote", "Tank notes", scrollFrame)
+	M.RenderNote(dungeonName, docStruct, "healerNote", "Healer notes", scrollFrame)
+	M.RenderNote(dungeonName, docStruct, "damageNote", "DPS notes", scrollFrame)
 
 	local testNoteButton = AceGUI:Create("Button") ---@type Button
 	testNoteButton:SetText("Render Notes")
 	testNoteButton:SetFullWidth(true)
 	testNoteButton:SetCallback("OnClick", function()
-		DD.omniNote.RenderTestNote(note.ddid, dungeonName)
+		DD.omniNote.RenderTestNote(docStruct.ddid, dungeonName)
 	end)
 	scrollFrame:AddChild(testNoteButton)
 
@@ -235,14 +269,14 @@ function M.HandleSelected(dungeonName, enemyType, noteName)
 			return
 		end
 
-		resetNote(dungeonName, note)
+		resetNote(dungeonName, docStruct)
 		confirming = false
 		button:SetText(resetButtonText)
-		M.HandleSelected(dungeonName, enemyType, noteName)
+		M.HandleSelected(dungeonName, enemyType, docName)
 	end)
 
 	scrollFrame:AddChild(button)
-	lastSelected = { dungeonName, enemyType, noteName }
+	lastSelected = { dungeonName, enemyType, docName }
 end
 
 --- TODO
