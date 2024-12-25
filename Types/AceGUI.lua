@@ -47,6 +47,10 @@
 ---@field SetHeight fun(self: SimpleGroup, height: number): nil Sets the height of the group.
 ---@field SetLayout fun(self: SimpleGroup, layout: string): nil Sets the layout style for the group.
 ---@field frame Frame # The underlying WoW Frame object of the group
+---@field Hide fun(self: SimpleGroup): nil # Hides the SimpleGroup container.
+---@field Show fun(self: SimpleGroup): nil # Shows the SimpleGroup container.
+--- @field Release fun(self: SimpleGroup): nil # Releases the SimpleGroup and its resources back to the pool.
+--- @field ReleaseChildren fun(self: SimpleGroup): nil # Releases all child widgets of the SimpleGroup.
 
 ---@class Label : AceGUIWidget
 ---@field SetText fun(self: Label, text: string): nil Sets the text of the label.

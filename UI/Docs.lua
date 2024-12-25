@@ -34,6 +34,8 @@ local rightGroup ---@type SimpleGroup
 
 local models = {} ---@type PlayerModel[]
 
+local modelContainers = {} ---@type SimpleGroup[]
+
 ---@param localTreeGroup TreeGroup
 ---@param treeData TreeData
 local function setTreeGroupFocus(localTreeGroup, treeData)
@@ -103,6 +105,8 @@ function M.TabRoot(container)
 	rightGroup:SetLayout("Flow")
 	treeGroup:AddChild(rightGroup)
 
+	rightGroup.frame:SetScript("OnSizeChanged", M.UpdateWidthForRenderedModels)
+
 	-- Focus an element in the tree if the player is targeting it
 	-- Kicking this off with a very small delay else the model fails
 	-- to load for some reason
@@ -125,12 +129,42 @@ end
 
 function M.ClearModels()
 	for _, model in pairs(models) do
-		if model then
-			model:ClearModel()
-			model:Hide()
-		end
+		model:ClearModel()
+		model:SetParent(nil)
+		model:Hide()
 	end
 	models = {}
+
+	for _, modelContainer in pairs(modelContainers) do
+		if modelContainer and modelContainer.frame and modelContainer.frame:IsShown() then
+			modelContainer:Release()
+		end
+	end
+	modelContainers = {}
+end
+
+---@param numMobs number
+---@return number
+function M.CalculateWidthPerModel(numMobs)
+	local buffer = 1
+	local totalWidth = rightGroup.frame:GetWidth() or 0
+	if totalWidth <= 0 then
+		return 0 -- Prevent invalid widths
+	end
+	return ((1 / numMobs) * totalWidth) - buffer
+end
+
+function M.UpdateWidthForRenderedModels()
+	local numMobs = #models
+	local width = M.CalculateWidthPerModel(numMobs)
+
+	for _, model in pairs(models) do
+		model:SetSize(width, 200)
+	end
+
+	for _, modelContainer in pairs(modelContainers) do
+		modelContainer:SetWidth(width)
+	end
 end
 
 ---@param dungeonName string
@@ -174,15 +208,15 @@ function M.HandleSelected(dungeonName, enemyType, docName)
 	-- Render character models
 	for _, mob in ipairs(mobsToRender) do
 		local numMobs = #mobsToRender
-		local widthPerModel = (1 / numMobs) * rightGroup.frame:GetWidth() -- Each model gets a fraction of the width
+		local widthPerModel = M.CalculateWidthPerModel(numMobs)
 
 		local modelContainer = AceGUI:Create("SimpleGroup") ---@type SimpleGroup
 
 		-- Render enemy model
 		modelContainer:SetWidth(widthPerModel)
-		-- modelContainer:SetFullHeight(true)
 		modelContainer:SetHeight(200)
 		modelContainer:SetLayout("Fill")
+		table.insert(modelContainers, modelContainer)
 		rightGroup:AddChild(modelContainer)
 
 		---@type PlayerModel
