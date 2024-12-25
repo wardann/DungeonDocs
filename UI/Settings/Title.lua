@@ -28,18 +28,18 @@ function DD.ui.settings.Title_View(wrapperContainer)
 	DD.ui.settings.Title_AddDescription(container)
 
 	-- Add mob name settings
-	local mobNameSection = DD.utils.AddSection(container, "")
-	DD.ui.shared.AddCheckBox(mobNameSection, "Show note title", state, "showNoteTitle", refresh)
+	local noteTitleSection = DD.utils.AddSection(container, "")
+	DD.ui.shared.AddCheckBox(noteTitleSection, "Show note title", state, "showNoteTitle", refresh)
 
 	if state.showNoteTitle then
-		if not state.style.mobName.useDefaultTextStyle then
-			DD.utils.AddSpacer(mobNameSection)
-			DD.ui.shared.AddFontSettings(mobNameSection, state.style.mobName.text)
+		if not state.style.noteTitle.useDefaultTextStyle then
+			DD.utils.AddSpacer(noteTitleSection)
+			DD.ui.shared.AddFontSettings(noteTitleSection, state.style.noteTitle.text)
 		end
 		DD.ui.shared.AddCheckBox(
-			mobNameSection,
+			noteTitleSection,
 			"Use default text style",
-			state.style.mobName,
+			state.style.noteTitle,
 			"useDefaultTextStyle",
 			refresh
 		)

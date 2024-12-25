@@ -60,7 +60,7 @@ local dbDefaults = {
 						b = 1,
 					},
 				},
-				mobName = {
+				noteTitle = {
 					useDefaultTextStyle = false,
 					text = {
 						font = "Fonts\\FRIZQT__.TTF",
