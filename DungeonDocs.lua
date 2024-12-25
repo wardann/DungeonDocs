@@ -51,12 +51,12 @@ function DD:OpenUI(msg)
 		return
 	end
 
-	-- if arg1 == "reset-database" then
-	--     for profileName in pairs(DD.db.database.profiles) do
-	--         DD.db.database.profiles[profileName] = DD.utils.DeepCopy(DD.db.GetDBDefaults())
-	--     end
-	--     DD.utils.Log("Database has been reset")
-	--     return
+	-- if arg1 == "reset-profiles" then
+	-- 	for profileName in pairs(DD.db.database.profiles) do
+	-- 		DD.db.ResetProfile(profileName)
+	-- 	end
+	-- 	DD.utils.Log("All profiles have been reset")
+	-- 	return
 	-- end
 
 	if dungeonDocsFrame and dungeonDocsFrame:IsShown() then
