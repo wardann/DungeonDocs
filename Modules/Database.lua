@@ -534,12 +534,12 @@ function M.ResetProfile(profileName)
 	DD.utils.Log("Profile '" .. profileName .. "` reset to defaults")
 end
 
--- GetNotePrimary gets the note from the DB for the specified note key, falling
--- back to the secondary profile if the note is not found
+-- GetActiveNoteWithFallback gets the note from the DB for the specified note key, falling
+-- back to the fallback profile if the note is not found
 ---@param dungeonName DungeonName
 ---@param ddid DDID
 ---@param noteKey PlayerNoteKeys
-function M.GetNotePrimary(dungeonName, ddid, noteKey)
+function M.GetActiveNoteWithFallback(dungeonName, ddid, noteKey)
 	local db = M.database
 
 	local playerNotes = db.profile.docs[dungeonName]
@@ -570,10 +570,10 @@ end
 ---@param ddid DDID
 function M.DeriveFullNote(dungeonName, ddid)
 	return {
-		primaryNote = M.GetNotePrimary(dungeonName, ddid, "primaryNote"),
-		healerNote = M.GetNotePrimary(dungeonName, ddid, "healerNote"),
-		damageNote = M.GetNotePrimary(dungeonName, ddid, "damageNote"),
-		tankNote = M.GetNotePrimary(dungeonName, ddid, "tankNote"),
+		primaryNote = M.GetActiveNoteWithFallback(dungeonName, ddid, "primaryNote"),
+		healerNote = M.GetActiveNoteWithFallback(dungeonName, ddid, "healerNote"),
+		damageNote = M.GetActiveNoteWithFallback(dungeonName, ddid, "damageNote"),
+		tankNote = M.GetActiveNoteWithFallback(dungeonName, ddid, "tankNote"),
 	}
 end
 

@@ -265,7 +265,7 @@ function M.RenderNote(dungeonName, docStruct, noteKey, noteLabel, container)
 	noteTextBox:SetLabel(noteLabel)
 	noteTextBox:SetFullWidth(true) -- Make the edit box take up the full width of the container
 
-	noteTextBox:SetText(DD.db.GetNotePrimary(dungeonName, docStruct.ddid, noteKey)) -- You can prefill the edit box with text if needed
+	noteTextBox:SetText(DD.db.GetActiveNoteWithFallback(dungeonName, docStruct.ddid, noteKey))
 	noteTextBox:DisableButton(true) -- Disable the "Okay" button
 	noteTextBox:SetCallback("OnTextChanged", function(_, _, text)
 		DD.db.SetNote(dungeonName, docStruct.ddid, noteKey, text)

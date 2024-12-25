@@ -39,7 +39,7 @@ function M.PopulateAllProfilesDropdown(profileDropdown)
 end
 
 ---@param profileDropdown Dropdown
-function M.PopulatePrimaryProfileDropdown(profileDropdown)
+function M.PopulateActiveProfileDropdown(profileDropdown)
 	local profiles = {} ---@type table<string, string>
 	for _, profileName in ipairs(DD.db.database:GetProfiles()) do
 		if not DD.profiles.IsReservedProfile(profileName) then
@@ -65,7 +65,7 @@ local function refreshProfileDropdowns()
 		M.PopulateAllProfilesDropdown(dropdown)
 	end
 	for _, dropdown in ipairs(profileDropdowns) do
-		M.PopulatePrimaryProfileDropdown(dropdown)
+		M.PopulateActiveProfileDropdown(dropdown)
 	end
 	for _, dropdown in ipairs(fallbackProfileDropdowns) do
 		M.PopulateFallbackProfileDropdown(dropdown)
@@ -79,9 +79,9 @@ local function initAllProfilesDropdown(profileDropdown)
 end
 
 ---@param profileDropdown Dropdown
-local function initPrimaryProfileDropdown(profileDropdown)
+local function initActiveProfileDropdown(profileDropdown)
 	table.insert(profileDropdowns, profileDropdown)
-	M.PopulatePrimaryProfileDropdown(profileDropdown)
+	M.PopulateActiveProfileDropdown(profileDropdown)
 end
 
 ---@param profileDropdown Dropdown
@@ -93,17 +93,17 @@ end
 ---@param container AceGUIContainer
 function M.AddSelect(container)
 	local profileSelect = DD.utils.AddSection(container, "Profile Select")
-	M.AddPrimaryProfileSelect(profileSelect)
+	M.AddActiveProfileSelect(profileSelect)
 	M.AddFallbackProfileSelect(profileSelect)
 end
 
 ---@param container AceGUIContainer
-function M.AddPrimaryProfileSelect(container)
+function M.AddActiveProfileSelect(container)
 	local profileDropdown = AceGUI:Create("Dropdown") ---@type Dropdown
-	profileDropdown:SetLabel("Primary")
+	profileDropdown:SetLabel("Active")
 
 	-- Populate the dropdown with profile names
-	initPrimaryProfileDropdown(profileDropdown)
+	initActiveProfileDropdown(profileDropdown)
 
 	-- Set the current profile as the selected value
 	profileDropdown:SetValue(DD.db.database:GetCurrentProfile())
@@ -182,7 +182,7 @@ function M.AddDelete(container)
 	profileDropdown:SetLabel("Select Profile to Delete")
 
 	-- Populate the dropdown with available profiles
-	initPrimaryProfileDropdown(profileDropdown)
+	initActiveProfileDropdown(profileDropdown)
 
 	profileDelete:AddChild(profileDropdown)
 
@@ -227,7 +227,7 @@ function M.AddReset(container)
 	profileDropdown:SetLabel("Select Profile to Reset to Defaults")
 
 	-- Populate the dropdown with available profiles
-	initPrimaryProfileDropdown(profileDropdown)
+	initActiveProfileDropdown(profileDropdown)
 	profileReset:AddChild(profileDropdown)
 
 	-- Reset button to reveal confirm option

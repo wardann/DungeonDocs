@@ -11,3 +11,7 @@ typecheck:
 lint:
 	luacheck .
 	stylua . --check
+
+.PHONY: format-files
+format-files:
+	stylua .
