@@ -27,10 +27,6 @@
 --- @field SetScript fun(self: Frame, scriptType: string, handler: function): nil # Sets a script handler for the frame
 --- @field GetChildren fun(self: Frame): Frame, ... # Returns the child frames as multiple return values.
 
-
-
-
-
 --- @class FontString : Region
 --- @field SetText fun(self: FontString, text: string): nil Sets the text of the font string.
 --- @field GetText fun(self: FontString): string Gets the current text of the font string.
@@ -45,16 +41,11 @@
 --- @field GetJustifyH fun(self: FontString): string # Gets the horizontal alignment of the text (e.g., "LEFT", "CENTER", "RIGHT").
 --- @field GetStringHeight fun(self: FontString): number # Returns the height of the currently displayed text in the font string.
 
-
-
-
 --- @class Texture
 --- @field SetColorTexture fun(self: Texture, r: number, g: number, b: number, a: number): nil Sets the color and alpha of the texture.
 --- @field GetVertexColor fun(self: Texture): number, number, number, number Gets the current color and alpha.
 --- @field SetAllPoints fun(self: Texture, parent: Frame|nil): nil Sets the texture to fill the specified parent frame.
 --- @field GetPoint fun(self: Texture, index: number): string, Region|nil, string|nil, number|nil, number|nil # Gets the anchor point at the specified index.
-
-
 
 --- @class PlayerModel : Frame
 --- @field SetCamDistanceScale fun(self: PlayerModel, scale: number): nil Sets the camera distance scale.

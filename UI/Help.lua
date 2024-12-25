@@ -5,13 +5,12 @@ local AceGUI = LibStub("AceGUI-3.0") ---@type AceGUI
 --- @class HelpUI
 local M = {}
 
-
 ---@param container AceGUIContainer
 function M.TabRoot(container)
-    container:SetLayout("Fill")
+	container:SetLayout("Fill")
 
-    local label = AceGUI:Create("Label") ---@type Label
-    label:SetText([[
+	local label = AceGUI:Create("Label") ---@type Label
+	label:SetText([[
 Welcome to DungeonDocs!
 
 Questions? Please read the documentation:
@@ -20,10 +19,10 @@ Questions? Please read the documentation:
 Need more help? Want to request a feature? Found a bug? Please open an issue:
 |cff71d5ffgithub.com/wardann/DungeonDocs/issues/new|r
     ]])
-    label:SetFullWidth(true)
-    label.label:SetFont("Fonts\\FRIZQT__.TTF", 16, "OUTLINE") -- Set custom font size and style
+	label:SetFullWidth(true)
+	label.label:SetFont("Fonts\\FRIZQT__.TTF", 16, "OUTLINE") -- Set custom font size and style
 
-    container:AddChild(label)
+	container:AddChild(label)
 end
 
 --- @class UI
