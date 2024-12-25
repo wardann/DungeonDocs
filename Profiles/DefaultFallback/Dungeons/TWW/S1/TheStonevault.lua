@@ -166,7 +166,7 @@ local notes = {
 	},
 }
 
---- @type ProfileDungeonNotes
+---@type ProfileDungeonNotes
 local profileDungeonNotes = {
 	dungeonName = "The Stonevault",
 	notes = notes,

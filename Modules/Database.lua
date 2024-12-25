@@ -1,13 +1,13 @@
---- @class DungeonDocs
+---@class DungeonDocs
 local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
 
-local LibSerialize = LibStub("LibSerialize") --- @type LibSerialize
-local LibDeflate = LibStub("LibDeflate") --- @type LibDeflate
+local LibSerialize = LibStub("LibSerialize") ---@type LibSerialize
+local LibDeflate = LibStub("LibDeflate") ---@type LibDeflate
 
---- @class DB
+---@class DB
 local M = {}
 
---- @alias PlayerNote {
+---@alias PlayerNote {
 ---     ddid: DDID,
 ---     primaryNote?: string,
 ---     tankNote?: string,
@@ -15,20 +15,20 @@ local M = {}
 ---     damageNote?: string,
 --- }
 ---
---- @alias PlayerNoteKeys "primaryNote" | "tankNote" | "healerNote" | "damageNote"
+---@alias PlayerNoteKeys "primaryNote" | "tankNote" | "healerNote" | "damageNote"
 ---
---- @alias PlayerNotes table<DungeonName, PlayerNote[]>
+---@alias PlayerNotes table<DungeonName, PlayerNote[]>
 
 -- Define default db values
---- @class DatabaseSchema
+---@class DatabaseSchema
 local dbDefaults = {
 	dbVersion = 1,
 	docs = {}, ---@type PlayerNotes
 	settings = {
 		omniNote = {
 
-			--- @alias Position { point: string, relativePoint: string, xOffset: number, yOffset: number }
-			position = nil, --- @type nil|Position
+			---@alias Position { point: string, relativePoint: string, xOffset: number, yOffset: number }
+			position = nil, ---@type nil|Position
 			noteWidth = 380,
 
 			textAlign = "LEFT", -- Values are "CENTER", "LEFT", "RIGHT"
@@ -218,7 +218,7 @@ local dbDefaults = {
 	},
 }
 
---- @return DatabaseSchema
+---@return DatabaseSchema
 function M.GetEmptyDatabaseStructure()
 	return {
 		dbVersion = 1, -- Default version
@@ -228,12 +228,12 @@ function M.GetEmptyDatabaseStructure()
 	}
 end
 
---- @return DatabaseSchema
+---@return DatabaseSchema
 function M.GetDBDefaults()
 	return dbDefaults
 end
 
---- @param profileName string
+---@param profileName string
 function M.EnsureDefaults(profileName)
 	local p = M.database.profiles[profileName]
 	if not p then
@@ -267,7 +267,7 @@ function M.EnsureDefaultsAllProfiles()
 end
 
 function M.Init()
-	M.database = LibStub("AceDB-3.0"):New("DungeonDocsDB") --- @type AceDB
+	M.database = LibStub("AceDB-3.0"):New("DungeonDocsDB") ---@type AceDB
 
 	-- Init defaults on all profiles
 	M.EnsureDefaultsAllProfiles()
@@ -524,7 +524,7 @@ function M.ResetProfile(profileName)
 	local currentProfile = db:GetCurrentProfile()
 	db:SetProfile(profileName)
 
-	--- @type DatabaseSchema
+	---@type DatabaseSchema
 	db.profiles[profileName] = M.GetEmptyDatabaseStructure()
 	M.EnsureDefaults(profileName)
 	M.NotifyDBChange()
@@ -664,7 +664,7 @@ function M.SetNote(dungeonName, ddid, noteKey, newNote)
 
 	M.UpdateDB(function()
 		--- NOTE: the typing here appears to be confused, ignoring for now
-		--- @diagnostic disable-next-line
+		---@diagnostic disable-next-line
 		playerNote[noteKey] = newNote
 	end)
 end

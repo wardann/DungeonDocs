@@ -67,7 +67,7 @@ describe("dungeonChecker", function()
 				},
 			},
 		}
-		--- @diagnostic disable-next-line
+		---@diagnostic disable-next-line
 		assert.has_no.error(function()
 			dungeonChecker(dungeons)
 		end)
@@ -142,14 +142,14 @@ describe("Dungeons Module", function()
 	end)
 
 	it("should initialize all dungeons without errors", function()
-		--- @diagnostic disable-next-line
+		---@diagnostic disable-next-line
 		assert.has_no.errors(function()
 			DD.dungeons.Init()
 		end)
 	end)
 
 	it("should have expected DDID properties in doc structures", function()
-		--- @diagnostic disable-next-line
+		---@diagnostic disable-next-line
 		assert.has_no.errors(function()
 			totalDocStructureCount = dungeonChecker(DD.dungeons.List)
 		end)
@@ -231,9 +231,9 @@ describe("DD.dungeons.MobIdToDungeonName", function()
 end)
 
 describe("DD.dungeons.MobIDToDDID", function()
-	local DD --- @type DungeonDocs
+	local DD ---@type DungeonDocs
 	before_each(function()
-		DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs") --- @type DungeonDocs
+		DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs") ---@type DungeonDocs
 		DD.dungeons.Init()
 	end)
 

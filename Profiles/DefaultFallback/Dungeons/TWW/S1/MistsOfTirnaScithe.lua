@@ -1,7 +1,7 @@
---- @type DungeonDocs
+---@type DungeonDocs
 local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
 
---- @type PlayerNote[]
+---@type PlayerNote[]
 local notes = {
 	{
 		-- bossName = "Ingra Maloch",
@@ -197,7 +197,7 @@ local notes = {
 	},
 }
 
---- @type ProfileDungeonNotes
+---@type ProfileDungeonNotes
 local profileDungeonNotes = {
 	dungeonName = "Mists of Tirna Scithe",
 	notes = notes,

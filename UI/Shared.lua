@@ -1,8 +1,8 @@
---- @class DungeonDocs
+---@class DungeonDocs
 local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
-local AceGUI = LibStub("AceGUI-3.0") --- @type AceGUI
+local AceGUI = LibStub("AceGUI-3.0") ---@type AceGUI
 
---- @class SharedUI
+---@class SharedUI
 local M = {}
 
 ---@param container AceGUIContainer
@@ -398,7 +398,7 @@ end
 ---@param stateKey string
 ---@param callback fun()|nil
 function M.AddDropdown(container, label, options, state, stateKey, callback)
-	local dropdown = AceGUI:Create("Dropdown") --- @type Dropdown
+	local dropdown = AceGUI:Create("Dropdown") ---@type Dropdown
 
 	dropdown:SetLabel(label)
 	dropdown:SetList(options)
@@ -416,6 +416,6 @@ function M.AddDropdown(container, label, options, state, stateKey, callback)
 	container:AddChild(dropdown)
 end
 
---- @class UI
+---@class UI
 DD.ui = DD.ui or {}
 DD.ui.shared = M

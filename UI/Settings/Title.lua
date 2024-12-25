@@ -1,11 +1,11 @@
---- @class DungeonDocs
+---@class DungeonDocs
 local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
 local AceGUI = LibStub("AceGUI-3.0") ---@type AceGUI
 
---- @class UI
+---@class UI
 DD.ui = DD.ui or {}
 
---- @class SettingsUI
+---@class SettingsUI
 DD.ui.settings = DD.ui.settings or {}
 
 ---@param wrapperContainer AceGUIContainer
@@ -46,7 +46,7 @@ function DD.ui.settings.Title_View(wrapperContainer)
 	end
 end
 
---- @param container AceGUIContainer
+---@param container AceGUIContainer
 function DD.ui.settings.Title_AddDescription(container)
 	-- Create a title label
 	local title = AceGUI:Create("Label") ---@type Label

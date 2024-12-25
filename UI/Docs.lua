@@ -1,8 +1,8 @@
---- @class DungeonDocs
+---@class DungeonDocs
 local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
 local AceGUI = LibStub("AceGUI-3.0") ---@type AceGUI
 
---- @class DocsUI
+---@class DocsUI
 local M = {}
 
 ---@alias TreeNote {
@@ -18,7 +18,7 @@ local M = {}
 ---    text: string,
 ---    children: TreeNote[],
 ---}
---- @alias TreeDungeon {
+---@alias TreeDungeon {
 ---     value: string,
 ---     text: string,
 ---     name: string,
@@ -26,7 +26,7 @@ local M = {}
 ---     children: TreeMobOrBoss[],
 --- }
 ---
---- @alias TreeData TreeDungeon[]
+---@alias TreeData TreeDungeon[]
 
 local treeGroup ---@type TreeGroup
 
@@ -34,8 +34,8 @@ local rightGroup ---@type SimpleGroup
 
 local models = {} ---@type PlayerModel[]
 
---- @param localTreeGroup TreeGroup
---- @param treeData TreeData
+---@param localTreeGroup TreeGroup
+---@param treeData TreeData
 local function setTreeGroupFocus(localTreeGroup, treeData)
 	local targetId = DD.utils.GetMobIDFromGUID("target")
 	if not targetId then
@@ -68,7 +68,7 @@ end
 local lastSelected = {}
 
 -- Function to show the Default tab content
---- @param container AceGUIContainer
+---@param container AceGUIContainer
 function M.TabRoot(container)
 	-- Create a TreeGroup for the hierarchical mob list
 	treeGroup = AceGUI:Create("TreeGroup") ---@type TreeGroup
@@ -133,9 +133,9 @@ function M.ClearModels()
 	models = {}
 end
 
---- @param dungeonName string
---- @param enemyType "boss"|"trash"
---- @param noteName string
+---@param dungeonName string
+---@param enemyType "boss"|"trash"
+---@param noteName string
 function M.HandleSelected(dungeonName, enemyType, noteName)
 	local notes = DD.dungeons.List[dungeonName].docStructures
 	local note ---@type DocStructure
@@ -185,7 +185,7 @@ function M.HandleSelected(dungeonName, enemyType, noteName)
 		modelContainer:SetLayout("Fill")
 		rightGroup:AddChild(modelContainer)
 
-		--- @type PlayerModel
+		---@type PlayerModel
 		local model = CreateFrame("PlayerModel", nil, modelContainer.frame) --[[@as PlayerModel]]
 		model:SetPoint("CENTER")
 		model:SetSize(widthPerModel, 200)
@@ -273,7 +273,7 @@ function M.RenderNote(dungeonName, docStruct, noteKey, noteLabel, container)
 	noteContainer:AddChild(noteTextBox)
 end
 
---- @return TreeData
+---@return TreeData
 function M.DungeonDataToTreeData()
 	-- Get instances only from the selected season
 	local instances = DD.dungeons.GetCurrentSeason()
@@ -336,6 +336,6 @@ function M.DungeonDataToTreeData()
 	return treeData
 end
 
---- @class UI
+---@class UI
 DD.ui = DD.ui or {}
 DD.ui.docs = M

@@ -1,11 +1,11 @@
---- @class DungeonDocs
+---@class DungeonDocs
 local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
 local AceGUI = LibStub("AceGUI-3.0") ---@type AceGUI
 
---- @class UI
+---@class UI
 DD.ui = DD.ui or {}
 
---- @class SettingsUI
+---@class SettingsUI
 DD.ui.settings = DD.ui.settings or {}
 
 ---@param container AceGUIContainer
@@ -44,7 +44,7 @@ end
 ---@param container AceGUIContainer
 function DD.ui.settings.StylePrimary_AddDescription(container)
 	-- Create a title label
-	local title = AceGUI:Create("Label") --- @type Label
+	local title = AceGUI:Create("Label") ---@type Label
 	title:SetText("|cffffd700Primary Note|r") -- Gold-colored text for the title
 	title:SetFont(GameFontNormalLarge:GetFont()) -- Use a larger font for the title
 	title:SetFullWidth(true) -- Stretch across the frame

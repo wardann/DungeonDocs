@@ -1,7 +1,7 @@
---- @type DungeonDocs
+---@type DungeonDocs
 local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
 
---- @type PlayerNote[]
+---@type PlayerNote[]
 local notes = {
 	{
 		-- bossName = "Chopper Redhook",
@@ -245,7 +245,7 @@ local notes = {
 	},
 }
 
---- @type ProfileDungeonNotes
+---@type ProfileDungeonNotes
 local profileDungeonNotes = {
 	dungeonName = "Siege of Boralus",
 	notes = notes,

@@ -1,6 +1,6 @@
---- @class DungeonDocs
+---@class DungeonDocs
 local DD = LibStub("AceAddon-3.0"):NewAddon("DungeonDocs", "AceConsole-3.0", "AceEvent-3.0")
-local AceGUI = LibStub("AceGUI-3.0") --- @type AceGUI
+local AceGUI = LibStub("AceGUI-3.0") ---@type AceGUI
 
 local addonName = ... ---@type string
 local Version = ""
@@ -20,11 +20,11 @@ function DD:OnInitialize()
 	DD.omniNote.Init()
 end
 
---- @diagnostic disable
+---@diagnostic disable
 -- Register slash command
 DD:RegisterChatCommand("dungeondocs", "OpenUI")
 DD:RegisterChatCommand("dd", "OpenUI")
---- @diagnostic enable
+---@diagnostic enable
 
 local dungeonDocsFrame = nil
 local dungeonDocsWindowPosition = {
@@ -36,7 +36,7 @@ local dungeonDocsWindowSize = {
 	height = nil,
 }
 
---- @param msg string
+---@param msg string
 function DD:OpenUI(msg)
 	-- Split the input into the first argument and the rest
 	local arg1 = msg:match("^(%S*)%s*(.-)$")
@@ -135,7 +135,7 @@ function DD:OpenUI(msg)
 	end)
 
 	-- Create the TabGroup
-	--- @type AceGUITabGroup
+	---@type AceGUITabGroup
 	local tab = AceGUI:Create("TabGroup")
 	tab:SetLayout("Fill") -- Use 'Fill' since each tab will manage its own layout
 	tab:SetTabs({

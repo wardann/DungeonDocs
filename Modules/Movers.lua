@@ -1,13 +1,13 @@
---- @class DungeonDocs
+---@class DungeonDocs
 local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
 
---- @class Movers
+---@class Movers
 local M = {}
 
---- @type table<string, Frame>
+---@type table<string, Frame>
 local moverFrames = {}
 
---- @type table<string, FontString>
+---@type table<string, FontString>
 local moverFontStrings = {}
 
 local moverTitles = {
@@ -53,9 +53,9 @@ function M.Init()
 	M.Render()
 end
 
---- @param noteName string
---- @param framePosition Position
---- @param defaultPosition string
+---@param noteName string
+---@param framePosition Position
+---@param defaultPosition string
 function M.InitMover(noteName, framePosition, defaultPosition)
 	-- Create a frame to display the text
 	local frame = CreateFrame("Frame", "TextPanel", UIParent)
@@ -87,7 +87,7 @@ function M.InitMover(noteName, framePosition, defaultPosition)
 	moverFontStrings[noteName] = fontString
 end
 
---- @param noteName string
+---@param noteName string
 function M.SaveFrameCoordinates(noteName)
 	local state = DD.db.database.profile.settings
 	local mover = moverFrames[noteName]
