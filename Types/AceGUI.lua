@@ -31,7 +31,6 @@
 --- @field SetNumLines fun(self: MultiLineEditBox, numLines: number): nil # Sets the number of visible lines in the edit box
 --- @field DisableButton fun(self: MultiLineEditBox, disabled: boolean): nil # Enables or disables the "Okay" button
 
-
 --- @class TreeGroup : AceGUIContainer
 --- @field SetTree fun(self: TreeGroup, tree: table): nil Sets the tree structure for the group.
 --- @field SelectByPath fun(self: TreeGroup, ...: string): nil Selects a node in the tree by its path.
@@ -42,14 +41,12 @@
 --- @field SetTreeWidth fun(self: TreeGroup, treeWidth: number, isRelative?: boolean): nil # Sets the width of the tree panel.
 --- @field SetSelected fun(self: TreeGroup, uniquevalue: string): nil # Sets the currently selected node in the tree.
 
-
 --- @class SimpleGroup : AceGUIContainer
 --- @field AddChild fun(self: SimpleGroup, widget: table): nil Adds a child widget to the group.
 --- @field SetWidth fun(self: SimpleGroup, width: number): nil Sets the width of the group.
 --- @field SetHeight fun(self: SimpleGroup, height: number): nil Sets the height of the group.
 --- @field SetLayout fun(self: SimpleGroup, layout: string): nil Sets the layout style for the group.
 --- @field frame Frame # The underlying WoW Frame object of the group
-
 
 --- @class Label : AceGUIWidget
 --- @field SetText fun(self: Label, text: string): nil Sets the text of the label.
@@ -60,15 +57,12 @@
 --- @field SetFontObject fun(self: Label, fontObject: Font): nil # Sets the font using a predefined font object.
 --- @field label FontString # The underlying FontString object of the label.
 
-
-
 --- @class ScrollFrame : AceGUIContainer
 --- @field AddChild fun(self: ScrollFrame, widget: table): nil Adds a child widget to the scroll frame.
 --- @field SetScroll fun(self: ScrollFrame, value: number): nil Sets the scroll position.
 --- @field GetScroll fun(self: ScrollFrame): number Gets the current scroll position.
 --- @field SetWidth fun(self: ScrollFrame, width: number): nil Sets the width of the scroll frame.
 --- @field SetHeight fun(self: ScrollFrame, height: number): nil Sets the height of the scroll frame.
-
 
 --- @class Button : AceGUIWidget
 --- @field SetText fun(self: Button, text: string): nil Sets the text of the button.
@@ -77,7 +71,6 @@
 --- @field SetWidth fun(self: Button, width: number): nil Sets the width of the button.
 --- @field SetHeight fun(self: Button, height: number): nil Sets the height of the button.
 --- @field SetDisabled fun(self: Button, disabled: boolean): nil Enables or disables the button.
-
 
 --- @class AceGUIFrame : AceGUIContainer
 --- @field SetTitle fun(self: AceGUIFrame, title: string): nil Sets the title of the frame.
@@ -96,13 +89,10 @@
 --- @field SetStatusText fun(self: AceGUIFrame, text: string): nil Sets the status text displayed in the frame's status bar.
 --- @field SetAutoAdjustHeight fun(self: AceGUIFrame, autoAdjust: boolean): nil Enables or disables automatic height adjustment for the frame.
 
-
-
 --- @class AceGUITabGroup : AceGUIContainer
 --- @field SetTabs fun(self: AceGUITabGroup, tabs: table): nil Sets the tabs for the tab group.
 --- @field SelectTab fun(self: AceGUITabGroup, tab: string): nil Selects a specific tab.
 --- @field SetCallback fun(self: AceGUITabGroup, callbackName: string, callback: fun(widget: AceGUIContainer, event: string, value: any)): nil Sets a callback for the tab group.
-
 
 --- @class InlineGroup : AceGUIContainer
 --- @field SetTitle fun(self: InlineGroup, title: string): nil Sets the title of the inline group.
@@ -123,7 +113,6 @@
 --- @field SetSliderValues fun(self: Slider, min: number, max: number, step: number): nil # Sets the slider's min, max, and step values
 --- @field SetLabel fun(self: Slider, label: string): nil # Sets the label text for the slider
 --- @field SetCallback fun(self: Slider, event: string, callback: fun(event: string, value: number, slider: Slider)): nil # Sets a callback for slider events
-
 
 --- @class Dropdown : AceGUIWidget
 --- @field SetList fun(self: Dropdown, list: table<string, string>, order?: table<number, string>): nil # Sets the dropdown list and optional order
@@ -147,4 +136,3 @@
 --- @field SetDisabled fun(self: EditBox, disabled: boolean): nil # Enables or disables the edit box
 --- @field SetCallback fun(self: EditBox, event: string, callback: fun(event: string, widget: EditBox, value: string)): nil # Sets a callback for edit box events
 --- @field DisableButton fun(self: EditBox, disabled: boolean): nil # Enables or disables the clear button
-

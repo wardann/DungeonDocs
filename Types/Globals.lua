@@ -1,6 +1,5 @@
 --- @global CreateFrame fun(frameType: string, frameName: string|nil, parent: Frame|nil, template: string|nil): Frame
 
-
 --- @type Frame
 UIParent = UIParent
 

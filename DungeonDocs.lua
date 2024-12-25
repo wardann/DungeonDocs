@@ -7,17 +7,17 @@ local Version = ""
 
 -- luacheck: ignore
 function DD:OnInitialize()
-    Version = C_AddOns.GetAddOnMetadata(addonName, "Version") or ""
+	Version = C_AddOns.GetAddOnMetadata(addonName, "Version") or ""
 
-    DD.db.Init()
+	DD.db.Init()
 
-    DD.profiles.Init()
+	DD.profiles.Init()
 
-    DD.dungeons.Init()
+	DD.dungeons.Init()
 
-    DD.movers.Init()
+	DD.movers.Init()
 
-    DD.omniNote.Init()
+	DD.omniNote.Init()
 end
 
 --- @diagnostic disable
@@ -26,174 +26,173 @@ DD:RegisterChatCommand("dungeondocs", "OpenUI")
 DD:RegisterChatCommand("dd", "OpenUI")
 --- @diagnostic enable
 
-
 local dungeonDocsFrame = nil
 local dungeonDocsWindowPosition = {
-    X = nil,
-    Y = nil,
+	X = nil,
+	Y = nil,
 }
 local dungeonDocsWindowSize = {
-    width = nil,
-    height = nil,
+	width = nil,
+	height = nil,
 }
 
 --- @param msg string
 function DD:OpenUI(msg)
-    -- Split the input into the first argument and the rest
-    local arg1 = msg:match("^(%S*)%s*(.-)$")
+	-- Split the input into the first argument and the rest
+	local arg1 = msg:match("^(%S*)%s*(.-)$")
 
-    if arg1 == "debug:db:profiles" then
-        DD.utils.LogTableToBugSack("db.profiles", self.db.database.profiles)
-        return
-    end
+	if arg1 == "debug:db:profiles" then
+		DD.utils.LogTableToBugSack("db.profiles", self.db.database.profiles)
+		return
+	end
 
-    if arg1 == "report" then
-        DD.HandleReport()
-        return
-    end
+	if arg1 == "report" then
+		DD.HandleReport()
+		return
+	end
 
-    -- if arg1 == "reset-database" then
-    --     for profileName in pairs(self.db.profiles) do
-    --         self.db.profiles[profileName] = nil
-    --     end
-    --     Log("Database has been reset")
-    --     return
-    -- end
+	-- if arg1 == "reset-database" then
+	--     for profileName in pairs(self.db.profiles) do
+	--         self.db.profiles[profileName] = nil
+	--     end
+	--     Log("Database has been reset")
+	--     return
+	-- end
 
-    if dungeonDocsFrame and dungeonDocsFrame:IsShown() then
-        dungeonDocsFrame:Hide() -- Toggle the UI closed if it's open and return
-        return
-    end
+	if dungeonDocsFrame and dungeonDocsFrame:IsShown() then
+		dungeonDocsFrame:Hide() -- Toggle the UI closed if it's open and return
+		return
+	end
 
-    -- Create the main frame
-    local aceFrame = AceGUI:Create("Frame") ---@type AceGUIFrame
-    aceFrame:SetCallback("OnClose", function(widget)
-        -- Store size and position for future runs
-        dungeonDocsWindowSize.height = aceFrame.frame:GetHeight()
-        dungeonDocsWindowSize.width = aceFrame.frame:GetWidth()
-        dungeonDocsWindowPosition.X = aceFrame.frame:GetLeft()
-        dungeonDocsWindowPosition.Y = aceFrame.frame:GetTop()
+	-- Create the main frame
+	local aceFrame = AceGUI:Create("Frame") ---@type AceGUIFrame
+	aceFrame:SetCallback("OnClose", function(widget)
+		-- Store size and position for future runs
+		dungeonDocsWindowSize.height = aceFrame.frame:GetHeight()
+		dungeonDocsWindowSize.width = aceFrame.frame:GetWidth()
+		dungeonDocsWindowPosition.X = aceFrame.frame:GetLeft()
+		dungeonDocsWindowPosition.Y = aceFrame.frame:GetTop()
 
-        dungeonDocsFrame = nil -- Reset the reference when the window is closed
-        widget:Release()       -- Clean up the frame resources
-    end)
-    dungeonDocsFrame = aceFrame
+		dungeonDocsFrame = nil -- Reset the reference when the window is closed
+		widget:Release() -- Clean up the frame resources
+	end)
+	dungeonDocsFrame = aceFrame
 
-    aceFrame:SetStatusText(Version)
-    aceFrame:SetTitle("DungeonDocs")
-    aceFrame:SetLayout("Fill") -- Important for TabGroup to fill the frame
+	aceFrame:SetStatusText(Version)
+	aceFrame:SetTitle("DungeonDocs")
+	aceFrame:SetLayout("Fill") -- Important for TabGroup to fill the frame
 
-    -- -- Define max size based on 80% of screen dimensions
-    local maxWidth = UIParent:GetWidth() * 0.8
-    local maxHeight = UIParent:GetHeight() * 0.8
+	-- -- Define max size based on 80% of screen dimensions
+	local maxWidth = UIParent:GetWidth() * 0.8
+	local maxHeight = UIParent:GetHeight() * 0.8
 
-    local initWidth = math.min(850, maxWidth)
-    local initHeight = math.min(850, maxHeight)
+	local initWidth = math.min(850, maxWidth)
+	local initHeight = math.min(850, maxHeight)
 
-    local storedWidth = dungeonDocsWindowSize.width
-    local storedHeight = dungeonDocsWindowSize.height
+	local storedWidth = dungeonDocsWindowSize.width
+	local storedHeight = dungeonDocsWindowSize.height
 
-    aceFrame:SetAutoAdjustHeight(false)
-    aceFrame:SetWidth(storedWidth and storedWidth or initWidth)
-    aceFrame:SetHeight(storedHeight and storedHeight or initHeight)
+	aceFrame:SetAutoAdjustHeight(false)
+	aceFrame:SetWidth(storedWidth and storedWidth or initWidth)
+	aceFrame:SetHeight(storedHeight and storedHeight or initHeight)
 
-    -- Function to enforce max size on resize
-    local function EnforceMaxSizeAndStore()
-        local currentWidth = aceFrame.frame:GetWidth()
-        local currentHeight = aceFrame.frame:GetHeight()
+	-- Function to enforce max size on resize
+	local function EnforceMaxSizeAndStore()
+		local currentWidth = aceFrame.frame:GetWidth()
+		local currentHeight = aceFrame.frame:GetHeight()
 
-        -- Cap the width and height to the max size
-        if currentWidth > maxWidth then
-            aceFrame:SetWidth(maxWidth)
-        end
-        if currentHeight > maxHeight then
-            aceFrame:SetHeight(maxHeight)
-        end
-    end
+		-- Cap the width and height to the max size
+		if currentWidth > maxWidth then
+			aceFrame:SetWidth(maxWidth)
+		end
+		if currentHeight > maxHeight then
+			aceFrame:SetHeight(maxHeight)
+		end
+	end
 
-    -- Hook to resize events and enforce max size
-    aceFrame.frame:SetScript("OnSizeChanged", EnforceMaxSizeAndStore)
+	-- Hook to resize events and enforce max size
+	aceFrame.frame:SetScript("OnSizeChanged", EnforceMaxSizeAndStore)
 
-    local frame = aceFrame.frame
-    frame:SetMovable(true)
-    frame:EnableMouse(true)
-    frame:RegisterForDrag("LeftButton")
+	local frame = aceFrame.frame
+	frame:SetMovable(true)
+	frame:EnableMouse(true)
+	frame:RegisterForDrag("LeftButton")
 
-    -- Load saved window position
-    if dungeonDocsWindowPosition.X and dungeonDocsWindowPosition.Y then
-        frame:ClearAllPoints()
-        frame:SetPoint("TOPLEFT", UIParent, "BOTTOMLEFT", dungeonDocsWindowPosition.X,
-            dungeonDocsWindowPosition.Y)
-    end
+	-- Load saved window position
+	if dungeonDocsWindowPosition.X and dungeonDocsWindowPosition.Y then
+		frame:ClearAllPoints()
+		frame:SetPoint("TOPLEFT", UIParent, "BOTTOMLEFT", dungeonDocsWindowPosition.X, dungeonDocsWindowPosition.Y)
+	end
 
-    -- Set the drag scripts
-    frame:SetScript("OnDragStart", function(s)
-        s:StartMoving()
-    end)
+	-- Set the drag scripts
+	frame:SetScript("OnDragStart", function(s)
+		s:StartMoving()
+	end)
 
-    frame:SetScript("OnDragStop", function(s)
-        s:StopMovingOrSizing()
-        -- Save the current position
-    end)
+	frame:SetScript("OnDragStop", function(s)
+		s:StopMovingOrSizing()
+		-- Save the current position
+	end)
 
-    -- Create the TabGroup
-    --- @type AceGUITabGroup
-    local tab = AceGUI:Create("TabGroup")
-    tab:SetLayout("Fill") -- Use 'Fill' since each tab will manage its own layout
-    tab:SetTabs({
-        { text = "Docs",     value = "docs" },
-        { text = "Settings", value = "settings" },
-        { text = "Profiles", value = "profiles" },
-        { text = "Help",     value = "help" },
-    })
-    tab:SetCallback("OnGroupSelected", function(container, _, group)
-        container:ReleaseChildren()
+	-- Create the TabGroup
+	--- @type AceGUITabGroup
+	local tab = AceGUI:Create("TabGroup")
+	tab:SetLayout("Fill") -- Use 'Fill' since each tab will manage its own layout
+	tab:SetTabs({
+		{ text = "Docs", value = "docs" },
+		{ text = "Settings", value = "settings" },
+		{ text = "Profiles", value = "profiles" },
+		{ text = "Help", value = "help" },
+	})
+	tab:SetCallback("OnGroupSelected", function(container, _, group)
+		container:ReleaseChildren()
 
-        -- Remove character model display to prevent accidental rendering when in a different tab
-        DD.ui.docs.ClearModels()
+		-- Remove character model display to prevent accidental rendering when in a different tab
+		DD.ui.docs.ClearModels()
 
-        if group == "docs" then
-            DD.ui.docs.TabRoot(container)
-        elseif group == "settings" then
-            DD.ui.settings.TabRoot(container)
-        elseif group == "profiles" then
-            DD.ui.profile.TabRoot(container)
-        elseif group == "help" then
-            DD.ui.help.TabRoot(container)
-        end
-    end)
-    tab:SelectTab("docs") -- Default tab to display
-    aceFrame:AddChild(tab)
+		if group == "docs" then
+			DD.ui.docs.TabRoot(container)
+		elseif group == "settings" then
+			DD.ui.settings.TabRoot(container)
+		elseif group == "profiles" then
+			DD.ui.profile.TabRoot(container)
+		elseif group == "help" then
+			DD.ui.help.TabRoot(container)
+		end
+	end)
+	tab:SelectTab("docs") -- Default tab to display
+	aceFrame:AddChild(tab)
 end
 
 function DD.HandleReport()
-    local targetId = DD.utils.GetMobIDFromGUID("target")
-    if not targetId then
-        return
-    end
+	local targetId = DD.utils.GetMobIDFromGUID("target")
+	if not targetId then
+		return
+	end
 
-    local currentInstanceName, currentInstanceType = GetInstanceInfo()
-    if currentInstanceType ~= "party" then
-        return
-    end
+	local currentInstanceName, currentInstanceType = GetInstanceInfo()
+	if currentInstanceType ~= "party" then
+		return
+	end
 
-    local dungeonName = DD.dungeons.GetCurrentDungeon()
-    if not dungeonName then return end
-    local ddid = DD.dungeons.MobIDToDDID(targetId, dungeonName)
+	local dungeonName = DD.dungeons.GetCurrentDungeon()
+	if not dungeonName then
+		return
+	end
+	local ddid = DD.dungeons.MobIDToDDID(targetId, dungeonName)
 
-    if not ddid then
-        return
-    end
+	if not ddid then
+		return
+	end
 
-    local primaryNote = DD.db.GetNotePrimary(currentInstanceName, ddid, "primaryNote")
+	local primaryNote = DD.db.GetNotePrimary(currentInstanceName, ddid, "primaryNote")
 
-    if not primaryNote or primaryNote == "" then
-        return
-    end
+	if not primaryNote or primaryNote == "" then
+		return
+	end
 
-    local targetName = UnitName("target")
+	local targetName = UnitName("target")
 
-    local message = "{rt8} " .. targetName .. " {rt8}\n" .. primaryNote
-    DD.utils.LogToGroup(message)
+	local message = "{rt8} " .. targetName .. " {rt8}\n" .. primaryNote
+	DD.utils.LogToGroup(message)
 end
-
