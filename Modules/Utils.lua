@@ -419,6 +419,13 @@ function M.LogToGroup(message)
 	end
 end
 
+--- Wraps text in a light gray color escape sequence for logging
+--- @param text string The text to wrap
+--- @return string The text wrapped in a light gray color
+function M.Gray(text)
+    return "|cffd3d3d3" .. text .. "|r"
+end
+
 --   __             _
 --  / _| ___  _ __ | |_ ___
 -- | |_ / _ \| '_ \| __/ __|

@@ -369,6 +369,7 @@ function M.SelectProfile(profileName)
 	if db:GetCurrentProfile() ~= profileName then -- Only switch if different
 		db:SetProfile(profileName)
 		M.NotifyDBChange()
+		DD.utils.Log("Switched to profile", DD.utils.Gray(profileName))
 	end
 end
 
@@ -377,6 +378,7 @@ function M.SelectFallbackProfile(profileName)
 	local db = M.database
 	db.profile.internal.fallbackProfile = profileName
 	M.NotifyDBChange()
+	DD.utils.Log("Switched to fallback profile", DD.utils.Gray(profileName))
 end
 
 -- Function to export the current profile, excluding the "internal" table
@@ -480,7 +482,7 @@ function M.ImportProfile(destProfileName, wrapped)
 		M.EnsureDefaults(destProfileName)
 		M.NotifyDBChange()
 
-		DD.utils.Log("Success! Imported profile " .. destProfileName)
+		DD.utils.Log("Success! Imported profile", DD.utils.Gray(destProfileName))
 		return true
 	else
 		DD.utils.Log("Error! Could not import profile " .. destProfileName)
@@ -510,7 +512,7 @@ function M.CloneProfile(sourceProfileName, destProfileName)
 
 	M.NotifyDBChange()
 
-	DD.utils.Log("Cloned profile `" .. sourceProfileName .. "` to profile `" .. destProfileName .. "`")
+	DD.utils.Log("Profile", DD.utils.Gray(sourceProfileName), "cloned to profile", DD.utils.Gray(destProfileName))
 end
 
 function M.RenameProfile(sourceProfileName, newProfileName)
@@ -543,7 +545,7 @@ function M.RenameProfile(sourceProfileName, newProfileName)
 
 	M.NotifyDBChange()
 
-	DD.utils.Log("Success! Profile renamed from", sourceProfileName, "to", newProfileName)
+	DD.utils.Log("Success! Profile renamed from", DD.utils.Gray(sourceProfileName), "to", DD.utils.Gray(newProfileName))
 end
 
 function M.DeleteProfile(profileName)
@@ -566,7 +568,7 @@ function M.DeleteProfile(profileName)
 
 	-- Delete the profile
 	db.profiles[profileName] = nil
-	DD.utils.Log("Profile `" .. profileName .. "` deleted successfully")
+	DD.utils.Log("Profile", DD.utils.Gray(profileName), "deleted successfully")
 end
 
 function M.ResetProfile(profileName)
@@ -591,7 +593,7 @@ function M.ResetProfile(profileName)
 		M.NotifyDBChange()
 	end
 
-	DD.utils.Log("Profile '" .. profileName .. "` reset to defaults")
+	DD.utils.Log("Profile", DD.utils.Gray(profileName), "reset to defaults")
 end
 
 -- GetActiveNoteWithFallback gets the note from the DB for the specified note key, falling
