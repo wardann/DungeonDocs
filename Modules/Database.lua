@@ -576,15 +576,19 @@ function M.ResetProfile(profileName)
 		return
 	end
 
-	local currentProfile = db:GetCurrentProfile()
-	db:SetProfile(profileName)
-
 	---@type DatabaseSchema
 	db.profiles[profileName] = M.GetEmptyDatabaseStructure()
 	M.EnsureDefaults(profileName)
 	M.NotifyDBChange()
 
-	db:SetProfile(currentProfile) -- Switch back to the original profile
+	local currentProfile = db:GetCurrentProfile()
+	if currentProfile == profileName then
+		--- Switch to the default fallback profile (which can't be deleted nor reset) and then switch back
+		--- This triggers the UI to update if we're already on the profile, just calling M.NotifyDBChange isn't enough
+		db:SetProfile("Default Fallback*")
+		db:SetProfile(profileName)
+		M.NotifyDBChange()
+	end
 
 	DD.utils.Log("Profile '" .. profileName .. "` reset to defaults")
 end
