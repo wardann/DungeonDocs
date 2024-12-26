@@ -311,7 +311,7 @@ function M.EnsureDefaults(profileName)
 				---@diagnostic disable-next-line
 				profile[key] = DD.utils.DeepCopy(value)
 			elseif type(value) == "table" and type(profile[key]) == "table" then
-		        ---@diagnostic disable-next-line
+				---@diagnostic disable-next-line
 				applyDefaults(profile[key], value) -- Recursively apply for nested tables
 			end
 		end
