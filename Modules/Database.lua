@@ -104,7 +104,6 @@ local M = {}
 ---           TWWS1: string,
 ---       },
 ---       selectedSeason: string,
----       showTestNote: boolean,
 ---    },
 ---}
 
@@ -269,7 +268,6 @@ local dbDefaults = {
 		seasons = {
 			TWWS1 = "The War Within - Season 1",
 		},
-		showTestNote = false,
 
 		selectedSeason = "TWWS1",
 		testText = "This is some test to text with.\nChange it to see how your notes might look.",
