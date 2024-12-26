@@ -7,7 +7,7 @@
 
 ## Overview
 
-DungeonDocs is a World of Warcraft addon that displays notes during combat in Mythic+. Notes are enemy-specific and will be displayed depending on the enemies detected in combat.  
+DungeonDocs is a World of Warcraft addon that displays notes during combat in Mythic+. Notes are enemy-specific and will be displayed for each enemy detected during combat.  
 
 Basic boss notes have been included for TWW Season 1 of M+, but you can easily add your own.
 
@@ -20,6 +20,9 @@ Basic boss notes have been included for TWW Season 1 of M+, but you can easily a
 - Fallback profiles make it possible to inherit notes from another profile
 - Report notes in party chat with a slash command
 
+## Demo
+
+[Here is a quick demo that shows some of the features of DungeonDocs.](https://www.youtube.com/watch?v=lzqX2w3UBVY)
 
 ## Usage
 
@@ -30,6 +33,17 @@ Basic boss notes have been included for TWW Season 1 of M+, but you can easily a
 ### UI
 
 Use the `Docs` tab to edit notes, the `Settings` tab to change the note appearance, and the `Profile` tab to manage profiles.
+
+### Profiles
+
+An `Active Profile` and `Fallback Profile` can be selected.
+
+Notes in the `Active Profile` will be used first and, if none are found, the `Fallback Profile` will be used.
+
+This allows for a player to import a profile as a base and overlay their own note changes on top (i.e. by setting the imported profile as the fallback).
+
+**Settings and visual changes are sourced from the `Active Profile` only.**
+
 
 ## Tips & Tricks
 
