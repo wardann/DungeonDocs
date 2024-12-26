@@ -310,7 +310,7 @@ function M.RenderNote(index, anchor)
 		name = "tankHeader",
 		index = 3,
 		indent = roleHeaderIndent,
-		displayed = tankDisplayed,
+		displayed = tankDisplayed and state.displayRoleHeader,
 	})
 
 	-- Tank note line
@@ -327,7 +327,7 @@ function M.RenderNote(index, anchor)
 		name = "healerHeader",
 		index = 5,
 		indent = roleHeaderIndent,
-		displayed = healerDisplayed,
+		displayed = healerDisplayed and state.displayRoleHeader,
 	})
 
 	-- Healer note line
@@ -344,7 +344,7 @@ function M.RenderNote(index, anchor)
 		name = "damageHeader",
 		index = 7,
 		indent = roleHeaderIndent,
-		displayed = damageDisplayed,
+		displayed = damageDisplayed and state.displayRoleHeader,
 	})
 
 	-- Damage note line
