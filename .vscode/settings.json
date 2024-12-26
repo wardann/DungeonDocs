@@ -2,6 +2,11 @@
   "Lua.runtime.version": "Lua 5.1",
   "Lua.diagnostics.neededFileStatus": {
     "no-unknown": "Any",
+    "undefined-field": "Any"
+  },
+  "Lua.diagnostics.severity": {
+    "no-unknown": "Error",
+    "undefined-field": "Error",
   },
   "Lua.workspace.library": [
     "./Types"

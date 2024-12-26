@@ -1,3 +1,3 @@
---- @class LibSerialize
---- @field Serialize fun(self: LibSerialize, data: any): string # Serializes the given data and returns a serialized string
---- @field Deserialize fun(self: LibSerialize, serialized: string): boolean, any|nil # Deserializes a serialized string, returns the original data or an error message (if any)
+---@class LibSerialize
+---@field Serialize fun(self: LibSerialize, data: any): string # Serializes the given data and returns a serialized string
+---@field Deserialize fun(self: LibSerialize, serialized: string): boolean, any|nil # Deserializes a serialized string, returns the original data or an error message (if any)

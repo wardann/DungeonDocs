@@ -1,5 +1,5 @@
---- @class UIObject
---- @field GetName fun(self: UIObject): string|nil # Returns the name of the object, or nil if unnamed
---- @field SetParent fun(self: UIObject, parent: UIObject): nil # Sets the parent object
---- @field GetParent fun(self: UIObject): UIObject|nil # Returns the parent object
---- @field IsObjectType fun(self: UIObject, type: string): boolean # Checks if the object is of a specific type
+---@class UIObject
+---@field GetName fun(self: UIObject): string|nil # Returns the name of the object, or nil if unnamed
+---@field SetParent fun(self: UIObject, parent: UIObject|nil): nil # Sets the parent object
+---@field GetParent fun(self: UIObject): UIObject|nil # Returns the parent object
+---@field IsObjectType fun(self: UIObject, type: string): boolean # Checks if the object is of a specific type
