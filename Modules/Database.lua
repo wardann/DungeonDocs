@@ -384,16 +384,17 @@ end
 ---@param includeFallbackProfile boolean
 function M.ExportProfile(profileName, includeFallbackProfile)
 	local profile = M.database.profiles[profileName] -- Access the specified profile data
+	if not profile then
+		DD.utils.Log("Error exporting, could not find profile", DD.utils.Gray(profileName))
+		return
+	end
+
 	local fallbackProfileName = profile.internal.fallbackProfile
 	local fallbackProfile = M.database.profiles[fallbackProfileName]
 
-	if not profile then
-		DD.utils.Log("Error exporting, could not find profile " .. profileName)
-		return ""
-	end
 
 	if includeFallbackProfile and not fallbackProfile then
-		DD.utils.Log("Error exporting, could not find fallback profile " .. fallbackProfileName)
+		DD.utils.Log("Error exporting, could not find fallback profile", DD.utils.Gray(fallbackProfileName))
 		return
 	end
 
