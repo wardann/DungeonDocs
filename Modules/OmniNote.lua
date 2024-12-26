@@ -62,7 +62,7 @@ local function initNoteFrames()
 		noteFrames[noteCardName] = noteCardFrame
 
 		-- Init note card lines
-		initFrame(noteCardFrame, true, true) -- MobName
+		initFrame(noteCardFrame, true, true) -- NoteTitle
 		initFrame(noteCardFrame, true, true) -- PrimaryNote
 		initFrame(noteCardFrame, true, true) -- TankHeader
 		initFrame(noteCardFrame, true, true) -- TankNote
@@ -169,6 +169,7 @@ function M.RenderNote(index, anchor)
 	local previousFrame = noteCardFrame
 	local totalHeight = 0 ---@type number
 	local linePadding = state.linePadding * -1
+	local firstFrameDisplayed = false
 
 	---@param padding number
 	local withPadding = function(padding)
@@ -179,7 +180,7 @@ function M.RenderNote(index, anchor)
 	---@param lineName string
 	---@return string
 	local function resolveText(lineName)
-		if lineName == "mobName" then
+		if lineName == "noteTitle" then
 			return docStruct.docName
 		end
 
@@ -218,8 +219,9 @@ function M.RenderNote(index, anchor)
 		local frame = noteCardLines[line.index]
 
 		local anchorPoint = "BOTTOM"
-		if line.index == 1 then
+		if not firstFrameDisplayed and line.displayed then
 			anchorPoint = "TOP"
+			firstFrameDisplayed = true
 		end
 
 		if not line.displayed then
@@ -288,9 +290,9 @@ function M.RenderNote(index, anchor)
 	local roleNoteIndent = defaultIndent + state.roleNoteIndent
 	local roleHeaderIndent = defaultIndent + state.roleHeaderIndent
 
-	-- Mob Name line
+	-- Note title line
 	updateLine({
-		name = "mobName",
+		name = "noteTitle",
 		index = 1,
 		indent = defaultIndent,
 		displayed = state.showNoteTitle,
@@ -310,7 +312,7 @@ function M.RenderNote(index, anchor)
 		name = "tankHeader",
 		index = 3,
 		indent = roleHeaderIndent,
-		displayed = tankDisplayed,
+		displayed = tankDisplayed and state.displayRoleHeader,
 	})
 
 	-- Tank note line
@@ -327,7 +329,7 @@ function M.RenderNote(index, anchor)
 		name = "healerHeader",
 		index = 5,
 		indent = roleHeaderIndent,
-		displayed = healerDisplayed,
+		displayed = healerDisplayed and state.displayRoleHeader,
 	})
 
 	-- Healer note line
@@ -344,7 +346,7 @@ function M.RenderNote(index, anchor)
 		name = "damageHeader",
 		index = 7,
 		indent = roleHeaderIndent,
-		displayed = damageDisplayed,
+		displayed = damageDisplayed and state.displayRoleHeader,
 	})
 
 	-- Damage note line
