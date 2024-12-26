@@ -18,7 +18,6 @@ function DD.ui.settings.Title_View(wrapperContainer)
 	wrapperContainer:SetLayout("Flow")
 
 	local state = DD.db.database.profile.settings.omniNote
-
 	local container = AceGUI:Create("ScrollFrame") ---@type ScrollFrame
 	container:SetLayout("Flow")
 	container:SetFullWidth(true)

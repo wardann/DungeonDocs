@@ -19,15 +19,103 @@ local M = {}
 ---
 ---@alias PlayerNotes table<DungeonName, PlayerNote[]>
 
+---@alias Position { point: string, relativePoint: string, xOffset: number, yOffset: number }
+
+---@alias TextColor {
+---    r: number,
+---    g: number,
+---    b: number,
+---}
+
+---@alias TextStyle {
+---    font: string,
+---    fontSize: number,
+---    color: TextColor,
+---}
+
+---@alias OmniNoteSettings {
+---    position: nil|Position,
+---    noteWidth: number,
+---    textAlign: "CENTER" | "LEFT" | "RIGHT",
+---    noteGrowDirection: "UP" | "DOWN",
+---    textOutline: boolean,
+---    linePadding: number,
+---    backgroundOpacity: number,
+---    untargetedNoteOpacity: number,
+---    noteSpacing: number,
+---    showNoteTitle: boolean,
+---    roleDisplay: "None" | "Current" | "All",
+---    roleHeaderIndent: number,
+---    roleNoteIndent: number,
+---    displayRoleHeader: boolean,
+---    tankHeader: string,
+---    healerHeader: string,
+---    damageHeader: string,
+---    style: {
+---        defaultText: TextStyle,
+---        noteTitle: {
+---            useDefaultTextStyle: boolean,
+---            text: TextStyle,
+---        },
+---        primaryNote: {
+---            useDefaultTextStyle: boolean,
+---            text: TextStyle,
+---        },
+---        defaultRoleHeader: TextStyle,
+---        tankHeader: {
+---            useDefaultRoleHeaderStyle: boolean,
+---            text: TextStyle,
+---        },
+---        tankNote: {
+---            useDefaultTextStyle: boolean,
+---            text: TextStyle,
+---        },
+---        healerHeader: {
+---            useDefaultRoleHeaderStyle: boolean,
+---            text: TextStyle,
+---        },
+---        healerNote: {
+---            useDefaultTextStyle: boolean,
+---            text: TextStyle,
+---        },
+---        damageHeader: {
+---            useDefaultRoleHeaderStyle: boolean,
+---            text: TextStyle,
+---        },
+---        damageNote: {
+---            useDefaultTextStyle: boolean,
+---            text: TextStyle,
+---        },
+---    },
+---}
+
+---@alias DatabaseSchema {
+---    dbVersion: number,
+---    docs: PlayerNotes,
+---    settings: {
+---        omniNote: OmniNoteSettings,
+---    },
+---    internal: {
+---       fallbackProfile: string,
+---       movers: {
+---           omniNote: boolean,
+---       },
+---       seasons: {
+---           TWWS1: string,
+---       },
+---       selectedSeason: string,
+---       showTestNote: boolean,
+---    },
+---}
+
 -- Define default db values
----@class DatabaseSchema
+---@type DatabaseSchema
 local dbDefaults = {
 	dbVersion = 1,
 	docs = {}, ---@type PlayerNotes
 	settings = {
 		omniNote = {
 
-			---@alias Position { point: string, relativePoint: string, xOffset: number, yOffset: number }
 			position = nil, ---@type nil|Position
 			noteWidth = 380,
 
@@ -63,7 +151,7 @@ local dbDefaults = {
 				noteTitle = {
 					useDefaultTextStyle = false,
 					text = {
-						font = "Fonts\\FRIZQT__.TTF",
+						font = "Fonts\\MORPHEUS.TTF",
 						fontSize = 22,
 						color = {
 							r = 255 / 255,
@@ -220,6 +308,7 @@ function M.EnsureDefaults(profileName)
 				---@diagnostic disable-next-line
 				profile[key] = DD.utils.DeepCopy(value)
 			elseif type(value) == "table" and type(profile[key]) == "table" then
+		        ---@diagnostic disable-next-line
 				applyDefaults(profile[key], value) -- Recursively apply for nested tables
 			end
 		end
@@ -241,9 +330,6 @@ function M.Init()
 	M.EnsureDefaultsAllProfiles()
 
 	-- Reset internal vars
-	M.database.profile.internal.showTestText = false
-	M.database.profile.internal.movers.primaryNote = false
-	M.database.profile.internal.movers.roleNote = false
 	M.database.profile.internal.movers.omniNote = false
 end
 
