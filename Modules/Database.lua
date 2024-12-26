@@ -557,13 +557,14 @@ function M.DeleteProfile(profileName)
 	end
 	-- Check if the profile exists
 	if not db.profiles[profileName] then
-		DD.utils.Log("Error! Cannot delete, profile does not exist:", profileName)
+		DD.utils.Log("Error! Cannot delete, profile", DD.utils.Gray(profileName), "does not exist")
 		return
 	end
 
-	-- If the profile being deleted is active, switch to a default profile
+	-- Prevent deleting active profile
 	if db:GetCurrentProfile() == profileName then
-		db:SetProfile("Default") -- Switch to "Default" or another fallback profile
+		DD.utils.Log("Error! Cannot delete active profile")
+		return
 	end
 
 	-- Delete the profile
