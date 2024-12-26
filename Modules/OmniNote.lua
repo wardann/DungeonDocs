@@ -169,6 +169,7 @@ function M.RenderNote(index, anchor)
 	local previousFrame = noteCardFrame
 	local totalHeight = 0 ---@type number
 	local linePadding = state.linePadding * -1
+	local firstFrameDisplayed = false
 
 	---@param padding number
 	local withPadding = function(padding)
@@ -218,8 +219,9 @@ function M.RenderNote(index, anchor)
 		local frame = noteCardLines[line.index]
 
 		local anchorPoint = "BOTTOM"
-		if line.index == 1 then
+		if not firstFrameDisplayed and line.displayed then
 			anchorPoint = "TOP"
+			firstFrameDisplayed = true
 		end
 
 		if not line.displayed then
