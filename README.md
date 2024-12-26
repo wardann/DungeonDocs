@@ -22,7 +22,7 @@ Basic boss notes have been included for TWW Season 1 of M+, but you can easily a
 
 ## Demo
 
-A short demo that showcases the general flow of the addon has been uploaded to YouTube. 
+[Here is a quick demo that shows some of the features of DungeonDocs.](https://www.youtube.com/watch?v=lzqX2w3UBVY)
 
 ## Usage
 
