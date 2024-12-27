@@ -325,12 +325,15 @@ DD.utils = M
 -- #      #   #  #    # #    # #
 -- #      #    # #    # #    # ######
 
+--- Enable this to debug the conditional setting of frame properties
+local force = false
+
 ---@param frame Frame|FontString
 function M.SafeFrameHide(frame)
 	if not frame then
 		return
 	end
-	if frame:IsShown() then
+	if frame:IsShown() or force then
 		frame:Hide()
 	end
 end
@@ -340,7 +343,7 @@ function M.SafeFrameShow(frame)
 	if not frame then
 		return
 	end
-	if not frame:IsShown() then
+	if not frame:IsShown() or force then
 		frame:Show()
 	end
 end
@@ -350,7 +353,7 @@ function M.SafeFrameWidth(frame, width)
 	if not frame then
 		return
 	end
-	if frame:GetWidth() ~= width then
+	if frame:GetWidth() ~= width or force then
 		frame:SetWidth(width)
 	end
 end
@@ -360,7 +363,7 @@ function M.SafeFrameHeight(frame, height)
 	if not frame then
 		return
 	end
-	if frame:GetHeight() ~= height then
+	if frame:GetHeight() ~= height or force then
 		frame:SetHeight(height)
 	end
 end
@@ -394,6 +397,7 @@ function M.SafeFrameSetPoint(frame, point, relativeTo, relativePoint, offsetX, o
 		or existingPoint[3] ~= relativePoint
 		or existingPoint[4] ~= offsetX
 		or existingPoint[5] ~= offsetY
+		or force
 	then
 		frame:SetPoint(point, relativeTo, relativePoint, offsetX, offsetY)
 	end
@@ -405,7 +409,7 @@ function M.SafeFontText(frame, text)
 	if not frame then
 		return
 	end
-	if frame.fontString:GetText() ~= text then
+	if frame.fontString:GetText() ~= text or force then
 		frame.fontString:SetText(text)
 	end
 end
@@ -420,7 +424,7 @@ function M.SafeSetFont(fontString, fontPath, fontSize, fontFlags)
 	end
 
 	local currentFont, currentSize, currentFlags = fontString:GetFont()
-	if currentFont ~= fontPath or currentSize ~= fontSize or currentFlags ~= fontFlags then
+	if currentFont ~= fontPath or currentSize ~= fontSize or currentFlags ~= fontFlags or force then
 		fontString:SetFont(fontPath, fontSize, fontFlags)
 	end
 end
@@ -436,7 +440,7 @@ function M.SafeSetTextColor(fontString, r, g, b, a)
 	end
 
 	local cr, cg, cb, ca = fontString:GetTextColor()
-	if cr ~= r or cg ~= g or cb ~= b or ca ~= a then
+	if cr ~= r or cg ~= g or cb ~= b or ca ~= a or force then
 		fontString:SetTextColor(r, g, b, a)
 	end
 end
@@ -447,7 +451,7 @@ function M.SafeSetAlpha(frame, newAlpha)
 	if not frame then
 		return
 	end
-	if frame:GetAlpha() ~= newAlpha then
+	if frame:GetAlpha() ~= newAlpha or force then
 		frame:SetAlpha(newAlpha)
 	end
 end
@@ -458,7 +462,7 @@ function M.SafeSetJustifyH(fontString, align)
 	if not fontString then
 		return
 	end
-	if fontString:GetJustifyH() ~= align then
+	if fontString:GetJustifyH() ~= align or force then
 		fontString:SetJustifyH(align)
 	end
 end
@@ -470,7 +474,7 @@ function M.SafeSetAllPoints(texture, parentFrame)
 		return
 	end
 	local point1, relativeTo1 = texture:GetPoint(1)
-	if not point1 or relativeTo1 ~= parentFrame then
+	if not point1 or relativeTo1 ~= parentFrame or force then
 		texture:SetAllPoints(parentFrame)
 	end
 end
@@ -485,7 +489,7 @@ function M.SafeSetColorTexture(texture, r, g, b, a)
 		return
 	end
 	local cr, cg, cb, ca = texture:GetVertexColor()
-	if cr ~= r or cg ~= g or cb ~= b or ca ~= a then
+	if cr ~= r or cg ~= g or cb ~= b or ca ~= a or force then
 		texture:SetColorTexture(r, g, b, a)
 	end
 end
