@@ -68,3 +68,6 @@ strsplit = strsplit
 
 ---@type fun(unit: string): string|nil # Retrieves the globally unique identifier (GUID) for the specified unit.
 UnitGUID = UnitGUID
+
+---@type fun(): number
+GetTime = GetTime

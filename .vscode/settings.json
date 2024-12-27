@@ -42,6 +42,7 @@
     "UnitAffectingCombat",
     "GetSpecialization",
     "GetSpecializationRole",
-    "CombatLogGetCurrentEventInfo"
+    "CombatLogGetCurrentEventInfo",
+    "GetTime",
   ]
 }

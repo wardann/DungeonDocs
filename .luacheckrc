@@ -45,6 +45,7 @@ globals = {
     "GetSpecialization",
     "GetSpecializationRole",
     "CombatLogGetCurrentEventInfo",
+    "GetTime",
 }
 
 max_line_length = false

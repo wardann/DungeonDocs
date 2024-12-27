@@ -216,7 +216,7 @@ end
 function M.AddNoteSpacing(container, state)
 	local slider = AceGUI:Create("Slider") ---@type Slider
 	slider:SetLabel("Note spacing")
-	slider:SetSliderValues(0, 50, 1)
+	slider:SetSliderValues(1, 50, 1)
 	slider:SetValue(state.noteSpacing)
 
 	-- Callback for when the slider value changes

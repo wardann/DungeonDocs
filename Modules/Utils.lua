@@ -3,6 +3,13 @@ local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
 local AceGUI = LibStub("AceGUI-3.0") ---@type AceGUI
 local M = {}
 
+-- #    # ###### #      #####  ###### #####   ####
+-- #    # #      #      #    # #      #    # #
+-- ###### #####  #      #    # #####  #    #  ####
+-- #    # #      #      #####  #      #####       #
+-- #    # #      #      #      #      #   #  #    #
+-- #    # ###### ###### #      ###### #    #  ####
+
 ---@param t table
 ---@param indent number
 function M.InspectTable(t, indent)
@@ -111,177 +118,6 @@ function M.IsFollowerNPC(mobID)
 		end
 	end
 	return false
-end
-
---   __
---  / _|_ __ __ _ _ __ ___   ___
--- | |_| '__/ _` | '_ ` _ \ / _ \
--- |  _| | | (_| | | | | | |  __/
--- |_| |_|  \__,_|_| |_| |_|\___|
-
----@param frame Frame|FontString
-function M.FrameHide(frame)
-	if not frame then
-		return
-	end
-	if frame:IsShown() then
-		frame:Hide()
-	end
-end
-
----@param frame Frame|FontString
-function M.FrameShow(frame)
-	if not frame then
-		return
-	end
-	if not frame:IsShown() then
-		frame:Show()
-	end
-end
-
----@param frame Frame|FontString
-function M.FrameWidth(frame, width)
-	if not frame then
-		return
-	end
-	if frame:GetWidth() ~= width then
-		frame:SetWidth(width)
-	end
-end
-
----@param frame Frame|FontString
-function M.FrameHeight(frame, height)
-	if not frame then
-		return
-	end
-	if frame:GetHeight() ~= height then
-		frame:SetHeight(height)
-	end
-end
-
----@param frame Frame|FontString
-function M.FrameCollapse(frame)
-	if not frame then
-		return
-	end
-	M.FrameHide(frame)
-	M.FrameHeight(frame, 0)
-end
-
----@param frame Frame|FontString The frame to set the position for.
----@param point string The anchor point of the frame (e.g., "TOPLEFT", "CENTER").
----@param relativeTo Frame The frame or name of the frame to anchor to, or nil for the screen.
----@param relativePoint string The anchor point on the relative frame (e.g., "TOPLEFT", "CENTER").
----@param offsetX number The x-axis offset in pixels.
----@param offsetY number The y-axis offset in pixels.
-function M.FrameSetPoint(frame, point, relativeTo, relativePoint, offsetX, offsetY)
-	if not frame then
-		return
-	end
-
-	local existingPoint = { frame:GetPoint() } -- Get the current point
-
-	-- Check if the new point matches the existing one
-	if
-		existingPoint[1] ~= point
-		or existingPoint[2] ~= relativeTo
-		or existingPoint[3] ~= relativePoint
-		or existingPoint[4] ~= offsetX
-		or existingPoint[5] ~= offsetY
-	then
-		frame:SetPoint(point, relativeTo, relativePoint, offsetX, offsetY)
-	end
-end
-
----@param frame Frame
----@param text string
-function M.FontText(frame, text)
-	if not frame then
-		return
-	end
-	if frame.fontString:GetText() ~= text then
-		frame.fontString:SetText(text)
-	end
-end
-
----@param fontString FontString
----@param fontPath string
----@param fontSize number
----@param fontFlags string
-function M.SafeSetFont(fontString, fontPath, fontSize, fontFlags)
-	if not fontString then
-		return
-	end
-
-	local currentFont, currentSize, currentFlags = fontString:GetFont()
-	if currentFont ~= fontPath or currentSize ~= fontSize or currentFlags ~= fontFlags then
-		fontString:SetFont(fontPath, fontSize, fontFlags)
-	end
-end
-
----@param fontString FontString
----@param r number
----@param g number
----@param b number
----@param a number
-function M.SafeSetTextColor(fontString, r, g, b, a)
-	if not fontString then
-		return
-	end
-
-	local cr, cg, cb, ca = fontString:GetTextColor()
-	if cr ~= r or cg ~= g or cb ~= b or ca ~= a then
-		fontString:SetTextColor(r, g, b, a)
-	end
-end
-
----@param frame Frame|FontString
----@param newAlpha number
-function M.SafeSetAlpha(frame, newAlpha)
-	if not frame then
-		return
-	end
-	if frame:GetAlpha() ~= newAlpha then
-		frame:SetAlpha(newAlpha)
-	end
-end
-
----@param fontString FontString
----@param align string
-function M.SafeSetJustifyH(fontString, align)
-	if not fontString then
-		return
-	end
-	if fontString:GetJustifyH() ~= align then
-		fontString:SetJustifyH(align)
-	end
-end
-
----@param texture Texture
----@param parentFrame Frame
-function M.SafeSetAllPoints(texture, parentFrame)
-	if not texture then
-		return
-	end
-	local point1, relativeTo1 = texture:GetPoint(1)
-	if not point1 or relativeTo1 ~= parentFrame then
-		texture:SetAllPoints(parentFrame)
-	end
-end
-
----@param texture Texture
----@param r number
----@param g number
----@param b number
----@param a number
-function M.SafeSetColorTexture(texture, r, g, b, a)
-	if not texture then
-		return
-	end
-	local cr, cg, cb, ca = texture:GetVertexColor()
-	if cr ~= r or cg ~= g or cb ~= b or ca ~= a then
-		texture:SetColorTexture(r, g, b, a)
-	end
 end
 
 ---@param active PlayerNotes
@@ -419,11 +255,19 @@ function M.LogToGroup(message)
 	end
 end
 
---   __             _
---  / _| ___  _ __ | |_ ___
--- | |_ / _ \| '_ \| __/ __|
--- |  _| (_) | | | | |_\__ \
--- |_|  \___/|_| |_|\__|___/
+--- Wraps text in a light gray color escape sequence for logging
+--- @param text string The text to wrap
+--- @return string The text wrapped in a light gray color
+function M.Gray(text)
+	return "|cffd3d3d3" .. text .. "|r"
+end
+
+-- ######  ####  #    # #####  ####
+-- #      #    # ##   #   #   #
+-- #####  #    # # #  #   #    ####
+-- #      #    # #  # #   #        #
+-- #      #    # #   ##   #   #    #
+-- #       ####  #    #   #    ####
 
 local LSM = LibStub("LibSharedMedia-3.0") ---@type any
 local fontList = LSM:HashTable("font") ---@type table<string, string>
@@ -473,3 +317,179 @@ function M.AddFontSelect(container, label, startingFont, callback)
 end
 
 DD.utils = M
+
+-- ###### #####    ##   #    # ######
+-- #      #    #  #  #  ##  ## #
+-- #####  #    # #    # # ## # #####
+-- #      #####  ###### #    # #
+-- #      #   #  #    # #    # #
+-- #      #    # #    # #    # ######
+
+--- Enable this to debug the conditional setting of frame properties
+local force = false
+
+---@param frame Frame|FontString
+function M.SafeFrameHide(frame)
+	if not frame then
+		return
+	end
+	if frame:IsShown() or force then
+		frame:Hide()
+	end
+end
+
+---@param frame Frame|FontString
+function M.SafeFrameShow(frame)
+	if not frame then
+		return
+	end
+	if not frame:IsShown() or force then
+		frame:Show()
+	end
+end
+
+---@param frame Frame|FontString
+function M.SafeFrameWidth(frame, width)
+	if not frame then
+		return
+	end
+	if frame:GetWidth() ~= width or force then
+		frame:SetWidth(width)
+	end
+end
+
+---@param frame Frame|FontString
+function M.SafeFrameHeight(frame, height)
+	if not frame then
+		return
+	end
+	if frame:GetHeight() ~= height or force then
+		frame:SetHeight(height)
+	end
+end
+
+---@param frame Frame|FontString
+function M.SafeFrameCollapse(frame)
+	if not frame then
+		return
+	end
+	M.SafeFrameHide(frame)
+	M.SafeFrameHeight(frame, 0)
+end
+
+---@param frame Frame|FontString The frame to set the position for.
+---@param point string The anchor point of the frame (e.g., "TOPLEFT", "CENTER").
+---@param relativeTo Frame The frame or name of the frame to anchor to, or nil for the screen.
+---@param relativePoint string The anchor point on the relative frame (e.g., "TOPLEFT", "CENTER").
+---@param offsetX number The x-axis offset in pixels.
+---@param offsetY number The y-axis offset in pixels.
+function M.SafeFrameSetPoint(frame, point, relativeTo, relativePoint, offsetX, offsetY)
+	if not frame then
+		return
+	end
+
+	local existingPoint = { frame:GetPoint() } -- Get the current point
+
+	-- Check if the new point matches the existing one
+	if
+		existingPoint[1] ~= point
+		or existingPoint[2] ~= relativeTo
+		or existingPoint[3] ~= relativePoint
+		or existingPoint[4] ~= offsetX
+		or existingPoint[5] ~= offsetY
+		or force
+	then
+		frame:SetPoint(point, relativeTo, relativePoint, offsetX, offsetY)
+	end
+end
+
+---@param frame Frame
+---@param text string
+function M.SafeFontText(frame, text)
+	if not frame then
+		return
+	end
+	if frame.fontString:GetText() ~= text or force then
+		frame.fontString:SetText(text)
+	end
+end
+
+---@param fontString FontString
+---@param fontPath string
+---@param fontSize number
+---@param fontFlags string
+function M.SafeSetFont(fontString, fontPath, fontSize, fontFlags)
+	if not fontString then
+		return
+	end
+
+	local currentFont, currentSize, currentFlags = fontString:GetFont()
+	if currentFont ~= fontPath or currentSize ~= fontSize or currentFlags ~= fontFlags or force then
+		fontString:SetFont(fontPath, fontSize, fontFlags)
+	end
+end
+
+---@param fontString FontString
+---@param r number
+---@param g number
+---@param b number
+---@param a number
+function M.SafeSetTextColor(fontString, r, g, b, a)
+	if not fontString then
+		return
+	end
+
+	local cr, cg, cb, ca = fontString:GetTextColor()
+	if cr ~= r or cg ~= g or cb ~= b or ca ~= a or force then
+		fontString:SetTextColor(r, g, b, a)
+	end
+end
+
+---@param frame Frame|FontString
+---@param newAlpha number
+function M.SafeSetAlpha(frame, newAlpha)
+	if not frame then
+		return
+	end
+	if frame:GetAlpha() ~= newAlpha or force then
+		frame:SetAlpha(newAlpha)
+	end
+end
+
+---@param fontString FontString
+---@param align string
+function M.SafeSetJustifyH(fontString, align)
+	if not fontString then
+		return
+	end
+	if fontString:GetJustifyH() ~= align or force then
+		fontString:SetJustifyH(align)
+	end
+end
+
+---@param texture Texture
+---@param parentFrame Frame
+function M.SafeSetAllPoints(texture, parentFrame)
+	if not texture then
+		return
+	end
+	local point1, relativeTo1 = texture:GetPoint(1)
+	if not point1 or relativeTo1 ~= parentFrame or force then
+		texture:SetAllPoints(parentFrame)
+	end
+end
+
+---@param texture Texture
+---@param r number
+---@param g number
+---@param b number
+---@param a number
+function M.SafeSetColorTexture(texture, r, g, b, a)
+	if not texture then
+		return
+	end
+	local cr, cg, cb, ca = texture:GetVertexColor()
+	if cr ~= r or cg ~= g or cb ~= b or ca ~= a or force then
+		texture:SetColorTexture(r, g, b, a)
+	end
+end

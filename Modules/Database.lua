@@ -104,7 +104,6 @@ local M = {}
 ---           TWWS1: string,
 ---       },
 ---       selectedSeason: string,
----       showTestNote: boolean,
 ---    },
 ---}
 
@@ -269,7 +268,6 @@ local dbDefaults = {
 		seasons = {
 			TWWS1 = "The War Within - Season 1",
 		},
-		showTestNote = false,
 
 		selectedSeason = "TWWS1",
 		testText = "This is some test to text with.\nChange it to see how your notes might look.",
@@ -370,7 +368,9 @@ function M.SelectProfile(profileName)
 	local db = M.database
 	if db:GetCurrentProfile() ~= profileName then -- Only switch if different
 		db:SetProfile(profileName)
+		DD.db.database.profile.internal.movers.omniNote = false
 		M.NotifyDBChange()
+		DD.utils.Log("Switched to profile", DD.utils.Gray(profileName))
 	end
 end
 
@@ -379,6 +379,7 @@ function M.SelectFallbackProfile(profileName)
 	local db = M.database
 	db.profile.internal.fallbackProfile = profileName
 	M.NotifyDBChange()
+	DD.utils.Log("Switched to fallback profile", DD.utils.Gray(profileName))
 end
 
 -- Function to export the current profile, excluding the "internal" table
@@ -386,16 +387,16 @@ end
 ---@param includeFallbackProfile boolean
 function M.ExportProfile(profileName, includeFallbackProfile)
 	local profile = M.database.profiles[profileName] -- Access the specified profile data
+	if not profile then
+		DD.utils.Log("Error exporting, could not find profile", DD.utils.Gray(profileName))
+		return
+	end
+
 	local fallbackProfileName = profile.internal.fallbackProfile
 	local fallbackProfile = M.database.profiles[fallbackProfileName]
 
-	if not profile then
-		DD.utils.Log("Error exporting, could not find profile " .. profileName)
-		return ""
-	end
-
 	if includeFallbackProfile and not fallbackProfile then
-		DD.utils.Log("Error exporting, could not find fallback profile " .. fallbackProfileName)
+		DD.utils.Log("Error exporting, could not find fallback profile", DD.utils.Gray(fallbackProfileName))
 		return
 	end
 
@@ -481,7 +482,7 @@ function M.ImportProfile(destProfileName, wrapped)
 		M.EnsureDefaults(destProfileName)
 		M.NotifyDBChange()
 
-		DD.utils.Log("Success! Imported profile " .. destProfileName)
+		DD.utils.Log("Success! Imported profile", DD.utils.Gray(destProfileName))
 		return true
 	else
 		DD.utils.Log("Error! Could not import profile " .. destProfileName)
@@ -511,7 +512,7 @@ function M.CloneProfile(sourceProfileName, destProfileName)
 
 	M.NotifyDBChange()
 
-	DD.utils.Log("Cloned profile `" .. sourceProfileName .. "` to profile `" .. destProfileName .. "`")
+	DD.utils.Log("Profile", DD.utils.Gray(sourceProfileName), "cloned to profile", DD.utils.Gray(destProfileName))
 end
 
 function M.RenameProfile(sourceProfileName, newProfileName)
@@ -544,7 +545,7 @@ function M.RenameProfile(sourceProfileName, newProfileName)
 
 	M.NotifyDBChange()
 
-	DD.utils.Log("Success! Profile renamed from", sourceProfileName, "to", newProfileName)
+	DD.utils.Log("Success! Profile renamed from", DD.utils.Gray(sourceProfileName), "to", DD.utils.Gray(newProfileName))
 end
 
 function M.DeleteProfile(profileName)
@@ -556,18 +557,19 @@ function M.DeleteProfile(profileName)
 	end
 	-- Check if the profile exists
 	if not db.profiles[profileName] then
-		DD.utils.Log("Error! Cannot delete, profile does not exist:", profileName)
+		DD.utils.Log("Error! Cannot delete, profile", DD.utils.Gray(profileName), "does not exist")
 		return
 	end
 
-	-- If the profile being deleted is active, switch to a default profile
+	-- Prevent deleting active profile
 	if db:GetCurrentProfile() == profileName then
-		db:SetProfile("Default") -- Switch to "Default" or another fallback profile
+		DD.utils.Log("Error! Cannot delete active profile")
+		return
 	end
 
 	-- Delete the profile
 	db.profiles[profileName] = nil
-	DD.utils.Log("Profile `" .. profileName .. "` deleted successfully")
+	DD.utils.Log("Profile", DD.utils.Gray(profileName), "deleted successfully")
 end
 
 function M.ResetProfile(profileName)
@@ -578,17 +580,21 @@ function M.ResetProfile(profileName)
 		return
 	end
 
-	local currentProfile = db:GetCurrentProfile()
-	db:SetProfile(profileName)
-
 	---@type DatabaseSchema
 	db.profiles[profileName] = M.GetEmptyDatabaseStructure()
 	M.EnsureDefaults(profileName)
 	M.NotifyDBChange()
 
-	db:SetProfile(currentProfile) -- Switch back to the original profile
+	local currentProfile = db:GetCurrentProfile()
+	if currentProfile == profileName then
+		--- Switch to the default fallback profile (which can't be deleted nor reset) and then switch back
+		--- This triggers the UI to update if we're already on the profile, just calling M.NotifyDBChange isn't enough
+		db:SetProfile("Default Fallback*")
+		db:SetProfile(profileName)
+		M.NotifyDBChange()
+	end
 
-	DD.utils.Log("Profile '" .. profileName .. "` reset to defaults")
+	DD.utils.Log("Profile", DD.utils.Gray(profileName), "reset to defaults")
 end
 
 -- GetActiveNoteWithFallback gets the note from the DB for the specified note key, falling
