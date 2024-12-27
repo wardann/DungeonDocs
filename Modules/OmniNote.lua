@@ -398,8 +398,26 @@ function M.RenderNote(index, anchor)
 	return spacerFrame
 end
 
+local previousNoteGrowDirection ---@type string
+
 function M.RenderOmniNote()
 	local u = DD.utils
+	local state = DD.db.database.profile.settings.omniNote
+	local internal = DD.db.database.profile.internal
+
+	--- Clear all points if the grow direction has changed, else
+	--- we run into height calculation issues all over the place
+	if state.noteGrowDirection ~= previousNoteGrowDirection then
+		omniAnchorFrame:ClearAllPoints()
+		omniNoteFrame:ClearAllPoints()
+
+		for _, frame in pairs(noteFrames) do
+			frame:ClearAllPoints()
+		end
+
+		previousNoteGrowDirection = state.noteGrowDirection
+	end
+
 	local previousSpacer = omniNoteFrame
 	for i = 1, targetNoteCount do
 		local newSpacer = M.RenderNote(i, previousSpacer)
@@ -420,9 +438,6 @@ function M.RenderOmniNote()
 	u.SafeFrameShow(omniNoteFrame)
 	u.SafeFrameHeight(omniNoteFrame, totalHeight)
 	u.SafeFrameWidth(omniNoteFrame, omniAnchorFrame:GetWidth())
-
-	local state = DD.db.database.profile.settings.omniNote
-	local internal = DD.db.database.profile.internal
 
 	if state.noteGrowDirection == "UP" then
 		if internal.movers.omniNote then
