@@ -17,6 +17,23 @@ local playerTargetMobId ---@type string|nil
 
 local testNoteOpacityEnabled = false
 
+-- ### #     # ### #######
+--  #  ##    #  #     #
+--  #  # #   #  #     #
+--  #  #  #  #  #     #
+--  #  #   # #  #     #
+--  #  #    ##  #     #
+-- ### #     # ###    #
+
+function M.Init()
+	omniAnchorFrame = DD.movers.GetOmni()
+	M.initNoteFrames()
+end
+
+DD.db.SubscribeToDBChange(function()
+	M.RenderOmniNote()
+end)
+
 ---@param index number
 local function buildNoteCardName(index)
 	return "NoteCard" .. index
@@ -27,7 +44,7 @@ local function buildSpacerName(index)
 	return "Spacer" .. index
 end
 
-local function initNoteFrames()
+function M.initNoteFrames()
 	local width = omniAnchorFrame:GetWidth()
 
 	---@param parent Frame
@@ -78,34 +95,12 @@ local function initNoteFrames()
 	end
 end
 
----@param mobId string
-local function storeEncounteredMob(mobId)
-	if DD.utils.IsFollowerNPC(mobId) then
-		return
-	end
-
-	local dungeonName = DD.dungeons.GetCurrentDungeon()
-	if not dungeonName then
-		return
-	end
-
-	local ddid = DD.dungeons.MobIdToDDID(mobId, dungeonName)
-
-	if not ddid then
-		return
-	end
-
-	for _, foundDDID in ipairs(ddidsToRender) do
-		if foundDDID == ddid then
-			return
-		end
-	end
-
-	table.insert(ddidsToRender, ddid)
-	ddidToDungeon[ddid] = dungeonName
-
-	return true
-end
+-- #####  ###### #    # #####  ###### #####     #    #  ####  ##### ######
+-- #    # #      ##   # #    # #      #    #    ##   # #    #   #   #
+-- #    # #####  # #  # #    # #####  #    #    # #  # #    #   #   #####
+-- #####  #      #  # # #    # #      #####     #  # # #    #   #   #
+-- #   #  #      #   ## #    # #      #   #     #   ## #    #   #   #
+-- #    # ###### #    # #####  ###### #    #    #    #  ####    #   ######
 
 ---@param ddid DDID
 ---@param dungeonName DungeonName
@@ -138,6 +133,7 @@ end
 
 ---@param index number
 ---@param anchor Frame
+---@return Frame
 function M.RenderNote(index, anchor)
 	local u = DD.utils
 	local noteCardFrame = noteFrames[buildNoteCardName(index)]
@@ -398,7 +394,47 @@ function M.RenderNote(index, anchor)
 	return spacerFrame
 end
 
+---@param note string
+---@param role string
+function M.ShouldDisplayRole(note, role)
+	if note == "" then
+		return false
+	end
+
+	local state = DD.db.database.profile.settings.omniNote
+
+	if state.roleDisplay == "All" then
+		return true
+	end
+
+	if state.roleDisplay == "None" then
+		return false
+	end
+
+	-- Handle state.roleDisplay == "Current"
+	local specIndex = GetSpecialization()
+	if not specIndex then
+		return false
+	end
+	local specRole = GetSpecializationRole(specIndex)
+
+	---@param r string
+	local normalizeRole = function(r)
+		r = string.sub(r, 1, 1)
+		return string.lower(r)
+	end
+
+	return normalizeRole(role) == normalizeRole(specRole)
+end
+
 local previousNoteGrowDirection ---@type string
+
+-- #####  ###### #    # #####  ###### #####      ####  #    # #    # #
+-- #    # #      ##   # #    # #      #    #    #    # ##  ## ##   # #
+-- #    # #####  # #  # #    # #####  #    #    #    # # ## # # #  # #
+-- #####  #      #  # # #    # #      #####     #    # #    # #  # # #
+-- #   #  #      #   ## #    # #      #   #     #    # #    # #   ## #
+-- #    # ###### #    # #####  ###### #    #     ####  #    # #    # #
 
 function M.RenderOmniNote()
 	local u = DD.utils
@@ -460,20 +496,47 @@ function M.RenderOmniNote()
 	u.SafeSetColorTexture(omniNoteFrame.bg, 0, 0, 0, state.backgroundOpacity)
 end
 
-function M.Init()
-	omniAnchorFrame = DD.movers.GetOmni()
-	initNoteFrames()
-end
-
-DD.db.SubscribeToDBChange(function()
-	M.RenderOmniNote()
-end)
+-- ###### #    # ###### #    # #####  ####
+-- #      #    # #      ##   #   #   #
+-- #####  #    # #####  # #  #   #    ####
+-- #      #    # #      #  # #   #        #
+-- #       #  #  #      #   ##   #   #    #
+-- ######   ##   ###### #    #   #    ####
 
 local eventFrame = CreateFrame("Frame")
 eventFrame:RegisterEvent("PLAYER_REGEN_DISABLED")
 eventFrame:RegisterEvent("PLAYER_REGEN_ENABLED")
 eventFrame:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 eventFrame:RegisterEvent("PLAYER_TARGET_CHANGED")
+
+---@param mobId string
+local function storeEncounteredMob(mobId)
+	if DD.utils.IsFollowerNPC(mobId) then
+		return
+	end
+
+	local dungeonName = DD.dungeons.GetCurrentDungeon()
+	if not dungeonName then
+		return
+	end
+
+	local ddid = DD.dungeons.MobIdToDDID(mobId, dungeonName)
+
+	if not ddid then
+		return
+	end
+
+	for _, foundDDID in ipairs(ddidsToRender) do
+		if foundDDID == ddid then
+			return
+		end
+	end
+
+	table.insert(ddidsToRender, ddid)
+	ddidToDungeon[ddid] = dungeonName
+
+	return true
+end
 
 local ensureTarget = function()
 	local inCombat = UnitAffectingCombat("player")
@@ -575,39 +638,6 @@ function M.RenderTestNote(ddid, dungeonName)
 	table.insert(ddidsToRender, ddid)
 	ddidToDungeon[ddid] = dungeonName
 	M.RenderOmniNoteWithThrottle()
-end
-
----@param note string
----@param role string
-function M.ShouldDisplayRole(note, role)
-	if note == "" then
-		return false
-	end
-
-	local state = DD.db.database.profile.settings.omniNote
-
-	if state.roleDisplay == "All" then
-		return true
-	end
-
-	if state.roleDisplay == "None" then
-		return false
-	end
-
-	-- Handle state.roleDisplay == "Current"
-	local specIndex = GetSpecialization()
-	if not specIndex then
-		return false
-	end
-	local specRole = GetSpecializationRole(specIndex)
-
-	---@param r string
-	local normalizeRole = function(r)
-		r = string.sub(r, 1, 1)
-		return string.lower(r)
-	end
-
-	return normalizeRole(role) == normalizeRole(specRole)
 end
 
 -- ##### #    # #####   ####  ##### ##### #      ######
