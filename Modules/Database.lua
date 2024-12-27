@@ -368,6 +368,7 @@ function M.SelectProfile(profileName)
 	local db = M.database
 	if db:GetCurrentProfile() ~= profileName then -- Only switch if different
 		db:SetProfile(profileName)
+		DD.db.database.profile.internal.movers.omniNote = false
 		M.NotifyDBChange()
 		DD.utils.Log("Switched to profile", DD.utils.Gray(profileName))
 	end
