@@ -326,7 +326,7 @@ DD.utils = M
 -- #      #    # #    # #    # ######
 
 ---@param frame Frame|FontString
-function M.FrameHide(frame)
+function M.SafeFrameHide(frame)
 	if not frame then
 		return
 	end
@@ -336,7 +336,7 @@ function M.FrameHide(frame)
 end
 
 ---@param frame Frame|FontString
-function M.FrameShow(frame)
+function M.SafeFrameShow(frame)
 	if not frame then
 		return
 	end
@@ -346,7 +346,7 @@ function M.FrameShow(frame)
 end
 
 ---@param frame Frame|FontString
-function M.FrameWidth(frame, width)
+function M.SafeFrameWidth(frame, width)
 	if not frame then
 		return
 	end
@@ -356,7 +356,7 @@ function M.FrameWidth(frame, width)
 end
 
 ---@param frame Frame|FontString
-function M.FrameHeight(frame, height)
+function M.SafeFrameHeight(frame, height)
 	if not frame then
 		return
 	end
@@ -366,12 +366,12 @@ function M.FrameHeight(frame, height)
 end
 
 ---@param frame Frame|FontString
-function M.FrameCollapse(frame)
+function M.SafeFrameCollapse(frame)
 	if not frame then
 		return
 	end
-	M.FrameHide(frame)
-	M.FrameHeight(frame, 0)
+	M.SafeFrameHide(frame)
+	M.SafeFrameHeight(frame, 0)
 end
 
 ---@param frame Frame|FontString The frame to set the position for.
@@ -380,7 +380,7 @@ end
 ---@param relativePoint string The anchor point on the relative frame (e.g., "TOPLEFT", "CENTER").
 ---@param offsetX number The x-axis offset in pixels.
 ---@param offsetY number The y-axis offset in pixels.
-function M.FrameSetPoint(frame, point, relativeTo, relativePoint, offsetX, offsetY)
+function M.SafeFrameSetPoint(frame, point, relativeTo, relativePoint, offsetX, offsetY)
 	if not frame then
 		return
 	end
@@ -401,7 +401,7 @@ end
 
 ---@param frame Frame
 ---@param text string
-function M.FontText(frame, text)
+function M.SafeFontText(frame, text)
 	if not frame then
 		return
 	end

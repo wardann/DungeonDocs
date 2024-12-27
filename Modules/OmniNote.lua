@@ -145,8 +145,8 @@ function M.RenderNote(index, anchor)
 
 	local ddid = ddidsToRender[index]
 	if not ddid then
-		u.FrameCollapse(noteCardFrame)
-		u.FrameCollapse(spacerFrame)
+		u.SafeFrameCollapse(noteCardFrame)
+		u.SafeFrameCollapse(spacerFrame)
 		return spacerFrame
 	end
 
@@ -154,8 +154,8 @@ function M.RenderNote(index, anchor)
 	local docInfo = renderEncounteredMob(ddid, dungeonName)
 
 	if not docInfo then
-		u.FrameCollapse(noteCardFrame)
-		u.FrameCollapse(spacerFrame)
+		u.SafeFrameCollapse(noteCardFrame)
+		u.SafeFrameCollapse(spacerFrame)
 		return spacerFrame
 	end
 
@@ -225,8 +225,8 @@ function M.RenderNote(index, anchor)
 		end
 
 		if not line.displayed then
-			u.FrameSetPoint(frame, "TOP", previousFrame, anchorPoint, 0, 0)
-			u.FrameCollapse(frame)
+			u.SafeFrameSetPoint(frame, "TOP", previousFrame, anchorPoint, 0, 0)
+			u.SafeFrameCollapse(frame)
 			return
 		end
 
@@ -265,17 +265,17 @@ function M.RenderNote(index, anchor)
 
 		u.SafeSetAlpha(frame.fontString, alpha)
 		u.SafeSetJustifyH(frame.fontString, state.textAlign)
-		u.FrameWidth(frame.fontString, width)
-		u.FrameSetPoint(frame.fontString, "LEFT", frame, "LEFT", line.indent, 0)
+		u.SafeFrameWidth(frame.fontString, width)
+		u.SafeFrameSetPoint(frame.fontString, "LEFT", frame, "LEFT", line.indent, 0)
 
 		-- Update frame properties
-		u.FrameShow(frame)
-		u.FrameSetPoint(frame, "TOP", previousFrame, anchorPoint, 0, withPadding(linePadding))
-		u.FontText(frame, resolveText(line.name))
-		u.FrameWidth(frame, width)
+		u.SafeFrameShow(frame)
+		u.SafeFrameSetPoint(frame, "TOP", previousFrame, anchorPoint, 0, withPadding(linePadding))
+		u.SafeFontText(frame, resolveText(line.name))
+		u.SafeFrameWidth(frame, width)
 
 		local height = frame.fontString:GetStringHeight()
-		u.FrameHeight(frame, height)
+		u.SafeFrameHeight(frame, height)
 		totalHeight = totalHeight + height
 
 		if testNoteOpacityEnabled then
@@ -358,33 +358,33 @@ function M.RenderNote(index, anchor)
 	})
 
 	-- Update note card frame
-	u.FrameShow(noteCardFrame)
-	u.FrameWidth(noteCardFrame, width)
-	u.FrameHeight(noteCardFrame, totalHeight)
+	u.SafeFrameShow(noteCardFrame)
+	u.SafeFrameWidth(noteCardFrame, width)
+	u.SafeFrameHeight(noteCardFrame, totalHeight)
 
 	-- Update spacer frame
-	u.FrameShow(spacerFrame)
-	u.FrameWidth(spacerFrame, width)
-	u.FrameHeight(spacerFrame, state.noteSpacing)
+	u.SafeFrameShow(spacerFrame)
+	u.SafeFrameWidth(spacerFrame, width)
+	u.SafeFrameHeight(spacerFrame, state.noteSpacing)
 
 	-- Handle grow direction UP
 	if state.noteGrowDirection == "UP" then
 		if index == 1 then
-			u.FrameSetPoint(noteCardFrame, "BOTTOM", anchor, "BOTTOM", 0, 0)
+			u.SafeFrameSetPoint(noteCardFrame, "BOTTOM", anchor, "BOTTOM", 0, 0)
 		else
-			u.FrameSetPoint(noteCardFrame, "BOTTOM", anchor, "TOP", 0, 0)
+			u.SafeFrameSetPoint(noteCardFrame, "BOTTOM", anchor, "TOP", 0, 0)
 		end
-		u.FrameSetPoint(spacerFrame, "BOTTOM", noteCardFrame, "TOP", 0, 0)
+		u.SafeFrameSetPoint(spacerFrame, "BOTTOM", noteCardFrame, "TOP", 0, 0)
 	end
 
 	-- Handle grow direction DOWN
 	if state.noteGrowDirection == "DOWN" then
 		if index == 1 then
-			u.FrameSetPoint(noteCardFrame, "TOP", anchor, "TOP", 0, 0)
+			u.SafeFrameSetPoint(noteCardFrame, "TOP", anchor, "TOP", 0, 0)
 		else
-			u.FrameSetPoint(noteCardFrame, "TOP", anchor, "BOTTOM", 0, 0)
+			u.SafeFrameSetPoint(noteCardFrame, "TOP", anchor, "BOTTOM", 0, 0)
 		end
-		u.FrameSetPoint(spacerFrame, "TOP", noteCardFrame, "BOTTOM", 0, 0)
+		u.SafeFrameSetPoint(spacerFrame, "TOP", noteCardFrame, "BOTTOM", 0, 0)
 	end
 
 	if testNoteOpacityEnabled then
@@ -406,7 +406,7 @@ function M.RenderOmniNote()
 
 		-- Collapse the previous spacer if there are no more notes
 		if newSpacer:GetHeight() == 0 then
-			DD.utils.FrameCollapse(previousSpacer)
+			DD.utils.SafeFrameCollapse(previousSpacer)
 		end
 
 		previousSpacer = newSpacer
@@ -417,24 +417,24 @@ function M.RenderOmniNote()
 		totalHeight = totalHeight + frame:GetHeight()
 	end
 
-	u.FrameShow(omniNoteFrame)
-	u.FrameHeight(omniNoteFrame, totalHeight)
-	u.FrameWidth(omniNoteFrame, omniAnchorFrame:GetWidth())
+	u.SafeFrameShow(omniNoteFrame)
+	u.SafeFrameHeight(omniNoteFrame, totalHeight)
+	u.SafeFrameWidth(omniNoteFrame, omniAnchorFrame:GetWidth())
 
 	local state = DD.db.database.profile.settings.omniNote
 	local internal = DD.db.database.profile.internal
 
 	if state.noteGrowDirection == "UP" then
 		if internal.movers.omniNote then
-			u.FrameSetPoint(omniNoteFrame, "BOTTOM", omniAnchorFrame, "TOP", 0, 0)
+			u.SafeFrameSetPoint(omniNoteFrame, "BOTTOM", omniAnchorFrame, "TOP", 0, 0)
 		else
-			u.FrameSetPoint(omniNoteFrame, "BOTTOM", omniAnchorFrame, "BOTTOM", 0, 0)
+			u.SafeFrameSetPoint(omniNoteFrame, "BOTTOM", omniAnchorFrame, "BOTTOM", 0, 0)
 		end
 	else
 		if internal.movers.omniNote then
-			u.FrameSetPoint(omniNoteFrame, "TOP", omniAnchorFrame, "BOTTOM", 0, 0)
+			u.SafeFrameSetPoint(omniNoteFrame, "TOP", omniAnchorFrame, "BOTTOM", 0, 0)
 		else
-			u.FrameSetPoint(omniNoteFrame, "TOP", omniAnchorFrame, "TOP", 0, 0)
+			u.SafeFrameSetPoint(omniNoteFrame, "TOP", omniAnchorFrame, "TOP", 0, 0)
 		end
 	end
 
