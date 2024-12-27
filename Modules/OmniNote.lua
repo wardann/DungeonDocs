@@ -407,8 +407,10 @@ function M.RenderOmniNote()
 
 	--- Clear all points if the grow direction has changed, else
 	--- we run into height calculation issues all over the place
+	if not previousNoteGrowDirection then
+		previousNoteGrowDirection = state.noteGrowDirection
+	end
 	if state.noteGrowDirection ~= previousNoteGrowDirection then
-		omniAnchorFrame:ClearAllPoints()
 		omniNoteFrame:ClearAllPoints()
 
 		for _, frame in pairs(noteFrames) do
