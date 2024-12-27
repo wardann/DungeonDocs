@@ -395,7 +395,6 @@ function M.ExportProfile(profileName, includeFallbackProfile)
 	local fallbackProfileName = profile.internal.fallbackProfile
 	local fallbackProfile = M.database.profiles[fallbackProfileName]
 
-
 	if includeFallbackProfile and not fallbackProfile then
 		DD.utils.Log("Error exporting, could not find fallback profile", DD.utils.Gray(fallbackProfileName))
 		return
