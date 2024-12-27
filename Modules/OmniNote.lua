@@ -505,7 +505,7 @@ local ensureTarget = function()
 		playerTargetMobId = unitId
 	end
 
-	M.RenderOmniNote()
+	M.RenderOmniNoteWithThrottle()
 end
 
 eventFrame:SetScript("OnEvent", function(_, event)
@@ -559,7 +559,7 @@ eventFrame:SetScript("OnEvent", function(_, event)
 			if destGuidType ~= "Player" then
 				storeEncounteredMob(destMobId)
 			end
-			M.RenderOmniNote()
+			M.RenderOmniNoteWithThrottle()
 		end
 	elseif event == "PLAYER_TARGET_CHANGED" then
 		ensureTarget()
@@ -572,7 +572,7 @@ function M.RenderTestNote(ddid, dungeonName)
 	testNoteEnabled = true
 	table.insert(ddidsToRender, ddid)
 	ddidToDungeon[ddid] = dungeonName
-	M.RenderOmniNote()
+	M.RenderOmniNoteWithThrottle()
 end
 
 ---@param note string
@@ -606,6 +606,43 @@ function M.ShouldDisplayRole(note, role)
 	end
 
 	return normalizeRole(role) == normalizeRole(specRole)
+end
+
+-- ##### #    # #####   ####  ##### ##### #      ######
+--   #   #    # #    # #    #   #     #   #      #
+--   #   ###### #    # #    #   #     #   #      #####
+--   #   #    # #####  #    #   #     #   #      #
+--   #   #    # #   #  #    #   #     #   #      #
+--   #   #    # #    #  ####    #     #   ###### ######
+
+local THROTTLE_INTERVAL = 0.1 ---@type number
+local lastRender = 0 ---@type number
+local pendingRender = false
+
+-- Internal function that does the actual rendering
+local function doRenderOmniNote()
+	lastRender = GetTime()
+	pendingRender = false
+	M.RenderOmniNote()
+end
+
+function M.RenderOmniNoteWithThrottle()
+	local now = GetTime()
+	local delta = now - lastRender
+
+	-- If enough time has passed, render immediately.
+	if delta >= THROTTLE_INTERVAL then
+		doRenderOmniNote()
+	else
+		-- If we haven't already scheduled a pending render, schedule one now
+		if not pendingRender then
+			pendingRender = true
+			local remaining = THROTTLE_INTERVAL - delta
+			C_Timer.After(remaining, doRenderOmniNote)
+		end
+		-- If we already have a pending render, do nothing—
+		-- it will happen when the timer expires.
+	end
 end
 
 DD.omniNote = M
