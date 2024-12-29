@@ -82,9 +82,9 @@ function DD:OpenUI(msg)
 	aceFrame:SetTitle("DungeonDocs")
 	aceFrame:SetLayout("Fill") -- Important for TabGroup to fill the frame
 
-	-- -- Define max size based on 80% of screen dimensions
-	local maxWidth = UIParent:GetWidth() * 0.8
-	local maxHeight = UIParent:GetHeight() * 0.8
+	-- -- Define max size based on 95% of screen dimensions
+	local maxWidth = UIParent:GetWidth() * 0.95
+	local maxHeight = UIParent:GetHeight() * 0.95
 
 	local initWidth = math.min(850, maxWidth)
 	local initHeight = math.min(850, maxHeight)
