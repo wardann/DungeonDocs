@@ -46,18 +46,6 @@ end
 
 function M.Init()
 	M.DefaultFallback_Init()
-
-	local db = DD.db.database
-
-	-- Bootstrap player Default profile
-	if not db.profiles["Default"] then
-		db.profiles["Default"] = {}
-	end
-
-	-- Set Default profile as active if no profile is active
-	if not db.profile then
-		db:SetProfile("Default")
-	end
 end
 
 DD.profiles = M

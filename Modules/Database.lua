@@ -290,6 +290,23 @@ function M.GetDBDefaults()
 	return dbDefaults
 end
 
+---@param profile DatabaseSchema
+---@param defaults DatabaseSchema
+local function applyDefaults(profile, defaults)
+	--- NOTE: the types aren't getting inferred correctly here.
+	--- Unsure how to solve, disabling for now
+	---@diagnostic disable-next-line
+	for key, value in pairs(defaults) do
+		if profile[key] == nil then
+			---@diagnostic disable-next-line
+			profile[key] = DD.utils.DeepCopy(value)
+		elseif type(value) == "table" and type(profile[key]) == "table" then
+			---@diagnostic disable-next-line
+			applyDefaults(profile[key], value) -- Recursively apply for nested tables
+		end
+	end
+end
+
 ---@param profileName string
 function M.EnsureDefaults(profileName)
 	local p = M.database.profiles[profileName]
@@ -297,24 +314,6 @@ function M.EnsureDefaults(profileName)
 		DD.utils.Log("Error: could not ensure defaults, profile does not exist: ", profileName)
 		return
 	end
-
-	---@param profile DatabaseSchema
-	---@param defaults DatabaseSchema
-	local function applyDefaults(profile, defaults)
-		--- NOTE: the types aren't getting inferred correctly here.
-		--- Unsure how to solve, disabling for now
-		---@diagnostic disable-next-line
-		for key, value in pairs(defaults) do
-			if profile[key] == nil then
-				---@diagnostic disable-next-line
-				profile[key] = DD.utils.DeepCopy(value)
-			elseif type(value) == "table" and type(profile[key]) == "table" then
-				---@diagnostic disable-next-line
-				applyDefaults(profile[key], value) -- Recursively apply for nested tables
-			end
-		end
-	end
-
 	applyDefaults(p, dbDefaults)
 end
 
@@ -325,10 +324,20 @@ function M.EnsureDefaultsAllProfiles()
 end
 
 function M.Init()
-	M.database = LibStub("AceDB-3.0"):New("DungeonDocsDB") ---@type AceDB
+	local defaultProfileName = "Default"
+
+	-- Empty defaults {} are used here so everything gets flushed to disk and missing fields
+	-- aren't encountered due to the on-demand pruning AceDB does
+	M.database = LibStub("AceDB-3.0"):New("DungeonDocsDB", {}, defaultProfileName) ---@type AceDB
 
 	-- Init defaults on all profiles
 	M.EnsureDefaultsAllProfiles()
+
+	-- If there is no default profile, then this is the first time the addon is running. Apply
+	-- defaults directly to the active profile to ensure all fields are there as expected
+	if not M.database.profiles[defaultProfileName] then
+		applyDefaults(M.database.profile, dbDefaults)
+	end
 
 	-- Reset internal vars
 	M.database.profile.internal.movers.omniNote = false
