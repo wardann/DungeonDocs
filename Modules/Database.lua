@@ -422,7 +422,7 @@ function M.ExportProfile(profileName, includeFallbackProfile)
 
 	local serialized = LibSerialize:Serialize(profileCopy) -- Serialize profile copy
 	local compressed = LibDeflate:CompressDeflate(serialized) -- Compress serialized data
-	local encoded = LibDeflate:EncodeForPrint(compressed)  -- Encode to Base64
+	local encoded = LibDeflate:EncodeForPrint(compressed) -- Encode to Base64
 	local wrapped = "dd:" .. profile.dbVersion .. ":" .. encoded .. ":dd"
 
 	return wrapped
