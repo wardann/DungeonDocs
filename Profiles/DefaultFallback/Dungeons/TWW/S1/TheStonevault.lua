@@ -22,7 +22,6 @@ local notes = {
 	{
 		-- bossName = "Master Machinists",
 		ddid = "tsv3",
-		encounterId = 2590,
 		primaryNote = "(1) Focus the small boss first & always interrupt\n(2) Focus big boss when small boss runs (keep interrupting small boss)\n(3) Do not stand on exhaust vents\n(4) Avoid DEATH CUBE\n(5) Kill both at the same time!",
 		healerNote = "",
 		damageNote = "",
