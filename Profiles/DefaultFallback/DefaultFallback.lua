@@ -17,10 +17,11 @@ end
 
 function DD.profiles.DefaultFallback_Init()
 	-- Register profile in the DB
-	local database = DD.db.GetEmptyDatabaseStructure()
-	database.docs = profileNotesByDungeon
+	local defaultFallbackProfile = {
+		docs = profileNotesByDungeon
+	}
 
-	DD.db.database.profiles[profileName] = database
+	DD.db.database.profiles[profileName] = defaultFallbackProfile
 
 	-- Reserve the profile name
 	DD.profiles.ReserveProfileName(profileName)
