@@ -120,59 +120,63 @@ function M.IsFollowerNPC(mobID)
 	return false
 end
 
----@param active PlayerNotes
----@param fallback PlayerNotes
+---@param active? PlayerNotes
+---@param fallback? PlayerNotes
 ---@return PlayerNotes
 function M.MergePlayerNotes(active, fallback)
 	---@alias PlayerNotesMapped table<DungeonName, table<DDID, PlayerNote>>
 	local playerNotesMapped = {} ---@type PlayerNotesMapped
 
-	for dungeonName, notes in pairs(active) do
-		if not playerNotesMapped[dungeonName] then
-			playerNotesMapped[dungeonName] = {}
-		end
+	if active then
+		for dungeonName, notes in pairs(active) do
+			if not playerNotesMapped[dungeonName] then
+				playerNotesMapped[dungeonName] = {}
+			end
 
-		for _, note in ipairs(notes) do
-			playerNotesMapped[dungeonName][note.ddid] = note
+			for _, note in ipairs(notes) do
+				playerNotesMapped[dungeonName][note.ddid] = note
+			end
 		end
 	end
 
 	-- Add the notes from the fallback profile where applicable
-	for instance, fallbackNotes in pairs(fallback) do
-		if not playerNotesMapped[instance] then
-			playerNotesMapped[instance] = {}
-		end
+	if fallback then
+		for instance, fallbackNotes in pairs(fallback) do
+			if not playerNotesMapped[instance] then
+				playerNotesMapped[instance] = {}
+			end
 
-		for _, fallbackNote in ipairs(fallbackNotes) do
-			(function()
-				local found = playerNotesMapped[instance][fallbackNote.ddid]
-				if not found then
-					playerNotesMapped[instance][fallbackNote.ddid] = fallbackNote
-					return
-				end
+			for _, fallbackNote in ipairs(fallbackNotes) do
+				(function()
+					local found = playerNotesMapped[instance][fallbackNote.ddid]
+					if not found then
+						playerNotesMapped[instance][fallbackNote.ddid] = fallbackNote
+						return
+					end
 
-				---@param activeValue string
-				---@param fallbackValue string
-				local function shouldUseFallback(activeValue, fallbackValue)
-					return not activeValue and fallbackValue and #fallbackValue > 0
-				end
+					---@param activeValue string
+					---@param fallbackValue string
+					local function shouldUseFallback(activeValue, fallbackValue)
+						return not activeValue and fallbackValue and #fallbackValue > 0
+					end
 
-				if shouldUseFallback(found.primaryNote, fallbackNote.primaryNote) then
-					found.primaryNote = fallbackNote.primaryNote
-				end
+					if shouldUseFallback(found.primaryNote, fallbackNote.primaryNote) then
+						found.primaryNote = fallbackNote.primaryNote
+					end
 
-				if shouldUseFallback(found.tankNote, fallbackNote.tankNote) then
-					found.tankNote = fallbackNote.tankNote
-				end
+					if shouldUseFallback(found.tankNote, fallbackNote.tankNote) then
+						found.tankNote = fallbackNote.tankNote
+					end
 
-				if shouldUseFallback(found.healerNote, fallbackNote.healerNote) then
-					found.healerNote = fallbackNote.healerNote
-				end
+					if shouldUseFallback(found.healerNote, fallbackNote.healerNote) then
+						found.healerNote = fallbackNote.healerNote
+					end
 
-				if shouldUseFallback(found.damageNote, fallbackNote.damageNote) then
-					found.damageNote = fallbackNote.damageNote
-				end
-			end)()
+					if shouldUseFallback(found.damageNote, fallbackNote.damageNote) then
+						found.damageNote = fallbackNote.damageNote
+					end
+				end)()
+			end
 		end
 	end
 
