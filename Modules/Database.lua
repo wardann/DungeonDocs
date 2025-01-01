@@ -261,8 +261,6 @@ local dbDefaults = {
 	internal = {
 		fallbackProfile = "Default Fallback*",
 		movers = {
-			primaryNote = false,
-			roleNote = false,
 			omniNote = false,
 		},
 		seasons = {
@@ -270,8 +268,6 @@ local dbDefaults = {
 		},
 
 		selectedSeason = "TWWS1",
-		testText = "This is some test to text with.\nChange it to see how your notes might look.",
-		showTestText = false,
 	},
 }
 
