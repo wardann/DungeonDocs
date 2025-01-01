@@ -405,8 +405,7 @@ end
 -- Function to import a profile from a Base64 string
 function M.ImportProfile(destProfileName, wrapped)
 	local db = M.database
-	local profiles = db:GetProfiles()
-	local destProfile = profiles[destProfileName] -- Access the specified profile data
+	local destProfile = db.profiles[destProfileName] -- Access the specified profile data
 
 	if destProfile ~= nil then
 		DD.utils.Log("Error importing, profile already exists: " .. destProfileName)
@@ -454,14 +453,13 @@ end
 
 function M.CloneProfile(sourceProfileName, destProfileName)
 	local db = M.database
-	local profiles = db:GetProfiles()
 
-	if not profiles[sourceProfileName] then
+	if not M.ProfileExists(sourceProfileName) then
 		DD.utils.Log("Error! Could not clone profile, source", DD.utils.Gray(sourceProfileName), "does not exist")
 		return
 	end
 
-	if profiles[destProfileName] then
+	if M.ProfileExists(destProfileName) then
 		DD.utils.Log(
 			"Error! Could not clone profile, destination profile",
 			DD.utils.Gray(sourceProfileName),
@@ -489,8 +487,7 @@ function M.DeleteProfile(profileName)
 		return
 	end
 	-- Check if the profile exists
-	local profiles = db:GetProfiles()
-	if not profiles[profileName] then
+	if not M.ProfileExists(profileName) then
 		DD.utils.Log("Error! Cannot delete, profile", DD.utils.Gray(profileName), "does not exist")
 		return
 	end
@@ -506,11 +503,17 @@ function M.DeleteProfile(profileName)
 	DD.utils.Log("Profile", DD.utils.Gray(profileName), "deleted successfully")
 end
 
+--- @param profileName string
+--- @returns boolean
+function M.ProfileExists(profileName)
+	local profiles = M.database:GetProfiles()
+	return DD.utils.IsInArray(profiles, profileName)
+end
+
 function M.ResetProfile(profileName)
 	local db = M.database
-	local profiles = db:GetProfiles()
 
-	if not profiles[profileName] then
+	if not M.ProfileExists(profileName) then
 		DD.utils.Log("Error! Cannot reset, profile does not exist:", profileName)
 		return
 	end
