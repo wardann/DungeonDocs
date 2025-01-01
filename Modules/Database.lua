@@ -272,68 +272,17 @@ local dbDefaults = {
 }
 
 ---@return DatabaseSchema
-function M.GetEmptyDatabaseStructure()
-	return {
-		dbVersion = 1, -- Default version
-		docs = {}, -- Empty table for docs
-		settings = {}, -- Empty table for settings
-		internal = {}, -- Empty table for internal data
-	}
-end
-
----@return DatabaseSchema
 function M.GetDBDefaults()
 	return dbDefaults
 end
 
----@param profile DatabaseSchema
----@param defaults DatabaseSchema
-local function applyDefaults(profile, defaults)
-	--- NOTE: the types aren't getting inferred correctly here.
-	--- Unsure how to solve, disabling for now
-	---@diagnostic disable-next-line
-	for key, value in pairs(defaults) do
-		if profile[key] == nil then
-			---@diagnostic disable-next-line
-			profile[key] = DD.utils.DeepCopy(value)
-		elseif type(value) == "table" and type(profile[key]) == "table" then
-			---@diagnostic disable-next-line
-			applyDefaults(profile[key], value) -- Recursively apply for nested tables
-		end
-	end
-end
-
----@param profileName string
-function M.EnsureDefaults(profileName)
-	local p = M.database.profiles[profileName]
-	if not p then
-		DD.utils.Log("Error: could not ensure defaults, profile does not exist: ", profileName)
-		return
-	end
-	applyDefaults(p, dbDefaults)
-end
-
-function M.EnsureDefaultsAllProfiles()
-	for profileName in pairs(M.database.profiles) do
-		M.EnsureDefaults(profileName)
-	end
-end
-
 function M.Init()
 	local defaultProfileName = "Default"
+	local defaultProfile = {
+		profile = dbDefaults,
+	}
 
-	-- Empty defaults {} are used here so everything gets flushed to disk and missing fields
-	-- aren't encountered due to the on-demand pruning AceDB does
-	M.database = LibStub("AceDB-3.0"):New("DungeonDocsDB", {}, defaultProfileName) ---@type AceDB
-
-	-- Init defaults on all profiles
-	M.EnsureDefaultsAllProfiles()
-
-	-- If there is no default profile, then this is the first time the addon is running. Apply
-	-- defaults directly to the active profile to ensure all fields are there as expected
-	if not M.database.profiles[defaultProfileName] then
-		applyDefaults(M.database.profile, dbDefaults)
-	end
+	M.database = LibStub("AceDB-3.0"):New("DungeonDocsDB", defaultProfile, defaultProfileName) ---@type AceDB
 
 	-- Reset internal vars
 	M.database.profile.internal.movers.omniNote = false
@@ -363,6 +312,14 @@ function M.UpdateDB(updater)
 	updater()
 	M.NotifyDBChange()
 end
+
+-- ######  ######  ####### ####### ### #       #######  #####
+-- #     # #     # #     # #        #  #       #       #     #
+-- #     # #     # #     # #        #  #       #       #
+-- ######  ######  #     # #####    #  #       #####    #####
+-- #       #   #   #     # #        #  #       #             #
+-- #       #    #  #     # #        #  #       #       #     #
+-- #       #     # ####### #       ### ####### #######  #####
 
 function M.ListProfiles()
 	return M.database:GetProfiles()
@@ -413,7 +370,7 @@ function M.ExportProfile(profileName, includeFallbackProfile)
 	end
 
 	local profileCopy = DD.utils.DeepCopy(profile)
-	profileCopy.internal = {}
+	profileCopy.internal = nil
 	profileCopy.docs = playerNotes
 
 	local serialized = LibSerialize:Serialize(profileCopy) -- Serialize profile copy
@@ -448,7 +405,8 @@ end
 -- Function to import a profile from a Base64 string
 function M.ImportProfile(destProfileName, wrapped)
 	local db = M.database
-	local destProfile = db.profiles[destProfileName] -- Access the specified profile data
+	local profiles = db:GetProfiles()
+	local destProfile = profiles[destProfileName] -- Access the specified profile data
 
 	if destProfile ~= nil then
 		DD.utils.Log("Error importing, profile already exists: " .. destProfileName)
@@ -484,7 +442,6 @@ function M.ImportProfile(destProfileName, wrapped)
 	if success and profileData then
 		-- Init dest profile
 		db.profiles[destProfileName] = DD.utils.DeepCopy(profileData)
-		M.EnsureDefaults(destProfileName)
 		M.NotifyDBChange()
 
 		DD.utils.Log("Success! Imported profile", DD.utils.Gray(destProfileName))
@@ -497,60 +454,31 @@ end
 
 function M.CloneProfile(sourceProfileName, destProfileName)
 	local db = M.database
-	local sourceProfile = db.profiles[sourceProfileName]
+	local profiles = db:GetProfiles()
 
-	if sourceProfile == nil then
-		DD.utils.Log("Error! Could not clone profile, source `" .. sourceProfileName .. "` does not exist")
+	if not profiles[sourceProfileName] then
+		DD.utils.Log("Error! Could not clone profile, source", DD.utils.Gray(sourceProfileName), "does not exist")
 		return
 	end
 
-	if db.profiles[destProfileName] then
-		DD.utils.Log("Error! Could not clone profile, destination profile `" .. sourceProfileName .. "` already exists")
+	if profiles[destProfileName] then
+		DD.utils.Log(
+			"Error! Could not clone profile, destination profile",
+			DD.utils.Gray(sourceProfileName),
+			"already exists"
+		)
 		return
 	end
 
-	-- Init the profile
-	db.profiles[destProfileName] = M.GetEmptyDatabaseStructure()
-
-	-- Copy the source profile
-	db.profiles[destProfileName] = DD.utils.DeepCopy(sourceProfile)
+	-- Switch to the dest profile, clone the source, switch back
+	local currentProfile = db:GetCurrentProfile()
+	db:SetProfile(destProfileName)
+	db:CopyProfile(sourceProfileName, true)
+	db:SetProfile(currentProfile)
 
 	M.NotifyDBChange()
 
 	DD.utils.Log("Profile", DD.utils.Gray(sourceProfileName), "cloned to profile", DD.utils.Gray(destProfileName))
-end
-
-function M.RenameProfile(sourceProfileName, newProfileName)
-	local db = M.database
-
-	-- Check if the current profile exists
-	local sourceProfile = db.profiles[sourceProfileName]
-	if not sourceProfile then
-		DD.utils.Log("Error! Profile does not exist: ", sourceProfileName)
-		return
-	end
-
-	-- Check if the new profile name is already taken
-	if db.profiles[newProfileName] then
-		DD.utils.Log("Error! Profile with the name '" .. newProfileName .. "' already exists.")
-		return
-	end
-
-	-- Copy current profile data to the new profile
-	db.profiles[newProfileName] = M.GetEmptyDatabaseStructure()
-	db.profiles[newProfileName] = DD.utils.DeepCopy(sourceProfile)
-
-	-- If the old profile was active, switch to the new profile
-	if db:GetCurrentProfile() == sourceProfileName then
-		db:SetProfile(newProfileName)
-	end
-
-	-- Delete the old profile
-	db.profiles[sourceProfileName] = nil
-
-	M.NotifyDBChange()
-
-	DD.utils.Log("Success! Profile renamed from", DD.utils.Gray(sourceProfileName), "to", DD.utils.Gray(newProfileName))
 end
 
 function M.DeleteProfile(profileName)
@@ -561,7 +489,8 @@ function M.DeleteProfile(profileName)
 		return
 	end
 	-- Check if the profile exists
-	if not db.profiles[profileName] then
+	local profiles = db:GetProfiles()
+	if not profiles[profileName] then
 		DD.utils.Log("Error! Cannot delete, profile", DD.utils.Gray(profileName), "does not exist")
 		return
 	end
@@ -573,34 +502,41 @@ function M.DeleteProfile(profileName)
 	end
 
 	-- Delete the profile
-	db.profiles[profileName] = nil
+	db:DeleteProfile(profileName, true)
 	DD.utils.Log("Profile", DD.utils.Gray(profileName), "deleted successfully")
 end
 
 function M.ResetProfile(profileName)
 	local db = M.database
+	local profiles = db:GetProfiles()
 
-	if not db.profiles[profileName] then
+	if not profiles[profileName] then
 		DD.utils.Log("Error! Cannot reset, profile does not exist:", profileName)
 		return
 	end
 
-	---@type DatabaseSchema
-	db.profiles[profileName] = M.GetEmptyDatabaseStructure()
-	M.EnsureDefaults(profileName)
-	M.NotifyDBChange()
-
 	local currentProfile = db:GetCurrentProfile()
-	if currentProfile == profileName then
-		--- Switch to the default fallback profile (which can't be deleted nor reset) and then switch back
-		--- This triggers the UI to update if we're already on the profile, just calling M.NotifyDBChange isn't enough
-		db:SetProfile("Default Fallback*")
+	if currentProfile ~= profileName then
 		db:SetProfile(profileName)
-		M.NotifyDBChange()
 	end
 
+	db:ResetProfile(true)
+
+	if currentProfile ~= profileName then
+		db:SetProfile(currentProfile)
+	end
+
+	M.NotifyDBChange()
 	DD.utils.Log("Profile", DD.utils.Gray(profileName), "reset to defaults")
 end
+
+-- #     # ####### ####### #######  #####
+-- ##    # #     #    #    #       #     #
+-- # #   # #     #    #    #       #
+-- #  #  # #     #    #    #####    #####
+-- #   # # #     #    #    #             #
+-- #    ## #     #    #    #       #     #
+-- #     # #######    #    #######  #####
 
 -- GetActiveNoteWithFallback gets the note from the DB for the specified note key, falling
 -- back to the fallback profile if the note is not found
