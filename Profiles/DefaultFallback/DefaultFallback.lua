@@ -18,7 +18,7 @@ end
 function DD.profiles.DefaultFallback_Init()
 	-- Register profile in the DB
 	local defaultFallbackProfile = {
-		docs = profileNotesByDungeon
+		docs = profileNotesByDungeon,
 	}
 
 	DD.db.database.profiles[profileName] = defaultFallbackProfile
