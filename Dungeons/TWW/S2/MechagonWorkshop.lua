@@ -266,7 +266,7 @@ local docStructures = {
 ---@type DungeonData
 local dungeonData = {
 	dungeonName = "Operation: Mechagon Workshop",
-	icon = "Interface\\Icons\\inv_misc_web_01",
+	icon = "Interface\\Icons\\trade_engineering",
 	seasonId = "TWWS2",
 	docStructures = docStructures,
 }

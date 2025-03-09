@@ -374,7 +374,7 @@ local docStructures = {
 ---@type DungeonData
 local dungeonData = {
 	dungeonName = "The MOTHERLODE!!",
-	icon = "Interface\\Icons\\inv_misc_web_01",
+	icon = "Interface\\Icons\\inv_gizmo_goblingtonkcontroller",
 	seasonId = "TWWS2",
 	docStructures = docStructures,
 }

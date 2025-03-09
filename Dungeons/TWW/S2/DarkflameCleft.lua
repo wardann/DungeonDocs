@@ -352,7 +352,7 @@ local docStructures = {
 ---@type DungeonData
 local dungeonData = {
 	dungeonName = "Darkflame Cleft",
-	icon = "Interface\\Icons\\inv_misc_web_01",
+	icon = "Interface\\Icons\\spell_shadow_shadowbolt",
 	seasonId = "TWWS2",
 	docStructures = docStructures,
 }
