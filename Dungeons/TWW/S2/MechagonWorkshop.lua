@@ -12,47 +12,24 @@ DD.dungeons = DD.dungeons or {}
 
 ---@type DocStructure[]
 local docStructures = {
+
+-- ######  #######  #####   #####  #######  #####
+-- #     # #     # #     # #     # #       #     #
+-- #     # #     # #       #       #       #
+-- ######  #     #  #####   #####  #####    #####
+-- #     # #     #       #       # #             #
+-- #     # #     # #     # #     # #       #     #
+-- ######  #######  #####   #####  #######  #####
 	{
-		docName = "Head Machinist Sparkflux",
+		docName = "Tussle Tonks",
 		ddid = createDDID(1),
 		isBoss = true,
 		mobs = {
 			{
-				-- name = "Head Machinist Sparkflux",
-				id = "144248",
-				displayId = 23397,
+				-- name = "Gnomercy 4.U.",
+				id = "145185",
+				displayId = 91879,
 			},
-		},
-	},
-	{
-		docName = "Aerial Unit R-21/X",
-		ddid = createDDID(2),
-		isBoss = true,
-		mobs = {
-			{
-				-- name = "Aerial Unit R-21/X",
-				id = "150396",
-				displayId = 90547,
-			},
-		},
-	},
-	{
-		docName = "Omega Buster",
-		ddid = createDDID(3),
-		isBoss = true,
-		mobs = {
-			{
-				-- name = "Omega Buster",
-				id = "144249",
-				displayId = 90998,
-			},
-		},
-	},
-	{
-		docName = "The Platinum Pummeler",
-		ddid = createDDID(4),
-		isBoss = true,
-		mobs = {
 			{
 				-- name = "The Platinum Pummeler",
 				id = "144244",
@@ -61,20 +38,8 @@ local docStructures = {
 		},
 	},
 	{
-		docName = "Gnomercy 4.U.",
-		ddid = createDDID(5),
-		isBoss = true,
-		mobs = {
-			{
-				-- name = "Gnomercy 4.U.",
-				id = "145185",
-				displayId = 91879,
-			},
-		},
-	},
-	{
 		docName = "K.U.-J.0.",
-		ddid = createDDID(6),
+		ddid = createDDID(2),
 		isBoss = true,
 		mobs = {
 			{
@@ -85,8 +50,45 @@ local docStructures = {
 		},
 	},
 	{
+		docName = "Head Machinist Sparkflux",
+		ddid = createDDID(3),
+		isBoss = true,
+		mobs = {
+			{
+				-- name = "Head Machinist Sparkflux",
+				id = "144248",
+				displayId = 23397,
+			},
+		},
+	},
+	{
+		docName = "King Mechagon",
+		ddid = createDDID(4),
+		isBoss = true,
+		mobs = {
+			{
+				-- name = "Aerial Unit R-21/X",
+				id = "150396",
+				displayId = 90547,
+			},
+			{
+				-- name = "Omega Buster",
+				id = "144249",
+				displayId = 90998,
+			},
+		},
+	},
+
+	-- ####### ######     #     #####  #     #
+	--    #    #     #   # #   #     # #     #
+	--    #    #     #  #   #  #       #     #
+	--    #    ######  #     #  #####  #######
+	--    #    #   #   #######       # #     #
+	--    #    #    #  #     # #     # #     #
+	--    #    #     # #     #  #####  #     #
+	{
 		docName = "Blastatron X-80",
-		ddid = createDDID(7),
+		ddid = createDDID(5),
 		mobs = {
 			{
 				-- name = "Blastatron X-80",
@@ -97,7 +99,7 @@ local docStructures = {
 	},
 	{
 		docName = "Defense Bot Mk I",
-		ddid = createDDID(8),
+		ddid = createDDID(6),
 		mobs = {
 			{
 				-- name = "Defense Bot Mk I",
@@ -108,7 +110,7 @@ local docStructures = {
 	},
 	{
 		docName = "Mechagon Tinkerer",
-		ddid = createDDID(9),
+		ddid = createDDID(7),
 		mobs = {
 			{
 				-- name = "Mechagon Tinkerer",
@@ -119,7 +121,7 @@ local docStructures = {
 	},
 	{
 		docName = "Workshop Defender",
-		ddid = createDDID(10),
+		ddid = createDDID(8),
 		mobs = {
 			{
 				-- name = "Workshop Defender",
@@ -130,7 +132,7 @@ local docStructures = {
 	},
 	{
 		docName = "Mechagon Mechanic",
-		ddid = createDDID(11),
+		ddid = createDDID(9),
 		mobs = {
 			{
 				-- name = "Mechagon Mechanic",
@@ -141,7 +143,7 @@ local docStructures = {
 	},
 	{
 		docName = "Spider Tank",
-		ddid = createDDID(12),
+		ddid = createDDID(10),
 		mobs = {
 			{
 				-- name = "Spider Tank",
@@ -152,7 +154,7 @@ local docStructures = {
 	},
 	{
 		docName = "Defense Bot Mk III",
-		ddid = createDDID(13),
+		ddid = createDDID(11),
 		mobs = {
 			{
 				-- name = "Defense Bot Mk III",
@@ -163,7 +165,7 @@ local docStructures = {
 	},
 	{
 		docName = "Junkyard D.0.G.",
-		ddid = createDDID(14),
+		ddid = createDDID(12),
 		mobs = {
 			{
 				-- name = "Junkyard D.0.G.",
@@ -174,7 +176,7 @@ local docStructures = {
 	},
 	{
 		docName = "Waste Processing Unit",
-		ddid = createDDID(15),
+		ddid = createDDID(13),
 		mobs = {
 			{
 				-- name = "Waste Processing Unit",
@@ -185,7 +187,7 @@ local docStructures = {
 	},
 	{
 		docName = "Living Waste",
-		ddid = createDDID(16),
+		ddid = createDDID(14),
 		mobs = {
 			{
 				-- name = "Living Waste",
@@ -196,7 +198,7 @@ local docStructures = {
 	},
 	{
 		docName = "Bomb Tonk",
-		ddid = createDDID(17),
+		ddid = createDDID(15),
 		mobs = {
 			{
 				-- name = "Bomb Tonk",
@@ -207,7 +209,7 @@ local docStructures = {
 	},
 	{
 		docName = "Rocket Tonk",
-		ddid = createDDID(18),
+		ddid = createDDID(16),
 		mobs = {
 			{
 				-- name = "Rocket Tonk",
@@ -218,7 +220,7 @@ local docStructures = {
 	},
 	{
 		docName = "Strider Tonk",
-		ddid = createDDID(19),
+		ddid = createDDID(17),
 		mobs = {
 			{
 				-- name = "Strider Tonk",
@@ -229,7 +231,7 @@ local docStructures = {
 	},
 	{
 		docName = "G.U.A.R.D.",
-		ddid = createDDID(20),
+		ddid = createDDID(18),
 		mobs = {
 			{
 				-- name = "G.U.A.R.D.",
@@ -240,7 +242,7 @@ local docStructures = {
 	},
 	{
 		docName = "Metal Gunk",
-		ddid = createDDID(21),
+		ddid = createDDID(19),
 		mobs = {
 			{
 				-- name = "Metal Gunk",
@@ -251,7 +253,7 @@ local docStructures = {
 	},
 	{
 		docName = "Inconspicuous Plant",
-		ddid = createDDID(22),
+		ddid = createDDID(20),
 		mobs = {
 			{
 				-- name = "Inconspicuous Plant",
