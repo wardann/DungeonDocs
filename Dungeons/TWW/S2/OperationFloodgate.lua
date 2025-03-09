@@ -25,7 +25,7 @@ local docStructures = {
 		},
 	},
 	{
-		docName = "Bront",
+		docName = "Demolition Duo",
 		ddid = createDDID(2),
 		isBoss = true,
 		mobs = {
@@ -34,13 +34,6 @@ local docStructures = {
 				id = "226402",
 				displayId = 122215,
 			},
-		},
-	},
-	{
-		docName = "Keeza Quickfuse",
-		ddid = createDDID(3),
-		isBoss = true,
-		mobs = {
 			{
 				-- name = "Keeza Quickfuse",
 				id = "226403",
@@ -50,7 +43,7 @@ local docStructures = {
 	},
 	{
 		docName = "Swampface",
-		ddid = createDDID(4),
+		ddid = createDDID(3),
 		isBoss = true,
 		mobs = {
 			{
@@ -62,7 +55,7 @@ local docStructures = {
 	},
 	{
 		docName = "Geezle Gigazap",
-		ddid = createDDID(5),
+		ddid = createDDID(4),
 		isBoss = true,
 		mobs = {
 			{
@@ -74,7 +67,7 @@ local docStructures = {
 	},
 	{
 		docName = "Shreddinator 3000",
-		ddid = createDDID(6),
+		ddid = createDDID(5),
 		mobs = {
 			{
 				-- name = "Shreddinator 3000",
@@ -85,7 +78,7 @@ local docStructures = {
 	},
 	{
 		docName = "Darkfuse Soldier",
-		ddid = createDDID(7),
+		ddid = createDDID(6),
 		mobs = {
 			{
 				-- name = "Darkfuse Soldier",
@@ -96,7 +89,7 @@ local docStructures = {
 	},
 	{
 		docName = "Mechadrone Sniper",
-		ddid = createDDID(8),
+		ddid = createDDID(7),
 		mobs = {
 			{
 				-- name = "Mechadrone Sniper",
@@ -107,7 +100,7 @@ local docStructures = {
 	},
 	{
 		docName = "Loaderbot",
-		ddid = createDDID(9),
+		ddid = createDDID(8),
 		mobs = {
 			{
 				-- name = "Loaderbot",
@@ -118,7 +111,7 @@ local docStructures = {
 	},
 	{
 		docName = "Venture Co. Contractor",
-		ddid = createDDID(10),
+		ddid = createDDID(9),
 		mobs = {
 			{
 				-- name = "Venture Co. Contractor",
@@ -129,7 +122,7 @@ local docStructures = {
 	},
 	{
 		docName = "Darkfuse Hyena",
-		ddid = createDDID(11),
+		ddid = createDDID(10),
 		mobs = {
 			{
 				-- name = "Darkfuse Hyena",
@@ -140,7 +133,7 @@ local docStructures = {
 	},
 	{
 		docName = "Darkfuse Demolitionist",
-		ddid = createDDID(12),
+		ddid = createDDID(11),
 		mobs = {
 			{
 				-- name = "Darkfuse Demolitionist",
@@ -151,7 +144,7 @@ local docStructures = {
 	},
 	{
 		docName = "Darkfuse Bloodwarper",
-		ddid = createDDID(13),
+		ddid = createDDID(12),
 		mobs = {
 			{
 				-- name = "Darkfuse Bloodwarper",
@@ -162,7 +155,7 @@ local docStructures = {
 	},
 	{
 		docName = "Darkfuse Inspector",
-		ddid = createDDID(14),
+		ddid = createDDID(13),
 		mobs = {
 			{
 				-- name = "Darkfuse Inspector",
@@ -173,7 +166,7 @@ local docStructures = {
 	},
 	{
 		docName = "Venture Co. Surveyor",
-		ddid = createDDID(15),
+		ddid = createDDID(14),
 		mobs = {
 			{
 				-- name = "Venture Co. Surveyor",
@@ -184,7 +177,7 @@ local docStructures = {
 	},
 	{
 		docName = "Venture Co. Electrician",
-		ddid = createDDID(16),
+		ddid = createDDID(15),
 		mobs = {
 			{
 				-- name = "Venture Co. Electrician",
@@ -195,7 +188,7 @@ local docStructures = {
 	},
 	{
 		docName = "Bombshell Crab",
-		ddid = createDDID(17),
+		ddid = createDDID(16),
 		mobs = {
 			{
 				-- name = "Bombshell Crab",
@@ -206,7 +199,7 @@ local docStructures = {
 	},
 	{
 		docName = "Venture Co. Diver",
-		ddid = createDDID(18),
+		ddid = createDDID(17),
 		mobs = {
 			{
 				-- name = "Venture Co. Diver",
@@ -217,7 +210,7 @@ local docStructures = {
 	},
 	{
 		docName = "Venture Co. Architect",
-		ddid = createDDID(19),
+		ddid = createDDID(18),
 		mobs = {
 			{
 				-- name = "Venture Co. Architect",
@@ -228,7 +221,7 @@ local docStructures = {
 	},
 	{
 		docName = "Disturbed Kelp",
-		ddid = createDDID(20),
+		ddid = createDDID(19),
 		mobs = {
 			{
 				-- name = "Disturbed Kelp",
@@ -239,7 +232,7 @@ local docStructures = {
 	},
 	{
 		docName = "Bubbles",
-		ddid = createDDID(21),
+		ddid = createDDID(20),
 		mobs = {
 			{
 				-- name = "Bubbles",
@@ -250,7 +243,7 @@ local docStructures = {
 	},
 	{
 		docName = "Darkfuse Jumpstarter",
-		ddid = createDDID(22),
+		ddid = createDDID(21),
 		mobs = {
 			{
 				-- name = "Darkfuse Jumpstarter",
@@ -261,7 +254,7 @@ local docStructures = {
 	},
 	{
 		docName = "Darkfuse Mechadrone",
-		ddid = createDDID(23),
+		ddid = createDDID(22),
 		mobs = {
 			{
 				-- name = "Darkfuse Mechadrone",
@@ -272,7 +265,7 @@ local docStructures = {
 	},
 	{
 		docName = "Undercrawler",
-		ddid = createDDID(24),
+		ddid = createDDID(23),
 		mobs = {
 			{
 				-- name = "Undercrawler",
@@ -283,7 +276,7 @@ local docStructures = {
 	},
 	{
 		docName = "Waterworks Crocolisk",
-		ddid = createDDID(25),
+		ddid = createDDID(24),
 		mobs = {
 			{
 				-- name = "Waterworks Crocolisk",
