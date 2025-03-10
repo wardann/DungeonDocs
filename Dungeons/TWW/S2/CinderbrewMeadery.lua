@@ -34,7 +34,7 @@ local docStructures = {
 	},
 	{
 		docName = "Benk Buzzbee",
-		ddid = createDDID(3),
+		ddid = createDDID(2),
 		isBoss = true,
 		mobs = {
 			{
@@ -46,7 +46,7 @@ local docStructures = {
 	},
 	{
 		docName = "I'pa",
-		ddid = createDDID(2),
+		ddid = createDDID(3),
 		isBoss = true,
 		mobs = {
 			{
@@ -140,6 +140,11 @@ local docStructures = {
 				id = "210265",
 				displayId = 121054,
 			},
+			{
+				-- name = "Worker Bee",
+				id = "223497",
+				displayId = 121054,
+			},
 		},
 	},
 	{
@@ -184,22 +189,16 @@ local docStructures = {
 				id = "218865",
 				displayId = 121060,
 			},
-		},
-	},
-	{
-		docName = "Flavor Scientist",
-		ddid = createDDID(15),
-		mobs = {
 			{
-				-- name = "Flavor Scientist",
-				id = "214673",
-				displayId = 119436,
+				-- name = "Bee-let",
+				id = "223498",
+				displayId = 121060,
 			},
 		},
 	},
 	{
 		docName = "Taste Tester",
-		ddid = createDDID(16),
+		ddid = createDDID(15),
 		mobs = {
 			{
 				-- name = "Taste Tester",
@@ -210,7 +209,7 @@ local docStructures = {
 	},
 	{
 		docName = "Careless Hopgoblin",
-		ddid = createDDID(17),
+		ddid = createDDID(16),
 		mobs = {
 			{
 				-- name = "Careless Hopgoblin",
@@ -221,18 +220,23 @@ local docStructures = {
 	},
 	{
 		docName = "Brew Drop",
-		ddid = createDDID(18),
+		ddid = createDDID(17),
 		mobs = {
 			{
 				-- name = "Brew Drop",
 				id = "210270",
 				displayId = 117828,
 			},
+			{
+				-- name = "Brew Drop",
+				id = "219301",
+				displayId = 120498,
+			},
 		},
 	},
 	{
 		docName = "Yes Man",
-		ddid = createDDID(19),
+		ddid = createDDID(18),
 		mobs = {
 			{
 				-- name = "Yes Man",
@@ -243,29 +247,23 @@ local docStructures = {
 	},
 	{
 		docName = "Flavor Scientist",
-		ddid = createDDID(20),
+		ddid = createDDID(19),
 		mobs = {
 			{
 				-- name = "Flavor Scientist",
 				id = "222964",
 				displayId = 119436,
 			},
-		},
-	},
-	{
-		docName = "Brew Drop",
-		ddid = createDDID(21),
-		mobs = {
 			{
-				-- name = "Brew Drop",
-				id = "219301",
-				displayId = 120498,
+				-- name = "Flavor Scientist",
+				id = "214673",
+				displayId = 119436,
 			},
 		},
 	},
 	{
 		docName = "Ravenous Cinderbee",
-		ddid = createDDID(22),
+		ddid = createDDID(20),
 		mobs = {
 			{
 				-- name = "Ravenous Cinderbee",
@@ -274,29 +272,6 @@ local docStructures = {
 			},
 		},
 	},
-	{
-		docName = "Worker Bee",
-		ddid = createDDID(23),
-		mobs = {
-			{
-				-- name = "Worker Bee",
-				id = "223497",
-				displayId = 121054,
-			},
-		},
-	},
-	{
-		docName = "Bee-let",
-		ddid = createDDID(24),
-		mobs = {
-			{
-				-- name = "Bee-let",
-				id = "223498",
-				displayId = 121060,
-			},
-		},
-	},
-
 }
 
 ---@type DungeonData
