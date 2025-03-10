@@ -85,6 +85,11 @@ local docStructures = {
 				id = "210810",
 				displayId = 114696,
 			},
+			{
+				-- name = "Menial Laborer",
+				id = "210148",
+				displayId = 114170,
+			},
 		},
 	},
 	{
@@ -149,6 +154,46 @@ local docStructures = {
 			{
 				-- name = "Blazing Fiend",
 				id = "220815",
+				displayId = 118916,
+			},
+			{
+				-- name = "Blazing Fiend",
+				id = "211228",
+				displayId = 118916,
+			},
+			{
+				-- name = "Blazing Fiend",
+				id = "223770",
+				displayId = 118916,
+			},
+			{
+				-- name = "Blazing Fiend",
+				id = "223772",
+				displayId = 118916,
+			},
+			{
+				-- name = "Blazing Fiend",
+				id = "223773",
+				displayId = 118916,
+			},
+			{
+				-- name = "Blazing Fiend",
+				id = "223774",
+				displayId = 118916,
+			},
+			{
+				-- name = "Blazing Fiend",
+				id = "223775",
+				displayId = 118916,
+			},
+			{
+				-- name = "Blazing Fiend",
+				id = "223776",
+				displayId = 118916,
+			},
+			{
+				-- name = "Blazing Fiend",
+				id = "223777",
 				displayId = 118916,
 			},
 		},
@@ -231,96 +276,8 @@ local docStructures = {
 		},
 	},
 	{
-		docName = "Blazing Fiend",
-		ddid = createDDID(19),
-		mobs = {
-			{
-				-- name = "Blazing Fiend",
-				id = "211228",
-				displayId = 118916,
-			},
-		},
-	},
-	{
-		docName = "Blazing Fiend",
-		ddid = createDDID(20),
-		mobs = {
-			{
-				-- name = "Blazing Fiend",
-				id = "223770",
-				displayId = 118916,
-			},
-		},
-	},
-	{
-		docName = "Blazing Fiend",
-		ddid = createDDID(21),
-		mobs = {
-			{
-				-- name = "Blazing Fiend",
-				id = "223772",
-				displayId = 118916,
-			},
-		},
-	},
-	{
-		docName = "Blazing Fiend",
-		ddid = createDDID(22),
-		mobs = {
-			{
-				-- name = "Blazing Fiend",
-				id = "223773",
-				displayId = 118916,
-			},
-		},
-	},
-	{
-		docName = "Blazing Fiend",
-		ddid = createDDID(23),
-		mobs = {
-			{
-				-- name = "Blazing Fiend",
-				id = "223774",
-				displayId = 118916,
-			},
-		},
-	},
-	{
-		docName = "Blazing Fiend",
-		ddid = createDDID(24),
-		mobs = {
-			{
-				-- name = "Blazing Fiend",
-				id = "223775",
-				displayId = 118916,
-			},
-		},
-	},
-	{
-		docName = "Blazing Fiend",
-		ddid = createDDID(25),
-		mobs = {
-			{
-				-- name = "Blazing Fiend",
-				id = "223776",
-				displayId = 118916,
-			},
-		},
-	},
-	{
-		docName = "Blazing Fiend",
-		ddid = createDDID(26),
-		mobs = {
-			{
-				-- name = "Blazing Fiend",
-				id = "223777",
-				displayId = 118916,
-			},
-		},
-	},
-	{
 		docName = "Corridor Sleeper",
-		ddid = createDDID(27),
+		ddid = createDDID(19),
 		mobs = {
 			{
 				-- name = "Corridor Sleeper",
@@ -330,19 +287,8 @@ local docStructures = {
 		},
 	},
 	{
-		docName = "Menial Laborer",
-		ddid = createDDID(28),
-		mobs = {
-			{
-				-- name = "Menial Laborer",
-				id = "210148",
-				displayId = 114170,
-			},
-		},
-	},
-	{
 		docName = "Dynamite Mine Cart",
-		ddid = createDDID(29),
+		ddid = createDDID(20),
 		mobs = {
 			{
 				-- name = "Dynamite Mine Cart",
@@ -353,7 +299,7 @@ local docStructures = {
 	},
 	{
 		docName = "Wriggling Darkspawn",
-		ddid = createDDID(30),
+		ddid = createDDID(21),
 		mobs = {
 			{
 				-- name = "Wriggling Darkspawn",
