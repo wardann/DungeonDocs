@@ -69,7 +69,7 @@ local notes = {
 		tankNote = "",
 	},
 	{
-		-- name = "Arathi Neophyte",
+		-- name = "Ardent Paladin",
 		ddid = "potsf7",
 		primaryNote = "",
 		healerNote = "",
@@ -77,7 +77,7 @@ local notes = {
 		tankNote = "",
 	},
 	{
-		-- name = "Arathi Neophyte",
+		-- name = "Devout Priest",
 		ddid = "potsf8",
 		primaryNote = "",
 		healerNote = "",
@@ -85,7 +85,7 @@ local notes = {
 		tankNote = "",
 	},
 	{
-		-- name = "Ardent Paladin",
+		-- name = "Elaena Emberlanz",
 		ddid = "potsf9",
 		primaryNote = "",
 		healerNote = "",
@@ -93,7 +93,7 @@ local notes = {
 		tankNote = "",
 	},
 	{
-		-- name = "Devout Priest",
+		-- name = "Fanatical Conjuror",
 		ddid = "potsf10",
 		primaryNote = "",
 		healerNote = "",
@@ -101,7 +101,7 @@ local notes = {
 		tankNote = "",
 	},
 	{
-		-- name = "Elaena Emberlanz",
+		-- name = "Fervent Sharpshooter",
 		ddid = "potsf11",
 		primaryNote = "",
 		healerNote = "",
@@ -109,7 +109,7 @@ local notes = {
 		tankNote = "",
 	},
 	{
-		-- name = "Fanatical Conjuror",
+		-- name = "Forge Master Damian",
 		ddid = "potsf12",
 		primaryNote = "",
 		healerNote = "",
@@ -117,7 +117,7 @@ local notes = {
 		tankNote = "",
 	},
 	{
-		-- name = "Fervent Sharpshooter",
+		-- name = "Guard Captain Suleyman",
 		ddid = "potsf13",
 		primaryNote = "",
 		healerNote = "",
@@ -125,7 +125,7 @@ local notes = {
 		tankNote = "",
 	},
 	{
-		-- name = "Forge Master Damian",
+		-- name = "High Priest Aemya",
 		ddid = "potsf14",
 		primaryNote = "",
 		healerNote = "",
@@ -133,7 +133,7 @@ local notes = {
 		tankNote = "",
 	},
 	{
-		-- name = "Guard Captain Suleyman",
+		-- name = "Lightspawn",
 		ddid = "potsf15",
 		primaryNote = "",
 		healerNote = "",
@@ -141,7 +141,7 @@ local notes = {
 		tankNote = "",
 	},
 	{
-		-- name = "High Priest Aemya",
+		-- name = "Risen Footman",
 		ddid = "potsf16",
 		primaryNote = "",
 		healerNote = "",
@@ -149,7 +149,7 @@ local notes = {
 		tankNote = "",
 	},
 	{
-		-- name = "Lightspawn",
+		-- name = "Risen Mage",
 		ddid = "potsf17",
 		primaryNote = "",
 		healerNote = "",
@@ -157,7 +157,7 @@ local notes = {
 		tankNote = "",
 	},
 	{
-		-- name = "Risen Footman",
+		-- name = "Sergeant Shaynemail",
 		ddid = "potsf18",
 		primaryNote = "",
 		healerNote = "",
@@ -165,7 +165,7 @@ local notes = {
 		tankNote = "",
 	},
 	{
-		-- name = "Risen Mage",
+		-- name = "Sir Braunpyke",
 		ddid = "potsf19",
 		primaryNote = "",
 		healerNote = "",
@@ -173,7 +173,7 @@ local notes = {
 		tankNote = "",
 	},
 	{
-		-- name = "Sergeant Shaynemail",
+		-- name = "Taener Duelmal",
 		ddid = "potsf20",
 		primaryNote = "",
 		healerNote = "",
@@ -181,7 +181,7 @@ local notes = {
 		tankNote = "",
 	},
 	{
-		-- name = "Sir Braunpyke",
+		-- name = "War Lynx",
 		ddid = "potsf21",
 		primaryNote = "",
 		healerNote = "",
@@ -189,7 +189,7 @@ local notes = {
 		tankNote = "",
 	},
 	{
-		-- name = "Taener Duelmal",
+		-- name = "Zealous Templar",
 		ddid = "potsf22",
 		primaryNote = "",
 		healerNote = "",
@@ -197,56 +197,8 @@ local notes = {
 		tankNote = "",
 	},
 	{
-		-- name = "War Lynx",
-		ddid = "potsf23",
-		primaryNote = "",
-		healerNote = "",
-		damageNote = "",
-		tankNote = "",
-	},
-	{
-		-- name = "Zealous Templar",
-		ddid = "potsf24",
-		primaryNote = "",
-		healerNote = "",
-		damageNote = "",
-		tankNote = "",
-	},
-	{
-		-- name = "Arathi Neophyte",
-		ddid = "potsf25",
-		primaryNote = "",
-		healerNote = "",
-		damageNote = "",
-		tankNote = "",
-	},
-	{
 		-- name = "Priory of the Sacred Flame",
-		ddid = "potsf26",
-		primaryNote = "",
-		healerNote = "",
-		damageNote = "",
-		tankNote = "",
-	},
-	{
-		-- name = "Elaena Emberlanz",
-		ddid = "potsf27",
-		primaryNote = "",
-		healerNote = "",
-		damageNote = "",
-		tankNote = "",
-	},
-	{
-		-- name = "Sergeant Shaynemail",
-		ddid = "potsf28",
-		primaryNote = "",
-		healerNote = "",
-		damageNote = "",
-		tankNote = "",
-	},
-	{
-		-- name = "Taener Duelmal",
-		ddid = "potsf29",
+		ddid = "potsf23",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",

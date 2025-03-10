@@ -245,7 +245,7 @@ local notes = {
 		tankNote = "",
 	},
 	{
-		-- name = "Mechanized Peacekeeper",
+		-- name = "Venture Co. Skyscorcher",
 		ddid = "tm29",
 		primaryNote = "",
 		healerNote = "",
@@ -253,7 +253,7 @@ local notes = {
 		tankNote = "",
 	},
 	{
-		-- name = "Venture Co. Skyscorcher",
+		-- name = "B.O.O.M.B.A.",
 		ddid = "tm30",
 		primaryNote = "",
 		healerNote = "",
@@ -261,16 +261,8 @@ local notes = {
 		tankNote = "",
 	},
 	{
-		-- name = "B.O.O.M.B.A.",
-		ddid = "tm31",
-		primaryNote = "",
-		healerNote = "",
-		damageNote = "",
-		tankNote = "",
-	},
-	{
 		-- name = "Azerite Footbomb",
-		ddid = "tm32",
+		ddid = "tm31",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",

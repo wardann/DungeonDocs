@@ -13,7 +13,7 @@ local notes = {
 	-- #     # #     # #     # #     # #       #     #
 	-- ######  #######  #####   #####  #######  #####
 	{
-		-- bossName = "Head Machinist Sparkflux",
+		-- bossName = "Tussle Tonks",
 		ddid = "mw1",
 		primaryNote = "",
 		healerNote = "",
@@ -21,7 +21,7 @@ local notes = {
 		tankNote = "",
 	},
 	{
-		-- bossName = "Aerial Unit R-21/X",
+		-- bossName = "K.U.-J.0.",
 		ddid = "mw2",
 		primaryNote = "",
 		healerNote = "",
@@ -29,7 +29,7 @@ local notes = {
 		tankNote = "",
 	},
 	{
-		-- bossName = "Omega Buster",
+		-- bossName = "Head Machinist Sparkflux",
 		ddid = "mw3",
 		primaryNote = "",
 		healerNote = "",
@@ -37,24 +37,8 @@ local notes = {
 		tankNote = "",
 	},
 	{
-		-- bossName = "The Platinum Pummeler",
+		-- bossName = "King Mechagon",
 		ddid = "mw4",
-		primaryNote = "",
-		healerNote = "",
-		damageNote = "",
-		tankNote = "",
-	},
-	{
-		-- bossName = "Gnomercy 4.U.",
-		ddid = "mw5",
-		primaryNote = "",
-		healerNote = "",
-		damageNote = "",
-		tankNote = "",
-	},
-	{
-		-- bossName = "K.U.-J.0.",
-		ddid = "mw6",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
@@ -70,7 +54,7 @@ local notes = {
 	--    #    #     # #     #  #####  #     #
 	{
 		-- name = "Blastatron X-80",
-		ddid = "mw7",
+		ddid = "mw5",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
@@ -78,7 +62,7 @@ local notes = {
 	},
 	{
 		-- name = "Defense Bot Mk I",
-		ddid = "mw8",
+		ddid = "mw6",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
@@ -86,7 +70,7 @@ local notes = {
 	},
 	{
 		-- name = "Mechagon Tinkerer",
-		ddid = "mw9",
+		ddid = "mw7",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
@@ -94,7 +78,7 @@ local notes = {
 	},
 	{
 		-- name = "Workshop Defender",
-		ddid = "mw10",
+		ddid = "mw8",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
@@ -102,7 +86,7 @@ local notes = {
 	},
 	{
 		-- name = "Mechagon Mechanic",
-		ddid = "mw11",
+		ddid = "mw9",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
@@ -110,7 +94,7 @@ local notes = {
 	},
 	{
 		-- name = "Spider Tank",
-		ddid = "mw12",
+		ddid = "mw10",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
@@ -118,7 +102,7 @@ local notes = {
 	},
 	{
 		-- name = "Defense Bot Mk III",
-		ddid = "mw13",
+		ddid = "mw11",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
@@ -126,7 +110,7 @@ local notes = {
 	},
 	{
 		-- name = "Junkyard D.0.G.",
-		ddid = "mw14",
+		ddid = "mw12",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
@@ -134,7 +118,7 @@ local notes = {
 	},
 	{
 		-- name = "Waste Processing Unit",
-		ddid = "mw15",
+		ddid = "mw13",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
@@ -142,7 +126,7 @@ local notes = {
 	},
 	{
 		-- name = "Living Waste",
-		ddid = "mw16",
+		ddid = "mw14",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
@@ -150,7 +134,7 @@ local notes = {
 	},
 	{
 		-- name = "Bomb Tonk",
-		ddid = "mw17",
+		ddid = "mw15",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
@@ -158,7 +142,7 @@ local notes = {
 	},
 	{
 		-- name = "Rocket Tonk",
-		ddid = "mw18",
+		ddid = "mw16",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
@@ -166,7 +150,7 @@ local notes = {
 	},
 	{
 		-- name = "Strider Tonk",
-		ddid = "mw19",
+		ddid = "mw17",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
@@ -174,7 +158,7 @@ local notes = {
 	},
 	{
 		-- name = "G.U.A.R.D.",
-		ddid = "mw20",
+		ddid = "mw18",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
@@ -182,7 +166,7 @@ local notes = {
 	},
 	{
 		-- name = "Metal Gunk",
-		ddid = "mw21",
+		ddid = "mw19",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
@@ -190,7 +174,7 @@ local notes = {
 	},
 	{
 		-- name = "Inconspicuous Plant",
-		ddid = "mw22",
+		ddid = "mw20",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",

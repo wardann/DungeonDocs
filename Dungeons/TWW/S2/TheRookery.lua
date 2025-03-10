@@ -218,7 +218,6 @@ local docStructures = {
 			},
 		},
 	},
-
 }
 
 ---@type DungeonData

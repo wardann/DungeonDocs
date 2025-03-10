@@ -13,7 +13,7 @@ local notes = {
 	-- #     # #     # #     # #     # #       #     #
 	-- ######  #######  #####   #####  #######  #####
 	{
-		-- bossName = "Dessia the Decapitator",
+		-- bossName = "Affront of Challengers",
 		ddid = "top1",
 		primaryNote = "",
 		healerNote = "",
@@ -21,7 +21,7 @@ local notes = {
 		tankNote = "",
 	},
 	{
-		-- bossName = "Paceran the Virulent",
+		-- bossName = "Xav the Unfallen",
 		ddid = "top2",
 		primaryNote = "",
 		healerNote = "",
@@ -29,7 +29,7 @@ local notes = {
 		tankNote = "",
 	},
 	{
-		-- bossName = "Sathel the Accursed",
+		-- bossName = "Gorechop",
 		ddid = "top3",
 		primaryNote = "",
 		healerNote = "",
@@ -37,7 +37,7 @@ local notes = {
 		tankNote = "",
 	},
 	{
-		-- bossName = "Xav the Unfallen",
+		-- bossName = "Kul'tharok",
 		ddid = "top4",
 		primaryNote = "",
 		healerNote = "",
@@ -45,24 +45,8 @@ local notes = {
 		tankNote = "",
 	},
 	{
-		-- bossName = "Kul'tharok",
-		ddid = "top5",
-		primaryNote = "",
-		healerNote = "",
-		damageNote = "",
-		tankNote = "",
-	},
-	{
-		-- bossName = "Gorechop",
-		ddid = "top6",
-		primaryNote = "",
-		healerNote = "",
-		damageNote = "",
-		tankNote = "",
-	},
-	{
 		-- bossName = "Mordretha",
-		ddid = "top7",
+		ddid = "top5",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
@@ -78,7 +62,7 @@ local notes = {
 	--    #    #     # #     #  #####  #     #
 	{
 		-- name = "Battlefield Ritualist",
-		ddid = "top8",
+		ddid = "top6",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
@@ -86,7 +70,7 @@ local notes = {
 	},
 	{
 		-- name = "Unyielding Contender",
-		ddid = "top9",
+		ddid = "top7",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
@@ -94,7 +78,7 @@ local notes = {
 	},
 	{
 		-- name = "Raging Bloodhorn",
-		ddid = "top10",
+		ddid = "top8",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
@@ -102,7 +86,7 @@ local notes = {
 	},
 	{
 		-- name = "Shambling Arbalest",
-		ddid = "top11",
+		ddid = "top9",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
@@ -110,7 +94,7 @@ local notes = {
 	},
 	{
 		-- name = "Ossified Conscript",
-		ddid = "top12",
+		ddid = "top10",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
@@ -118,7 +102,7 @@ local notes = {
 	},
 	{
 		-- name = "Dokigg the Brutalizer",
-		ddid = "top13",
+		ddid = "top11",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
@@ -126,7 +110,7 @@ local notes = {
 	},
 	{
 		-- name = "Harugia the Bloodthirsty",
-		ddid = "top14",
+		ddid = "top12",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
@@ -134,7 +118,7 @@ local notes = {
 	},
 	{
 		-- name = "Ancient Captain",
-		ddid = "top15",
+		ddid = "top13",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
@@ -142,7 +126,7 @@ local notes = {
 	},
 	{
 		-- name = "Advent Nevermore",
-		ddid = "top16",
+		ddid = "top14",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
@@ -150,7 +134,7 @@ local notes = {
 	},
 	{
 		-- name = "Shackled Soul",
-		ddid = "top17",
+		ddid = "top15",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
@@ -158,7 +142,7 @@ local notes = {
 	},
 	{
 		-- name = "Portal Guardian",
-		ddid = "top18",
+		ddid = "top16",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
@@ -166,7 +150,7 @@ local notes = {
 	},
 	{
 		-- name = "Bone Magus",
-		ddid = "top19",
+		ddid = "top17",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
@@ -174,7 +158,7 @@ local notes = {
 	},
 	{
 		-- name = "Maniacal Soulbinder",
-		ddid = "top20",
+		ddid = "top18",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
@@ -182,7 +166,7 @@ local notes = {
 	},
 	{
 		-- name = "Soulforged Bonereaver",
-		ddid = "top21",
+		ddid = "top19",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
@@ -190,7 +174,7 @@ local notes = {
 	},
 	{
 		-- name = "Nefarious Darkspeaker",
-		ddid = "top22",
+		ddid = "top20",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
@@ -198,7 +182,7 @@ local notes = {
 	},
 	{
 		-- name = "Disgusting Refuse",
-		ddid = "top23",
+		ddid = "top21",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
@@ -206,7 +190,7 @@ local notes = {
 	},
 	{
 		-- name = "Diseased Horror",
-		ddid = "top24",
+		ddid = "top22",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
@@ -214,7 +198,7 @@ local notes = {
 	},
 	{
 		-- name = "Putrid Butcher",
-		ddid = "top25",
+		ddid = "top23",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
@@ -222,7 +206,7 @@ local notes = {
 	},
 	{
 		-- name = "Rancid Gasbag",
-		ddid = "top26",
+		ddid = "top24",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
@@ -230,7 +214,7 @@ local notes = {
 	},
 	{
 		-- name = "Nekthara the Mangler",
-		ddid = "top27",
+		ddid = "top25",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
@@ -238,7 +222,7 @@ local notes = {
 	},
 	{
 		-- name = "Heavin the Breaker",
-		ddid = "top28",
+		ddid = "top26",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
@@ -246,7 +230,7 @@ local notes = {
 	},
 	{
 		-- name = "Rek the Hardened",
-		ddid = "top29",
+		ddid = "top27",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
@@ -254,7 +238,7 @@ local notes = {
 	},
 	{
 		-- name = "Blighted Sludge-Spewer",
-		ddid = "top30",
+		ddid = "top28",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
@@ -262,7 +246,7 @@ local notes = {
 	},
 	{
 		-- name = "Oozing Leftovers",
-		ddid = "top31",
+		ddid = "top29",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
@@ -270,7 +254,7 @@ local notes = {
 	},
 	{
 		-- name = "Oppressive Banner",
-		ddid = "top32",
+		ddid = "top30",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
@@ -278,7 +262,7 @@ local notes = {
 	},
 	{
 		-- name = "Lost Soul",
-		ddid = "top33",
+		ddid = "top31",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
@@ -286,7 +270,7 @@ local notes = {
 	},
 	{
 		-- name = "Deathwalker",
-		ddid = "top34",
+		ddid = "top32",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
