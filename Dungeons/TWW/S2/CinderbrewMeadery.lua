@@ -33,18 +33,6 @@ local docStructures = {
 		},
 	},
 	{
-		docName = "I'pa",
-		ddid = createDDID(2),
-		isBoss = true,
-		mobs = {
-			{
-				-- name = "I'pa",
-				id = "210267",
-				displayId = 117177,
-			},
-		},
-	},
-	{
 		docName = "Benk Buzzbee",
 		ddid = createDDID(3),
 		isBoss = true,
@@ -53,6 +41,18 @@ local docStructures = {
 				-- name = "Benk Buzzbee",
 				id = "218002",
 				displayId = 120557,
+			},
+		},
+	},
+	{
+		docName = "I'pa",
+		ddid = createDDID(2),
+		isBoss = true,
+		mobs = {
+			{
+				-- name = "I'pa",
+				id = "210267",
+				displayId = 117177,
 			},
 		},
 	},
