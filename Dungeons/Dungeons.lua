@@ -39,7 +39,7 @@ function M.Init()
 	M.InitTheNecroticWake()
 	M.InitTheStonevault()
 
-	-- Season 1
+	-- Season 2
 	M.InitCinderbrewMeadery()
 	M.InitDarkflameCleft()
 	M.InitMechagonWorkshop()
