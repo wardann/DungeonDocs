@@ -95,33 +95,26 @@ local docStructures = {
 				id = "207943",
 				displayId = 121006,
 			},
-		},
-	},
-	{
-		docName = "Arathi Neophyte",
-		ddid = createDDID(7),
-		mobs = {
 			{
 				-- name = "Arathi Neophyte",
 				id = "212838",
 				displayId = 121017,
 			},
-		},
-	},
-	{
-		docName = "Arathi Neophyte",
-		ddid = createDDID(8),
-		mobs = {
 			{
 				-- name = "Arathi Neophyte",
 				id = "209747",
+				displayId = 115544,
+			},
+			{
+				-- name = "Arathi Neophyte",
+				id = "211140",
 				displayId = 115544,
 			},
 		},
 	},
 	{
 		docName = "Ardent Paladin",
-		ddid = createDDID(9),
+		ddid = createDDID(7),
 		mobs = {
 			{
 				-- name = "Ardent Paladin",
@@ -132,7 +125,7 @@ local docStructures = {
 	},
 	{
 		docName = "Devout Priest",
-		ddid = createDDID(10),
+		ddid = createDDID(8),
 		mobs = {
 			{
 				-- name = "Devout Priest",
@@ -143,18 +136,23 @@ local docStructures = {
 	},
 	{
 		docName = "Elaena Emberlanz",
-		ddid = createDDID(11),
+		ddid = createDDID(9),
 		mobs = {
 			{
 				-- name = "Elaena Emberlanz",
 				id = "239833",
 				displayId = 118872,
 			},
+			{
+				-- name = "Elaena Emberlanz",
+				id = "211290",
+				displayId = 118872,
+			},
 		},
 	},
 	{
 		docName = "Fanatical Conjuror",
-		ddid = createDDID(12),
+		ddid = createDDID(10),
 		mobs = {
 			{
 				-- name = "Fanatical Conjuror",
@@ -165,7 +163,7 @@ local docStructures = {
 	},
 	{
 		docName = "Fervent Sharpshooter",
-		ddid = createDDID(13),
+		ddid = createDDID(11),
 		mobs = {
 			{
 				-- name = "Fervent Sharpshooter",
@@ -176,7 +174,7 @@ local docStructures = {
 	},
 	{
 		docName = "Forge Master Damian",
-		ddid = createDDID(14),
+		ddid = createDDID(12),
 		mobs = {
 			{
 				-- name = "Forge Master Damian",
@@ -187,7 +185,7 @@ local docStructures = {
 	},
 	{
 		docName = "Guard Captain Suleyman",
-		ddid = createDDID(15),
+		ddid = createDDID(13),
 		mobs = {
 			{
 				-- name = "Guard Captain Suleyman",
@@ -198,7 +196,7 @@ local docStructures = {
 	},
 	{
 		docName = "High Priest Aemya",
-		ddid = createDDID(16),
+		ddid = createDDID(14),
 		mobs = {
 			{
 				-- name = "High Priest Aemya",
@@ -209,7 +207,7 @@ local docStructures = {
 	},
 	{
 		docName = "Lightspawn",
-		ddid = createDDID(17),
+		ddid = createDDID(15),
 		mobs = {
 			{
 				-- name = "Lightspawn",
@@ -220,7 +218,7 @@ local docStructures = {
 	},
 	{
 		docName = "Risen Footman",
-		ddid = createDDID(18),
+		ddid = createDDID(16),
 		mobs = {
 			{
 				-- name = "Risen Footman",
@@ -231,7 +229,7 @@ local docStructures = {
 	},
 	{
 		docName = "Risen Mage",
-		ddid = createDDID(19),
+		ddid = createDDID(17),
 		mobs = {
 			{
 				-- name = "Risen Mage",
@@ -242,18 +240,23 @@ local docStructures = {
 	},
 	{
 		docName = "Sergeant Shaynemail",
-		ddid = createDDID(20),
+		ddid = createDDID(18),
 		mobs = {
 			{
 				-- name = "Sergeant Shaynemail",
 				id = "239836",
 				displayId = 118870,
 			},
+			{
+				-- name = "Sergeant Shaynemail",
+				id = "211291",
+				displayId = 118870,
+			},
 		},
 	},
 	{
 		docName = "Sir Braunpyke",
-		ddid = createDDID(21),
+		ddid = createDDID(19),
 		mobs = {
 			{
 				-- name = "Sir Braunpyke",
@@ -264,18 +267,23 @@ local docStructures = {
 	},
 	{
 		docName = "Taener Duelmal",
-		ddid = createDDID(22),
+		ddid = createDDID(20),
 		mobs = {
 			{
 				-- name = "Taener Duelmal",
 				id = "239834",
 				displayId = 118873,
 			},
+			{
+				-- name = "Taener Duelmal",
+				id = "211289",
+				displayId = 118873,
+			},
 		},
 	},
 	{
 		docName = "War Lynx",
-		ddid = createDDID(23),
+		ddid = createDDID(21),
 		mobs = {
 			{
 				-- name = "War Lynx",
@@ -286,7 +294,7 @@ local docStructures = {
 	},
 	{
 		docName = "Zealous Templar",
-		ddid = createDDID(24),
+		ddid = createDDID(22),
 		mobs = {
 			{
 				-- name = "Zealous Templar",
@@ -296,19 +304,8 @@ local docStructures = {
 		},
 	},
 	{
-		docName = "Arathi Neophyte",
-		ddid = createDDID(25),
-		mobs = {
-			{
-				-- name = "Arathi Neophyte",
-				id = "211140",
-				displayId = 115544,
-			},
-		},
-	},
-	{
 		docName = "Priory of the Sacred Flame",
-		ddid = createDDID(26),
+		ddid = createDDID(23),
 		mobs = {
 			{
 				-- name = "Priory of the Sacred Flame",
@@ -317,40 +314,6 @@ local docStructures = {
 			},
 		},
 	},
-	{
-		docName = "Elaena Emberlanz",
-		ddid = createDDID(27),
-		mobs = {
-			{
-				-- name = "Elaena Emberlanz",
-				id = "211290",
-				displayId = 118872,
-			},
-		},
-	},
-	{
-		docName = "Sergeant Shaynemail",
-		ddid = createDDID(28),
-		mobs = {
-			{
-				-- name = "Sergeant Shaynemail",
-				id = "211291",
-				displayId = 118870,
-			},
-		},
-	},
-	{
-		docName = "Taener Duelmal",
-		ddid = createDDID(29),
-		mobs = {
-			{
-				-- name = "Taener Duelmal",
-				id = "211289",
-				displayId = 118873,
-			},
-		},
-	},
-
 }
 
 ---@type DungeonData
