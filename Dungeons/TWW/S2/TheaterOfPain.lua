@@ -12,6 +12,14 @@ DD.dungeons = DD.dungeons or {}
 
 ---@type DocStructure[]
 local docStructures = {
+
+	-- ######  #######  #####   #####  #######  #####
+	-- #     # #     # #     # #     # #       #     #
+	-- #     # #     # #       #       #       #
+	-- ######  #     #  #####   #####  #####    #####
+	-- #     # #     #       #       # #             #
+	-- #     # #     # #     # #     # #       #     #
+	-- ######  #######  #####   #####  #######  #####
 	{
 		docName = "Dessia the Decapitator",
 		ddid = createDDID(1),
@@ -96,6 +104,14 @@ local docStructures = {
 			},
 		},
 	},
+
+	-- ####### ######     #     #####  #     #
+	--    #    #     #   # #   #     # #     #
+	--    #    #     #  #   #  #       #     #
+	--    #    ######  #     #  #####  #######
+	--    #    #   #   #######       # #     #
+	--    #    #    #  #     # #     # #     #
+	--    #    #     # #     #  #####  #     #
 	{
 		docName = "Battlefield Ritualist",
 		ddid = createDDID(8),

@@ -12,6 +12,14 @@ DD.dungeons = DD.dungeons or {}
 
 ---@type DocStructure[]
 local docStructures = {
+
+	-- ######  #######  #####   #####  #######  #####
+	-- #     # #     # #     # #     # #       #     #
+	-- #     # #     # #       #       #       #
+	-- ######  #     #  #####   #####  #####    #####
+	-- #     # #     #       #       # #             #
+	-- #     # #     # #     # #     # #       #     #
+	-- ######  #######  #####   #####  #######  #####
 	{
 		docName = "Coin-Operated Crowd Pummeler",
 		ddid = createDDID(1),
@@ -60,6 +68,14 @@ local docStructures = {
 			},
 		},
 	},
+
+	-- ####### ######     #     #####  #     #
+	--    #    #     #   # #   #     # #     #
+	--    #    #     #  #   #  #       #     #
+	--    #    ######  #     #  #####  #######
+	--    #    #   #   #######       # #     #
+	--    #    #    #  #     # #     # #     #
+	--    #    #     # #     #  #####  #     #
 	{
 		docName = "Big Money Crab",
 		ddid = createDDID(5),
