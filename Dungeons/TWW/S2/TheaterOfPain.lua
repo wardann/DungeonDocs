@@ -21,7 +21,7 @@ local docStructures = {
 	-- #     # #     # #     # #     # #       #     #
 	-- ######  #######  #####   #####  #######  #####
 	{
-		docName = "Dessia the Decapitator",
+		docName = "Affront of Challengers",
 		ddid = createDDID(1),
 		isBoss = true,
 		mobs = {
@@ -30,25 +30,11 @@ local docStructures = {
 				id = "164451",
 				displayId = 96820,
 			},
-		},
-	},
-	{
-		docName = "Paceran the Virulent",
-		ddid = createDDID(2),
-		isBoss = true,
-		mobs = {
 			{
 				-- name = "Paceran the Virulent",
 				id = "164463",
 				displayId = 98081,
 			},
-		},
-	},
-	{
-		docName = "Sathel the Accursed",
-		ddid = createDDID(3),
-		isBoss = true,
-		mobs = {
 			{
 				-- name = "Sathel the Accursed",
 				id = "164461",
@@ -58,7 +44,7 @@ local docStructures = {
 	},
 	{
 		docName = "Xav the Unfallen",
-		ddid = createDDID(4),
+		ddid = createDDID(2),
 		isBoss = true,
 		mobs = {
 			{
@@ -69,20 +55,8 @@ local docStructures = {
 		},
 	},
 	{
-		docName = "Kul'tharok",
-		ddid = createDDID(5),
-		isBoss = true,
-		mobs = {
-			{
-				-- name = "Kul'tharok",
-				id = "162309",
-				displayId = 96088,
-			},
-		},
-	},
-	{
 		docName = "Gorechop",
-		ddid = createDDID(6),
+		ddid = createDDID(3),
 		isBoss = true,
 		mobs = {
 			{
@@ -93,8 +67,20 @@ local docStructures = {
 		},
 	},
 	{
+		docName = "Kul'tharok",
+		ddid = createDDID(4),
+		isBoss = true,
+		mobs = {
+			{
+				-- name = "Kul'tharok",
+				id = "162309",
+				displayId = 96088,
+			},
+		},
+	},
+	{
 		docName = "Mordretha",
-		ddid = createDDID(7),
+		ddid = createDDID(5),
 		isBoss = true,
 		mobs = {
 			{
@@ -114,7 +100,7 @@ local docStructures = {
 	--    #    #     # #     #  #####  #     #
 	{
 		docName = "Battlefield Ritualist",
-		ddid = createDDID(8),
+		ddid = createDDID(6),
 		mobs = {
 			{
 				-- name = "Battlefield Ritualist",
@@ -125,7 +111,7 @@ local docStructures = {
 	},
 	{
 		docName = "Unyielding Contender",
-		ddid = createDDID(9),
+		ddid = createDDID(7),
 		mobs = {
 			{
 				-- name = "Unyielding Contender",
@@ -136,7 +122,7 @@ local docStructures = {
 	},
 	{
 		docName = "Raging Bloodhorn",
-		ddid = createDDID(10),
+		ddid = createDDID(8),
 		mobs = {
 			{
 				-- name = "Raging Bloodhorn",
@@ -147,7 +133,7 @@ local docStructures = {
 	},
 	{
 		docName = "Shambling Arbalest",
-		ddid = createDDID(11),
+		ddid = createDDID(9),
 		mobs = {
 			{
 				-- name = "Shambling Arbalest",
@@ -158,7 +144,7 @@ local docStructures = {
 	},
 	{
 		docName = "Ossified Conscript",
-		ddid = createDDID(12),
+		ddid = createDDID(10),
 		mobs = {
 			{
 				-- name = "Ossified Conscript",
@@ -169,7 +155,7 @@ local docStructures = {
 	},
 	{
 		docName = "Dokigg the Brutalizer",
-		ddid = createDDID(13),
+		ddid = createDDID(11),
 		mobs = {
 			{
 				-- name = "Dokigg the Brutalizer",
@@ -180,7 +166,7 @@ local docStructures = {
 	},
 	{
 		docName = "Harugia the Bloodthirsty",
-		ddid = createDDID(14),
+		ddid = createDDID(12),
 		mobs = {
 			{
 				-- name = "Harugia the Bloodthirsty",
@@ -191,7 +177,7 @@ local docStructures = {
 	},
 	{
 		docName = "Ancient Captain",
-		ddid = createDDID(15),
+		ddid = createDDID(13),
 		mobs = {
 			{
 				-- name = "Ancient Captain",
@@ -202,7 +188,7 @@ local docStructures = {
 	},
 	{
 		docName = "Advent Nevermore",
-		ddid = createDDID(16),
+		ddid = createDDID(14),
 		mobs = {
 			{
 				-- name = "Advent Nevermore",
@@ -213,7 +199,7 @@ local docStructures = {
 	},
 	{
 		docName = "Shackled Soul",
-		ddid = createDDID(17),
+		ddid = createDDID(15),
 		mobs = {
 			{
 				-- name = "Shackled Soul",
@@ -224,7 +210,7 @@ local docStructures = {
 	},
 	{
 		docName = "Portal Guardian",
-		ddid = createDDID(18),
+		ddid = createDDID(16),
 		mobs = {
 			{
 				-- name = "Portal Guardian",
@@ -235,7 +221,7 @@ local docStructures = {
 	},
 	{
 		docName = "Bone Magus",
-		ddid = createDDID(19),
+		ddid = createDDID(17),
 		mobs = {
 			{
 				-- name = "Bone Magus",
@@ -246,7 +232,7 @@ local docStructures = {
 	},
 	{
 		docName = "Maniacal Soulbinder",
-		ddid = createDDID(20),
+		ddid = createDDID(18),
 		mobs = {
 			{
 				-- name = "Maniacal Soulbinder",
@@ -257,7 +243,7 @@ local docStructures = {
 	},
 	{
 		docName = "Soulforged Bonereaver",
-		ddid = createDDID(21),
+		ddid = createDDID(19),
 		mobs = {
 			{
 				-- name = "Soulforged Bonereaver",
@@ -268,7 +254,7 @@ local docStructures = {
 	},
 	{
 		docName = "Nefarious Darkspeaker",
-		ddid = createDDID(22),
+		ddid = createDDID(20),
 		mobs = {
 			{
 				-- name = "Nefarious Darkspeaker",
@@ -279,7 +265,7 @@ local docStructures = {
 	},
 	{
 		docName = "Disgusting Refuse",
-		ddid = createDDID(23),
+		ddid = createDDID(21),
 		mobs = {
 			{
 				-- name = "Disgusting Refuse",
@@ -290,7 +276,7 @@ local docStructures = {
 	},
 	{
 		docName = "Diseased Horror",
-		ddid = createDDID(24),
+		ddid = createDDID(22),
 		mobs = {
 			{
 				-- name = "Diseased Horror",
@@ -301,7 +287,7 @@ local docStructures = {
 	},
 	{
 		docName = "Putrid Butcher",
-		ddid = createDDID(25),
+		ddid = createDDID(23),
 		mobs = {
 			{
 				-- name = "Putrid Butcher",
@@ -312,7 +298,7 @@ local docStructures = {
 	},
 	{
 		docName = "Rancid Gasbag",
-		ddid = createDDID(26),
+		ddid = createDDID(24),
 		mobs = {
 			{
 				-- name = "Rancid Gasbag",
@@ -323,7 +309,7 @@ local docStructures = {
 	},
 	{
 		docName = "Nekthara the Mangler",
-		ddid = createDDID(27),
+		ddid = createDDID(25),
 		mobs = {
 			{
 				-- name = "Nekthara the Mangler",
@@ -334,7 +320,7 @@ local docStructures = {
 	},
 	{
 		docName = "Heavin the Breaker",
-		ddid = createDDID(28),
+		ddid = createDDID(26),
 		mobs = {
 			{
 				-- name = "Heavin the Breaker",
@@ -345,7 +331,7 @@ local docStructures = {
 	},
 	{
 		docName = "Rek the Hardened",
-		ddid = createDDID(29),
+		ddid = createDDID(27),
 		mobs = {
 			{
 				-- name = "Rek the Hardened",
@@ -356,7 +342,7 @@ local docStructures = {
 	},
 	{
 		docName = "Blighted Sludge-Spewer",
-		ddid = createDDID(30),
+		ddid = createDDID(28),
 		mobs = {
 			{
 				-- name = "Blighted Sludge-Spewer",
@@ -367,7 +353,7 @@ local docStructures = {
 	},
 	{
 		docName = "Oozing Leftovers",
-		ddid = createDDID(31),
+		ddid = createDDID(29),
 		mobs = {
 			{
 				-- name = "Oozing Leftovers",
@@ -378,7 +364,7 @@ local docStructures = {
 	},
 	{
 		docName = "Oppressive Banner",
-		ddid = createDDID(32),
+		ddid = createDDID(30),
 		mobs = {
 			{
 				-- name = "Oppressive Banner",
@@ -389,7 +375,7 @@ local docStructures = {
 	},
 	{
 		docName = "Lost Soul",
-		ddid = createDDID(33),
+		ddid = createDDID(31),
 		mobs = {
 			{
 				-- name = "Lost Soul",
@@ -400,7 +386,7 @@ local docStructures = {
 	},
 	{
 		docName = "Deathwalker",
-		ddid = createDDID(34),
+		ddid = createDDID(32),
 		mobs = {
 			{
 				-- name = "Deathwalker",
