@@ -5,6 +5,13 @@ local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
 ---@type PlayerNote[]
 local notes = {
 
+	-- ######  #######  #####   #####  #######  #####
+	-- #     # #     # #     # #     # #       #     #
+	-- #     # #     # #       #       #       #
+	-- ######  #     #  #####   #####  #####    #####
+	-- #     # #     #       #       # #             #
+	-- #     # #     # #     # #     # #       #     #
+	-- ######  #######  #####   #####  #######  #####
 	{
 		-- bossName = "Brewmaster Aldryr",
 		ddid = "cbm1",
@@ -13,7 +20,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- bossName = "I'pa",
 		ddid = "cbm2",
@@ -22,7 +28,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- bossName = "Benk Buzzbee",
 		ddid = "cbm3",
@@ -31,7 +36,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- bossName = "Goldie Baronbottom",
 		ddid = "cbm4",
@@ -41,6 +45,13 @@ local notes = {
 		tankNote = "",
 	},
 
+	-- ####### ######     #     #####  #     #
+	--    #    #     #   # #   #     # #     #
+	--    #    #     #  #   #  #       #     #
+	--    #    ######  #     #  #####  #######
+	--    #    #   #   #######       # #     #
+	--    #    #    #  #     # #     # #     #
+	--    #    #     # #     #  #####  #     #
 	{
 		-- name = "Tasting Room Attendant",
 		ddid = "cbm5",
@@ -49,7 +60,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Venture Co. Pyromaniac",
 		ddid = "cbm6",
@@ -58,7 +68,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Venture Co. Patron",
 		ddid = "cbm7",
@@ -67,7 +76,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Hired Muscle",
 		ddid = "cbm8",
@@ -76,7 +84,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Chef Chewie",
 		ddid = "cbm9",
@@ -85,7 +92,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Worker Bee",
 		ddid = "cbm10",
@@ -94,7 +100,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Royal Jelly Purveyor",
 		ddid = "cbm11",
@@ -103,7 +108,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Venture Co. Honey Harvester",
 		ddid = "cbm12",
@@ -112,7 +116,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Bee Wrangler",
 		ddid = "cbm13",
@@ -121,7 +124,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Bee-let",
 		ddid = "cbm14",
@@ -130,7 +132,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Flavor Scientist",
 		ddid = "cbm15",
@@ -139,7 +140,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Taste Tester",
 		ddid = "cbm16",
@@ -148,7 +148,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Careless Hopgoblin",
 		ddid = "cbm17",
@@ -157,7 +156,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Brew Drop",
 		ddid = "cbm18",
@@ -166,7 +164,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Yes Man",
 		ddid = "cbm19",
@@ -175,7 +172,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Flavor Scientist",
 		ddid = "cbm20",
@@ -184,7 +180,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Brew Drop",
 		ddid = "cbm21",
@@ -193,7 +188,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Ravenous Cinderbee",
 		ddid = "cbm22",
@@ -202,7 +196,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Worker Bee",
 		ddid = "cbm23",
@@ -211,7 +204,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Bee-let",
 		ddid = "cbm24",
@@ -220,7 +212,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 }
 
 ---@type ProfileDungeonNotes

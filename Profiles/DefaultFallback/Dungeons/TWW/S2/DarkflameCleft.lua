@@ -5,6 +5,13 @@ local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
 ---@type PlayerNote[]
 local notes = {
 
+	-- ######  #######  #####   #####  #######  #####
+	-- #     # #     # #     # #     # #       #     #
+	-- #     # #     # #       #       #       #
+	-- ######  #     #  #####   #####  #####    #####
+	-- #     # #     #       #       # #             #
+	-- #     # #     # #     # #     # #       #     #
+	-- ######  #######  #####   #####  #######  #####
 	{
 		-- bossName = "Ol' Waxbeard",
 		ddid = "dfc1",
@@ -13,7 +20,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- bossName = "Blazikon",
 		ddid = "dfc2",
@@ -22,7 +28,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- bossName = "The Candle King",
 		ddid = "dfc3",
@@ -31,7 +36,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- bossName = "The Darkness",
 		ddid = "dfc4",
@@ -41,6 +45,13 @@ local notes = {
 		tankNote = "",
 	},
 
+	-- ####### ######     #     #####  #     #
+	--    #    #     #   # #   #     # #     #
+	--    #    #     #  #   #  #       #     #
+	--    #    ######  #     #  #####  #######
+	--    #    #   #   #######       # #     #
+	--    #    #    #  #     # #     # #     #
+	--    #    #     # #     #  #####  #     #
 	{
 		-- name = "Menial Laborer",
 		ddid = "dfc5",
@@ -49,7 +60,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Rank Overseer",
 		ddid = "dfc6",
@@ -58,7 +68,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Lowly Moleherd",
 		ddid = "dfc7",
@@ -67,7 +76,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Pack Mole",
 		ddid = "dfc8",
@@ -76,7 +84,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Royal Wicklighter",
 		ddid = "dfc9",
@@ -85,7 +92,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Kobold Taskworker",
 		ddid = "dfc10",
@@ -94,7 +100,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Blazing Fiend",
 		ddid = "dfc11",
@@ -103,7 +108,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Wandering Candle",
 		ddid = "dfc12",
@@ -112,7 +116,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Kobold Flametender",
 		ddid = "dfc13",
@@ -121,7 +124,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Sootsnout",
 		ddid = "dfc14",
@@ -130,7 +132,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Torchsnarl",
 		ddid = "dfc15",
@@ -139,7 +140,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Skittering Darkness",
 		ddid = "dfc16",
@@ -148,7 +148,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Shuffling Horror",
 		ddid = "dfc17",
@@ -157,7 +156,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Corridor Creeper",
 		ddid = "dfc18",
@@ -166,7 +164,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Blazing Fiend",
 		ddid = "dfc19",
@@ -175,7 +172,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Blazing Fiend",
 		ddid = "dfc20",
@@ -184,7 +180,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Blazing Fiend",
 		ddid = "dfc21",
@@ -193,7 +188,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Blazing Fiend",
 		ddid = "dfc22",
@@ -202,7 +196,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Blazing Fiend",
 		ddid = "dfc23",
@@ -211,7 +204,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Blazing Fiend",
 		ddid = "dfc24",
@@ -220,7 +212,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Blazing Fiend",
 		ddid = "dfc25",
@@ -229,7 +220,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Blazing Fiend",
 		ddid = "dfc26",
@@ -238,7 +228,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Corridor Sleeper",
 		ddid = "dfc27",
@@ -247,7 +236,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Menial Laborer",
 		ddid = "dfc28",
@@ -256,7 +244,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Dynamite Mine Cart",
 		ddid = "dfc29",
@@ -265,7 +252,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Wriggling Darkspawn",
 		ddid = "dfc30",
@@ -274,7 +260,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 }
 
 ---@type ProfileDungeonNotes

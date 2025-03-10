@@ -5,6 +5,13 @@ local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
 ---@type PlayerNote[]
 local notes = {
 
+	-- ######  #######  #####   #####  #######  #####
+	-- #     # #     # #     # #     # #       #     #
+	-- #     # #     # #       #       #       #
+	-- ######  #     #  #####   #####  #####    #####
+	-- #     # #     #       #       # #             #
+	-- #     # #     # #     # #     # #       #     #
+	-- ######  #######  #####   #####  #######  #####
 	{
 		-- bossName = "Coin-Operated Crowd Pummeler",
 		ddid = "tm1",
@@ -13,7 +20,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- bossName = "Azerokk",
 		ddid = "tm2",
@@ -22,7 +28,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- bossName = "Rixxa Fluxflame",
 		ddid = "tm3",
@@ -31,7 +36,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- bossName = "Mogul Razdunk",
 		ddid = "tm4",
@@ -41,6 +45,13 @@ local notes = {
 		tankNote = "",
 	},
 
+	-- ####### ######     #     #####  #     #
+	--    #    #     #   # #   #     # #     #
+	--    #    #     #  #   #  #       #     #
+	--    #    ######  #     #  #####  #######
+	--    #    #   #   #######       # #     #
+	--    #    #    #  #     # #     # #     #
+	--    #    #     # #     #  #####  #     #
 	{
 		-- name = "Big Money Crab",
 		ddid = "tm5",
@@ -49,7 +60,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Off-Duty Laborer",
 		ddid = "tm6",
@@ -58,7 +68,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Refreshment Vendor",
 		ddid = "tm7",
@@ -67,7 +76,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Mech Jockey",
 		ddid = "tm8",
@@ -76,7 +84,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Addled Thug",
 		ddid = "tm9",
@@ -85,7 +92,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Hired Assassin",
 		ddid = "tm10",
@@ -94,7 +100,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Mechanized Peacekeeper",
 		ddid = "tm11",
@@ -103,7 +108,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Venture Co. Earthshaper",
 		ddid = "tm12",
@@ -112,7 +116,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Mine Rat",
 		ddid = "tm13",
@@ -121,7 +124,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Wanton Sapper",
 		ddid = "tm14",
@@ -130,7 +132,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Azerite Extractor",
 		ddid = "tm15",
@@ -139,7 +140,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Safety Shark",
 		ddid = "tm16",
@@ -148,7 +148,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Shalebiter",
 		ddid = "tm17",
@@ -157,7 +156,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Stonefury",
 		ddid = "tm18",
@@ -166,7 +164,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Taskmaster Askari",
 		ddid = "tm19",
@@ -175,7 +172,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Earthrager",
 		ddid = "tm20",
@@ -184,7 +180,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Footbomb Hooligan",
 		ddid = "tm21",
@@ -193,7 +188,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Venture Co. Mastermind",
 		ddid = "tm22",
@@ -202,7 +196,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Weapons Tester",
 		ddid = "tm23",
@@ -211,7 +204,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Venture Co. Alchemist",
 		ddid = "tm24",
@@ -220,7 +212,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Test Subject",
 		ddid = "tm25",
@@ -229,7 +220,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Venture Co. War Machine",
 		ddid = "tm26",
@@ -238,7 +228,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Ordnance Specialist",
 		ddid = "tm27",
@@ -247,7 +236,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Crawler Mine",
 		ddid = "tm28",
@@ -256,7 +244,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Mechanized Peacekeeper",
 		ddid = "tm29",
@@ -265,7 +252,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Venture Co. Skyscorcher",
 		ddid = "tm30",
@@ -274,7 +260,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "B.O.O.M.B.A.",
 		ddid = "tm31",
@@ -283,7 +268,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Azerite Footbomb",
 		ddid = "tm32",
@@ -292,7 +276,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 }
 
 ---@type ProfileDungeonNotes

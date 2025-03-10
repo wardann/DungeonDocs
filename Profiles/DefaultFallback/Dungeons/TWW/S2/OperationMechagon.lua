@@ -5,6 +5,13 @@ local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
 ---@type PlayerNote[]
 local notes = {
 
+	-- ######  #######  #####   #####  #######  #####
+	-- #     # #     # #     # #     # #       #     #
+	-- #     # #     # #       #       #       #
+	-- ######  #     #  #####   #####  #####    #####
+	-- #     # #     #       #       # #             #
+	-- #     # #     # #     # #     # #       #     #
+	-- ######  #######  #####   #####  #######  #####
 	{
 		-- bossName = "Head Machinist Sparkflux",
 		ddid = "mw1",
@@ -13,7 +20,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- bossName = "Aerial Unit R-21/X",
 		ddid = "mw2",
@@ -22,7 +28,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- bossName = "Omega Buster",
 		ddid = "mw3",
@@ -31,7 +36,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- bossName = "The Platinum Pummeler",
 		ddid = "mw4",
@@ -40,7 +44,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- bossName = "Gnomercy 4.U.",
 		ddid = "mw5",
@@ -49,7 +52,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- bossName = "K.U.-J.0.",
 		ddid = "mw6",
@@ -59,6 +61,13 @@ local notes = {
 		tankNote = "",
 	},
 
+	-- ####### ######     #     #####  #     #
+	--    #    #     #   # #   #     # #     #
+	--    #    #     #  #   #  #       #     #
+	--    #    ######  #     #  #####  #######
+	--    #    #   #   #######       # #     #
+	--    #    #    #  #     # #     # #     #
+	--    #    #     # #     #  #####  #     #
 	{
 		-- name = "Blastatron X-80",
 		ddid = "mw7",
@@ -67,7 +76,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Defense Bot Mk I",
 		ddid = "mw8",
@@ -76,7 +84,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Mechagon Tinkerer",
 		ddid = "mw9",
@@ -85,7 +92,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Workshop Defender",
 		ddid = "mw10",
@@ -94,7 +100,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Mechagon Mechanic",
 		ddid = "mw11",
@@ -103,7 +108,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Spider Tank",
 		ddid = "mw12",
@@ -112,7 +116,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Defense Bot Mk III",
 		ddid = "mw13",
@@ -121,7 +124,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Junkyard D.0.G.",
 		ddid = "mw14",
@@ -130,7 +132,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Waste Processing Unit",
 		ddid = "mw15",
@@ -139,7 +140,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Living Waste",
 		ddid = "mw16",
@@ -148,7 +148,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Bomb Tonk",
 		ddid = "mw17",
@@ -157,7 +156,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Rocket Tonk",
 		ddid = "mw18",
@@ -166,7 +164,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Strider Tonk",
 		ddid = "mw19",
@@ -175,7 +172,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "G.U.A.R.D.",
 		ddid = "mw20",
@@ -184,7 +180,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Metal Gunk",
 		ddid = "mw21",
@@ -193,7 +188,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Inconspicuous Plant",
 		ddid = "mw22",
@@ -202,7 +196,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 }
 
 ---@type ProfileDungeonNotes

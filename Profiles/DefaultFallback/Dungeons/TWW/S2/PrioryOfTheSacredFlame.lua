@@ -5,6 +5,13 @@ local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
 ---@type PlayerNote[]
 local notes = {
 
+	-- ######  #######  #####   #####  #######  #####
+	-- #     # #     # #     # #     # #       #     #
+	-- #     # #     # #       #       #       #
+	-- ######  #     #  #####   #####  #####    #####
+	-- #     # #     #       #       # #             #
+	-- #     # #     # #     # #     # #       #     #
+	-- ######  #######  #####   #####  #######  #####
 	{
 		-- bossName = "Captain Dailcry",
 		ddid = "potsf1",
@@ -13,7 +20,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- bossName = "Baron Braunpyke",
 		ddid = "potsf2",
@@ -22,7 +28,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- bossName = "Prioress Murrpray",
 		ddid = "potsf3",
@@ -32,6 +37,13 @@ local notes = {
 		tankNote = "",
 	},
 
+	-- ####### ######     #     #####  #     #
+	--    #    #     #   # #   #     # #     #
+	--    #    #     #  #   #  #       #     #
+	--    #    ######  #     #  #####  #######
+	--    #    #   #   #######       # #     #
+	--    #    #    #  #     # #     # #     #
+	--    #    #     # #     #  #####  #     #
 	{
 		-- name = "Arathi Footman",
 		ddid = "potsf4",
@@ -40,7 +52,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Arathi Knight",
 		ddid = "potsf5",
@@ -49,7 +60,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Arathi Neophyte",
 		ddid = "potsf6",
@@ -58,7 +68,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Arathi Neophyte",
 		ddid = "potsf7",
@@ -67,7 +76,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Arathi Neophyte",
 		ddid = "potsf8",
@@ -76,7 +84,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Ardent Paladin",
 		ddid = "potsf9",
@@ -85,7 +92,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Devout Priest",
 		ddid = "potsf10",
@@ -94,7 +100,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Elaena Emberlanz",
 		ddid = "potsf11",
@@ -103,7 +108,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Fanatical Conjuror",
 		ddid = "potsf12",
@@ -112,7 +116,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Fervent Sharpshooter",
 		ddid = "potsf13",
@@ -121,7 +124,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Forge Master Damian",
 		ddid = "potsf14",
@@ -130,7 +132,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Guard Captain Suleyman",
 		ddid = "potsf15",
@@ -139,7 +140,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "High Priest Aemya",
 		ddid = "potsf16",
@@ -148,7 +148,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Lightspawn",
 		ddid = "potsf17",
@@ -157,7 +156,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Risen Footman",
 		ddid = "potsf18",
@@ -166,7 +164,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Risen Mage",
 		ddid = "potsf19",
@@ -175,7 +172,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Sergeant Shaynemail",
 		ddid = "potsf20",
@@ -184,7 +180,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Sir Braunpyke",
 		ddid = "potsf21",
@@ -193,7 +188,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Taener Duelmal",
 		ddid = "potsf22",
@@ -202,7 +196,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "War Lynx",
 		ddid = "potsf23",
@@ -211,7 +204,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Zealous Templar",
 		ddid = "potsf24",
@@ -220,7 +212,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Arathi Neophyte",
 		ddid = "potsf25",
@@ -229,7 +220,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Priory of the Sacred Flame",
 		ddid = "potsf26",
@@ -238,7 +228,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Elaena Emberlanz",
 		ddid = "potsf27",
@@ -247,7 +236,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Sergeant Shaynemail",
 		ddid = "potsf28",
@@ -256,7 +244,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 	{
 		-- name = "Taener Duelmal",
 		ddid = "potsf29",
@@ -265,7 +252,6 @@ local notes = {
 		damageNote = "",
 		tankNote = "",
 	},
-
 }
 
 ---@type ProfileDungeonNotes
