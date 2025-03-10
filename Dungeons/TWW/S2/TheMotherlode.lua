@@ -151,6 +151,11 @@ local docStructures = {
 				id = "136139",
 				displayId = 82943,
 			},
+			{
+				-- name = "Mechanized Peacekeeper",
+				id = "130485",
+				displayId = 82943,
+			},
 		},
 	},
 	{
@@ -341,19 +346,8 @@ local docStructures = {
 		},
 	},
 	{
-		docName = "Mechanized Peacekeeper",
-		ddid = createDDID(29),
-		mobs = {
-			{
-				-- name = "Mechanized Peacekeeper",
-				id = "130485",
-				displayId = 82943,
-			},
-		},
-	},
-	{
 		docName = "Venture Co. Skyscorcher",
-		ddid = createDDID(30),
+		ddid = createDDID(29),
 		mobs = {
 			{
 				-- name = "Venture Co. Skyscorcher",
@@ -364,7 +358,7 @@ local docStructures = {
 	},
 	{
 		docName = "B.O.O.M.B.A.",
-		ddid = createDDID(31),
+		ddid = createDDID(30),
 		mobs = {
 			{
 				-- name = "B.O.O.M.B.A.",
@@ -375,7 +369,7 @@ local docStructures = {
 	},
 	{
 		docName = "Azerite Footbomb",
-		ddid = createDDID(32),
+		ddid = createDDID(31),
 		mobs = {
 			{
 				-- name = "Azerite Footbomb",
