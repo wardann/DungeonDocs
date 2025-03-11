@@ -39,6 +39,7 @@ UI/Settings/Damage.lua
 UI/Settings/Settings.lua
 
 Dungeons/Dungeons.lua
+
 Dungeons/TWW/S1/AraKara.lua
 Dungeons/TWW/S1/CityOfThreads.lua
 Dungeons/TWW/S1/GrimBatol.lua
@@ -47,6 +48,15 @@ Dungeons/TWW/S1/SiegeOfBoralus.lua
 Dungeons/TWW/S1/TheDawnbreaker.lua
 Dungeons/TWW/S1/TheNecroticWake.lua
 Dungeons/TWW/S1/TheStonevault.lua
+
+Dungeons/TWW/S2/CinderbrewMeadery.lua
+Dungeons/TWW/S2/DarkflameCleft.lua
+Dungeons/TWW/S2/OperationMechagon.lua
+Dungeons/TWW/S2/OperationFloodgate.lua
+Dungeons/TWW/S2/PrioryOfTheSacredFlame.lua
+Dungeons/TWW/S2/TheaterOfPain.lua
+Dungeons/TWW/S2/TheMotherlode.lua
+Dungeons/TWW/S2/TheRookery.lua
 
 Profiles/Profiles.lua
 Profiles/DefaultFallback/DefaultFallback.lua
@@ -58,5 +68,14 @@ Profiles/DefaultFallback/Dungeons/TWW/S1/SiegeOfBoralus.lua
 Profiles/DefaultFallback/Dungeons/TWW/S1/TheDawnbreaker.lua
 Profiles/DefaultFallback/Dungeons/TWW/S1/TheNecroticWake.lua
 Profiles/DefaultFallback/Dungeons/TWW/S1/TheStonevault.lua
+
+Profiles/DefaultFallback/Dungeons/TWW/S2/CinderbrewMeadery.lua
+Profiles/DefaultFallback/Dungeons/TWW/S2/DarkflameCleft.lua
+Profiles/DefaultFallback/Dungeons/TWW/S2/OperationMechagon.lua
+Profiles/DefaultFallback/Dungeons/TWW/S2/OperationFloodgate.lua
+Profiles/DefaultFallback/Dungeons/TWW/S2/PrioryOfTheSacredFlame.lua
+Profiles/DefaultFallback/Dungeons/TWW/S2/TheaterOfPain.lua
+Profiles/DefaultFallback/Dungeons/TWW/S2/TheMotherlode.lua
+Profiles/DefaultFallback/Dungeons/TWW/S2/TheRookery.lua
 
 

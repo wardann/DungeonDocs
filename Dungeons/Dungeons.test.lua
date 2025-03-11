@@ -1,4 +1,5 @@
 require("Dungeons.Dungeons")
+
 require("Dungeons.TWW.S1.AraKara")
 require("Dungeons.TWW.S1.CityOfThreads")
 require("Dungeons.TWW.S1.GrimBatol")
@@ -7,6 +8,15 @@ require("Dungeons.TWW.S1.SiegeOfBoralus")
 require("Dungeons.TWW.S1.TheDawnbreaker")
 require("Dungeons.TWW.S1.TheNecroticWake")
 require("Dungeons.TWW.S1.TheStonevault")
+
+require("Dungeons.TWW.S2.CinderbrewMeadery")
+require("Dungeons.TWW.S2.DarkflameCleft")
+require("Dungeons.TWW.S2.OperationFloodgate")
+require("Dungeons.TWW.S2.OperationMechagon")
+require("Dungeons.TWW.S2.PrioryOfTheSacredFlame")
+require("Dungeons.TWW.S2.TheaterOfPain")
+require("Dungeons.TWW.S2.TheMotherlode")
+require("Dungeons.TWW.S2.TheRookery")
 
 ---@param dungeonList DungeonList
 ---@return number
@@ -156,7 +166,7 @@ describe("Dungeons Module", function()
 	end)
 
 	it("should have expected doc structure count", function()
-		assert.are.equal(189, totalDocStructureCount)
+		assert.are.equal(377, totalDocStructureCount)
 	end)
 end)
 

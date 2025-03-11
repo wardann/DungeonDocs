@@ -75,5 +75,7 @@ Please [open an issue](https://github.com/wardann/DungeonDocs/issues/new).
 
 - This [awesome WeakAura pack](https://www.reddit.com/r/wow/comments/1fenyjp/weakaura_for_boss_instructions_all_season_1/) sparked the idea for this addon
 
+- The incredible [MythicDungeonTools](https://github.com/Nnoggie/MythicDungeonTools) was referenced for mob data
+
 
 

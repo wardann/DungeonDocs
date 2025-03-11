@@ -29,6 +29,7 @@ local M = {}
 M.List = {}
 
 function M.Init()
+	-- Season 1
 	M.InitAraKara()
 	M.InitCityOfThreads()
 	M.InitGrimBatol()
@@ -37,6 +38,16 @@ function M.Init()
 	M.InitTheDawnbreaker()
 	M.InitTheNecroticWake()
 	M.InitTheStonevault()
+
+	-- Season 2
+	M.InitCinderbrewMeadery()
+	M.InitDarkflameCleft()
+	M.InitMechagonWorkshop()
+	M.InitOperationFloodgate()
+	M.InitPrioryOfTheSacredFlame()
+	M.InitTheaterOfPain()
+	M.InitTheMotherlode()
+	M.InitTheRookery()
 end
 
 ---@return DungeonList
