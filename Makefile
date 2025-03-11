@@ -5,6 +5,7 @@ tests:
 .PHONY: typecheck
 typecheck:
 	lua-language-server --configpath=.vscode/settings.json --logpath . --check .
+	sleep 1
 	node .github/scripts/parse-lls-output check.json
 
 .PHONY: lint
