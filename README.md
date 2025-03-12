@@ -69,6 +69,9 @@ Please [open an issue](https://github.com/wardann/DungeonDocs/issues/new).
 
 ## Special Thanks
 
+- Boss notes for TWW S2 was sourced from this Reddit post, so thank you to the author:
+  - [Simple Tips for Every S2 M+ Boss (Shareable Infographic)](https://www.reddit.com/r/wow/comments/1j2smvy/simple_tips_for_every_s2_m_boss_shareable/)
+
 - Boss notes for TWW S1 was sourced from these two Reddit posts, so thank you to the authors:
   -  [Simple Tips for Every M+ Boss (Shareable Infographic)](https://www.reddit.com/r/wow/comments/1fixt35/simple_tips_for_every_m_boss_shareable_infographic/?share_id=E9PNOF_5JEyhxG4rpS5C3&utm_content=1&utm_medium=ios_app&utm_name=ioscss&utm_source=share&utm_term=1)
   - [Mythic Dungeon Copy/Paste Instructions from a PUG Tank](https://www.reddit.com/r/wow/comments/1fectof/mythic_dungeon_copypaste_instructions_from_pug/)
