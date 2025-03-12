@@ -14,15 +14,15 @@ local notes = {
 	{
 		-- bossName = "Coin-Operated Crowd Pummeler",
 		ddid = "tm1",
-		primaryNote = "",
+		primaryNote = "- Kick balls into boss\n- Avoid slam",
 		healerNote = "",
 		damageNote = "",
-		tankNote = "",
+		tankNote = "- Move boss away from coins on ground",
 	},
 	{
 		-- bossName = "Azerokk",
 		ddid = "tm2",
-		primaryNote = "",
+		primaryNote = "1. Kite & CC adds\n2. Kill infused add ASAP\n3. Stay out of quake and smash",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "",
@@ -30,7 +30,7 @@ local notes = {
 	{
 		-- bossName = "Rixxa Fluxflame",
 		ddid = "tm3",
-		primaryNote = "",
+		primaryNote = "- Drop puddles next to each other to save space\n- Aim boss's [Propellant Blast] towards puddles to clear them",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "",
@@ -38,10 +38,10 @@ local notes = {
 	{
 		-- bossName = "Mogul Razdunk",
 		ddid = "tm4",
-		primaryNote = "",
+		primaryNote = "PHASE 1:\n\n- Stay close to boss\n- Move out when targeted by missle\n- Don't get gunned down\n\n\nPHASE 2:\n\n- Nuke adds\n- If marked by [Drill Smash], move next to a pillar. Move out when red circle appears",
 		healerNote = "",
 		damageNote = "",
-		tankNote = "",
+		tankNote = "- Watch mobs on the edges to figure out safe quadrant. Move boss there",
 	},
 
 	-- ####### ######     #     #####  #     #
