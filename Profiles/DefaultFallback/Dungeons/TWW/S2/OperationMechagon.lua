@@ -14,23 +14,23 @@ local notes = {
 	{
 		-- bossName = "Tussle Tonks",
 		ddid = "mw1",
-		primaryNote = "",
+		primaryNote = "- Don't get tossed into bombs\n- Avoid saw blades\n- Avoid red areas on ground",
 		healerNote = "",
 		damageNote = "",
-		tankNote = "",
+		tankNote = "- Remove plating using hammers\n- Mitigate [Pummel]",
 	},
 	{
 		-- bossName = "K.U.-J.0.",
 		ddid = "mw2",
-		primaryNote = "",
-		healerNote = "",
+		primaryNote = "- Hide behind boxes when boss casts [Venting Flames]\n- Stay AWAY from boxes when targeted by leap",
+		healerNote = "- Dispelling chomp debuff does party damage. Be careful!",
 		damageNote = "",
-		tankNote = "",
+		tankNote = "- Mitigate [Blazing Chomp]",
 	},
 	{
 		-- bossName = "Head Machinist Sparkflux",
 		ddid = "mw3",
-		primaryNote = "",
+		primaryNote = "- Stun & kill plants ASAP\n- AVOID fire, gears, lasers",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "",
@@ -38,7 +38,7 @@ local notes = {
 	{
 		-- bossName = "King Mechagon",
 		ddid = "mw4",
-		primaryNote = "",
+		primaryNote = "PHASE 1:\n- Avoid Plasma Orbs\n\nPHASE 2:\n- Move as little as possible if targeted by [Mega Zap], everyone else step out of cone\n- When magnet pulls, avoid plasma orbs & use defensives",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "",
@@ -183,7 +183,7 @@ local notes = {
 
 ---@type ProfileDungeonNotes
 local profileDungeonNotes = {
-	dungeonName = "Operation: Mechagon Workshop",
+	dungeonName = "Operation: Mechagon",
 	notes = notes,
 }
 
