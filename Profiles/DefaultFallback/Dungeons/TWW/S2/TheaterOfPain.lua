@@ -14,42 +14,42 @@ local notes = {
 	{
 		-- bossName = "Affront of Challengers",
 		ddid = "top1",
-		primaryNote = "",
-		healerNote = "",
+		primaryNote = "- Interrupt [Necrotic Bolts]\n- Avoid ground hazards",
+		healerNote = "- Dispel DoTs\n- Save a cooldown for [Mighty Smash]",
 		damageNote = "",
-		tankNote = "",
+		tankNote = "- Mitigate [Mortal Strike]",
 	},
 	{
 		-- bossName = "Xav the Unfallen",
 		ddid = "top2",
-		primaryNote = "",
+		primaryNote = "1. NUKE banner to make moving out of green areas easier\n2. Don't actually duel",
 		healerNote = "",
 		damageNote = "",
-		tankNote = "",
+		tankNote = "- Mitigate [Brutal Combo]",
 	},
 	{
 		-- bossName = "Gorechop",
 		ddid = "top3",
-		primaryNote = "",
+		primaryNote = "1. Stay next to boss until the circle appears and THEN move\n2. Move through the gaps to avoid the meat hooks wall",
 		healerNote = "",
 		damageNote = "",
-		tankNote = "",
+		tankNote = "- Mitigate [Hateful Strike]",
 	},
 	{
 		-- bossName = "Kul'tharok",
 		ddid = "top4",
-		primaryNote = "",
+		primaryNote = "1. Stack when the boss casts [Draw Soul]\n2. Nuke/CC adds ASAP\n3. Avoid green hazards\n4. Interrupt bolts",
 		healerNote = "",
 		damageNote = "",
-		tankNote = "",
+		tankNote = "- Stay in boss's melee range",
 	},
 	{
 		-- bossName = "Mordretha",
 		ddid = "top5",
-		primaryNote = "",
+		primaryNote = "- Phase 1: avoid beam & don't get sucked\n- Phase 2: same, but also avoid ghosts & charges",
 		healerNote = "",
 		damageNote = "",
-		tankNote = "",
+		tankNote = "- Mitigate [Reaping Scythe]",
 	},
 
 	-- ####### ######     #     #####  #     #
@@ -279,7 +279,7 @@ local notes = {
 
 ---@type ProfileDungeonNotes
 local profileDungeonNotes = {
-	dungeonName = "Theater Of Pain",
+	dungeonName = "Theater of Pain",
 	notes = notes,
 }
 
