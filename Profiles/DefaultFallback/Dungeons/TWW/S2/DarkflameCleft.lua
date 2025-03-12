@@ -14,7 +14,7 @@ local notes = {
 	{
 		-- bossName = "Ol' Waxbeard",
 		ddid = "dfc1",
-		primaryNote = "1) Destroy dynamite cart ASAP\n2) Don't get caught by mobs if fixated. Run, CC, or bait them into carts\n3) Avoid charge",
+		primaryNote = "1. Destroy dynamite cart ASAP\n2. Don't get caught by mobs if fixated. Run, CC, or bait them into carts\n3. Avoid charge",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "- Mitigate [Rock Buster]",
@@ -30,7 +30,7 @@ local notes = {
 	{
 		-- bossName = "The Candle King",
 		ddid = "dfc3",
-		primaryNote = "1) Destroy statues with the purple circle attack or by baiting the pickaxe when targeted\n2) Interrupt [Paranoid Mind]",
+		primaryNote = "1. Destroy statues with the purple circle attack or by baiting the pickaxe when targeted\n2. Interrupt [Paranoid Mind]",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "",
@@ -38,7 +38,7 @@ local notes = {
 	{
 		-- bossName = "The Darkness",
 		ddid = "dfc4",
-		primaryNote = "DO NOT let candle die!\n1) Move out of purple circle\n2) Move candle out of frontal\n3) Replinish candle\n4) Interrupt [Call Darkspawn]",
+		primaryNote = "DO NOT let candle die!\n\n1. Move out of purple circle\n2. Move candle out of frontal\n3. Replinish candle\n4. Interrupt [Call Darkspawn]",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "",

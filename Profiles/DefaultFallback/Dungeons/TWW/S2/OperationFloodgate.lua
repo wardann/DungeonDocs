@@ -14,7 +14,7 @@ local notes = {
 	{
 		-- bossName = "Big M.O.M.M.A.",
 		ddid = "of1",
-		primaryNote = "1) Focus adds, interrupt them, avoid their charge\n2) When targeted, point [Sonic Boom] away from group",
+		primaryNote = "1. Focus adds, interrupt them, avoid their charge\n2. When targeted, point [Sonic Boom] away from group",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "- Mitigate [Electrocrush]\n- Move boss after each intermission",
@@ -22,7 +22,7 @@ local notes = {
 	{
 		-- bossName = "Demolition Duo",
 		ddid = "of2",
-		primaryNote = "1) When targeted by the charge, bait boss to run over bombs\n2) When circle spawns around you, go next to bombs",
+		primaryNote = "1. When targeted by the charge, bait boss to run over bombs\n2. When circle spawns around you, go next to bombs",
 		healerNote = "- Dispel circle from players next to bombs to destroy them",
 		damageNote = "",
 		tankNote = "- Mitigate [Wallop]",
@@ -38,7 +38,7 @@ local notes = {
 	{
 		-- bossName = "Geezle Gigazap",
 		ddid = "of4",
-		primaryNote = "1) Do NOT step in water puddles with the [Gigazap] DoT\n2) Bait the sparks that focus you into the water puddles",
+		primaryNote = "1. Do NOT step in water puddles with the [Gigazap] DoT\n2. Bait the sparks that focus you into the water puddles",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "- Do NOT get knocked out of the arena by [Thunder Punch]",

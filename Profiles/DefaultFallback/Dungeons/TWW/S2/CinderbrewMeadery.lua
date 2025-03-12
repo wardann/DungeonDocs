@@ -14,7 +14,7 @@ local notes = {
 	{
 		-- bossName = "Brewmaster Aldryr",
 		ddid = "cbm1",
-		primaryNote = "1) Before intermission: avoid hazards\n2) During intermission: bring brews to red patrons\n3) After intermission: avoid more hazards",
+		primaryNote = "1. Before intermission: avoid hazards\n2. During intermission: bring brews to red patrons\n3. After intermission: avoid more hazards",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "",

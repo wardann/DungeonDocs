@@ -38,7 +38,7 @@ local notes = {
 	{
 		-- bossName = "King Mechagon",
 		ddid = "mw4",
-		primaryNote = "PHASE 1:\n- Avoid Plasma Orbs\n\nPHASE 2:\n- Move as little as possible if targeted by [Mega Zap], everyone else step out of cone\n- When magnet pulls, avoid plasma orbs & use defensives",
+		primaryNote = "PHASE 1:\n\n- Avoid Plasma Orbs\n\n\nPHASE 2:\n\n- Move as little as possible if targeted by [Mega Zap], everyone else step out of cone\n- When magnet pulls, avoid plasma orbs & use defensives",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "",
