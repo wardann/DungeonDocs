@@ -46,7 +46,7 @@ local notes = {
 	{
 		-- bossName = "Mordretha",
 		ddid = "top5",
-		primaryNote = "- Phase 1: avoid beam & don't get sucked\n- Phase 2: same, but also avoid ghosts & charges",
+		primaryNote = "- Phase 1: avoid beam & don't get sucked into [Grasping Rift]\n- Phase 2: same, but also avoid ghosts & charges",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "- Mitigate [Reaping Scythe]",
