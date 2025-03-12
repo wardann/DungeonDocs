@@ -14,7 +14,7 @@ local notes = {
 	{
 		-- bossName = "Kyrioss",
 		ddid = "tr1",
-		primaryNote = "",
+		primaryNote = "- Don't overlap circles\n- Electricity = ouch",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "",
@@ -22,7 +22,7 @@ local notes = {
 	{
 		-- bossName = "Stormguard Gorren",
 		ddid = "tr2",
-		primaryNote = "",
+		primaryNote = "1. Don't pass the DoT to someone with the debuff (unless you know they can mitigate the damage)\n2. Avoid the crush & void tornadoes\n3. Run when boss uses gravity pull",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "",
@@ -30,10 +30,10 @@ local notes = {
 	{
 		-- bossName = "Voidstone Monstrosity",
 		ddid = "tr3",
-		primaryNote = "",
-		healerNote = "",
+		primaryNote = "1. Stay spread out around the boss\n2. After big smash, avoid puddles and move with blue circle on top of crystals",
+		healerNote = "- Dispel DoTs, but be careful with positioning as dispelling creates puddles",
 		damageNote = "",
-		tankNote = "",
+		tankNote = "- Point wave attack away from group",
 	},
 
 	-- ####### ######     #     #####  #     #

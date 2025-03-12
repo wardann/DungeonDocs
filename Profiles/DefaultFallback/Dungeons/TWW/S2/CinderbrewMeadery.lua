@@ -14,7 +14,7 @@ local notes = {
 	{
 		-- bossName = "Brewmaster Aldryr",
 		ddid = "cbm1",
-		primaryNote = "",
+		primaryNote = "1. Before intermission: avoid hazards\n2. During intermission: bring brews to red patrons\n3. After intermission: avoid more hazards",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "",
@@ -22,26 +22,26 @@ local notes = {
 	{
 		-- bossName = "Benk Buzzbee",
 		ddid = "cbm2",
-		primaryNote = "",
+		primaryNote = "Kill bee adds, then click on them and ram them into the barrels",
 		healerNote = "",
 		damageNote = "",
-		tankNote = "",
+		tankNote = "Drop puddles at the edge of the room",
 	},
 	{
 		-- bossName = "I'pa",
 		ddid = "cbm3",
-		primaryNote = "",
+		primaryNote = "- CC and nuke adds ASAP\n- Do NOT let adds touch the boss",
 		healerNote = "",
 		damageNote = "",
-		tankNote = "",
+		tankNote = "- Kite when possible",
 	},
 	{
 		-- bossName = "Goldie Baronbottom",
 		ddid = "cbm4",
-		primaryNote = "",
+		primaryNote = "- Destroy the big barrles with the red circle attack\n- Don't destroy too many barrels at once",
 		healerNote = "",
 		damageNote = "",
-		tankNote = "",
+		tankNote = "- The frontal can also be used to destroy barrels",
 	},
 
 	-- ####### ######     #     #####  #     #
