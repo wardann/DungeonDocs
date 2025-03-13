@@ -38,7 +38,7 @@ local notes = {
 	{
 		-- bossName = "Mogul Razdunk",
 		ddid = "tm4",
-		primaryNote = "PHASE 1:\n\n- Stay close to boss\n- Move out when targeted by missle\n- Don't get gunned down\n\n\nPHASE 2:\n\n- Nuke adds\n- If marked by [Drill Smash], move next to a pillar. Move out when red circle appears",
+		primaryNote = "PHASE 1:\n\n- Stay close to boss\n- Move out when targeted by missile\n- Don't get gunned down\n\n\nPHASE 2:\n\n- Nuke adds\n- If marked by [Drill Smash], move next to a pillar. Move out when red circle appears",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "- Watch mobs on the edges to figure out safe quadrant. Move boss there",

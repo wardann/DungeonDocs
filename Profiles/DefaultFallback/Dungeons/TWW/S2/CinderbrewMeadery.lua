@@ -38,7 +38,7 @@ local notes = {
 	{
 		-- bossName = "Goldie Baronbottom",
 		ddid = "cbm4",
-		primaryNote = "- Destroy the big barrles with the red circle attack\n- Don't destroy too many barrels at once",
+		primaryNote = "- Destroy the big barrels with the red circle attack\n- Don't destroy too many barrels at once",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "- The frontal can also be used to destroy barrels",
