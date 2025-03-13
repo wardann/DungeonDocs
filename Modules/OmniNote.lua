@@ -509,6 +509,12 @@ eventFrame:RegisterEvent("PLAYER_REGEN_ENABLED")
 eventFrame:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 eventFrame:RegisterEvent("PLAYER_TARGET_CHANGED")
 
+local clearRenderedNotes = function()
+		ddidsToRender = {}
+		ddidToDungeon = {}
+		testNoteEnabled = false
+end
+
 ---@param mobId string
 local function storeEncounteredMob(mobId)
 	if DD.utils.IsFollowerNPC(mobId) then
@@ -551,39 +557,40 @@ local ensureTarget = function()
 
 	if inCombat and not guid then
 		playerTargetMobId = nil
+
 	elseif not inCombat and not guid then
 		playerTargetMobId = nil
+		clearRenderedNotes()
 
-		ddidsToRender = {}
-		ddidToDungeon = {}
-		testNoteEnabled = false
 	elseif not inCombat and guid and unitType == "Player" then
 		playerTargetMobId = nil
-	elseif not inCombat and guid and unitType ~= "Player" then
-		ddidsToRender = {}
-		ddidToDungeon = {}
-		testNoteEnabled = false
 
+	elseif not inCombat and guid and unitType ~= "Player" then
+		clearRenderedNotes()
 		playerTargetMobId = mobId
 		storeEncounteredMob(mobId)
+
 	elseif inCombat and guid and unitType ~= "Player" then
 		playerTargetMobId = unitId
+
 	end
 
 	M.RenderOmniNoteWithThrottle()
 end
 
+
 eventFrame:SetScript("OnEvent", function(_, event)
 	-- luacheck: ignore
 	if event == "PLAYER_REGEN_DISABLED" then
 		-- Reset encountered mobs at start of combat
-		-- This caused nothing to render, skipping
+		clearRenderedNotes()
+		ensureTarget()
+
 	elseif event == "PLAYER_REGEN_ENABLED" then
 		-- Reset encountered mobs at end of combat
-		ddidsToRender = {}
-		ddidToDungeon = {}
-		testNoteEnabled = false
+		clearRenderedNotes()
 		ensureTarget()
+
 	elseif event == "COMBAT_LOG_EVENT_UNFILTERED" then
 		local inCombat = UnitAffectingCombat("player")
 		if not inCombat then
