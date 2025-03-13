@@ -245,7 +245,14 @@ function M.HandleSelected(dungeonName, enemyType, docName)
 	testNoteButton:SetText("Render Notes")
 	testNoteButton:SetFullWidth(true)
 	testNoteButton:SetCallback("OnClick", function()
+		local inCombat = UnitAffectingCombat("player")
+		if inCombat then
+			DD.utils.Log("Can't render test note while in combat")
+			return
+		end
+
 		DD.omniNote.RenderTestNote(docStruct.ddid, dungeonName)
+		DD.utils.Log("Rendered test note for " .. DD.utils.Gray(docStruct.docName) .. ", target an NPC to clear")
 	end)
 	scrollFrame:AddChild(testNoteButton)
 
