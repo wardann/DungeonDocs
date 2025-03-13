@@ -36,6 +36,8 @@ local models = {} ---@type PlayerModel[]
 
 local modelContainers = {} ---@type SimpleGroup[]
 
+local showClearAllTestNotesButton = false
+
 ---@param localTreeGroup TreeGroup
 ---@param treeData TreeData
 local function setTreeGroupFocus(localTreeGroup, treeData)
@@ -171,6 +173,10 @@ end
 ---@param enemyType "boss"|"trash"
 ---@param docName string
 function M.HandleSelected(dungeonName, enemyType, docName)
+	local rerender = function()
+		M.HandleSelected(dungeonName, enemyType, docName)
+	end
+
 	local docStructures = DD.dungeons.List[dungeonName].docStructures
 	local docStruct ---@type DocStructure
 
@@ -251,10 +257,30 @@ function M.HandleSelected(dungeonName, enemyType, docName)
 			return
 		end
 
+		showClearAllTestNotesButton = true
 		DD.omniNote.RenderTestNote(docStruct.ddid, dungeonName)
-		DD.utils.Log("Rendered test note for " .. DD.utils.Gray(docStruct.docName) .. ", target an NPC to clear")
+		rerender()
 	end)
 	scrollFrame:AddChild(testNoteButton)
+
+	-- here
+	if showClearAllTestNotesButton then
+		local clearAllTestNotesButton = AceGUI:Create("Button") ---@type Button
+		clearAllTestNotesButton:SetText("Clear Test Notes")
+		clearAllTestNotesButton:SetFullWidth(true)
+		clearAllTestNotesButton:SetCallback("OnClick", function()
+			local inCombat = UnitAffectingCombat("player")
+			if inCombat then
+				DD.utils.Log("Cannot clear notes while in combat")
+				return
+			end
+
+			DD.omniNote.ClearNotes()
+			showClearAllTestNotesButton = false
+			rerender()
+		end)
+		scrollFrame:AddChild(clearAllTestNotesButton)
+	end
 
 	local button = AceGUI:Create("Button") ---@type Button
 	local resetButtonText = "Reset Notes to Fallback Profile"
@@ -279,7 +305,7 @@ function M.HandleSelected(dungeonName, enemyType, docName)
 		resetNote(dungeonName, docStruct)
 		confirming = false
 		button:SetText(resetButtonText)
-		M.HandleSelected(dungeonName, enemyType, docName)
+		rerender()
 	end)
 
 	scrollFrame:AddChild(button)

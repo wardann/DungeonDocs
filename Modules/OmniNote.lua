@@ -641,9 +641,24 @@ end)
 ---@param ddid DDID
 ---@param dungeonName DungeonName
 function M.RenderTestNote(ddid, dungeonName)
+	local inCombat = UnitAffectingCombat("player")
+	if inCombat then
+		DD.utils.Log("Cannot render test note while in combat")
+	end
+
 	testNoteEnabled = true
 	table.insert(ddidsToRender, ddid)
 	ddidToDungeon[ddid] = dungeonName
+	M.RenderOmniNoteWithThrottle()
+end
+
+function M.ClearNotes()
+	local inCombat = UnitAffectingCombat("player")
+	if inCombat then
+		DD.utils.Log("Cannot clear notes while in combat")
+	end
+
+	clearRenderedNotes()
 	M.RenderOmniNoteWithThrottle()
 end
 
