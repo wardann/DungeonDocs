@@ -38,7 +38,7 @@ local notes = {
 	{
 		-- bossName = "The Darkness",
 		ddid = "dfc4",
-		primaryNote = "DO NOT let candle die!\n\n1. Move out of purple circle\n2. Move candle out of frontal\n3. Replinish candle\n4. Interrupt [Call Darkspawn]",
+		primaryNote = "DO NOT let candle die!\n\n1. Move out of purple circle\n2. Move candle out of frontal\n3. Replenish candle\n4. Interrupt [Call Darkspawn]",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "",

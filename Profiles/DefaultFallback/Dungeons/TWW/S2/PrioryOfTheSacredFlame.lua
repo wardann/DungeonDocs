@@ -25,7 +25,7 @@ local notes = {
 		primaryNote = "1. Avoid hazards\n2. Help tank soak if needed",
 		healerNote = "",
 		damageNote = "",
-		tankNote = "- The 3 Sacrifical Pyre orbs need to be soaked\n- During [Vindictive Wrath], there will be 5 orbs and you may need help",
+		tankNote = "- The 3 Sacrificial Pyre orbs need to be soaked\n- During [Vindictive Wrath], there will be 5 orbs and you may need help",
 	},
 	{
 		-- bossName = "Prioress Murrpray",
