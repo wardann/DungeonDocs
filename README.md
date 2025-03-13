@@ -9,7 +9,7 @@
 
 DungeonDocs is a World of Warcraft addon that displays notes during combat in Mythic+. Notes are enemy-specific and will be displayed for each enemy detected during combat.  
 
-Basic boss notes have been included for TWW Season 1 of M+, but you can easily add your own.
+Basic boss notes have been included for TWW Season 2 of M+, but you can easily add your own.
 
 
 ## Features
