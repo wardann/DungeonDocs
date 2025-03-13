@@ -1,6 +1,7 @@
 ---@class DungeonDocs
 local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
 local AceGUI = LibStub("AceGUI-3.0") ---@type AceGUI
+local LSM = LibStub("LibSharedMedia-3.0") ---@type any
 local M = {}
 
 -- #    # ###### #      #####  ###### #####   ####
@@ -269,28 +270,21 @@ end
 -- #      #    # #   ##   #   #    #
 -- #       ####  #    #   #    ####
 
-local LSM = LibStub("LibSharedMedia-3.0") ---@type any
-local fontList = LSM:HashTable("font") ---@type table<string, string>
-
-local fontNameToPath = fontList
-local fontPathToName = {} ---@type table<string, string>
-for fontName, fontPath in pairs(fontList) do
-	fontPathToName[fontPath] = fontName -- Use font names as display text
-end
-
-local fontNames = {} ---@type table<string, string>
-for fontName, _ in pairs(fontList) do
-	fontNames[fontName] = fontName -- Use font names as display text
-end
-
 ---@param fontName string
 function M.FontNameToPath(fontName)
+	local fontNameToPath = LSM:HashTable("font") ---@type table<string, string>
 	return fontNameToPath[fontName]
 end
 
----@param fontPath string
-function M.FontPathToName(fontPath)
-	return fontPathToName[fontPath]
+---@param targetFontPath string
+function M.FontPathToName(targetFontPath)
+	local fontList = LSM:HashTable("font") ---@type table<string, string>
+
+	for fontName, fontPath in pairs(fontList) do
+		if fontPath == targetFontPath then
+			return fontName
+		end
+	end
 end
 
 ---@param container AceGUIContainer
@@ -301,6 +295,13 @@ function M.AddFontSelect(container, label, startingFont, callback)
 	-- Dropdown menu for font selection
 	local fontDropdown = AceGUI:Create("Dropdown") ---@type Dropdown
 	fontDropdown:SetLabel(label)
+
+	-- Build list of available fonts
+	local fontList = LSM:HashTable("font") ---@type table<string, string>
+	local fontNames = {} ---@type table<string, string>
+	for fontName, _ in pairs(fontList) do
+		fontNames[fontName] = fontName -- Use font names as display text
+	end
 
 	-- Create a list with font-specific labels
 	fontDropdown:SetList(fontNames)
