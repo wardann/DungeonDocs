@@ -263,7 +263,6 @@ function M.HandleSelected(dungeonName, enemyType, docName)
 	end)
 	scrollFrame:AddChild(testNoteButton)
 
-	-- here
 	if showClearAllTestNotesButton then
 		local clearAllTestNotesButton = AceGUI:Create("Button") ---@type Button
 		clearAllTestNotesButton:SetText("Clear Test Notes")
