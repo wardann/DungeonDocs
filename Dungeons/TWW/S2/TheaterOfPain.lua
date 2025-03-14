@@ -84,8 +84,8 @@ local docStructures = {
 		mobs = {
 			{
 				-- name = "Mordretha",
-				id = " the Endless Empress",
-				displayId = 165946,
+				id = "165946",
+				displayId = 96078,
 			},
 		},
 	},
