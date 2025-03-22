@@ -3,32 +3,37 @@ local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
 local AceGUI = LibStub("AceGUI-3.0") ---@type AceGUI
 
 local versions = {
-	"v0.3.5",
-	"v0.3.4",
-	"v0.3.3",
-	"v0.3.2",
-	"v0.3.1",
 	"v0.3.0",
+	"v0.3.1",
+	"v0.3.2",
+	"v0.3.3",
+	"v0.3.4",
+	"v0.3.5",
+	"v0.4.0",
 }
 
 local changelog = {
-	["v0.3.5"] = {
-		"Fixed a bug that prevented notes from being displayed",
-	},
-	["v0.3.4"] = {
-		"Fixed Mordretha in Theater of Pain",
-	},
-	["v0.3.3"] = {
-		"Added a log when rendering test note",
-	},
-	["v0.3.2"] = {
-		"Fixed note typos",
+	["v0.3.0"] = {
+		"Stable release",
 	},
 	["v0.3.1"] = {
 		"Fixed a bug that prevented all fonts from loading",
 	},
-	["v0.3.0"] = {
-		"Stable release",
+	["v0.3.2"] = {
+		"Fixed note typos",
+	},
+	["v0.3.3"] = {
+		"Added a log when rendering a test note",
+	},
+	["v0.3.4"] = {
+		"Fixed Mordretha in Theater of Pain",
+	},
+	["v0.3.5"] = {
+		"Fixed a bug that prevented notes from being displayed",
+	},
+	["v0.4.0"] = {
+		"Added a Changelog tab",
+		"Fixed Anub'zekt in Ara-Kara",
 	},
 }
 
@@ -69,7 +74,9 @@ function M.TabRoot(container)
 	local defaultFont = state.style.defaultText.font
 	local defaultTitleFont = state.style.noteTitle.text.font
 
-	for _, version in ipairs(versions) do
+	-- Iterate backwards through the versions so the newest is at the top
+	for i = #versions, 1, -1 do
+		local version = versions[i]
 		local changes = changelog[version]
 		local versionLabel = AceGUI:Create("Label") ---@type Label
 		versionLabel:SetText("|cffffd700" .. version .. "|r")
