@@ -143,6 +143,7 @@ function DD:OpenUI(msg)
 		{ text = "Settings", value = "settings" },
 		{ text = "Profiles", value = "profiles" },
 		{ text = "Help", value = "help" },
+		{ text = "Changelog", value = "changelog" },
 	})
 	tab:SetCallback("OnGroupSelected", function(container, _, group)
 		container:ReleaseChildren()
@@ -156,6 +157,8 @@ function DD:OpenUI(msg)
 			DD.ui.settings.TabRoot(container)
 		elseif group == "profiles" then
 			DD.ui.profile.TabRoot(container)
+		elseif group == "changelog" then
+			DD.ui.changelog.TabRoot(container)
 		elseif group == "help" then
 			DD.ui.help.TabRoot(container)
 		end

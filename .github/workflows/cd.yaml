@@ -48,5 +48,8 @@ jobs:
         env:
           toc_version: ${{ env.toc_version }}
 
+      - name: Write Changelog
+        run: make write-changelog
+
       - name: Package and release
         uses: BigWigsMods/packager@v2

@@ -4,3 +4,4 @@ check.json
 *.log
 .seasonextract
 sync.sh
+CHANGELOG.txt
