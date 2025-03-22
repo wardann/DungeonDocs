@@ -71,3 +71,6 @@ UnitGUID = UnitGUID
 
 ---@type fun(): number
 GetTime = GetTime
+
+---@type fun()
+ReloadUI = ReloadUI

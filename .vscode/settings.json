@@ -44,5 +44,6 @@
     "GetSpecializationRole",
     "CombatLogGetCurrentEventInfo",
     "GetTime",
+    "ReloadUI",
   ]
 }
