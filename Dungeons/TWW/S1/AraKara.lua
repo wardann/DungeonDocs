@@ -33,7 +33,7 @@ local docStructures = {
 		mobs = {
 			{
 				-- name = "Anubzekt",
-				id = "21540",
+				id = "215405",
 				displayId = 115723,
 			},
 		},
