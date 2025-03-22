@@ -20,6 +20,8 @@ function M.Init()
         return
     end
 
+    DD.developer.db.Init()
+
     DD.utils.Log("Developer mode enabled")
 end
 
@@ -114,6 +116,9 @@ function M.OpenUI()
 	end)
 	tab:SelectTab("state") -- Default tab to display
 	mainFrame:AddChild(tab)
+
+    DD.utils.Log("capture: " .. DD.developer.database.profile.capture)
+    DD.developer.database.profile.capture = DD.developer.database.profile.capture + 1
 end
 
 DD.developer = M

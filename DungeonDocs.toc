@@ -21,6 +21,7 @@ Libs/Ace3/AceEvent-3.0/AceEvent-3.0.xml
 DungeonDocs.lua
 
 Developer/Developer.lua
+Developer/Database.lua
 
 Modules/Database.lua
 Modules/Utils.lua
