@@ -58,6 +58,15 @@ function DD:OpenUI(msg)
 		ReloadUI()
 	end
 
+	if arg1 == "dev" then
+		if not DD.db.database.profile.internal.developerModeEnabled then
+			return
+		end
+
+		DD.developer.OpenUI()
+		return
+	end
+
 	-- if arg1 == "reset-profiles" then
 	-- 	for profileName in pairs(DD.db.database.profiles) do
 	-- 		DD.db.ResetProfile(profileName)
