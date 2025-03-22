@@ -23,6 +23,11 @@ jobs:
         with:
           fetch-depth: 0  # Gets entire git history, needed for automatic changelogs
 
+      - name: Set up Lua
+        uses: leafo/gh-actions-lua@v8
+        with:
+          luaVersion: '5.1'
+
       - name: Extract version from .toc file
         id: toc_version
         run: |
