@@ -104,7 +104,8 @@ end
 
 ---@param ddid DDID
 ---@param dungeonName DungeonName
----@return { docStruct: DocStructure, playerNote: PlayerNote}|nil
+---@alias DocNote { docStruct: DocStructure, playerNote: PlayerNote }
+---@return DocNote | nil
 local function renderEncounteredMob(ddid, dungeonName)
 	local docStruct = DD.dungeons.DDIDToDocStruct(ddid, dungeonName)
 	if not docStruct then
@@ -133,30 +134,22 @@ end
 
 ---@param index number
 ---@param anchor Frame
+---@param docNotesToRender DocNote[]
 ---@return Frame
-function M.RenderNote(index, anchor)
+function M.RenderNote(index, anchor, docNotesToRender)
 	local u = DD.utils
 	local noteCardFrame = noteFrames[buildNoteCardName(index)]
 	local spacerFrame = noteFrames[buildSpacerName(index)]
 
-	local ddid = ddidsToRender[index]
-	if not ddid then
+	local docNote = docNotesToRender[index]
+	if not docNote then
 		u.SafeFrameCollapse(noteCardFrame)
 		u.SafeFrameCollapse(spacerFrame)
 		return spacerFrame
 	end
 
-	local dungeonName = ddidToDungeon[ddid]
-	local docInfo = renderEncounteredMob(ddid, dungeonName)
-
-	if not docInfo then
-		u.SafeFrameCollapse(noteCardFrame)
-		u.SafeFrameCollapse(spacerFrame)
-		return spacerFrame
-	end
-
-	local playerNote = docInfo.playerNote
-	local docStruct = docInfo.docStruct
+	local playerNote = docNote.playerNote
+	local docStruct = docNote.docStruct
 
 	local state = DD.db.database.profile.settings.omniNote
 
@@ -456,9 +449,18 @@ function M.RenderOmniNote()
 		previousNoteGrowDirection = state.noteGrowDirection
 	end
 
+	local docNotesToRender = {} ---@type DocNote[]
+	for _, ddid in ipairs(ddidsToRender) do
+		local dungeonName = ddidToDungeon[ddid]
+		local docNote = renderEncounteredMob(ddid, dungeonName)
+		if docNote then
+			table.insert(docNotesToRender, docNote)
+		end
+	end
+
 	local previousSpacer = omniNoteFrame
 	for i = 1, targetNoteCount do
-		local newSpacer = M.RenderNote(i, previousSpacer)
+		local newSpacer = M.RenderNote(i, previousSpacer, docNotesToRender)
 
 		-- Collapse the previous spacer if there are no more notes
 		if newSpacer:GetHeight() == 0 then
