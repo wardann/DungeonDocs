@@ -9,9 +9,14 @@ local versions = {
 	"v0.3.2",
 	"v0.3.1",
 	"v0.3.0",
+	"v0.4.0",
 }
 
 local changelog = {
+	["v0.4.0"] = {
+		"Added a Changelog tab",
+		"Fixed Anub'zekt in Ara-Kara",
+	},
 	["v0.3.5"] = {
 		"Fixed a bug that prevented notes from being displayed",
 	},
