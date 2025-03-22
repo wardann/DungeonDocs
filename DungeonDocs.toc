@@ -27,6 +27,7 @@ Modules/OmniNote.lua
 
 UI/Docs.lua
 UI/Help.lua
+UI/Changelog.lua
 UI/Profile.lua
 UI/Shared.lua
 UI/Settings/Title.lua

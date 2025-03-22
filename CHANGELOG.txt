@@ -1,1 +1,0 @@
-- Fixed bug that prevents notes from displaying

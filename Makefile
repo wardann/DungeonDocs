@@ -16,3 +16,13 @@ lint:
 .PHONY: format-files
 format-files:
 	stylua .
+
+.PHONY: write-changelog
+write-changelog:
+	@version=$$(grep '## Version:' DungeonDocs.toc | sed 's/^.*: //'); \
+	echo "Writing changelog for version: $$version\n"; \
+	output=$$(.github/scripts/print-changelog "$$version" 2>&1); \
+	ret=$$?; \
+	echo "$$output"; \
+	if [ $$ret -ne 0 ]; then exit $$ret; fi; \
+	echo "$$output" > CHANGELOG.txt; \
