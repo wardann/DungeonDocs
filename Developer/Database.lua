@@ -8,13 +8,13 @@ local M = {}
 DD.developer = DD.developer or {}
 
 ---@alias DevDatabaseSchema {
----    capture: number,
+---    instanceCapture: InstanceCapture,
 ---}
 ---
 
 ---@type DevDatabaseSchema
 local devDBDefaults = {
-    capture = 0
+    instanceCapture = {},
 }
 
 ---@param profile DevDatabaseSchema
@@ -40,7 +40,7 @@ function M.Init()
 
 	-- Empty defaults {} are used here so everything gets flushed to disk and missing fields
 	-- aren't encountered due to the on-demand pruning AceDB does
-	DD.developer.database = LibStub("AceDB-3.0"):New("DungeonDocsDB-dev", {}, defaultProfileName) ---@type AceDBDeveloper
+	DD.developer.database = LibStub("AceDB-3.0"):New("DungeonDocsDevDB", {}, defaultProfileName) ---@type AceDBDeveloper
 
 	-- If there is no default profile, then this is the first time the addon is running. Apply
 	-- defaults directly to the active profile to ensure all fields are there as expected

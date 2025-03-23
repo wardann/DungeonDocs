@@ -16,13 +16,15 @@ local devFrameWindowSize = {
 }
 
 function M.Init()
-    if not DD.db.database.profile.internal.developerModeEnabled then
-        return
-    end
+	if not DD.db.database.profile.internal.developerModeEnabled then
+		return
+	end
 
-    DD.developer.db.Init()
+	DD.utils.Log("Developer mode enabled")
 
-    DD.utils.Log("Developer mode enabled")
+	DD.developer.db.Init()
+
+    DD.developer.capture.Init()
 end
 
 function M.OpenUI()
@@ -106,19 +108,34 @@ function M.OpenUI()
 	local tab = AceGUI:Create("TabGroup")
 	tab:SetLayout("Fill") -- Use 'Fill' since each tab will manage its own layout
 	tab:SetTabs({
-		{ text = "State", value = "state" },
 		{ text = "Capture", value = "capture" },
+		{ text = "State", value = "state" },
 	})
 	tab:SetCallback("OnGroupSelected", function(container, _, group)
 		container:ReleaseChildren()
 
-        DD.utils.Log("Selected group: " .. group)
-	end)
-	tab:SelectTab("state") -- Default tab to display
-	mainFrame:AddChild(tab)
+		DD.utils.Log("Selected group: " .. group)
 
-    DD.utils.Log("capture: " .. DD.developer.database.profile.capture)
-    DD.developer.database.profile.capture = DD.developer.database.profile.capture + 1
+		if group == "capture" then
+			DD.developer.capture.TabRoot(container)
+		end
+	end)
+	tab:SelectTab("capture") -- Default tab to display
+	mainFrame:AddChild(tab)
+end
+
+---@param ... any
+function M.Log(...)
+	local args = { ... } -- Capture all arguments
+	local message = ""
+	for i, v in ipairs(args) do
+		if i == 1 then
+			message = tostring(v)
+		else
+			message = message .. " " .. tostring(v)
+		end
+	end
+	DD.utils.Log(DD.utils.Gray("(dev) ") .. message)
 end
 
 DD.developer = M

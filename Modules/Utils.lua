@@ -85,6 +85,86 @@ function M.DeepCopy(orig)
 	return copy
 end
 
+local function escapeStr(str)
+	return str:gsub('"', '\\"')
+end
+
+local function isArray(tbl)
+	local max = 0
+	local count = 0
+	---@diagnostic disable-next-line
+	for k, _ in pairs(tbl) do
+		if type(k) == "number" then
+			if k > max then
+				max = k
+			end
+			count = count + 1
+		else
+			return false
+		end
+	end
+	return max == count
+end
+
+function M.TableToJSON(tbl, indent)
+	indent = indent or 0
+	local indentStr = string.rep("  ", indent)
+	local nextIndentStr = string.rep("  ", indent + 1)
+
+	if type(tbl) == "table" then
+		local is_arr = isArray(tbl)
+		local parts = {}
+		if is_arr then
+			table.insert(parts, "[\n")
+
+			---@diagnostic disable-next-line
+			for i, v in ipairs(tbl) do
+				table.insert(parts, nextIndentStr .. M.TableToJSON(v, indent + 1))
+				if i < #tbl then
+					table.insert(parts, ",\n")
+				else
+					table.insert(parts, "\n")
+				end
+			end
+			table.insert(parts, indentStr .. "]")
+		else
+			table.insert(parts, "{\n")
+			local count = 0
+			local total = 0
+			---@diagnostic disable-next-line
+			for _ in pairs(tbl) do
+				total = total + 1
+			end
+			---@diagnostic disable-next-line
+			for k, v in pairs(tbl) do
+				count = count + 1
+				---@diagnostic disable-next-line
+				local key
+				if type(k) == "string" then
+					---@diagnostic disable-next-line
+					key = '"' .. escapeStr(k) .. '"'
+				else
+					key = tostring(k)
+				end
+				table.insert(parts, nextIndentStr .. key .. ": " .. M.TableToJSON(v, indent + 1))
+				if count < total then
+					table.insert(parts, ",\n")
+				else
+					table.insert(parts, "\n")
+				end
+			end
+			table.insert(parts, indentStr .. "}")
+		end
+		return table.concat(parts)
+	elseif type(tbl) == "string" then
+		return '"' .. escapeStr(tbl) .. '"'
+	elseif type(tbl) == "number" or type(tbl) == "boolean" then
+		return tostring(tbl)
+	else
+		return "null"
+	end
+end
+
 ---@param container AceGUIContainer
 ---@param title string
 ---@return InlineGroup
