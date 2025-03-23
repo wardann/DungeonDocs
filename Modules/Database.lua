@@ -104,6 +104,7 @@ local M = {}
 ---           TWWS1: string,
 ---       },
 ---       selectedSeason: string,
+---       developerModeEnabled: boolean,
 ---    },
 ---}
 
@@ -273,6 +274,7 @@ local dbDefaults = {
 		selectedSeason = "TWWS2",
 		testText = "This is some test to text with.\nChange it to see how your notes might look.",
 		showTestText = false,
+		developerModeEnabled = false,
 	},
 }
 
@@ -289,6 +291,14 @@ end
 ---@return DatabaseSchema
 function M.GetDBDefaults()
 	return dbDefaults
+end
+
+---@return boolean
+function M.ToggleDevMode()
+	local devModeEnabled = not M.database.profile.internal.developerModeEnabled
+	M.database.profile.internal.developerModeEnabled = devModeEnabled
+	M.NotifyDBChange()
+	return devModeEnabled
 end
 
 ---@param profile DatabaseSchema

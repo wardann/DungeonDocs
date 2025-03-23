@@ -18,6 +18,8 @@ function DD:OnInitialize()
 	DD.movers.Init()
 
 	DD.omniNote.Init()
+
+	DD.developer.Init()
 end
 
 ---@diagnostic disable
@@ -48,6 +50,20 @@ function DD:OpenUI(msg)
 
 	if arg1 == "report" then
 		DD.HandleReport()
+		return
+	end
+
+	if arg1 == "toggle-dev-mode" then
+		DD.db.ToggleDevMode()
+		ReloadUI()
+	end
+
+	if arg1 == "dev" then
+		if not DD.db.database.profile.internal.developerModeEnabled then
+			return
+		end
+
+		DD.developer.OpenUI()
 		return
 	end
 

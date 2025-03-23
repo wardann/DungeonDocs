@@ -5,7 +5,7 @@
 ## Author: Wardann
 ## X-Curse-Project-ID: 1129010
 ## X-Wago-ID: n6VP4QGd
-## SavedVariables: DungeonDocsDB
+## SavedVariables: DungeonDocsDB, DungeonDocsDevDB
 
 Libs/Ace3/LibStub/LibStub.lua
 Libs/Ace3/CallbackHandler-1.0/CallbackHandler-1.0.xml
@@ -19,6 +19,10 @@ Libs/Ace3/AceConsole-3.0/AceConsole-3.0.xml
 Libs/Ace3/AceEvent-3.0/AceEvent-3.0.xml
 
 DungeonDocs.lua
+
+Developer/Developer.lua
+Developer/Database.lua
+Developer/Capture.lua
 
 Modules/Database.lua
 Modules/Utils.lua

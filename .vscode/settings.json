@@ -44,5 +44,9 @@
     "GetSpecializationRole",
     "CombatLogGetCurrentEventInfo",
     "GetTime",
+    "ReloadUI",
+    "IsInInstance",
+    "bit",
+    "COMBATLOG_OBJECT_REACTION_HOSTILE",
   ]
 }

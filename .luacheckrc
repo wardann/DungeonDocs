@@ -46,6 +46,10 @@ globals = {
     "GetSpecializationRole",
     "CombatLogGetCurrentEventInfo",
     "GetTime",
+    "ReloadUI",
+    "IsInInstance",
+    "bit",
+    "COMBATLOG_OBJECT_REACTION_HOSTILE"
 }
 
 max_line_length = false
