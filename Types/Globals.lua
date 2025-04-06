@@ -74,8 +74,8 @@ GetSpecializationRole = GetSpecializationRole
 ---@return number|nil spellSchool     -- Spell school as a bitmask (if applicable).
 ---@return any ...                    -- Additional event-specific parameters.
 function CombatLogGetCurrentEventInfo()
-    -- Stub return values to satisfy type checking.
-    return 0, "", false, "", "", 0, 0, "", "", 0, 0, nil, nil, nil
+	-- Stub return values to satisfy type checking.
+	return 0, "", false, "", "", 0, 0, "", "", 0, 0, nil, nil, nil
 end
 -- Assign the global so that tools recognize the type.
 CombatLogGetCurrentEventInfo = CombatLogGetCurrentEventInfo

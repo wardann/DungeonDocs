@@ -96,12 +96,12 @@ function M.TabRoot(wrapperContainer, isRefresh)
 	instanceDropdown:SetLabel("Instance")
 	instanceDropdown:SetFullWidth(true) -- Ensure it takes the full width
 
-    -- Changed: Use a key-value table so that the keys (and values) are instance names.
-    local instances = {} ---@type table<string, string>
-    instances["All"] = "All"
-    for instanceName in pairs(DD.developer.database.profile.instanceCapture) do
-        instances[instanceName] = instanceName
-    end
+	-- Changed: Use a key-value table so that the keys (and values) are instance names.
+	local instances = {} ---@type table<string, string>
+	instances["All"] = "All"
+	for instanceName in pairs(DD.developer.database.profile.instanceCapture) do
+		instances[instanceName] = instanceName
+	end
 	instanceDropdown:SetList(instances)
 
 	instanceDropdown:SetCallback("OnValueChanged", function(_, _, instanceName)
@@ -113,16 +113,16 @@ function M.TabRoot(wrapperContainer, isRefresh)
 	mainContainer:AddChild(instanceDropdown)
 
 	-- Add Delete Instance Button
-    local singleConfirm = false
-    local doubleConfirm = false
+	local singleConfirm = false
+	local doubleConfirm = false
 	local deleteButton = AceGUI:Create("Button")
 	deleteButton:SetText("Delete Instance")
 	deleteButton:SetFullWidth(true)
 	deleteButton:SetCallback("OnClick", function()
 		if localState.selectedInstance == "All" then
-            DD.utils.Log("Cannot delete all instances")
-            return
-        end
+			DD.utils.Log("Cannot delete all instances")
+			return
+		end
 		if not singleConfirm then
 			deleteButton:SetText("Confirm")
 			singleConfirm = true
@@ -154,8 +154,8 @@ function M.TabRoot(wrapperContainer, isRefresh)
 		if localState.selectedInstance == "All" then
 			local allInstances = DD.developer.database.profile.instanceCapture
 			textBox:SetText(DD.utils.TableToJSON(allInstances, 4))
-            return
-        end
+			return
+		end
 
 		if localState.selectedInstance ~= "" then
 			local instanceData = DD.developer.database.profile.instanceCapture[localState.selectedInstance]
@@ -212,25 +212,25 @@ function M.InitEvents()
 					return false
 				end
 
-                if not isHostile(sourceFlags) and not isHostile(destFlags) then
-                    return false
-                end
+				if not isHostile(sourceFlags) and not isHostile(destFlags) then
+					return false
+				end
 
 				if DD.utils.IsFollowerNPC(sourceMobId) or DD.utils.IsFollowerNPC(destMobId) then
 					return true
 				end
 
-                return true
+				return true
 			end
 
 			if isValidEvent() then
-                M.captureInstance(instanceName, instanceType)
+				M.captureInstance(instanceName, instanceType)
 
 				if sourceGuidType ~= "Player" and isHostile(sourceFlags) then
 					M.captureMob(instanceName, sourceMobId, sourceGUID, sourceName)
-                    if spellId then
-                        M.captureSpell(instanceName, sourceMobId, sourceName, spellId, spellName, spellSchool)
-                    end
+					if spellId then
+						M.captureSpell(instanceName, sourceMobId, sourceName, spellId, spellName, spellSchool)
+					end
 				end
 				if destGuidType ~= "Player" and isHostile(destFlags) then
 					M.captureMob(instanceName, destMobId, destGUID, destName)
@@ -258,7 +258,9 @@ end
 ---@param guid string
 ---@param mobName string
 function M.captureMob(instanceName, mobId, guid, mobName)
-	if not mobId then return end
+	if not mobId then
+		return
+	end
 
 	local state = DD.developer.database.profile.instanceCapture
 	local instanceData = state[instanceName]
@@ -270,14 +272,14 @@ function M.captureMob(instanceName, mobId, guid, mobName)
 			name = mobName,
 			id = mobId,
 			guid = guid,
-            spells = {},
+			spells = {},
 		}
 	end
 
-    local mobData = instanceData.mobIDToData[mobId]
-    mobData.name = mobName
-    mobData.id = mobId
-    mobData.guid = guid
+	local mobData = instanceData.mobIDToData[mobId]
+	mobData.name = mobName
+	mobData.id = mobId
+	mobData.guid = guid
 end
 
 -- New function to capture a mob's spell cast
@@ -288,19 +290,34 @@ end
 ---@param spellName SpellName|nil
 ---@param spellSchool SpellSchool|nil
 function M.captureSpell(instanceName, mobId, mobName, spellId, spellName, spellSchool)
-	if not mobId or not spellId then return end
+	if not mobId or not spellId then
+		return
+	end
 
-    -- Only capture mob spells; ignore spells from players
-    if mobId:match("^Player") then return end
+	-- Only capture mob spells; ignore spells from players
+	if mobId:match("^Player") then
+		return
+	end
 
-    if not spellName then return end
+	if not spellName then
+		return
+	end
 
-    if spellName == -1 then return end
+	if spellName == -1 then
+		return
+	end
 
 	local mobData = DD.developer.database.profile.instanceCapture[instanceName].mobIDToData[mobId]
-    if not mobData.spells[spellId] then
-	    DD.developer.Log("Captured spell " .. DD.utils.Gray(spellName) .. " for mob " .. DD.utils.Gray(mobName) .. " in instance " .. DD.utils.Gray(instanceName))
-    end
+	if not mobData.spells[spellId] then
+		DD.developer.Log(
+			"Captured spell "
+				.. DD.utils.Gray(spellName)
+				.. " for mob "
+				.. DD.utils.Gray(mobName)
+				.. " in instance "
+				.. DD.utils.Gray(instanceName)
+		)
+	end
 	mobData.spells[spellId] = {
 		name = spellName,
 		id = spellId,

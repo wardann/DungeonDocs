@@ -24,7 +24,7 @@ function M.Init()
 
 	DD.developer.db.Init()
 
-    DD.developer.capture.Init()
+	DD.developer.capture.Init()
 end
 
 function M.OpenUI()

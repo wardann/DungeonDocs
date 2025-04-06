@@ -14,7 +14,7 @@ DD.developer = DD.developer or {}
 
 ---@type DevDatabaseSchema
 local devDBDefaults = {
-    instanceCapture = {},
+	instanceCapture = {},
 }
 
 ---@param profile DevDatabaseSchema
@@ -33,7 +33,6 @@ local function applyDefaults(profile, defaults)
 		end
 	end
 end
-
 
 function M.Init()
 	local defaultProfileName = "Default"
