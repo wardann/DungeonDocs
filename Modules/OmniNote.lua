@@ -557,21 +557,26 @@ local ensureTarget = function()
 		mobId = unitId
 	end
 
+	-- If in combat without a target, clear target
 	if inCombat and not guid then
 		playerTargetMobId = nil
 
+	-- If not in combat and no target, clear target and notes
 	elseif not inCombat and not guid then
 		playerTargetMobId = nil
 		clearRenderedNotes()
 
+	-- If not in combat and target is a player, clear target
 	elseif not inCombat and guid and unitType == "Player" then
 		playerTargetMobId = nil
 
+	-- If not in combat and target is a mob, clear notes, set target, store mob
 	elseif not inCombat and guid and unitType ~= "Player" then
 		clearRenderedNotes()
 		playerTargetMobId = mobId
 		storeEncounteredMob(mobId)
 
+	-- If in combat and target is not a player, store mob
 	elseif inCombat and guid and unitType ~= "Player" then
 		playerTargetMobId = unitId
 
