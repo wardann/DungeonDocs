@@ -646,6 +646,7 @@ function M.RenderTestNote(ddid, dungeonName)
 	local inCombat = UnitAffectingCombat("player")
 	if inCombat then
 		DD.utils.Log("Cannot render test note while in combat")
+		return
 	end
 
 	testNoteEnabled = true
@@ -658,6 +659,7 @@ function M.ClearNotes()
 	local inCombat = UnitAffectingCombat("player")
 	if inCombat then
 		DD.utils.Log("Cannot clear notes while in combat")
+		return
 	end
 
 	clearRenderedNotes()
