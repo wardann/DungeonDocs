@@ -1,11 +1,11 @@
 ## Interface: 110100
 ## Title: DungeonDocs
-## Version: v0.3.4
+## Version: v0.4.0
 ## Notes: Docs for your dungeons.
 ## Author: Wardann
 ## X-Curse-Project-ID: 1129010
 ## X-Wago-ID: n6VP4QGd
-## SavedVariables: DungeonDocsDB
+## SavedVariables: DungeonDocsDB, DungeonDocsDevDB
 
 Libs/Ace3/LibStub/LibStub.lua
 Libs/Ace3/CallbackHandler-1.0/CallbackHandler-1.0.xml
@@ -20,6 +20,10 @@ Libs/Ace3/AceEvent-3.0/AceEvent-3.0.xml
 
 DungeonDocs.lua
 
+Developer/Developer.lua
+Developer/Database.lua
+Developer/Capture.lua
+
 Modules/Database.lua
 Modules/Utils.lua
 Modules/Movers.lua
@@ -27,6 +31,7 @@ Modules/OmniNote.lua
 
 UI/Docs.lua
 UI/Help.lua
+UI/Changelog.lua
 UI/Profile.lua
 UI/Shared.lua
 UI/Settings/Title.lua

@@ -18,6 +18,8 @@ function DD:OnInitialize()
 	DD.movers.Init()
 
 	DD.omniNote.Init()
+
+	DD.developer.Init()
 end
 
 ---@diagnostic disable
@@ -48,6 +50,20 @@ function DD:OpenUI(msg)
 
 	if arg1 == "report" then
 		DD.HandleReport()
+		return
+	end
+
+	if arg1 == "toggle-dev-mode" then
+		DD.db.ToggleDevMode()
+		ReloadUI()
+	end
+
+	if arg1 == "dev" then
+		if not DD.db.database.profile.internal.developerModeEnabled then
+			return
+		end
+
+		DD.developer.OpenUI()
 		return
 	end
 
@@ -143,6 +159,7 @@ function DD:OpenUI(msg)
 		{ text = "Settings", value = "settings" },
 		{ text = "Profiles", value = "profiles" },
 		{ text = "Help", value = "help" },
+		{ text = "Changelog", value = "changelog" },
 	})
 	tab:SetCallback("OnGroupSelected", function(container, _, group)
 		container:ReleaseChildren()
@@ -156,6 +173,8 @@ function DD:OpenUI(msg)
 			DD.ui.settings.TabRoot(container)
 		elseif group == "profiles" then
 			DD.ui.profile.TabRoot(container)
+		elseif group == "changelog" then
+			DD.ui.changelog.TabRoot(container)
 		elseif group == "help" then
 			DD.ui.help.TabRoot(container)
 		end

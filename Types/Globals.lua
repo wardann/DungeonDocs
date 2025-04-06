@@ -57,7 +57,27 @@ GetSpecialization = GetSpecialization
 ---@type fun(specIndex: number): string # Returns the role associated with the given specialization index ("DAMAGER", "HEALER", or "TANK")
 GetSpecializationRole = GetSpecializationRole
 
----@type fun(): string, string, number, string, string, number, number, string, string, number, number, number, ... # Returns details about the current combat log event
+--- Returns details about the latest combat log event.
+---@return number timestamp           -- The time the event occurred.
+---@return string subevent            -- The event type (e.g. "SPELL_CAST_SUCCESS", "SWING_DAMAGE", etc.).
+---@return boolean hideCaster         -- Whether to hide the caster.
+---@return string sourceGUID          -- GUID of the source unit.
+---@return string sourceName          -- Name of the source unit.
+---@return number sourceFlags         -- Bitfield flags for the source unit (e.g. type, reaction).
+---@return number sourceRaidFlags     -- Additional raid flags for the source unit.
+---@return string destGUID            -- GUID of the destination unit.
+---@return string destName            -- Name of the destination unit.
+---@return number destFlags           -- Bitfield flags for the destination unit.
+---@return number destRaidFlags       -- Additional raid flags for the destination unit.
+---@return number|nil spellId         -- Spell ID (if applicable).
+---@return string|nil spellName       -- Spell name (if applicable).
+---@return number|nil spellSchool     -- Spell school as a bitmask (if applicable).
+---@return any ...                    -- Additional event-specific parameters.
+function CombatLogGetCurrentEventInfo()
+	-- Stub return values to satisfy type checking.
+	return 0, "", false, "", "", 0, 0, "", "", 0, 0, nil, nil, nil
+end
+-- Assign the global so that tools recognize the type.
 CombatLogGetCurrentEventInfo = CombatLogGetCurrentEventInfo
 
 ---@type any
@@ -71,3 +91,17 @@ UnitGUID = UnitGUID
 
 ---@type fun(): number
 GetTime = GetTime
+
+---@type fun()
+ReloadUI = ReloadUI
+
+---@type fun(): boolean, string
+IsInInstance = IsInInstance
+
+---@class bit
+---@field band fun(a: number, b: number): number
+---@type bit
+bit = bit
+
+---@type number
+COMBATLOG_OBJECT_REACTION_HOSTILE = COMBATLOG_OBJECT_REACTION_HOSTILE

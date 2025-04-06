@@ -4,3 +4,5 @@ ignore:
 
 embedded-libraries:
   - Ace3
+
+manual-changelog: CHANGELOG.txt
