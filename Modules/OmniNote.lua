@@ -668,6 +668,7 @@ function M.ClearNotes()
 	end
 
 	clearRenderedNotes()
+	ensureTarget()
 	M.RenderOmniNoteWithThrottle()
 end
 
