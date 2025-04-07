@@ -569,6 +569,7 @@ local ensureTarget = function()
 	-- If not in combat and target is a player, clear target
 	elseif not inCombat and guid and unitType == "Player" then
 		playerTargetMobId = nil
+		clearRenderedNotes()
 
 	-- If not in combat and target is a mob, clear notes, set target, store mob
 	elseif not inCombat and guid and unitType ~= "Player" then
@@ -579,7 +580,7 @@ local ensureTarget = function()
 	-- If in combat and target is not a player, store mob
 	elseif inCombat and guid and unitType ~= "Player" then
 		playerTargetMobId = unitId
-
+		storeEncounteredMob(mobId)
 	end
 
 	M.RenderOmniNoteWithThrottle()
