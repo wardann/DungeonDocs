@@ -511,6 +511,12 @@ eventFrame:RegisterEvent("PLAYER_REGEN_ENABLED")
 eventFrame:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 eventFrame:RegisterEvent("PLAYER_TARGET_CHANGED")
 
+local clearRenderedNotes = function()
+	ddidsToRender = {}
+	ddidToDungeon = {}
+	testNoteEnabled = false
+end
+
 ---@param mobId string
 local function storeEncounteredMob(mobId)
 	if DD.utils.IsFollowerNPC(mobId) then
@@ -551,25 +557,30 @@ local ensureTarget = function()
 		mobId = unitId
 	end
 
+	-- If in combat without a target, clear target
 	if inCombat and not guid then
 		playerTargetMobId = nil
+
+	-- If not in combat and no target, clear target and notes
 	elseif not inCombat and not guid then
 		playerTargetMobId = nil
+		clearRenderedNotes()
 
-		ddidsToRender = {}
-		ddidToDungeon = {}
-		testNoteEnabled = false
+	-- If not in combat and target is a player, clear target
 	elseif not inCombat and guid and unitType == "Player" then
 		playerTargetMobId = nil
-	elseif not inCombat and guid and unitType ~= "Player" then
-		ddidsToRender = {}
-		ddidToDungeon = {}
-		testNoteEnabled = false
+		clearRenderedNotes()
 
+	-- If not in combat and target is a mob, clear notes, set target, store mob
+	elseif not inCombat and guid and unitType ~= "Player" then
+		clearRenderedNotes()
 		playerTargetMobId = mobId
 		storeEncounteredMob(mobId)
+
+	-- If in combat and target is not a player, store mob
 	elseif inCombat and guid and unitType ~= "Player" then
 		playerTargetMobId = unitId
+		storeEncounteredMob(mobId)
 	end
 
 	M.RenderOmniNoteWithThrottle()
@@ -579,12 +590,11 @@ eventFrame:SetScript("OnEvent", function(_, event)
 	-- luacheck: ignore
 	if event == "PLAYER_REGEN_DISABLED" then
 		-- Reset encountered mobs at start of combat
-		-- This caused nothing to render, skipping
+		clearRenderedNotes()
+		ensureTarget()
 	elseif event == "PLAYER_REGEN_ENABLED" then
 		-- Reset encountered mobs at end of combat
-		ddidsToRender = {}
-		ddidToDungeon = {}
-		testNoteEnabled = false
+		clearRenderedNotes()
 		ensureTarget()
 	elseif event == "COMBAT_LOG_EVENT_UNFILTERED" then
 		local inCombat = UnitAffectingCombat("player")
@@ -636,9 +646,27 @@ end)
 ---@param ddid DDID
 ---@param dungeonName DungeonName
 function M.RenderTestNote(ddid, dungeonName)
+	local inCombat = UnitAffectingCombat("player")
+	if inCombat then
+		DD.utils.Log("Cannot render test note while in combat")
+		return
+	end
+
 	testNoteEnabled = true
 	table.insert(ddidsToRender, ddid)
 	ddidToDungeon[ddid] = dungeonName
+	M.RenderOmniNoteWithThrottle()
+end
+
+function M.ClearNotes()
+	local inCombat = UnitAffectingCombat("player")
+	if inCombat then
+		DD.utils.Log("Cannot clear notes while in combat")
+		return
+	end
+
+	clearRenderedNotes()
+	ensureTarget()
 	M.RenderOmniNoteWithThrottle()
 end
 

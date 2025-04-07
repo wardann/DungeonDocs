@@ -10,6 +10,7 @@ local versions = {
 	"v0.3.4",
 	"v0.3.5",
 	"v0.4.0",
+	"v0.5.0",
 }
 
 local changelog = {
@@ -34,6 +35,10 @@ local changelog = {
 	["v0.4.0"] = {
 		"Added a Changelog tab",
 		"Fixed Anub'zekt in Ara-Kara",
+	},
+	["v0.5.0"] = {
+		"Added a 'Clear Test Notes' button",
+		"Fixed a bug that prevented target note from being displayed on combat enter",
 	},
 }
 

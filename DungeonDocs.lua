@@ -103,7 +103,7 @@ function DD:OpenUI(msg)
 	local maxHeight = UIParent:GetHeight() * 0.95
 
 	local initWidth = math.min(850, maxWidth)
-	local initHeight = math.min(850, maxHeight)
+	local initHeight = math.min(870, maxHeight)
 
 	local storedWidth = dungeonDocsWindowSize.width
 	local storedHeight = dungeonDocsWindowSize.height
