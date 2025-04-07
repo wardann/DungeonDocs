@@ -512,9 +512,9 @@ eventFrame:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 eventFrame:RegisterEvent("PLAYER_TARGET_CHANGED")
 
 local clearRenderedNotes = function()
-		ddidsToRender = {}
-		ddidToDungeon = {}
-		testNoteEnabled = false
+	ddidsToRender = {}
+	ddidToDungeon = {}
+	testNoteEnabled = false
 end
 
 ---@param mobId string
@@ -586,19 +586,16 @@ local ensureTarget = function()
 	M.RenderOmniNoteWithThrottle()
 end
 
-
 eventFrame:SetScript("OnEvent", function(_, event)
 	-- luacheck: ignore
 	if event == "PLAYER_REGEN_DISABLED" then
 		-- Reset encountered mobs at start of combat
 		clearRenderedNotes()
 		ensureTarget()
-
 	elseif event == "PLAYER_REGEN_ENABLED" then
 		-- Reset encountered mobs at end of combat
 		clearRenderedNotes()
 		ensureTarget()
-
 	elseif event == "COMBAT_LOG_EVENT_UNFILTERED" then
 		local inCombat = UnitAffectingCombat("player")
 		if not inCombat then
