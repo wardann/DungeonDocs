@@ -38,7 +38,7 @@ local changelog = {
 	},
 	["v0.5.0"] = {
 		"Added a 'Clear Test Notes' button",
-		"Fixed bug that prevented target note from being displayed on entering combat",
+		"Fixed a bug that prevented target note from being displayed on combat enter",
 	},
 }
 
