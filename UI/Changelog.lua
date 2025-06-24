@@ -39,6 +39,7 @@ local changelog = {
 	["v0.5.0"] = {
 		"Added a 'Clear Test Notes' button",
 		"Fixed a bug that prevented target note from being displayed on combat enter",
+		"Bump supported game version",
 	},
 }
 
