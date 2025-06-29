@@ -11,6 +11,8 @@ local targetNoteCount = 10
 
 local testNoteEnabled = false
 local ddidsToRender = {} ---@type DDID[]
+local guidsEncountered = {} ---@type table<string, boolean>
+local ddidsCount = {} ---@type table<DDID, number>
 local ddidToDungeon = {} ---@type table<DDID, DungeonName>
 
 local playerTargetMobId ---@type string|nil
@@ -141,6 +143,7 @@ function M.RenderNote(index, anchor, docNotesToRender)
 	local noteCardFrame = noteFrames[buildNoteCardName(index)]
 	local spacerFrame = noteFrames[buildSpacerName(index)]
 
+	-- Collapse and return if there's no note to render
 	local docNote = docNotesToRender[index]
 	if not docNote then
 		u.SafeFrameCollapse(noteCardFrame)
@@ -170,7 +173,14 @@ function M.RenderNote(index, anchor, docNotesToRender)
 	---@return string
 	local function resolveText(lineName)
 		if lineName == "noteTitle" then
-			return docStruct.docName
+			-- TODO: make mob count toggleable
+			-- TODO: make prefix and postfix configurable
+			local mobCount = ddidsCount[docNote.docStruct.ddid]
+			local mobCountText = ""
+			if mobCount and mobCount > 0 then
+				mobCountText = " [" .. mobCount .. "]"
+			end
+			return docStruct.docName .. mobCountText
 		end
 
 		if string.find(lineName, "Header") then
@@ -514,11 +524,15 @@ eventFrame:RegisterEvent("PLAYER_TARGET_CHANGED")
 local clearRenderedNotes = function()
 	ddidsToRender = {}
 	ddidToDungeon = {}
+	guidsEncountered = {}
+	ddidsCount = {}
 	testNoteEnabled = false
 end
 
 ---@param mobId string
-local function storeEncounteredMob(mobId)
+---@param guid string|nil
+---@param isDead boolean|nil
+local function storeEncounteredMob(mobId, guid, isDead)
 	if DD.utils.IsFollowerNPC(mobId) then
 		return
 	end
@@ -534,16 +548,49 @@ local function storeEncounteredMob(mobId)
 		return
 	end
 
-	for _, foundDDID in ipairs(ddidsToRender) do
-		if foundDDID == ddid then
-			return
+	-- If we haven't seen this GUID before, store it and
+	-- init / increment the DDID count
+	if guid and guidsEncountered[guid] == nil then
+		guidsEncountered[guid] = true
+
+		if ddidsCount[ddid] == nil then
+			ddidsCount[ddid] = 1
+		else
+			ddidsCount[ddid] = ddidsCount[ddid] + 1
 		end
 	end
 
-	table.insert(ddidsToRender, ddid)
-	ddidToDungeon[ddid] = dungeonName
+	-- If the mob is dead decrement the count
+	if isDead then
+		local count = ddidsCount[ddid]
+		if count and count > 0 then
+			count = count - 1
+			ddidsCount[ddid] = count
+		end
+	end
 
-	return true
+	local isStored = DD.utils.IsInArray(ddidsToRender, ddid)
+	if not isStored then
+		table.insert(ddidsToRender, ddid)
+		ddidToDungeon[ddid] = dungeonName
+	end
+
+	-- Remove mobs if their count is zero, unless it's the player's target
+	-- TODO: make this toggleable
+	local targetDDID = "unset" --- @type string|nil
+	for i = #ddidsToRender, 1, -1 do
+		local ddidToRender = ddidsToRender[i]
+		local count = ddidsCount[ddidToRender]
+		if not count or count == 0 then
+			if targetDDID == "unset" then
+				targetDDID = DD.dungeons.MobIdToDDID(playerTargetMobId or "", dungeonName)
+			end
+
+			if ddidToRender ~= targetDDID then
+				table.remove(ddidsToRender, i)
+			end
+		end
+	end
 end
 
 local ensureTarget = function()
@@ -604,10 +651,7 @@ eventFrame:SetScript("OnEvent", function(_, event)
 
 		local _, subEvent, _, sourceGUID, _, _, _, destGUID, _ = CombatLogGetCurrentEventInfo()
 
-		-- Ignore deaths
-		if subEvent == "UNIT_DIED" or subEvent == "UNIT_DESTROYED" then
-			return
-		end
+		local isDead = subEvent == "UNIT_DIED" or subEvent == "UNIT_DESTROYED"
 
 		local sourceMobId = sourceGUID:match("-(%d+)-%x+$")
 		local sourceGuidType = sourceGUID:match("^(.-)-")
@@ -616,6 +660,10 @@ eventFrame:SetScript("OnEvent", function(_, event)
 		local destGuidType = destGUID:match("^(.-)-")
 
 		local isValidEvent = function()
+			if isDead then
+				return true
+			end
+
 			if sourceGuidType == "Player" and destGuidType == "Player" then
 				return false
 			end
@@ -631,10 +679,10 @@ eventFrame:SetScript("OnEvent", function(_, event)
 
 		if isValidEvent() then
 			if sourceGuidType ~= "Player" then
-				storeEncounteredMob(sourceMobId)
+				storeEncounteredMob(sourceMobId, sourceGUID, isDead)
 			end
 			if destGuidType ~= "Player" then
-				storeEncounteredMob(destMobId)
+				storeEncounteredMob(destMobId, destGUID, isDead)
 			end
 			M.RenderOmniNoteWithThrottle()
 		end

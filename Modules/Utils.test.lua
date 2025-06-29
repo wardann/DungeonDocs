@@ -83,3 +83,18 @@ describe("MergeDocs", function()
 		assert.are.same(expected, actual)
 	end)
 end)
+
+describe("RemoveFromArray", function()
+	---@type DungeonDocs
+	local DD
+
+	before_each(function()
+		DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs") ---@type DungeonDocs
+	end)
+
+	it("removes all occurrences of a value from an array table", function()
+		local arr = { "a", "b", "c", "b", "d", "b" }
+		DD.utils.RemoveFromArray(arr, "b")
+		assert.are.same({ "a", "c", "d" }, arr)
+	end)
+end)
