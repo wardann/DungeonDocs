@@ -173,12 +173,10 @@ function M.RenderNote(index, anchor, docNotesToRender)
 	---@return string
 	local function resolveText(lineName)
 		if lineName == "noteTitle" then
-			-- TODO: make mob count toggleable
-			-- TODO: make prefix and postfix configurable
 			local mobCount = ddidsCount[docNote.docStruct.ddid]
 			local mobCountText = ""
-			if mobCount and mobCount > 0 then
-				mobCountText = " [" .. mobCount .. "]"
+			if state.enableMobCounters and mobCount and mobCount > 0 then
+				mobCountText = " " .. state.mobCounterPrefix .. mobCount .. state.mobCounterSuffix
 			end
 			return docStruct.docName .. mobCountText
 		end
@@ -576,18 +574,20 @@ local function storeEncounteredMob(mobId, guid, isDead)
 	end
 
 	-- Remove mobs if their count is zero, unless it's the player's target
-	-- TODO: make this toggleable
-	local targetDDID = "unset" --- @type string|nil
-	for i = #ddidsToRender, 1, -1 do
-		local ddidToRender = ddidsToRender[i]
-		local count = ddidsCount[ddidToRender]
-		if not count or count == 0 then
-			if targetDDID == "unset" then
-				targetDDID = DD.dungeons.MobIdToDDID(playerTargetMobId or "", dungeonName)
-			end
+	local state = DD.db.database.profile.settings.omniNote
+	if state.enableTrackMobDeaths then
+		local targetDDID = "unset" --- @type string|nil
+		for i = #ddidsToRender, 1, -1 do
+			local ddidToRender = ddidsToRender[i]
+			local count = ddidsCount[ddidToRender]
+			if not count or count == 0 then
+				if targetDDID == "unset" then
+					targetDDID = DD.dungeons.MobIdToDDID(playerTargetMobId or "", dungeonName)
+				end
 
-			if ddidToRender ~= targetDDID then
-				table.remove(ddidsToRender, i)
+				if ddidToRender ~= targetDDID then
+					table.remove(ddidsToRender, i)
+				end
 			end
 		end
 	end
@@ -703,6 +703,13 @@ function M.RenderTestNote(ddid, dungeonName)
 	testNoteEnabled = true
 	table.insert(ddidsToRender, ddid)
 	ddidToDungeon[ddid] = dungeonName
+
+	-- Init or increment count
+	if ddidsCount[ddid] == nil then
+		ddidsCount[ddid] = 1
+	else
+		ddidsCount[ddid] = ddidsCount[ddid] + 1
+	end
 	M.RenderOmniNoteWithThrottle()
 end
 
