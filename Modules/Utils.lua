@@ -106,6 +106,17 @@ local function isArray(tbl)
 	return max == count
 end
 
+--- Removes all occurrences of a value from an array-style table.
+---@param tbl table
+---@param value any
+function M.RemoveFromArray(tbl, value)
+	for i = #tbl, 1, -1 do
+		if tbl[i] == value then
+			table.remove(tbl, i)
+		end
+	end
+end
+
 function M.TableToJSON(tbl, indent)
 	indent = indent or 0
 	local indentStr = string.rep("  ", indent)

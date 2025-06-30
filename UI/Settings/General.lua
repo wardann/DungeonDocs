@@ -10,6 +10,11 @@ DD.ui.settings = DD.ui.settings or {}
 
 ---@param container AceGUIContainer
 function DD.ui.settings.General_View(container)
+	local rerender = function()
+		container:ReleaseChildren()
+		DD.ui.settings.General_View(container)
+	end
+
 	local db = DD.db.database
 	local state = db.profile.settings.omniNote
 	local internal = db.profile.internal
@@ -56,8 +61,13 @@ function DD.ui.settings.General_View(container)
 	local defaultFontSection = DD.utils.AddSection(scrollFrame, "Default Text Style")
 	DD.ui.shared.AddFontSettings(defaultFontSection, state.style.defaultText)
 
+	-- Add season selection
 	local seasonSection = DD.utils.AddSection(scrollFrame, "Season")
 	DD.ui.settings.General_AddSeasonSelect(seasonSection)
+
+	-- Add combat options section
+	local combatSection = DD.utils.AddSection(scrollFrame, "Combat")
+	DD.ui.settings.General_AddCombatSelections(combatSection, rerender)
 end
 
 ---@param container AceGUIContainer
@@ -76,6 +86,41 @@ function DD.ui.settings.General_AddSeasonSelect(container)
 	end)
 
 	container:AddChild(seasonDropdown)
+end
+
+---@param container AceGUIContainer
+---@param rerender fun(): nil
+function DD.ui.settings.General_AddCombatSelections(container, rerender)
+	local db = DD.db.database
+	local state = db.profile.settings.omniNote
+
+	DD.ui.shared.AddCheckBox(container, "Track Mob Death", state, "enableTrackMobDeaths")
+
+	DD.ui.shared.AddCheckBox(container, "Track Mob Count", state, "enableMobCounters", rerender)
+
+	if state.enableMobCounters then
+		local counterPrefixInput = AceGUI:Create("EditBox") ---@type EditBox
+		counterPrefixInput:SetLabel("Counter Prefix")
+		counterPrefixInput:DisableButton(true)
+		counterPrefixInput:SetText(state.mobCounterPrefix)
+		counterPrefixInput:SetCallback("OnTextChanged", function(_, _, value)
+			DD.db.UpdateDB(function()
+				state.mobCounterPrefix = value
+			end)
+		end)
+		container:AddChild(counterPrefixInput)
+
+		local counterSuffixInput = AceGUI:Create("EditBox") ---@type EditBox
+		counterSuffixInput:SetLabel("Counter Suffix")
+		counterSuffixInput:DisableButton(true)
+		counterSuffixInput:SetText(state.mobCounterSuffix)
+		counterSuffixInput:SetCallback("OnTextChanged", function(_, _, value)
+			DD.db.UpdateDB(function()
+				state.mobCounterSuffix = value
+			end)
+		end)
+		container:AddChild(counterSuffixInput)
+	end
 end
 
 ---@param container AceGUIContainer
