@@ -51,6 +51,10 @@ local M = {}
 ---    tankHeader: string,
 ---    healerHeader: string,
 ---    damageHeader: string,
+---    enableTrackMobDeaths: boolean,
+---    enableMobCounters: boolean,
+---    mobCounterPrefix: string,
+---    mobCounterSuffix: string,
 ---    style: {
 ---        defaultText: TextStyle,
 ---        noteTitle: {
@@ -140,6 +144,11 @@ local dbDefaults = {
 			tankHeader = "Tank",
 			healerHeader = "Healer",
 			damageHeader = "Damage",
+
+			enableTrackMobDeaths = true,
+			enableMobCounters = true,
+			mobCounterPrefix = "(",
+			mobCounterSuffix = ")",
 
 			style = {
 				defaultText = {
