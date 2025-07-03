@@ -11,6 +11,7 @@ local versions = {
 	"v0.3.5",
 	"v0.4.0",
 	"v0.5.0",
+	"v0.6.0",
 }
 
 local changelog = {
@@ -40,6 +41,10 @@ local changelog = {
 		"Added a 'Clear Test Notes' button",
 		"Fixed a bug that prevented target note from being displayed on combat enter",
 		"Bump supported game version",
+	},
+	["v0.6.0"] = {
+		"Notes now disappear when all mobs for the note are dead",
+		"Added counters to track number of mobs in combat",
 	},
 }
 
