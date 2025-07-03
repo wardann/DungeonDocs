@@ -175,7 +175,7 @@ function M.RenderNote(index, anchor, docNotesToRender)
 		if lineName == "noteTitle" then
 			local mobCount = ddidsCount[docNote.docStruct.ddid]
 			local mobCountText = ""
-			if state.enableMobCounters and mobCount and mobCount > 0 then
+			if state.enableMobCounters and not docStruct.isBoss and mobCount and mobCount > 0 then
 				mobCountText = " " .. state.mobCounterPrefix .. mobCount .. state.mobCounterSuffix
 			end
 			return docStruct.docName .. mobCountText
