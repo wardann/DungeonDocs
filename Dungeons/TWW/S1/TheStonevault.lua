@@ -256,7 +256,7 @@ local docStructures = {
 
 ---@type DungeonData
 local dungeonData = {
-	dungeonName = "The Stonevault",
+	dungeonName = DD.DungeonNames.TheStonevault,
 	icon = "Interface\\ICONS\\inv_misc_stonetablet_05",
 	seasonId = "TWWS1",
 	docStructures = docStructures,

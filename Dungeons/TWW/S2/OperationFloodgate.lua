@@ -304,8 +304,8 @@ local docStructures = {
 
 ---@type DungeonData
 local dungeonData = {
-	dungeonName = "Operation: Floodgate",
-	icon = "Interface\\Icons\\inv_gizmo_rocketboot_01",
+	dungeonName = DD.DungeonNames.OperationFloodgate,
+	icon = "Interface\\Icons\\inv_gizmo_waterpump_01",
 	seasonId = "TWWS2",
 	docStructures = docStructures,
 }
