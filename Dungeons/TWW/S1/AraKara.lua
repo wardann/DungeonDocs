@@ -218,7 +218,6 @@ local docStructures = {
 local dungeonData = {
 	dungeonName = DD.DungeonNames.AraKara,
 	icon = "Interface\\Icons\\inv_misc_web_01",
-	seasonId = "TWWS1",
 	docStructures = docStructures,
 }
 

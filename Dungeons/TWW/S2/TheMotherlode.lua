@@ -383,7 +383,6 @@ local docStructures = {
 local dungeonData = {
 	dungeonName = DD.DungeonNames.TheMotherlode,
 	icon = "Interface\\Icons\\inv_misc_coin_01",
-	seasonId = "TWWS2",
 	docStructures = docStructures,
 }
 

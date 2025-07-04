@@ -216,7 +216,6 @@ local docStructures = {
 local dungeonData = {
 	dungeonName = DD.DungeonNames.GrimBatol,
 	icon = "Interface\\Icons\\inv_misc_head_dragon_black",
-	seasonId = "TWWS1",
 	docStructures = docStructures,
 }
 

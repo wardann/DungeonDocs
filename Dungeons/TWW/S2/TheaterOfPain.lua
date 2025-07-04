@@ -400,7 +400,6 @@ local docStructures = {
 local dungeonData = {
 	dungeonName = DD.DungeonNames.TheaterOfPain,
 	icon = "Interface\\Icons\\inv_misc_bone_skull_03",
-	seasonId = "TWWS2",
 	docStructures = docStructures,
 }
 

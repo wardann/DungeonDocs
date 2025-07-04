@@ -313,7 +313,6 @@ local docStructures = {
 local dungeonData = {
 	dungeonName = DD.DungeonNames.DarkflameCleft,
 	icon = "Interface\\Icons\\spell_shadow_shadowbolt",
-	seasonId = "TWWS2",
 	docStructures = docStructures,
 }
 

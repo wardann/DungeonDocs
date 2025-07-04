@@ -319,7 +319,6 @@ local docStructures = {
 local dungeonData = {
 	dungeonName = DD.DungeonNames.PrioryOfTheSacredFlame,
 	icon = "Interface\\Icons\\inv_misc_book_11",
-	seasonId = "TWWS2",
 	docStructures = docStructures,
 }
 

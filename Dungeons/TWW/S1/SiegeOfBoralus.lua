@@ -360,7 +360,6 @@ local docStructures = {
 local dungeonData = {
 	dungeonName = DD.DungeonNames.SiegeOfBoralus,
 	icon = "Interface\\ICONS\\inv_misc_monsterhorn_03",
-	seasonId = "TWWS1",
 	docStructures = docStructures,
 }
 

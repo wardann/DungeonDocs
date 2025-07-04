@@ -258,7 +258,6 @@ local docStructures = {
 local dungeonData = {
 	dungeonName = DD.DungeonNames.TheStonevault,
 	icon = "Interface\\ICONS\\inv_misc_stonetablet_05",
-	seasonId = "TWWS1",
 	docStructures = docStructures,
 }
 
