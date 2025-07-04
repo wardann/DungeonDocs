@@ -315,9 +315,8 @@ local docStructures = {
 
 ---@type DungeonData
 local dungeonData = {
-	dungeonName = "City of Threads",
+	dungeonName = DD.DungeonNames.CityOfThreads,
 	icon = "Interface\\Icons\\achievement_zone_silithus_01",
-	seasonId = "TWWS1",
 	docStructures = docStructures,
 }
 

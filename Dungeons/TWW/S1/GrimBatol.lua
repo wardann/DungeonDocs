@@ -214,9 +214,8 @@ local docStructures = {
 
 ---@type DungeonData
 local dungeonData = {
-	dungeonName = "Grim Batol",
+	dungeonName = DD.DungeonNames.GrimBatol,
 	icon = "Interface\\Icons\\inv_misc_head_dragon_black",
-	seasonId = "TWWS1",
 	docStructures = docStructures,
 }
 

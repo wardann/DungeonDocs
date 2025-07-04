@@ -398,9 +398,8 @@ local docStructures = {
 
 ---@type DungeonData
 local dungeonData = {
-	dungeonName = "Theater of Pain",
-	icon = "Interface\\Icons\\spell_shadow_requiem",
-	seasonId = "TWWS2",
+	dungeonName = DD.DungeonNames.TheaterOfPain,
+	icon = "Interface\\Icons\\inv_misc_bone_skull_03",
 	docStructures = docStructures,
 }
 

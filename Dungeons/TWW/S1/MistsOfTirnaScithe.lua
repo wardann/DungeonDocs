@@ -272,9 +272,8 @@ local docStructures = {
 
 ---@type DungeonData
 local dungeonData = {
-	dungeonName = "Mists of Tirna Scithe",
+	dungeonName = DD.DungeonNames.MistsOfTirnaScithe,
 	icon = "Interface\\ICONS\\spell_nature_moonkey",
-	seasonId = "TWWS1",
 	docStructures = docStructures,
 }
 

@@ -317,9 +317,8 @@ local docStructures = {
 
 ---@type DungeonData
 local dungeonData = {
-	dungeonName = "Priory of the Sacred Flame",
-	icon = "Interface\\Icons\\spell_holy_searinglight",
-	seasonId = "TWWS2",
+	dungeonName = DD.DungeonNames.PrioryOfTheSacredFlame,
+	icon = "Interface\\Icons\\inv_misc_book_11",
 	docStructures = docStructures,
 }
 

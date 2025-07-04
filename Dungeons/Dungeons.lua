@@ -15,7 +15,6 @@ local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
 ---@alias DungeonData {
 ---     dungeonName: DungeonName,
 ---     icon: string,
----     seasonId: string,
 ---     docStructures: DocStructure[],
 ---}
 
@@ -55,10 +54,9 @@ function M.GetCurrentSeason()
 	local db = DD.db.database
 	local dungeons = {} ---@type DungeonList
 
-	for dungeonName, d in pairs(M.List) do
-		if d.seasonId == db.profile.internal.selectedSeason then
-			dungeons[dungeonName] = d
-		end
+	for _, dungeonName in ipairs(DD.seasons[db.profile.internal.selectedSeason]) do
+		local dungeonData = M.List[dungeonName]
+		dungeons[dungeonName] = dungeonData
 	end
 
 	return dungeons

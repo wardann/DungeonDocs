@@ -346,9 +346,8 @@ local docStructures = {
 
 ---@type DungeonData
 local dungeonData = {
-	dungeonName = "The Necrotic Wake",
+	dungeonName = DD.DungeonNames.TheNecroticWake,
 	icon = "Interface\\Icons\\inv_misc_bone_skull_02",
-	seasonId = "TWWS1",
 	docStructures = docStructures,
 }
 

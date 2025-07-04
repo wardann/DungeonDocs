@@ -221,9 +221,8 @@ local docStructures = {
 
 ---@type DungeonData
 local dungeonData = {
-	dungeonName = "The Rookery",
+	dungeonName = DD.DungeonNames.TheRookery,
 	icon = "Interface\\Icons\\inv_feather_04",
-	seasonId = "TWWS2",
 	docStructures = docStructures,
 }
 
