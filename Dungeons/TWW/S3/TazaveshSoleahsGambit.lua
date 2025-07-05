@@ -209,7 +209,6 @@ local docStructures = {
 local dungeonData = {
 	dungeonName = "Tazavesh: So'leah's Gambit",
 	icon = "Interface\\Icons\\inv_misc_web_01",
-	seasonId = "TWWS3",
 	docStructures = docStructures,
 }
 

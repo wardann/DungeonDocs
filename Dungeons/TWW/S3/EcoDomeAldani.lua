@@ -320,7 +320,6 @@ local docStructures = {
 local dungeonData = {
 	dungeonName = "Eco-Dome Al’Dani",
 	icon = "Interface\\Icons\\inv_misc_web_01",
-	seasonId = "TWWS3",
 	docStructures = docStructures,
 }
 

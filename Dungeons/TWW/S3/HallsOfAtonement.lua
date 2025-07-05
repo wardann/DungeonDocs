@@ -210,7 +210,6 @@ local docStructures = {
 local dungeonData = {
 	dungeonName = "Halls of Atonement",
 	icon = "Interface\\Icons\\inv_misc_web_01",
-	seasonId = "TWWS3",
 	docStructures = docStructures,
 }
 

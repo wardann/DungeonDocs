@@ -378,7 +378,6 @@ local docStructures = {
 local dungeonData = {
 	dungeonName = "Tazavesh: Streets of Wonder",
 	icon = "Interface\\Icons\\inv_misc_web_01",
-	seasonId = "TWWS3",
 	docStructures = docStructures,
 }
 
