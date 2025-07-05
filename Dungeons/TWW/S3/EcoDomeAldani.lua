@@ -1,4 +1,3 @@
-
 ---@type DungeonDocs
 local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
 
@@ -313,7 +312,6 @@ local docStructures = {
 			},
 		},
 	},
-
 }
 
 ---@type DungeonData
