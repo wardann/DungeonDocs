@@ -47,6 +47,12 @@ function M.Init()
 	M.InitTheaterOfPain()
 	M.InitTheMotherlode()
 	M.InitTheRookery()
+
+	-- Season 3
+	M.InitEcoDomeAldani()
+	M.InitHallsOfAtonement()
+	M.InitTazaveshStreetsOfWonder()
+	M.InitTazaveshSoleahsGambit()
 end
 
 ---@return DungeonList

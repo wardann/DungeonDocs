@@ -20,6 +20,11 @@ require("Dungeons.TWW.S2.TheaterOfPain")
 require("Dungeons.TWW.S2.TheMotherlode")
 require("Dungeons.TWW.S2.TheRookery")
 
+require("Dungeons.TWW.S3.EcoDomeAldani")
+require("Dungeons.TWW.S3.HallsOfAtonement")
+require("Dungeons.TWW.S3.TazaveshSoleahsGambit")
+require("Dungeons.TWW.S3.TazaveshStreetsOfWonder")
+
 ---@param dungeonList DungeonList
 ---@return number
 local dungeonChecker = function(dungeonList)
@@ -168,7 +173,7 @@ describe("Dungeons Module", function()
 	end)
 
 	it("should have expected doc structure count", function()
-		assert.are.equal(377, totalDocStructureCount)
+		assert.are.equal(470, totalDocStructureCount)
 	end)
 end)
 

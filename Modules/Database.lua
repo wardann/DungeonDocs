@@ -278,6 +278,7 @@ local dbDefaults = {
 		seasons = {
 			TWWS1 = "The War Within - Season 1",
 			TWWS2 = "The War Within - Season 2",
+			TWWS3 = "The War Within - Season 3",
 		},
 
 		selectedSeason = "TWWS2",

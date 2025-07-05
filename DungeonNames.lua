@@ -18,6 +18,10 @@ local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
 ---     TheaterOfPain: DungeonName,
 ---     TheMotherlode: DungeonName,
 ---     TheRookery: DungeonName,
+---     EcoDomeAldani: DungeonName,
+---     HallsOfAtonement: DungeonName,
+---     TazaveshSoleahsGambit: DungeonName,
+---     TazaveshStreetsOfWonder: DungeonName,
 ---}
 
 ---@type DungeonNames
@@ -41,4 +45,10 @@ DD.DungeonNames = {
 	TheaterOfPain = "Theater of Pain",
 	TheMotherlode = "The MOTHERLODE!!",
 	TheRookery = "The Rookery",
+
+	-- TWW Season 3
+	EcoDomeAldani = "Eco-Dome Al’Dani",
+	HallsOfAtonement = "Halls of Atonement",
+	TazaveshSoleahsGambit = "Tazavesh: So'leah's Gambit",
+	TazaveshStreetsOfWonder = "Tazavesh: Streets of Wonder",
 }
