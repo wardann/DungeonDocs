@@ -215,7 +215,7 @@ local notes = {
 
 ---@type ProfileDungeonNotes
 local profileDungeonNotes = {
-	dungeonName = "Operation: Floodgate",
+	dungeonName = DD.DungeonNames.OperationFloodgate,
 	notes = notes,
 }
 

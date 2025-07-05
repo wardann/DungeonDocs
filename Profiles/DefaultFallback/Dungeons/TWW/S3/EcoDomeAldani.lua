@@ -1,205 +1,258 @@
+
 ---@type DungeonDocs
 local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
 
 ---@type PlayerNote[]
 local notes = {
+
 	{
-		-- bossName = "Ingra Maloch",
-		ddid = "mots1",
-		primaryNote = "(1) Save DPS cooldowns for when boss is stunned\n(2) Avoid swirlies",
-		healerNote = "",
-		damageNote = "",
-		tankNote = "",
-	},
-	{
-		-- bossName = "Mistcaller",
-		ddid = "mots2",
-		primaryNote = "(1) Avoid BALLS OF DEATH\n(2) Avoid FOX OF DEATH\n(3) When boss creates 4 clones, kill the odd one out",
-		healerNote = "",
-		damageNote = "",
-		tankNote = "",
-	},
-	{
-		-- bossName = "Tred'ova",
-		ddid = "mots3",
-		primaryNote = "(1) Avoid swirlies\n(2) The tank & the rest of party should stay on opposite sides of the boss. This makes breaking the tether easier\n(3) Kill adds\n(4) At 70% & 40% the boss shields. DPS shield down quickly and interrupt",
-		healerNote = "",
-		damageNote = "",
-		tankNote = "",
-	},
-	{
-		-- name = "Starved Crawler",
-		ddid = "mots4",
+		-- bossName = "Azhiccar",
+		ddid = "eda1",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "",
 	},
+
 	{
-		-- name = "Drust Spiteclaw",
-		ddid = "mots5",
+		-- bossName = "Taah'bat",
+		ddid = "eda2",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "",
 	},
+
 	{
-		-- name = "Tirnenn Villager",
-		ddid = "mots6",
+		-- bossName = "Soul-Scribe",
+		ddid = "eda3",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "",
 	},
+
 	{
-		-- name = "Drust Soulcleaver",
-		ddid = "mots7",
+		-- bossName = "A'wazj",
+		ddid = "eda4",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "",
 	},
+
 	{
-		-- name = "Drust Harvester",
-		ddid = "mots8",
+		-- name = "Ravaging Scavenger",
+		ddid = "eda5",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "",
 	},
+
 	{
-		-- name = "Drust Boughbreaker",
-		ddid = "mots9",
+		-- name = "Overgorged Mite",
+		ddid = "eda6",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "",
 	},
+
 	{
-		-- name = "Mistveil Defender",
-		ddid = "mots10",
+		-- name = "Invading Mite",
+		ddid = "eda7",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "",
 	},
+
 	{
-		-- name = "Mistveil Stalker",
-		ddid = "mots11",
+		-- name = "Voracious Gorger",
+		ddid = "eda8",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "",
 	},
+
 	{
-		-- name = "Mistveil Stinger",
-		ddid = "mots12",
+		-- name = "Ravenous Destroyer",
+		ddid = "eda9",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "",
 	},
+
 	{
-		-- name = "Mistveil Guardian",
-		ddid = "mots13",
+		-- name = "Overcharged Sentinel",
+		ddid = "eda10",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "",
 	},
+
 	{
-		-- name = "Mistveil Tender",
-		ddid = "mots14",
+		-- name = "Tamed Ruinstalker",
+		ddid = "eda11",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "",
 	},
+
 	{
-		-- name = "Mistveil Shaper",
-		ddid = "mots15",
+		-- name = "Wastelander Farstalker",
+		ddid = "eda12",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "",
 	},
+
 	{
-		-- name = "Mistveil Nightblossom",
-		ddid = "mots16",
+		-- name = "Wastelander Phaseblade",
+		ddid = "eda13",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "",
 	},
+
 	{
-		-- name = "Spinemaw Staghorn",
-		ddid = "mots17",
+		-- name = "Wastelander Ritualist",
+		ddid = "eda14",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "",
 	},
+
 	{
-		-- name = "Spinemaw Acidgullet",
-		ddid = "mots18",
+		-- name = "Wastelander Pactspeaker",
+		ddid = "eda15",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "",
 	},
+
 	{
-		-- name = "Spinemaw Gorger",
-		ddid = "mots19",
+		-- name = " K'aresh Elemental",
+		ddid = "eda16",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "",
 	},
+
 	{
-		-- name = "Spinemaw Larva",
-		ddid = "mots20",
+		-- name = "Wastes Creeper",
+		ddid = "eda17",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "",
 	},
+
 	{
-		-- name = "Spinemaw Reaver",
-		ddid = "mots21",
+		-- name = "Burrowing Creeper",
+		ddid = "eda18",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "",
 	},
+
 	{
-		-- name = "Mistveil Gorgegullet",
-		ddid = "mots22",
+		-- name = "Frenzied Mite",
+		ddid = "eda19",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "",
 	},
+
 	{
-		-- name = "Mistveil Stinger",
-		ddid = "mots23",
+		-- name = "Whisper of Fate",
+		ddid = "eda20",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "",
 	},
+
 	{
-		-- name = "Mistveil Matriarch",
-		ddid = "mots24",
+		-- name = "Terrified Broker",
+		ddid = "eda21",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "",
 	},
+
+	{
+		-- name = "Unbound Ethereal",
+		ddid = "eda22",
+		primaryNote = "",
+		healerNote = "",
+		damageNote = "",
+		tankNote = "",
+	},
+
+	{
+		-- name = "A'wazj",
+		ddid = "eda23",
+		primaryNote = "",
+		healerNote = "",
+		damageNote = "",
+		tankNote = "",
+	},
+
+	{
+		-- name = "Binding Javelin",
+		ddid = "eda24",
+		primaryNote = "",
+		healerNote = "",
+		damageNote = "",
+		tankNote = "",
+	},
+
+	{
+		-- name = "Ravaging Scavenger",
+		ddid = "eda25",
+		primaryNote = "",
+		healerNote = "",
+		damageNote = "",
+		tankNote = "",
+	},
+
+	{
+		-- name = "Voracious Gorger",
+		ddid = "eda26",
+		primaryNote = "",
+		healerNote = "",
+		damageNote = "",
+		tankNote = "",
+	},
+
+	{
+		-- name = "Arcane Siphon",
+		ddid = "eda27",
+		primaryNote = "",
+		healerNote = "",
+		damageNote = "",
+		tankNote = "",
+	},
+
 }
 
 ---@type ProfileDungeonNotes
 local profileDungeonNotes = {
-	dungeonName = DD.DungeonNames.MistsOfTirnaScithe,
+	dungeonName = DD.DungeonNames.EcoDomeAldani,
 	notes = notes,
 }
 

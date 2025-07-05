@@ -183,7 +183,7 @@ local notes = {
 
 ---@type ProfileDungeonNotes
 local profileDungeonNotes = {
-	dungeonName = "Cinderbrew Meadery",
+	dungeonName = DD.DungeonNames.CinderbrewMeadery,
 	notes = notes,
 }
 
