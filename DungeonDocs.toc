@@ -65,6 +65,11 @@ Dungeons/TWW/S2/TheaterOfPain.lua
 Dungeons/TWW/S2/TheMotherlode.lua
 Dungeons/TWW/S2/TheRookery.lua
 
+Dungeons/TWW/S3/EcoDomeAldani.lua
+Dungeons/TWW/S3/HallsOfAtonement.lua
+Dungeons/TWW/S3/TazaveshSoleahsGambit.lua
+Dungeons/TWW/S3/TazaveshStreetsOfWonder.lua
+
 Profiles/Profiles.lua
 Profiles/DefaultFallback/DefaultFallback.lua
 Profiles/DefaultFallback/Dungeons/TWW/S1/AraKara.lua
@@ -84,5 +89,10 @@ Profiles/DefaultFallback/Dungeons/TWW/S2/PrioryOfTheSacredFlame.lua
 Profiles/DefaultFallback/Dungeons/TWW/S2/TheaterOfPain.lua
 Profiles/DefaultFallback/Dungeons/TWW/S2/TheMotherlode.lua
 Profiles/DefaultFallback/Dungeons/TWW/S2/TheRookery.lua
+
+Profiles/DefaultFallback/Dungeons/TWW/S3/EcoDomeAldani.lua
+Profiles/DefaultFallback/Dungeons/TWW/S3/HallsOfAtonement.lua
+Profiles/DefaultFallback/Dungeons/TWW/S3/TazaveshSoleahsGambit.lua
+Profiles/DefaultFallback/Dungeons/TWW/S3/TazaveshStreetsOfWonder.lua
 
 
