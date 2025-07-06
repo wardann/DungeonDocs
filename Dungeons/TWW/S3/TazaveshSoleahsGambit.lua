@@ -205,8 +205,8 @@ local docStructures = {
 
 ---@type DungeonData
 local dungeonData = {
-	dungeonName = "Tazavesh: So'leah's Gambit",
-	icon = "Interface\\Icons\\inv_misc_web_01",
+	dungeonName = DD.DungeonNames.TazaveshSoleahsGambit,
+	icon = "Interface\\Icons\\spell_arcane_arcanetactics",
 	docStructures = docStructures,
 }
 

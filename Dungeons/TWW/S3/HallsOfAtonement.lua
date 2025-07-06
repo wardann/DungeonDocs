@@ -206,8 +206,8 @@ local docStructures = {
 
 ---@type DungeonData
 local dungeonData = {
-	dungeonName = "Halls of Atonement",
-	icon = "Interface\\Icons\\inv_misc_web_01",
+	dungeonName = DD.DungeonNames.HallsOfAtonement,
+	icon = "Interface\\Icons\\ability_warlock_improveddemonictactics",
 	docStructures = docStructures,
 }
 

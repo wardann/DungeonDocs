@@ -316,8 +316,8 @@ local docStructures = {
 
 ---@type DungeonData
 local dungeonData = {
-	dungeonName = "Eco-Dome Al’Dani",
-	icon = "Interface\\Icons\\inv_misc_web_01",
+	dungeonName = DD.DungeonNames.EcoDomeAldani,
+	icon = "Interface\\Icons\\inv_spell_arcane_telepotdornogal",
 	docStructures = docStructures,
 }
 

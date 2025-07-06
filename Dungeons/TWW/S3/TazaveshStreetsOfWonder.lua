@@ -374,8 +374,8 @@ local docStructures = {
 
 ---@type DungeonData
 local dungeonData = {
-	dungeonName = "Tazavesh: Streets of Wonder",
-	icon = "Interface\\Icons\\inv_misc_web_01",
+	dungeonName = DD.DungeonNames.TazaveshStreetsOfWonder,
+	icon = "Interface\\Icons\\inv_misc_coinbag_special",
 	docStructures = docStructures,
 }
 

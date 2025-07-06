@@ -1,6 +1,6 @@
-require("Dungeons.Dungeons")
-
 require("DungeonNames")
+
+require("Dungeons.Dungeons")
 
 require("Dungeons.TWW.S1.AraKara")
 require("Dungeons.TWW.S1.CityOfThreads")
