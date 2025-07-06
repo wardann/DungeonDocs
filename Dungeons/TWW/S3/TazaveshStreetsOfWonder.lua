@@ -324,12 +324,6 @@ local docStructures = {
 				id = "180159",
 				displayId = 101546,
 			},
-		},
-	},
-	{
-		docName = "Brawling Patron",
-		ddid = createDDID(29),
-		mobs = {
 			{
 				-- name = "Brawling Patron",
 				id = "176562",
@@ -339,7 +333,7 @@ local docStructures = {
 	},
 	{
 		docName = "Defective Sorter",
-		ddid = createDDID(30),
+		ddid = createDDID(29),
 		mobs = {
 			{
 				-- name = "Defective Sorter",
@@ -350,7 +344,7 @@ local docStructures = {
 	},
 	{
 		docName = "P.O.S.T. Worker",
-		ddid = createDDID(31),
+		ddid = createDDID(30),
 		mobs = {
 			{
 				-- name = "P.O.S.T. Worker",
@@ -361,7 +355,7 @@ local docStructures = {
 	},
 	{
 		docName = "Overloaded Mailemental",
-		ddid = createDDID(32),
+		ddid = createDDID(31),
 		mobs = {
 			{
 				-- name = "Overloaded Mailemental",

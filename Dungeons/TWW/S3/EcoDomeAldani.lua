@@ -68,6 +68,11 @@ local docStructures = {
 				id = "234912",
 				displayId = 131383,
 			},
+			{
+				-- name = "Ravaging Scavenger",
+				id = "245411",
+				displayId = 100364,
+			},
 		},
 	},
 	{
@@ -100,6 +105,11 @@ local docStructures = {
 				-- name = "Voracious Gorger",
 				id = "234883",
 				displayId = 131385,
+			},
+			{
+				-- name = "Voracious Gorger",
+				id = "245412",
+				displayId = 94225,
 			},
 		},
 	},
@@ -280,30 +290,8 @@ local docStructures = {
 		},
 	},
 	{
-		docName = "Ravaging Scavenger",
-		ddid = createDDID(25),
-		mobs = {
-			{
-				-- name = "Ravaging Scavenger",
-				id = "245411",
-				displayId = 100364,
-			},
-		},
-	},
-	{
-		docName = "Voracious Gorger",
-		ddid = createDDID(26),
-		mobs = {
-			{
-				-- name = "Voracious Gorger",
-				id = "245412",
-				displayId = 94225,
-			},
-		},
-	},
-	{
 		docName = "Arcane Siphon",
-		ddid = createDDID(27),
+		ddid = createDDID(25),
 		mobs = {
 			{
 				-- name = "Arcane Siphon",
