@@ -221,26 +221,8 @@ local notes = {
 	},
 
 	{
-		-- name = "Ravaging Scavenger",
-		ddid = "eda25",
-		primaryNote = "",
-		healerNote = "",
-		damageNote = "",
-		tankNote = "",
-	},
-
-	{
-		-- name = "Voracious Gorger",
-		ddid = "eda26",
-		primaryNote = "",
-		healerNote = "",
-		damageNote = "",
-		tankNote = "",
-	},
-
-	{
 		-- name = "Arcane Siphon",
-		ddid = "eda27",
+		ddid = "eda25",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",

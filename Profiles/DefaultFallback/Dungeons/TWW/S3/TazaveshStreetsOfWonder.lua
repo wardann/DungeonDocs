@@ -257,7 +257,7 @@ local notes = {
 	},
 
 	{
-		-- name = "Brawling Patron",
+		-- name = "Defective Sorter",
 		ddid = "tsow29",
 		primaryNote = "",
 		healerNote = "",
@@ -266,7 +266,7 @@ local notes = {
 	},
 
 	{
-		-- name = "Defective Sorter",
+		-- name = "P.O.S.T. Worker",
 		ddid = "tsow30",
 		primaryNote = "",
 		healerNote = "",
@@ -275,17 +275,8 @@ local notes = {
 	},
 
 	{
-		-- name = "P.O.S.T. Worker",
-		ddid = "tsow31",
-		primaryNote = "",
-		healerNote = "",
-		damageNote = "",
-		tankNote = "",
-	},
-
-	{
 		-- name = "Overloaded Mailemental",
-		ddid = "tsow32",
+		ddid = "tsow31",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
