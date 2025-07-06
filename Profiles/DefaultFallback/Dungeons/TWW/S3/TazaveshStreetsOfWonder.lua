@@ -3,241 +3,280 @@ local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
 
 ---@type PlayerNote[]
 local notes = {
+
 	{
-		-- bossName = "Chopper Redhook",
-		ddid = "sob1",
-		primaryNote = "(1) Kite boss into bombs (save big DPS CDs until boss is stunned, he takes more damage)\n(2) Avoid bombs\n(3) Run away when he sucks you in\n(4) Avoid swirlies\n(5) Cleave adds",
-		healerNote = "",
-		damageNote = "",
-		tankNote = "",
-	},
-	{
-		-- bossName = "Dread Captain Lockwood",
-		ddid = "sob2",
-		primaryNote = "(1) Avoid stuff on ground\n(2) Kill adds in intermission phase",
-		healerNote = "",
-		damageNote = "",
-		tankNote = "",
-	},
-	{
-		-- bossName = "Hadal Darkfathom",
-		ddid = "sob3",
-		primaryNote = "(1) Avoid swirlies\n(2) When [TIDAL SURGE] is cast, stand on the opposite side of the statue\n(3) Follow Tank",
-		healerNote = "",
-		damageNote = "",
-		tankNote = "",
-	},
-	{
-		-- bossName = "Viqgoth",
-		ddid = "sob4",
-		primaryNote = "(1) Kill Demolishing Terror before Gripping Terror\n(2) Avoid Swirlies\n(3) When tenticles are killed on a platform, hop into cannon and shoot boss\n(4) Repeat on second platform\n(5) Repeat on boat platform",
-		healerNote = "",
-		damageNote = "",
-		tankNote = "",
-	},
-	{
-		-- name = "Scrimshaw Gutter",
-		ddid = "sob5",
+		-- bossName = "Zo'phex",
+		ddid = "tsow1",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "",
 	},
+
 	{
-		-- name = "Blacktar Bomber",
-		ddid = "sob6",
+		-- bossName = "Zo'gron",
+		ddid = "tsow2",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "",
 	},
+
 	{
-		-- name = "Scrimshaw Enforcer",
-		ddid = "sob7",
+		-- bossName = "Alcruux",
+		ddid = "tsow3",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "",
 	},
+
 	{
-		-- name = "Irontide Waveshaper",
-		ddid = "sob8",
+		-- bossName = "Achillite",
+		ddid = "tsow4",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "",
 	},
+
 	{
-		-- name = "Irontide Raider",
-		ddid = "sob9",
+		-- bossName = "Venza Goldfuse",
+		ddid = "tsow5",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "",
 	},
+
 	{
-		-- name = "Riptide Shredder",
-		ddid = "sob10",
+		-- bossName = "P.O.S.T. Master",
+		ddid = "tsow6",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "",
 	},
+
 	{
-		-- name = "Snarling Dockhound",
-		ddid = "sob11",
+		-- bossName = "So'azmi",
+		ddid = "tsow7",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "",
 	},
+
 	{
-		-- name = "Irontide Curseblade",
-		ddid = "sob12",
+		-- name = "Customs Security",
+		ddid = "tsow8",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "",
 	},
+
 	{
-		-- name = "Irontide Powdershot",
-		ddid = "sob13",
+		-- name = "Gatewarden Zo'mazz",
+		ddid = "tsow9",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "",
 	},
+
 	{
-		-- name = "Ashvane Commander",
-		ddid = "sob14",
+		-- name = "Support Officer",
+		ddid = "tsow10",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "",
 	},
+
 	{
-		-- name = "Ashvane Spotter",
-		ddid = "sob15",
+		-- name = "Interrogation Specialist",
+		ddid = "tsow11",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "",
 	},
+
 	{
-		-- name = "Ashvane Deckhand",
-		ddid = "sob16",
+		-- name = "Armored Overseer",
+		ddid = "tsow12",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "",
 	},
+
 	{
-		-- name = "Ashvane Cannoneer",
-		ddid = "sob17",
+		-- name = "Portalmancer Zo'honn",
+		ddid = "tsow13",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "",
 	},
+
 	{
-		-- name = "Bilge Rat Pillager",
-		ddid = "sob18",
+		-- name = "Tracker Zo'korss",
+		ddid = "tsow14",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "",
 	},
+
 	{
-		-- name = "Bilge Rat Buccaneer",
-		ddid = "sob19",
+		-- name = "Ancient Core Hound",
+		ddid = "tsow15",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "",
 	},
+
 	{
-		-- name = "Bilge Rat Demolisher",
-		ddid = "sob20",
+		-- name = "Enraged Direhorn",
+		ddid = "tsow16",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "",
 	},
+
 	{
-		-- name = "Bilge Rat Tempest",
-		ddid = "sob21",
+		-- name = "Frenzied Nightclaw",
+		ddid = "tsow17",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "",
 	},
+
 	{
-		-- name = "Bilge Rat Cutthroat",
-		ddid = "sob22",
+		-- name = "Market Peacekeeper",
+		ddid = "tsow18",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "",
 	},
+
 	{
-		-- name = "Ashvane Invader",
-		ddid = "sob23",
+		-- name = "Veteran Sparkcaster",
+		ddid = "tsow19",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "",
 	},
+
 	{
-		-- name = "Ashvane Destroyer",
-		ddid = "sob24",
+		-- name = "Commerce Enforcer",
+		ddid = "tsow20",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "",
 	},
+
 	{
-		-- name = "Irontide Waveshaper",
-		ddid = "sob25",
+		-- name = "Commander Zo'far",
+		ddid = "tsow21",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "",
 	},
+
 	{
-		-- name = "Irontide Powdershot",
-		ddid = "sob26",
+		-- name = "Cartel Muscle",
+		ddid = "tsow22",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "",
 	},
+
 	{
-		-- name = "Ashvane Sniper",
-		ddid = "sob27",
+		-- name = "Cartel Smuggler",
+		ddid = "tsow23",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "",
 	},
+
 	{
-		-- name = "Irontide Curseblade",
-		ddid = "sob28",
+		-- name = "Cartel Wiseguy",
+		ddid = "tsow24",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "",
 	},
+
 	{
-		-- name = "Irontide Powdershot",
-		ddid = "sob29",
+		-- name = "Cartel Skulker",
+		ddid = "tsow25",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "",
 	},
+
 	{
-		-- name = "Scrimshaw Gutter",
-		ddid = "sob30",
+		-- name = "Oasis Security",
+		ddid = "tsow26",
+		primaryNote = "",
+		healerNote = "",
+		damageNote = "",
+		tankNote = "",
+	},
+
+	{
+		-- name = "Disruptive Patron",
+		ddid = "tsow27",
+		primaryNote = "",
+		healerNote = "",
+		damageNote = "",
+		tankNote = "",
+	},
+
+	{
+		-- name = "Brawling Patron",
+		ddid = "tsow28",
+		primaryNote = "",
+		healerNote = "",
+		damageNote = "",
+		tankNote = "",
+	},
+
+	{
+		-- name = "Defective Sorter",
+		ddid = "tsow29",
+		primaryNote = "",
+		healerNote = "",
+		damageNote = "",
+		tankNote = "",
+	},
+
+	{
+		-- name = "P.O.S.T. Worker",
+		ddid = "tsow30",
+		primaryNote = "",
+		healerNote = "",
+		damageNote = "",
+		tankNote = "",
+	},
+
+	{
+		-- name = "Overloaded Mailemental",
+		ddid = "tsow31",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
@@ -247,7 +286,7 @@ local notes = {
 
 ---@type ProfileDungeonNotes
 local profileDungeonNotes = {
-	dungeonName = DD.DungeonNames.SiegeOfBoralus,
+	dungeonName = DD.DungeonNames.TazaveshStreetsOfWonder,
 	notes = notes,
 }
 

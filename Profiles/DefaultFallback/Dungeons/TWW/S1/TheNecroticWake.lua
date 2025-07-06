@@ -263,7 +263,7 @@ local notes = {
 
 ---@type ProfileDungeonNotes
 local profileDungeonNotes = {
-	dungeonName = "The Necrotic Wake",
+	dungeonName = DD.DungeonNames.TheNecroticWake,
 	notes = notes,
 }
 

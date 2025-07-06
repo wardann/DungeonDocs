@@ -208,7 +208,7 @@ local docStructures = {
 ---@type DungeonData
 local dungeonData = {
 	dungeonName = DD.DungeonNames.TheDawnbreaker,
-	icon = "Interface\\Icons\\inv_misc_monsterscales_19",
+	icon = "Interface\\Icons\\inv_airshipmountvoid",
 	docStructures = docStructures,
 }
 

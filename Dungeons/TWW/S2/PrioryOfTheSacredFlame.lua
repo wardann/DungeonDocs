@@ -318,7 +318,7 @@ local docStructures = {
 ---@type DungeonData
 local dungeonData = {
 	dungeonName = DD.DungeonNames.PrioryOfTheSacredFlame,
-	icon = "Interface\\Icons\\inv_misc_book_11",
+	icon = "Interface\\Icons\\ability_paladin_divinestorm",
 	docStructures = docStructures,
 }
 
