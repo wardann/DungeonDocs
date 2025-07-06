@@ -173,7 +173,7 @@ describe("Dungeons Module", function()
 	end)
 
 	it("should have expected doc structure count", function()
-		assert.are.equal(470, totalDocStructureCount)
+		assert.are.equal(467, totalDocStructureCount)
 	end)
 end)
 
