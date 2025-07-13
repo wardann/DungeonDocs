@@ -3,153 +3,154 @@ local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
 
 ---@type PlayerNote[]
 local notes = {
+
 	{
-		-- bossName = "Avanoxx",
-		ddid = "ak1",
-		primaryNote = "Kill adds before he eats them and wipes the group",
-		healerNote = "",
-		damageNote = "",
-		tankNote = "",
-	},
-	{
-		-- bossName = "Anubzekt",
-		ddid = "ak2",
-		primaryNote = "(1) Avoid swirlies throughout the fight\n(2) At 100 energy, boss summons a swarm. Stay inside the eye of the swarm to survive",
-		healerNote = "",
-		damageNote = "",
-		tankNote = "",
-	},
-	{
-		-- bossName = "Kikatal The Harvester",
-		ddid = "ak3",
-		primaryNote = "(1) Create 5-7 blue puddles by striking the slime mobs\n(2) Standing in blue puddles roots you in place\n(3) When the boss casts the pull, STAND IN A PUDDLE to get rooted\n(4) After the pull, KILL ALL ROOTS with EITHER damage or CC\n(5) Avoid swirlies",
-		healerNote = "",
-		damageNote = "",
-		tankNote = "",
-	},
-	{
-		-- name = "Starved Crawler",
-		ddid = "ak4",
+		-- bossName = "Halkias",
+		ddid = "hoa1",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "",
 	},
+
 	{
-		-- name = "Jabbing Flyer",
-		ddid = "ak5",
+		-- bossName = "Echelon",
+		ddid = "hoa2",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "",
 	},
+
 	{
-		-- name = "Trilling Attendant",
-		ddid = "ak6",
+		-- bossName = "High Adjudicator Aleez",
+		ddid = "hoa3",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "",
 	},
+
 	{
-		-- name = "Engorged Crawler",
-		ddid = "ak7",
+		-- bossName = "Lord Chamberlain",
+		ddid = "hoa4",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "",
 	},
+
 	{
-		-- name = "Atik",
-		ddid = "ak8",
+		-- name = "Depraved Darkblade",
+		ddid = "hoa5",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "",
 	},
+
 	{
-		-- name = "Nakt",
-		ddid = "ak9",
+		-- name = "Depraved Houndmaster",
+		ddid = "hoa6",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "",
 	},
+
 	{
-		-- name = "Ixin",
-		ddid = "ak10",
+		-- name = "Vicious Gargon",
+		ddid = "hoa7",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "",
 	},
+
 	{
-		-- name = "Bloodworker",
-		ddid = "ak11",
+		-- name = "Depraved Obliterator",
+		ddid = "hoa8",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "",
 	},
+
 	{
-		-- name = "Bloodstained Assistant",
-		ddid = "ak12",
+		-- name = "Toiling Groundskeeper",
+		ddid = "hoa9",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "",
 	},
+
 	{
-		-- name = "Bloodstained Webmage",
-		ddid = "ak13",
+		-- name = "Depraved Collector",
+		ddid = "hoa10",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "",
 	},
+
 	{
-		-- name = "Hulking Bloodguard",
-		ddid = "ak14",
+		-- name = "Shard of Halkias",
+		ddid = "hoa11",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "",
 	},
+
 	{
-		-- name = "Sentry Stagshell",
-		ddid = "ak15",
+		-- name = "Stoneborn Reaver",
+		ddid = "hoa12",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "",
 	},
+
 	{
-		-- name = "Blood Overseer",
-		ddid = "ak16",
+		-- name = "Stonefiend Anklebiter",
+		ddid = "hoa13",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "",
 	},
+
 	{
-		-- name = "Winged Carrier",
-		ddid = "ak17",
+		-- name = "Stoneborn Eviscerator",
+		ddid = "hoa14",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "",
 	},
+
 	{
-		-- name = "Nerubian Hauler",
-		ddid = "ak18",
+		-- name = "Stoneborn Slasher",
+		ddid = "hoa15",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
 		tankNote = "",
 	},
+
 	{
-		-- name = "Reinforced Drone",
-		ddid = "ak19",
+		-- name = "Tormented Soul",
+		ddid = "hoa16",
+		primaryNote = "",
+		healerNote = "",
+		damageNote = "",
+		tankNote = "",
+	},
+
+	{
+		-- name = "Inquisitor Sigar",
+		ddid = "hoa17",
 		primaryNote = "",
 		healerNote = "",
 		damageNote = "",
@@ -159,7 +160,7 @@ local notes = {
 
 ---@type ProfileDungeonNotes
 local profileDungeonNotes = {
-	dungeonName = DD.DungeonNames.AraKara,
+	dungeonName = DD.DungeonNames.HallsOfAtonement,
 	notes = notes,
 }
 

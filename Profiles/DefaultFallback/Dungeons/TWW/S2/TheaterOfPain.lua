@@ -279,7 +279,7 @@ local notes = {
 
 ---@type ProfileDungeonNotes
 local profileDungeonNotes = {
-	dungeonName = "Theater of Pain",
+	dungeonName = DD.DungeonNames.TheaterOfPain,
 	notes = notes,
 }
 
