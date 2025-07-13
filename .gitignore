@@ -5,3 +5,4 @@ check.json
 .seasonextract
 sync.sh
 CHANGELOG.txt
+.ignored
