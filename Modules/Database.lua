@@ -408,6 +408,9 @@ end
 ---@param profileName string
 function M.SelectFallbackProfile(profileName)
 	local db = M.database
+	if db.profile.internal.fallbackProfile == profileName then -- Only switch if different
+		return
+	end
 	db.profile.internal.fallbackProfile = profileName
 	M.NotifyDBChange()
 	DD.utils.Log("Switched to fallback profile", DD.utils.Gray(profileName))
