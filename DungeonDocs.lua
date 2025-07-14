@@ -56,6 +56,17 @@ function DD:OpenUI(msg)
 	if arg1 == "toggle-dev-mode" then
 		DD.db.ToggleDevMode()
 		ReloadUI()
+		return
+	end
+
+	if arg1 == "set-active-profile" then
+		DD.HandleSetActiveProfile(msg)
+		return
+	end
+
+	if arg1 == "set-fallback-profile" then
+		DD.HandleSetFallbackProfile(msg)
+		return
 	end
 
 	if arg1 == "dev" then
@@ -214,4 +225,67 @@ function DD.HandleReport()
 
 	local message = "{rt8} " .. targetName .. " {rt8}\n" .. primaryNote
 	DD.utils.LogToGroup(message)
+end
+
+function DD.HandleSetActiveProfile(msg)
+	local newActiveProfileName = msg:match("^set%-active%-profile%s+(.+)$") --- @type string
+
+	-- Error if no profile name is provided
+	if not newActiveProfileName then
+		DD.utils.Log("Usage: /dd set-active-profile " .. DD.utils.Gray("<profile-name>"))
+		return
+	end
+
+	-- Error if profile doesn't exist
+	if not DD.db.database.profiles[newActiveProfileName] then
+		DD.utils.Log("Error! Profile " .. DD.utils.Gray(newActiveProfileName) .. " does not exist.")
+		return
+	end
+
+	local currentFallbackProfile = DD.db.database.profile.internal.fallbackProfile
+
+	-- Error if active and fallback profiles will be the same
+	if newActiveProfileName == currentFallbackProfile then
+		DD.utils.Log("Error! Fallback and active profiles cannot be the same.")
+		return
+	end
+
+	-- Error if the pseudo None* profile is set as active
+	if newActiveProfileName == "None*" then
+		DD.utils.Log("Error! Cannot set " .. DD.utils.Gray("None*") .. " as the active profile.")
+		return
+	end
+
+	-- Error if the new active profile is a reserved profile
+	if DD.profiles.IsReservedProfile(newActiveProfileName) then
+		DD.utils.Log("Error! Reserved profile " .. DD.utils.Gray(newActiveProfileName) .. " can only be set as fallback.")
+		return
+	end
+
+	DD.db.SelectProfile(newActiveProfileName)
+end
+
+function DD.HandleSetFallbackProfile(msg)
+	local newFallbackProfileName = msg:match("^set%-fallback%-profile%s+(.+)$") --- @type string
+
+	-- Error if no profile name is provided
+	if not newFallbackProfileName then
+		DD.utils.Log("Usage: /dd set-fallback-profile " .. DD.utils.Gray("<profile-name>"))
+		return
+	end
+
+	-- Error if profile doesn't exist
+	if not DD.db.database.profiles[newFallbackProfileName] then
+		DD.utils.Log("Error! Profile " .. DD.utils.Gray(newFallbackProfileName) .. " does not exist.")
+		return
+	end
+
+	-- Error if the active and fallback profiles will be the same
+	local currentActiveProfile = DD.db.database:GetCurrentProfile()
+	if newFallbackProfileName == currentActiveProfile then
+		DD.utils.Log("Error! Fallback and active profiles cannot be the same.")
+		return
+	end
+
+	DD.db.SelectFallbackProfile(newFallbackProfileName)
 end

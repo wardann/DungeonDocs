@@ -401,7 +401,7 @@ function M.SelectProfile(profileName)
 		db:SetProfile(profileName)
 		DD.db.database.profile.internal.movers.omniNote = false
 		M.NotifyDBChange()
-		DD.utils.Log("Switched to profile", DD.utils.Gray(profileName))
+		DD.utils.Log("Switched to active profile", DD.utils.Gray(profileName))
 	end
 end
 
