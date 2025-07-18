@@ -26,9 +26,18 @@ Basic boss notes have been included for TWW Season 2 of M+, but you can easily a
 
 ## Usage
 
-### Commands
-- DungeonDocs can be invoked with either `/dd` or `/dungeondocs`
-- `/dd report` reports the primary notes for the current target to the instance, party, or say channel
+### CLI
+
+The following slash commands can be called in macros. Keybind them for quick access.
+
+
+| Command                                  | Description                                                                                  |
+|------------------------------------------|----------------------------------------------------------------------------------------------|
+| `/dungeondocs`                           | Opens or closes the DungeonDocs UI.                                                          |
+| `/dd`                                    | Shorthand for `/dungeondocs`.                                                                |
+| `/dd report`                             | Reports the primary notes for the current target to the instance, party, or say channel.     |
+| `/dd set-active-profile <profile-name>`  | Sets the active profile to `<profile-name>`.                                                 |
+| `/dd set-fallback-profile <profile-name>`| Sets the fallback profile to `<profile-name>`.                                               |
 
 ### UI
 
