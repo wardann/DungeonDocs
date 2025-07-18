@@ -13,6 +13,7 @@ local versions = {
 	"v0.5.0",
 	"v0.6.0",
 	"v0.7.0",
+	"v0.8.0",
 }
 
 local changelog = {
@@ -49,6 +50,9 @@ local changelog = {
 	},
 	["v0.7.0"] = {
 		"Add support for TWW Season 3 dungeons",
+	},
+	["v0.8.0"] = {
+		"Add chat command for switching profiles (usable in macros)",
 	},
 }
 
