@@ -258,7 +258,9 @@ function DD.HandleSetActiveProfile(msg)
 
 	-- Error if the new active profile is a reserved profile
 	if DD.profiles.IsReservedProfile(newActiveProfileName) then
-		DD.utils.Log("Error! Reserved profile " .. DD.utils.Gray(newActiveProfileName) .. " can only be set as fallback.")
+		DD.utils.Log(
+			"Error! Reserved profile " .. DD.utils.Gray(newActiveProfileName) .. " can only be set as fallback."
+		)
 		return
 	end
 
