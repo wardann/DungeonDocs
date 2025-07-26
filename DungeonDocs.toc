@@ -1,6 +1,6 @@
 ## Interface: 110107
 ## Title: DungeonDocs
-## Version: v0.8.0
+## Version: v0.8.1
 ## Notes: Docs for your dungeons.
 ## Author: Wardann
 ## X-Curse-Project-ID: 1129010

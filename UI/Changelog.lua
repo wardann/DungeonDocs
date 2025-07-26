@@ -14,6 +14,7 @@ local versions = {
 	"v0.6.0",
 	"v0.7.0",
 	"v0.8.0",
+	"v0.8.1",
 }
 
 local changelog = {
@@ -53,6 +54,9 @@ local changelog = {
 	},
 	["v0.8.0"] = {
 		"Add chat command for switching profiles (usable in macros)",
+	},
+	["v0.8.1"] = {
+		"Fix `Operation: Mechagon` notes not rendering",
 	},
 }
 
