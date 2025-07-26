@@ -39,7 +39,7 @@ DD.DungeonNames = {
 	-- TWW Season 2
 	CinderbrewMeadery = "Cinderbrew Meadery",
 	DarkflameCleft = "Darkflame Cleft",
-	MechagonWorkshop = "Mechagon Workshop",
+	MechagonWorkshop = "Operation: Mechagon",
 	OperationFloodgate = "Operation: Floodgate",
 	PrioryOfTheSacredFlame = "Priory of the Sacred Flame",
 	TheaterOfPain = "Theater of Pain",
