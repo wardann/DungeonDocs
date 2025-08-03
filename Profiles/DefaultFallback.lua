@@ -1,7 +1,7 @@
 ---@type DungeonDocs
 local DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs")
 
-DD.profiles.StoreReservedProfile("DefaultFallback!*", {
+DD.profiles.StoreReservedProfile("DefaultFallback*", {
 	--     #                        #    #                              #####                                    #######
 	--    # #   #####    ##         #   #    ##   #####    ##          #     # # ##### #   #     ####  ######    #        ####  #    #  ####  ######  ####
 	--   #   #  #    #  #  #        #  #    #  #  #    #  #  #         #       #   #    # #     #    # #         #       #    # #    # #    # #      #
