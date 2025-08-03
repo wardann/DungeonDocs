@@ -17,14 +17,14 @@ LibStub = function(name)
 end
 
 PrintTable = function(tbl, indent)
-    indent = indent or 0
-    local prefix = string.rep("  ", indent)
-    for k, v in pairs(tbl) do
-        if type(v) == "table" then
-            print(prefix .. tostring(k) .. ":")
-            PrintTable(v, indent + 1)
-        else
-            print(prefix .. tostring(k) .. ": " .. tostring(v))
-        end
-    end
+	indent = indent or 0
+	local prefix = string.rep("  ", indent)
+	for k, v in pairs(tbl) do
+		if type(v) == "table" then
+			print(prefix .. tostring(k) .. ":")
+			PrintTable(v, indent + 1)
+		else
+			print(prefix .. tostring(k) .. ": " .. tostring(v))
+		end
+	end
 end

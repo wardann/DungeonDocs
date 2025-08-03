@@ -75,40 +75,42 @@ local profile = deserializeProfile(profileInput)
 
 -- Helper function to validate dungeon names
 local function IsValidDungeonName(dungeonName)
-    return DD.dungeons.List[dungeonName] ~= nil
+	return DD.dungeons.List[dungeonName] ~= nil
 end
 
 -- Helper function to get docName for a given dungeonName and ddid
 local function GetDocName(dungeonName, ddid)
-    local dungeonData = DD.dungeons.List[dungeonName]
-    if not dungeonData or not dungeonData.docStructures then return nil end
-    for _, docStruct in ipairs(dungeonData.docStructures) do
-        if docStruct.ddid == ddid then
-            return docStruct.docName
-        end
-    end
-    return nil
+	local dungeonData = DD.dungeons.List[dungeonName]
+	if not dungeonData or not dungeonData.docStructures then
+		return nil
+	end
+	for _, docStruct in ipairs(dungeonData.docStructures) do
+		if docStruct.ddid == ddid then
+			return docStruct.docName
+		end
+	end
+	return nil
 end
 
 -- Extract all player notes into a flattened array
 local flattenedNotes = {}
 for dungeonName, instanceDocs in pairs(profile.docs) do
-    if IsValidDungeonName(dungeonName) then
-        for _, playerNote in ipairs(instanceDocs) do
-            local docName = GetDocName(dungeonName, playerNote.ddid)
-            table.insert(flattenedNotes, {
-                ddid = playerNote.ddid,
-                primaryNote = playerNote.primaryNote,
-                tankNote = playerNote.tankNote,
-                healerNote = playerNote.healerNote,
-                damageNote = playerNote.damageNote,
-                docName = docName,
-                dungeonName = dungeonName
-            })
-        end
-    else
-        print(string.format("Warning: dungeonName '%s' not found in DD.dungeons.List", dungeonName))
-    end
+	if IsValidDungeonName(dungeonName) then
+		for _, playerNote in ipairs(instanceDocs) do
+			local docName = GetDocName(dungeonName, playerNote.ddid)
+			table.insert(flattenedNotes, {
+				ddid = playerNote.ddid,
+				primaryNote = playerNote.primaryNote,
+				tankNote = playerNote.tankNote,
+				healerNote = playerNote.healerNote,
+				damageNote = playerNote.damageNote,
+				docName = docName,
+				dungeonName = dungeonName,
+			})
+		end
+	else
+		print(string.format("Warning: dungeonName '%s' not found in DD.dungeons.List", dungeonName))
+	end
 end
 
 local json = require("dkjson")
@@ -116,16 +118,15 @@ local json = require("dkjson")
 -- Build output array (no base64)
 local outputArray = {}
 for _, note in ipairs(flattenedNotes) do
-    table.insert(outputArray, {
-        ddid = note.ddid or "",
-        primaryNote = note.primaryNote or "",
-        tankNote = note.tankNote or "",
-        healerNote = note.healerNote or "",
-        damageNote = note.damageNote or "",
-        docName = note.docName or "",
-        dungeonName = note.dungeonName or ""
-    })
+	table.insert(outputArray, {
+		ddid = note.ddid or "",
+		primaryNote = note.primaryNote or "",
+		tankNote = note.tankNote or "",
+		healerNote = note.healerNote or "",
+		damageNote = note.damageNote or "",
+		docName = note.docName or "",
+		dungeonName = note.dungeonName or "",
+	})
 end
 
 print(json.encode(outputArray, { indent = false }))
-
