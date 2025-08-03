@@ -12,7 +12,8 @@
     "./Types"
   ],
   "Lua.workspace.ignoreDir": [
-    "Libs/**" // Relative to the workspace root
+    "Libs/**", // Relative to the workspace root
+    "meta/extract-profile-docs/**"
   ],
   "Lua.diagnostics.globals": [
     // Placeholder for unused vars
