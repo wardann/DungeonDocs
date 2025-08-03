@@ -7,6 +7,7 @@ std = "lua52"
 
 exclude_files = {
     "Libs/**",
+    "meta/extract-profile-docs/**",
     ".luarocks/**",
     ".install/**"
 }

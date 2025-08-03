@@ -1,6 +1,8 @@
 ignore:
   - Assets
+  - meta
   - .github
+  - .git
 
 embedded-libraries:
   - Ace3
