@@ -83,8 +83,6 @@ function M.InitReservedProfile(profileName, profileNotesByDungeon)
 end
 
 function M.Init()
-	M.DefaultFallback_Init() -- TODO: remove
-
 	for _, profile in ipairs(reservedProfiles) do
 		M.InitReservedProfile(profile.profileName, profile.profileNotesByDungeon)
 	end
