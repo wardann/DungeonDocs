@@ -28,6 +28,6 @@ write-changelog:
 	echo "$$output" > CHANGELOG.txt; \
 
 .PHONY: write-changelog
-profile-sync-exports:
+generate-profiles:
 	cat meta/profiles/DefaultFallback.txt | lua meta/extract-profile-docs/main.lua | node meta/sync-profile-files/index.js DefaultFallback* > Profiles/DefaultFallback.lua
 	stylua ./Profiles

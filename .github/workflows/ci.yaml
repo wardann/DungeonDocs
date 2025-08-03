@@ -59,8 +59,40 @@ jobs:
 
       - uses: leafo/gh-actions-luarocks@v4
 
-      - name: Install busted
+      - name: Install lua dependencies
         run: luarocks install busted
 
       - name: Run Lua tests
         run: make tests
+
+  generate-profiles:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Set up Lua
+        uses: leafo/gh-actions-lua@v8
+        with:
+          luaVersion: '5.1'
+
+      - name: Set up luarocks
+        uses: leafo/gh-actions-luarocks@v4
+
+      - name: Install lua dependencies
+        run: luarocks install dkjson
+
+      - name: Set up node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 23
+
+      - name: Install node dependencies
+        run: cd meta/sync-profile-files && npm install
+
+      - name: Generate profiles
+        run: make generate-profiles
+
+      - name: Fail if there are git changes
+        run: git diff --exit-code
