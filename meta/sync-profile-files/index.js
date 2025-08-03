@@ -2,7 +2,11 @@ const fs = require('fs');
 const figlet = require('figlet');
 
 // Usage: node index.js <profileName>
-const profileName = process.argv[2] || 'DefaultFallback';
+const profileName = process.argv[2];
+if (!profileName) {
+    console.error('Error: profile name required as first argument.');
+    process.exit(1);
+}
 
 // Read stdin synchronously
 const input = fs.readFileSync(0, 'utf-8');
