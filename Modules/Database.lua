@@ -543,6 +543,7 @@ function M.CloneProfile(sourceProfileName, destProfileName)
 
 	-- Copy the source profile
 	db.profiles[destProfileName] = DD.utils.DeepCopy(sourceProfile)
+	M.EnsureDefaults(destProfileName)
 
 	M.NotifyDBChange()
 
