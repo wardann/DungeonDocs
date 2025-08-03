@@ -29,5 +29,5 @@ write-changelog:
 
 .PHONY: write-changelog
 generate-profiles:
-	cat meta/profiles/DefaultFallback.txt | lua meta/extract-profile-docs/main.lua | node meta/sync-profile-files/index.js DefaultFallback* > Profiles/DefaultFallback.lua
+	cat meta/profiles/DefaultFallback.txt | lua meta/extract-profile-docs/main.lua | node meta/sync-profile-files/index.js "Default Fallback*" > Profiles/DefaultFallback.lua
 	stylua ./Profiles
