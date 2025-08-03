@@ -92,7 +92,7 @@ jobs:
         run: cd meta/sync-profile-files && npm install
 
       - name: Generate profiles
-        run: make generate-profiles
+        run: pwd && ls -lah && make generate-profiles
 
       - name: Fail if there are git changes
         run: git diff --exit-code
