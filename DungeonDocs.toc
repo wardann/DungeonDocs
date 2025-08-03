@@ -71,6 +71,7 @@ Dungeons/TWW/S3/TazaveshSoleahsGambit.lua
 Dungeons/TWW/S3/TazaveshStreetsOfWonder.lua
 
 Profiles/Profiles.lua
+Profiles/DefaultFallback.lua
 Profiles/DefaultFallback/DefaultFallback.lua
 Profiles/DefaultFallback/Dungeons/TWW/S1/AraKara.lua
 Profiles/DefaultFallback/Dungeons/TWW/S1/CityOfThreads.lua

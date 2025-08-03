@@ -44,8 +44,50 @@ function M.BuildProfileNotes(profileDungeonNotes)
 	return profileNotes
 end
 
+---@type {profileName: string, profileNotesByDungeon: table<DungeonName, PlayerNote[]>}[]
+local reservedProfiles = {}
+
+---@param profileName string
+---@param profileNotesByDungeon table<DungeonName, PlayerNote[]>
+function M.StoreReservedProfile(profileName, profileNotesByDungeon)
+	table.insert(reservedProfiles, {
+		profileName = profileName,
+		profileNotesByDungeon = profileNotesByDungeon,
+	})
+end
+
+---@param profileName string
+---@param profileNotesByDungeon table<DungeonName, PlayerNote[]>
+function M.InitReservedProfile(profileName, profileNotesByDungeon)
+	local docs = {} ---@type PlayerNotes
+	for dungeonName, playerNotes in pairs(profileNotesByDungeon) do
+		---@type ProfileDungeonNotes
+		local dungeonNotes = {
+			dungeonName = dungeonName,
+			notes = playerNotes,
+		}
+		local profileNotes = M.BuildProfileNotes(dungeonNotes)
+		if not DD.utils.IsTableEmpty(profileNotes) then
+			docs[dungeonName] = profileNotes
+		end
+	end
+
+	-- Register profile in the DB
+	local database = DD.db.GetEmptyDatabaseStructure()
+	database.docs = docs
+
+	DD.db.database.profiles[profileName] = database
+
+	-- Reserve the profile name
+	M.ReserveProfileName(profileName)
+end
+
 function M.Init()
-	M.DefaultFallback_Init()
+	M.DefaultFallback_Init() -- TODO: remove
+
+	for _, profile in ipairs(reservedProfiles) do
+		M.InitReservedProfile(profile.profileName, profile.profileNotesByDungeon)
+	end
 end
 
 DD.profiles = M
