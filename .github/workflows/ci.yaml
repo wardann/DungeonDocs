@@ -83,6 +83,12 @@ jobs:
       - name: Install lua dependencies
         run: luarocks install dkjson
 
+      - name: Set up Homebrew
+        uses: Homebrew/actions/setup-homebrew@master
+
+      - name: Install brew dependencies
+        run: brew install stylua
+
       - name: Set up node
         uses: actions/setup-node@v4
         with:
@@ -92,7 +98,7 @@ jobs:
         run: cd meta/sync-profile-files && npm install
 
       - name: Generate profiles
-        run: pwd && ls -lah && make generate-profiles
+        run: make generate-profiles
 
       - name: Fail if there are git changes
         run: git diff --exit-code
