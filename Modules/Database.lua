@@ -281,7 +281,7 @@ local dbDefaults = {
 			TWWS3 = "The War Within - Season 3",
 		},
 
-		selectedSeason = "TWWS2",
+		selectedSeason = "TWWS3",
 		testText = "This is some test to text with.\nChange it to see how your notes might look.",
 		showTestText = false,
 		developerModeEnabled = false,
@@ -362,7 +362,7 @@ function M.Init()
 
 	-- Reset internal vars
 	M.database.profile.internal.movers.omniNote = false
-	M.database.profile.internal.selectedSeason = "TWWS2"
+	M.database.profile.internal.selectedSeason = "TWWS3"
 end
 
 -- A table to hold subscriber functions
