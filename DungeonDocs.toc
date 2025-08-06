@@ -1,4 +1,4 @@
-## Interface: 110107
+## Interface: 110200
 ## Title: DungeonDocs
 ## Version: v0.8.1
 ## Notes: Docs for your dungeons.
