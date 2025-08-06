@@ -15,6 +15,7 @@ local versions = {
 	"v0.7.0",
 	"v0.8.0",
 	"v0.8.1",
+	"v0.9.0",
 }
 
 local changelog = {
@@ -56,7 +57,11 @@ local changelog = {
 		"Add chat command for switching profiles (usable in macros)",
 	},
 	["v0.8.1"] = {
-		"Fix `Operation: Mechagon` notes not rendering",
+		"Fixed Operation: Mechagon notes not rendering",
+	},
+	["v0.9.0"] = {
+		"Made TWWS3 the default",
+		"Fixed profiles not working after clone",
 	},
 }
 
