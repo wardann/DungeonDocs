@@ -47,7 +47,7 @@ DD.DungeonNames = {
 	TheRookery = "The Rookery",
 
 	-- TWW Season 3
-	EcoDomeAldani = "Eco-Dome Al’Dani",
+	EcoDomeAldani = "Eco-Dome Al'dani",
 	HallsOfAtonement = "Halls of Atonement",
 	TazaveshSoleahsGambit = "Tazavesh: So'leah's Gambit",
 	TazaveshStreetsOfWonder = "Tazavesh: Streets of Wonder",
