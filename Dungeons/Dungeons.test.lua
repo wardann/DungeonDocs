@@ -74,7 +74,7 @@ local dungeonChecker = function(dungeonList)
 			end
 
 			-- If the DDID has been retired due to some mistake, skip it
-			-- by incrementing the expected index 
+			-- by incrementing the expected index
 			if isRetiredDDID(prefix .. i) then
 				i = i + 1
 			end
