@@ -24,7 +24,7 @@ local docStructures = {
 		},
 	},
 	{
-		docName = "Taah'bat",
+		docName = "Taah'bat & A'wazj",
 		ddid = createDDID(2),
 		isBoss = true,
 		mobs = {
@@ -32,6 +32,11 @@ local docStructures = {
 				-- name = "Taah'bat",
 				id = "234933",
 				displayId = 123825,
+			},
+			{
+				-- name = "A'wazj",
+				id = "237514",
+				displayId = 126474,
 			},
 		},
 	},
@@ -47,18 +52,22 @@ local docStructures = {
 			},
 		},
 	},
-	{
-		docName = "A'wazj",
-		ddid = createDDID(4),
-		isBoss = true,
-		mobs = {
-			{
-				-- name = "A'wazj",
-				id = "237514",
-				displayId = 126474,
-			},
-		},
-	},
+	--
+	-- NOTE! The following was mistakingly added as a separate boss. This DDID is retired
+	-- instead of changing the order of the rest of the entries.
+	--
+	-- {
+	-- 	docName = "A'wazj",
+	-- 	ddid = createDDID(4),
+	-- 	isBoss = true,
+	-- 	mobs = {
+	-- 		{
+	-- 			-- name = "A'wazj",
+	-- 			id = "237514",
+	-- 			displayId = 126474,
+	-- 		},
+	-- 	},
+	-- },
 	{
 		docName = "Ravaging Scavenger",
 		ddid = createDDID(5),
@@ -191,7 +200,7 @@ local docStructures = {
 		},
 	},
 	{
-		docName = " K'aresh Elemental",
+		docName = "K'aresh Elemental",
 		ddid = createDDID(16),
 		mobs = {
 			{

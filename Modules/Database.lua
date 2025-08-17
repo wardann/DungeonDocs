@@ -344,6 +344,25 @@ function M.EnsureDefaultsAllProfiles()
 	end
 end
 
+function M.ApplyFixesAllProfiles()
+	for profileName in pairs(M.database.profiles) do
+		local p = M.database.profiles[profileName]
+		if not p then
+			DD.utils.Log("Error: could not apply fixes, profile does not exist: ", profileName)
+			return
+		end
+
+		-- Apply fix for Eco-Dome Al'dani name correction
+		local edaOldName = "Eco-Dome Al’Dani"
+		local edaNewName = "Eco-Dome Al'dani"
+		if p.docs[edaOldName] ~= nil then
+			p.docs[edaNewName] = p.docs[edaOldName]
+			p.docs[edaOldName] = nil
+			DD.utils.Log("Fixed " .. DD.utils.Gray("Eco-Dome Al'dani") .. " on profile " .. DD.utils.Gray(profileName))
+		end
+	end
+end
+
 function M.Init()
 	local defaultProfileName = "Default"
 
@@ -353,6 +372,9 @@ function M.Init()
 
 	-- Init defaults on all profiles
 	M.EnsureDefaultsAllProfiles()
+
+	-- Apply DB fixes to all profiles
+	M.ApplyFixesAllProfiles()
 
 	-- If there is no default profile, then this is the first time the addon is running. Apply
 	-- defaults directly to the active profile to ensure all fields are there as expected
