@@ -16,6 +16,7 @@ local versions = {
 	"v0.8.0",
 	"v0.8.1",
 	"v0.9.0",
+	"v0.9.1",
 }
 
 local changelog = {
@@ -51,10 +52,10 @@ local changelog = {
 		"Added counters to track number of mobs in combat",
 	},
 	["v0.7.0"] = {
-		"Add support for TWW Season 3 dungeons",
+		"Added support for TWW Season 3 dungeons",
 	},
 	["v0.8.0"] = {
-		"Add chat command for switching profiles (usable in macros)",
+		"Added chat command for switching profiles (usable in macros)",
 	},
 	["v0.8.1"] = {
 		"Fixed Operation: Mechagon notes not rendering",
@@ -62,6 +63,9 @@ local changelog = {
 	["v0.9.0"] = {
 		"Made TWWS3 the default",
 		"Fixed profiles not working after clone",
+	},
+	["v0.9.1"] = {
+		"Fixed Eco-Dome Al'dani notes not rendering",
 	},
 }
 
