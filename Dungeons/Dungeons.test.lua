@@ -39,12 +39,26 @@ local dungeonChecker = function(dungeonList)
 		return false
 	end
 
+	local retiredDDIDs = {
+		"eda4",
+	} ---@type string[]
+
+	local isRetiredDDID = function(ddid)
+		for _, retiredDDID in ipairs(retiredDDIDs) do
+			if retiredDDID == ddid then
+				return true
+			end
+		end
+		return false
+	end
+
 	local totalDocStructureCount = 0
 
 	for _, dungeonData in pairs(dungeonList) do
 		local dungeonPrefix = ""
 
-		for i, docStruct in ipairs(dungeonData.docStructures) do
+		local i = 1
+		for _, docStruct in ipairs(dungeonData.docStructures) do
 			local prefix, number = docStruct.ddid:match("(%a+)(%d+)")
 			if i == 1 then
 				dungeonPrefix = prefix
@@ -59,11 +73,18 @@ local dungeonChecker = function(dungeonList)
 				end
 			end
 
+			-- If the DDID has been retired due to some mistake, skip it
+			-- by incrementing the expected index 
+			if isRetiredDDID(prefix .. i) then
+				i = i + 1
+			end
+
 			if tostring(i) ~= number then
 				error("dungeon prefix not incrementing as expected for DDID: " .. docStruct.ddid)
 			end
 
 			totalDocStructureCount = totalDocStructureCount + 1
+			i = i + 1
 		end
 	end
 
@@ -173,7 +194,7 @@ describe("Dungeons Module", function()
 	end)
 
 	it("should have expected doc structure count", function()
-		assert.are.equal(467, totalDocStructureCount)
+		assert.are.equal(466, totalDocStructureCount)
 	end)
 end)
 
