@@ -200,7 +200,7 @@ local docStructures = {
 		},
 	},
 	{
-		docName = " K'aresh Elemental",
+		docName = "K'aresh Elemental",
 		ddid = createDDID(16),
 		mobs = {
 			{
