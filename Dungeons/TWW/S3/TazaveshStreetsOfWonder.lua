@@ -386,6 +386,17 @@ local docStructures = {
 			},
 		},
 	},
+	{
+		docName = "Bazaar Strongarm",
+		ddid = createDDID(34),
+		mobs = {
+			{
+				-- name = "Bazaar Strongarm",
+				id = "178388",
+				displayId = 102057,
+			},
+		},
+	},
 }
 
 ---@type DungeonData
