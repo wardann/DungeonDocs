@@ -375,6 +375,17 @@ local docStructures = {
 			},
 		},
 	},
+	{
+		docName = "Cartel Lackey",
+		ddid = createDDID(33),
+		mobs = {
+			{
+				-- name = "Cartel Lackey",
+				id = "178394",
+				displayId = 100869,
+			},
+		},
+	},
 }
 
 ---@type DungeonData
