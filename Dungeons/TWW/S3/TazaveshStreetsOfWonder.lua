@@ -364,6 +364,17 @@ local docStructures = {
 			},
 		},
 	},
+	{
+		docName = "Bazaar Overseer",
+		ddid = createDDID(32),
+		mobs = {
+			{
+				-- name = "Bazaar Overseer",
+				id = "246285",
+				displayId = 129965,
+			},
+		},
+	},
 }
 
 ---@type DungeonData
