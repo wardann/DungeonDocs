@@ -17,6 +17,7 @@ local versions = {
 	"v0.8.1",
 	"v0.9.0",
 	"v0.9.1",
+	"v0.9.2",
 }
 
 local changelog = {
@@ -66,6 +67,9 @@ local changelog = {
 	},
 	["v0.9.1"] = {
 		"Fixed Eco-Dome Al'dani notes not rendering",
+	},
+	["v0.9.2"] = {
+		"Added missing mobs to Tazavesh: Streets of Wonder",
 	},
 }
 
