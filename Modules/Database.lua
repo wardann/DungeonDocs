@@ -364,10 +364,17 @@ function M.ApplyFixesAllProfiles()
 		-- Apply fix for Tazavesh, the Veiled Market name correction
 		local tsgOld = "Tazavesh: So'leah's Gambit"
 		local tsgNew = "Tazavesh, the Veiled Market"
-		if p.docs[tsgOld] ~= nil then
-			p.docs[tsgNew] = p.docs[tsgOld]
-			p.docs[tsgOld] = nil
-			DD.utils.Log("Fixed " .. DD.utils.Gray(tsgNew) .. " on profile " .. DD.utils.Gray(profileName))
+		-- if p.docs[tsgOld] ~= nil then
+		-- 	p.docs[tsgNew] = p.docs[tsgOld]
+		-- 	p.docs[tsgOld] = nil
+		-- 	DD.utils.Log("Fixed " .. DD.utils.Gray(tsgNew) .. " on profile " .. DD.utils.Gray(profileName))
+		-- end
+
+		-- Roll back the above fix. Apparently the name of the dungeon is the same in the API for both Gambit and Streets
+		if p.docs[tsgNew] ~= nil then
+			p.docs[tsgOld] = p.docs[tsgNew]
+			p.docs[tsgNew] = nil
+			DD.utils.Log("Fixed " .. DD.utils.Gray(tsgOld) .. " on profile " .. DD.utils.Gray(profileName))
 		end
 	end
 end

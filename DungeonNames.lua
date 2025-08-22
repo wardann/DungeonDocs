@@ -49,6 +49,6 @@ DD.DungeonNames = {
 	-- TWW Season 3
 	EcoDomeAldani = "Eco-Dome Al'dani",
 	HallsOfAtonement = "Halls of Atonement",
-	TazaveshSoleahsGambit = "Tazavesh, the Veiled Market",
+	TazaveshSoleahsGambit = "Tazavesh: So'leah's Gambit",
 	TazaveshStreetsOfWonder = "Tazavesh: Streets of Wonder",
 }
