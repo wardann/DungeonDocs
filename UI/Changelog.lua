@@ -18,6 +18,7 @@ local versions = {
 	"v0.9.0",
 	"v0.9.1",
 	"v0.9.2",
+	"v0.9.3",
 }
 
 local changelog = {
@@ -70,6 +71,9 @@ local changelog = {
 	},
 	["v0.9.2"] = {
 		"Added missing mobs to Tazavesh: Streets of Wonder",
+	},
+	["v0.9.3"] = {
+		"Fixed Tazavesh, the Veiled Market notes not rendering ",
 	},
 }
 
