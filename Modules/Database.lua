@@ -358,7 +358,16 @@ function M.ApplyFixesAllProfiles()
 		if p.docs[edaOldName] ~= nil then
 			p.docs[edaNewName] = p.docs[edaOldName]
 			p.docs[edaOldName] = nil
-			DD.utils.Log("Fixed " .. DD.utils.Gray("Eco-Dome Al'dani") .. " on profile " .. DD.utils.Gray(profileName))
+			DD.utils.Log("Fixed " .. DD.utils.Gray(edaNewName) .. " on profile " .. DD.utils.Gray(profileName))
+		end
+
+		-- Apply fix for Tazavesh, the Veiled Market name correction
+		local tsgOld = "Tazavesh: So'leah's Gambit"
+		local tsgNew = "Tazavesh, the Veiled Market"
+		if p.docs[tsgOld] ~= nil then
+			p.docs[tsgNew] = p.docs[tsgOld]
+			p.docs[tsgOld] = nil
+			DD.utils.Log("Fixed " .. DD.utils.Gray(tsgNew) .. " on profile " .. DD.utils.Gray(profileName))
 		end
 	end
 end
