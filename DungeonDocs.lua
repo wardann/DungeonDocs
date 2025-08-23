@@ -205,7 +205,7 @@ function DD.HandleReport()
 		return
 	end
 
-	local dungeonName = DD.dungeons.GetCurrentDungeon()
+	local dungeonName = DD.dungeons.GetCurrentDungeon(targetId)
 	if not dungeonName then
 		return
 	end
