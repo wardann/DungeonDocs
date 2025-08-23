@@ -46,8 +46,8 @@ local function setTreeGroupFocus(localTreeGroup, treeData)
 		return
 	end
 
-	local currentInstanceName, currentInstanceType = GetInstanceInfo()
-	if currentInstanceType ~= "party" then
+	local currentInstanceName = DD.dungeons.GetCurrentDungeon(targetId)
+	if not currentInstanceName then
 		return
 	end
 

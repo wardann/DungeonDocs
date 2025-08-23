@@ -68,12 +68,43 @@ function M.GetCurrentSeason()
 	return dungeons
 end
 
--- Returns ame of the current dungeon the player is in
-function M.GetCurrentDungeon()
+-- Returns name of the current dungeon the player is in
+---@param mobId string
+---@return DungeonName|nil
+function M.GetCurrentDungeon(mobId)
 	local instanceName, instanceType = GetInstanceInfo()
 	if instanceType ~= "party" then
 		return
 	end
+
+	-- Compensate for Tazavesh, the Veiled Market being broken into two instances
+	if instanceName == "Tazavesh, the Veiled Market" then
+		-- Use the provided mob ID to figure out what Tazavesh dungeon we're in
+
+		-- First check Soleah's Gambit
+		local tsg = DD.dungeons.List[DD.DungeonNames.TazaveshSoleahsGambit]
+		for _, docStruct in ipairs(tsg.docStructures) do
+			for _, mob in ipairs(docStruct.mobs) do
+				if tostring(mob.id) == tostring(mobId) then
+					return DD.DungeonNames.TazaveshSoleahsGambit
+				end
+			end
+		end
+
+		-- Second check Streets of Wonder
+		local tsw = DD.dungeons.List[DD.DungeonNames.TazaveshStreetsOfWonder]
+		for _, docStruct in ipairs(tsw.docStructures) do
+			for _, mob in ipairs(docStruct.mobs) do
+				if tostring(mob.id) == tostring(mobId) then
+					return DD.DungeonNames.TazaveshStreetsOfWonder
+				end
+			end
+		end
+
+		-- Return nothing if we can't find the Tazavesh mob
+		return
+	end
+
 	return instanceName
 end
 
@@ -95,7 +126,7 @@ end
 
 ---@param mobId string
 function M.IsBossInCurrentDungeon(mobId)
-	local dungeonName = M.GetCurrentDungeon()
+	local dungeonName = M.GetCurrentDungeon(mobId)
 	if not dungeonName then
 		return false
 	end

@@ -535,7 +535,7 @@ local function storeEncounteredMob(mobId, guid, isDead)
 		return
 	end
 
-	local dungeonName = DD.dungeons.GetCurrentDungeon()
+	local dungeonName = DD.dungeons.GetCurrentDungeon(mobId)
 	if not dungeonName then
 		return
 	end

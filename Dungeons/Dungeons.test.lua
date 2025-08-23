@@ -291,3 +291,34 @@ describe("DD.dungeons.MobIDToDDID", function()
 		assert.is_nil(ddid)
 	end)
 end)
+
+describe("Dungeon assumptions", function()
+	local DD ---@type DungeonDocs
+	before_each(function()
+		DD = LibStub("AceAddon-3.0"):GetAddon("DungeonDocs") ---@type DungeonDocs
+		DD.dungeons.Init()
+	end)
+
+	it("Mob IDs should not be repeated in Tazavesh", function()
+		local gambit = DD.dungeons.List["Tazavesh: So'leah's Gambit"]
+		local wonder = DD.dungeons.List["Tazavesh: Streets of Wonder"]
+
+		local mobIds = {} ---@type table<string, boolean>
+
+		for _, docStruct in ipairs(gambit.docStructures) do
+			for _, mob in ipairs(docStruct.mobs) do
+				local mobId = tostring(mob.id)
+				mobIds[mobId] = true
+			end
+		end
+
+		for _, docStruct in ipairs(wonder.docStructures) do
+			for _, mob in ipairs(docStruct.mobs) do
+				local mobId = tostring(mob.id)
+				if mobIds[mobId] then
+					error("Mob ID " .. mobId .. " is repeated across dungeons.")
+				end
+			end
+		end
+	end)
+end)
